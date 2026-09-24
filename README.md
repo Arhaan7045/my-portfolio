@@ -1,15 +1,41 @@
-# Cybersecurity Portfolio
+# My Portfolio
 
-Foundation for a personal cybersecurity portfolio. The public portfolio interface and personal content will be introduced in later phases.
+My personal portfolio website focused on cybersecurity.
 
-## Getting Started
+This website documents my journey, projects, skills, experience, certifications, and the areas I'm currently learning.
 
-```bash
-npm run dev
-```
+## About
 
-Open [http://localhost:3000](http://localhost:3000) to view the local site.
+I'm currently pursuing an MCA and building my skills in cybersecurity through hands-on learning, projects, labs, and practical experience.
 
-## Validation
+My main areas of interest include:
 
-Run `npm run lint` and `npm run build` before completing meaningful changes.
+- Cybersecurity
+- Web Application Security
+- VAPT
+- Linux
+- Networking
+- Security Operations
+
+## Website
+
+The portfolio is being built as a personal space to showcase my work and document my progress.
+
+## Tech Stack
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+
+Additional technologies and services will be added as the project develops.
+
+## Project Structure
+
+The project uses the Next.js App Router with reusable components and centralized portfolio data.
+
+```text
+src/
+├── app/
+├── components/
+└── data/

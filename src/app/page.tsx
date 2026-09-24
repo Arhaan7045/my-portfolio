@@ -1,16 +1,302 @@
 import { SectionHeading } from "@/components/section-heading";
 import { SiteHeader } from "@/components/site-header";
-import { certifications, contactLinks, experience, learningAreas, projects, skillGroups } from "@/data/portfolio";
+import {
+  certifications,
+  contactLinks,
+  experience,
+  learningAreas,
+  skillGroups,
+  virtualExperiences,
+} from "@/data/portfolio";
 
 export default function Home() {
-  return <div id="top" className="site-frame"><SiteHeader /><main>
-    <section className="hero shell" aria-labelledby="hero-title"><div className="hero-copy reveal"><p className="eyebrow">Cybersecurity portfolio</p><h1 id="hero-title">Cybersecurity</h1><p className="hero-intro">Building practical skills through security, systems and hands-on learning.</p><p className="availability"><span aria-hidden="true" />Currently focused on hands-on learning</p><div className="hero-actions"><a className="button button-primary" href="#projects">View Projects <span aria-hidden="true">↗</span></a><a className="button button-secondary" href="#contact">Resume <span aria-hidden="true">↓</span></a></div></div><div className="hero-visual reveal" aria-hidden="true"><div className="system-card system-card-primary"><span>System / 01</span><i /><i /><i /></div><div className="system-card system-card-secondary"><span>Secure path</span><strong>↗</strong></div><div className="orb orb-one" /><div className="orb orb-two" /></div></section>
-    <section className="section shell" id="about"><div className="about-layout"><div className="profile-placeholder reveal" aria-label="Future profile image placeholder"><span>Profile image</span></div><div><SectionHeading eyebrow="About" title="A focused approach to learning and building in cybersecurity." /><p className="body-copy reveal">This is editable introductory copy. Add an owner-approved overview of your interests, approach, and current cybersecurity focus here.</p></div></div></section>
-    <section className="section shell" id="skills"><SectionHeading eyebrow="Capabilities" title="Skills, organized by practice area." description="All skill labels below are clearly marked for replacement with verified information." /><div className="skills-grid">{skillGroups.map((group) => <article className="skill-group reveal" key={group.title}><h3>{group.title}</h3><ul>{group.skills.map((skill, index) => <li key={`${skill}-${index}`}>{skill}</li>)}</ul></article>)}</div></section>
-    <section className="section shell" id="projects"><SectionHeading eyebrow="Selected work" title="Featured projects and practical labs." description="Sample entries only — replace with approved project details and links." /><div className="projects-grid">{projects.map((project, index) => <article className="project-card reveal" key={project.title}><p className="card-index">0{index + 1}</p><h3>{project.title}</h3><p>{project.description}</p><ul className="tag-list">{project.technologies.map((technology, technologyIndex) => <li key={`${technology}-${technologyIndex}`}>{technology}</li>)}</ul><div className="card-links"><a href="#" aria-label={`Add GitHub link for ${project.title}`}>GitHub <span aria-hidden="true">↗</span></a><a href="#" aria-label={`Add case study link for ${project.title}`}>Case study <span aria-hidden="true">↗</span></a></div></article>)}</div></section>
-    <section className="section shell" id="experience"><SectionHeading eyebrow="Experience" title="Learning, contribution, and professional context." /><div className="timeline">{experience.map((item) => <article className="timeline-entry reveal" key={`${item.period}-${item.title}`}><p>{item.period}</p><div><h3>{item.title}</h3><p className="timeline-organization">{item.organization}</p><p>{item.description}</p></div></article>)}</div></section>
-    <section className="section shell" id="certifications"><SectionHeading eyebrow="Credentials" title="Certifications." description="Placeholders only — add verified credentials when available." /><div className="certifications-grid">{certifications.map((certification, index) => <article className="certification-card reveal" key={`${certification.title}-${index}`}><span className="certification-mark" aria-hidden="true">✦</span><h3>{certification.title}</h3><p>{certification.issuer}</p><small>{certification.date}</small></article>)}</div></section>
-    <section className="section shell learning-section"><SectionHeading eyebrow="Learning lab" title="Currently learning." description="A living space for the areas currently being explored." /><div className="learning-list">{learningAreas.map((area, index) => <div className="learning-item reveal" key={`${area}-${index}`}><span>0{index + 1}</span><p>{area}</p><i aria-hidden="true" /></div>)}</div></section>
-    <section className="contact-section" id="contact" aria-labelledby="contact-title"><div className="shell contact-layout"><div className="reveal"><p className="eyebrow">Contact</p><h2 id="contact-title">Let&apos;s connect.</h2><p>Replace these placeholders with owner-approved contact details and links.</p></div><address className="contact-links reveal">{contactLinks.map((link) => <a href={link.href} key={link.label}><span>{link.label}</span><strong>{link.value}</strong><b aria-hidden="true">↗</b></a>)}</address></div></section>
-  </main><footer className="footer shell"><span>Your Name</span><span>© {new Date().getFullYear()} · All rights reserved.</span><div><a href="#">GitHub</a><a href="#">LinkedIn</a></div></footer></div>;
+  return (
+    <div id="top" className="site-frame">
+      <SiteHeader />
+      <main>
+        {/* Hero */}
+        <section className="hero shell" aria-labelledby="hero-title">
+          <div className="hero-copy reveal">
+            <p className="eyebrow">CYBERSECURITY • VAPT • SECURITY</p>
+            <h1
+              id="hero-title"
+              className="hero-headline"
+              aria-label="Learn. Test. Build."
+            >
+              <span className="hero-word hero-word-active">
+                LEARN<span className="hero-word-dot" aria-hidden="true">.</span>
+              </span>
+              <span className="hero-word">
+                TEST<span className="hero-word-dot" aria-hidden="true">.</span>
+              </span>
+              <span className="hero-word">
+                BUILD<span className="hero-word-dot" aria-hidden="true">.</span>
+              </span>
+            </h1>
+            <p className="hero-intro">
+              Building practical cybersecurity skills through labs, testing, and
+              hands-on experience.
+            </p>
+            <p className="availability">
+              <span aria-hidden="true" />
+              Currently focused on hands-on cybersecurity learning
+            </p>
+            <div className="hero-actions">
+              <a className="button button-primary" href="#projects">
+                View Projects <span aria-hidden="true">↗</span>
+              </a>
+              <a
+                className="button button-secondary"
+                href="https://drive.google.com/file/d/1OgThSdbwqbpWfB8Nqk0tC27hgMRb07kV/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Resume <span aria-hidden="true">↓</span>
+              </a>
+            </div>
+          </div>
+          <div className="hero-visual reveal" aria-hidden="true">
+            <div className="system-card system-card-primary">
+              <span>System / 01</span>
+              <i />
+              <i />
+              <i />
+            </div>
+            <div className="system-card system-card-secondary">
+              <span>Secure path</span>
+              <strong>↗</strong>
+            </div>
+            <div className="orb orb-one" />
+            <div className="orb orb-two" />
+          </div>
+        </section>
+
+        {/* About */}
+        <section className="section shell" id="about">
+          <div className="about-layout">
+            <div
+              className="profile-placeholder reveal"
+              aria-label="Future profile image placeholder"
+            >
+              <span>Profile image</span>
+            </div>
+            <div>
+              <SectionHeading
+                eyebrow="ABOUT"
+                title="Learning cybersecurity by building and doing."
+              />
+              <p className="body-copy reveal">
+                I&apos;m building my cybersecurity skills through hands-on
+                learning, practical labs, projects, and real-world experience.
+              </p>
+              <p className="body-copy reveal">
+                My current focus includes web application security, VAPT, Linux,
+                networking, and security operations. I&apos;m interested in
+                understanding how systems work, how they can be secured, and how
+                security issues can be identified in practice.
+              </p>
+              <p className="body-copy reveal">
+                This portfolio documents that journey — what I&apos;m learning,
+                what I&apos;m building, and the experience I&apos;m gaining
+                along the way.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Skills */}
+        <section className="section shell" id="skills">
+          <SectionHeading
+            eyebrow="Skills"
+            title="Skills, organized by practice area."
+          />
+          <div className="skills-grid">
+            {skillGroups.map((group) => (
+              <article className="skill-group reveal" key={group.title}>
+                <h3>{group.title}</h3>
+                <ul>
+                  {group.skills.map((skill, index) => (
+                    <li key={`${skill}-${index}`}>{skill}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Projects */}
+        <section className="section shell" id="projects">
+          <SectionHeading
+            eyebrow="PROJECTS & PRACTICE"
+            title="Work I'm building along the way."
+            description="I'm currently building my hands-on cybersecurity experience through labs, practical exercises, and my upcoming VAPT internship. Projects will be added here as I complete them."
+          />
+          <div className="projects-empty reveal">
+            <p>
+              Projects coming soon — check back as hands-on work is completed.
+            </p>
+          </div>
+        </section>
+
+        {/* Experience */}
+        <section className="section shell" id="experience">
+          <SectionHeading
+            eyebrow="Experience"
+            title="Learning, contribution, and professional context."
+          />
+          <div className="timeline">
+            {experience.map((item) => (
+              <article
+                className="timeline-entry reveal"
+                key={`${item.period}-${item.title}`}
+              >
+                <p>{item.period}</p>
+                <div>
+                  <h3>{item.title}</h3>
+                  <p className="timeline-organization">{item.organization}</p>
+                  <p>{item.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Certifications */}
+        <section className="section shell" id="certifications">
+          <SectionHeading eyebrow="Credentials" title="Certifications." />
+          <div className="certifications-grid">
+            {certifications.map((certification, index) => (
+              <article
+                className="certification-card reveal"
+                key={`${certification.title}-${index}`}
+              >
+                <span className="certification-mark" aria-hidden="true">
+                  ✦
+                </span>
+                <h3>{certification.title}</h3>
+                <p>{certification.issuer}</p>
+                <p>{certification.description}</p>
+              </article>
+            ))}
+          </div>
+
+          {/* Virtual Experience — clearly distinguished from formal certifications */}
+          <div className="section-subheading reveal">
+            <p className="eyebrow">Virtual Experience</p>
+            <p className="section-description">
+              Completed via Forage. These are job simulations, not professional
+              employment or client engagements.
+            </p>
+          </div>
+          <div className="certifications-grid">
+            {virtualExperiences.map((item, index) => (
+              <article
+                className="certification-card reveal"
+                key={`${item.title}-${index}`}
+              >
+                <span className="certification-mark" aria-hidden="true">
+                  ◆
+                </span>
+                <h3>{item.title}</h3>
+                <p>{item.platform}</p>
+                <p>{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Currently Learning */}
+        <section className="section shell learning-section">
+          <SectionHeading
+            eyebrow="Learning lab"
+            title="Currently learning."
+            description="A living space for the areas currently being explored."
+          />
+          <div className="learning-list">
+            {learningAreas.map((area, index) => (
+              <div
+                className="learning-item reveal"
+                key={`${area.title}-${index}`}
+              >
+                <span>0{index + 1}</span>
+                <div>
+                  <p>
+                    <strong>{area.title}</strong>
+                  </p>
+                  <p>{area.description}</p>
+                </div>
+                <i aria-hidden="true" />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Contact */}
+        <section
+          className="contact-section"
+          id="contact"
+          aria-labelledby="contact-title"
+        >
+          <div className="shell contact-layout">
+            <div className="reveal">
+              <p className="eyebrow">Contact</p>
+              <h2 id="contact-title">Let&apos;s connect.</h2>
+              <p>
+                I&apos;m always open to connecting with people interested in
+                cybersecurity, technology, and learning through hands-on work.
+              </p>
+            </div>
+            <address className="contact-links reveal">
+              {contactLinks.map((link) => (
+                <a
+                  href={link.href}
+                  key={link.label}
+                  className={`contact-link-${link.label.toLowerCase()}`}
+                  target={
+                    link.href.startsWith("mailto:") ||
+                    link.href.startsWith("tel:")
+                      ? undefined
+                      : "_blank"
+                  }
+                  rel={
+                    link.href.startsWith("mailto:") ||
+                    link.href.startsWith("tel:")
+                      ? undefined
+                      : "noopener noreferrer"
+                  }
+                >
+                  <span>{link.label}</span>
+                  <strong>{link.value}</strong>
+                  <b aria-hidden="true">↗</b>
+                </a>
+              ))}
+            </address>
+          </div>
+        </section>
+      </main>
+
+      {/* Footer */}
+      <footer className="footer shell">
+        <span>Arhaan</span>
+        <span>© 2026 Arhaan. Built with Next.js.</span>
+        <div>
+          <a
+            href="https://github.com/Arhaan7045"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://www.linkedin.com/in/arhaanshaikh1/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+          <a href="mailto:arhaan.s7045@gmail.com">Email</a>
+        </div>
+      </footer>
+    </div>
+  );
 }

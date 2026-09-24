@@ -6,7 +6,7 @@ This website documents my journey, projects, skills, experience, certifications,
 
 ## About
 
-I'm currently pursuing an MCA and building my skills in cybersecurity through hands-on learning, projects, labs, and practical experience.
+I'm building my cybersecurity skills through hands-on learning, practical labs, projects, and real-world experience.
 
 My main areas of interest include:
 

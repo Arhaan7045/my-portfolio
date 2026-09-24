@@ -17,8 +17,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Your Name | Cybersecurity Portfolio",
-  description: "A professional cybersecurity portfolio.",
+  title: "Arhaan Shaikh | Cybersecurity Portfolio",
+  description:
+    "Arhaan Shaikh's cybersecurity portfolio — documenting hands-on learning, VAPT, web application security, and real-world experience.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

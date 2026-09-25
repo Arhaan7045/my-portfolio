@@ -9,7 +9,7 @@ const modes: HeroMode[] = ["LEARN", "TEST", "BUILD"];
 const primaryActionByMode = {
   LEARN: { label: "EXPLORE LEARNING", href: "#learning" },
   TEST: { label: "VIEW PROJECTS", href: "#projects" },
-  BUILD: { label: "SEE MY WORK", href: "#projects" },
+  BUILD: { label: "SEE EXPERIENCE", href: "#experience" },
 } as const;
 
 export function HeroSection() {

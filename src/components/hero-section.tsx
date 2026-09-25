@@ -13,11 +13,15 @@ export function HeroSection() {
   return (
     <section className="hero shell" aria-labelledby="hero-title">
       <div className="hero-copy reveal">
-        <p className="eyebrow">HELLO, I&apos;M ARHAAN SHAIKH.</p>
+        <p className="eyebrow">HELLO, I&apos;M</p>
 
-        <h1 id="hero-title" className="hero-headline">
-          I&apos;m building my way into <span>cybersecurity.</span>
+        <h1 id="hero-title" className="hero-headline hero-headline-identity">
+          ARHAAN SHAIKH<span>.</span>
         </h1>
+
+        <p className="hero-positioning">
+          I&apos;m building my way into <strong>cybersecurity.</strong>
+        </p>
 
         <p className="hero-intro">
           I&apos;m an MCA student learning how systems work, how they break,

@@ -42,9 +42,9 @@ const descriptors: Record<HeroMode, string> = {
 
 export function HeroVisual({ mode, onModeCycle }: HeroVisualProps) {
   const reducedMotion = useReducedMotion();
-  const { systemActive, activateSystem } = useSiteSystem();
+  const { systemActive, inspectActive, activateSystem, toggleInspect } = useSiteSystem();
   const activeNodes = new Set(modePaths[mode].flat());
-  const activeEdges = new Set(modePaths[mode].map(([a, b]) => `${a}-${b}`));
+  const activeEdges = new Set(modePaths[mode].map(([a, b]) => a + "-" + b));
   const modeTransition = {
     duration: reducedMotion ? 0 : 0.72,
     ease: [0.22, 1, 0.36, 1] as const,
@@ -52,7 +52,7 @@ export function HeroVisual({ mode, onModeCycle }: HeroVisualProps) {
 
   return (
     <div
-      className={`hero-visual reveal${systemActive ? " hero-system-live" : ""}`}
+      className={"hero-visual reveal" + (systemActive ? " hero-system-live" : "")}
       data-mode={mode.toLowerCase()}
     >
       <div className="hero-visual-inner">
@@ -95,12 +95,12 @@ export function HeroVisual({ mode, onModeCycle }: HeroVisualProps) {
           <g className="map-pathways" aria-hidden="true">
             {edges.map(([a, b]) => (
               <line
-                key={`${a}-${b}`}
+                key={a + "-" + b}
                 x1={nodes[a].x}
                 y1={nodes[a].y}
                 x2={nodes[b].x}
                 y2={nodes[b].y}
-                className={activeEdges.has(`${a}-${b}`) ? "hero-edge hero-edge-selected" : "hero-edge"}
+                className={activeEdges.has(a + "-" + b) ? "hero-edge hero-edge-selected" : "hero-edge"}
               />
             ))}
             {modePaths[mode].map(([a, b], index) => {
@@ -108,8 +108,8 @@ export function HeroVisual({ mode, onModeCycle }: HeroVisualProps) {
               const to = nodes[b];
               return (
                 <motion.path
-                  key={`${mode}-${a}-${b}`}
-                  d={`M ${from.x} ${from.y} L ${to.x} ${to.y}`}
+                  key={mode + "-" + a + "-" + b}
+                  d={"M " + from.x + " " + from.y + " L " + to.x + " " + to.y}
                   pathLength={1}
                   className="map-mode-path"
                   initial={false}
@@ -173,7 +173,7 @@ export function HeroVisual({ mode, onModeCycle }: HeroVisualProps) {
             type="button"
             className="hero-btn hero-btn-mode"
             onClick={onModeCycle}
-            aria-label={`Mode: ${mode}. Click to cycle mode.`}
+            aria-label={"Mode: " + mode + ". Click to cycle mode."}
           >
             <span className="hero-btn-pip" aria-hidden="true" />
             <span className="hero-btn-label">MODE</span>
@@ -181,7 +181,18 @@ export function HeroVisual({ mode, onModeCycle }: HeroVisualProps) {
           </ControlButton>
           <ControlButton
             type="button"
-            className={`hero-btn ${systemActive ? "hero-btn-active" : ""}`}
+            className={"hero-btn " + (inspectActive ? "hero-btn-active" : "")}
+            onClick={toggleInspect}
+            aria-label={inspectActive ? "Close portfolio inspection" : "Inspect portfolio anatomy"}
+            aria-pressed={inspectActive}
+          >
+            <span className="hero-btn-pip" aria-hidden="true" />
+            <span className="hero-btn-label">{inspectActive ? "CLOSE" : "INSPECT"}</span>
+            {inspectActive && <span className="hero-btn-state">X-RAY</span>}
+          </ControlButton>
+          <ControlButton
+            type="button"
+            className={"hero-btn " + (systemActive ? "hero-btn-active" : "")}
             onClick={activateSystem}
             aria-label="Activate the portfolio system"
             aria-pressed={systemActive}

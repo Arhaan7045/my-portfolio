@@ -3,11 +3,15 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { InspectOverlay } from "@/components/inspect-overlay";
 
+export type InspectLayer = "STRUCTURE" | "COMPONENTS" | "FLOW" | "FULL";
+
 type SiteSystemContextValue = {
   systemActive: boolean;
   inspectActive: boolean;
+  inspectLayer: InspectLayer;
   activateSystem: () => void;
   toggleInspect: () => void;
+  cycleInspectLayer: () => void;
   closeInspect: () => void;
 };
 
@@ -19,9 +23,12 @@ export function useSiteSystem() {
   return value;
 }
 
+const inspectLayers: InspectLayer[] = ["STRUCTURE", "COMPONENTS", "FLOW", "FULL"];
+
 export function SiteSystemProvider({ children }: { children: React.ReactNode }) {
   const [systemActive, setSystemActive] = useState(false);
   const [inspectActive, setInspectActive] = useState(false);
+  const [inspectLayer, setInspectLayer] = useState<InspectLayer>("FULL");
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const activateSystem = useCallback(() => {
@@ -34,7 +41,16 @@ export function SiteSystemProvider({ children }: { children: React.ReactNode }) 
 
   const toggleInspect = useCallback(() => {
     setSystemActive(false);
-    setInspectActive((current) => !current);
+    setInspectActive((current) => {
+      if (!current) setInspectLayer("FULL");
+      return !current;
+    });
+  }, []);
+
+  const cycleInspectLayer = useCallback(() => {
+    setSystemActive(false);
+    setInspectActive(true);
+    setInspectLayer((current) => inspectLayers[(inspectLayers.indexOf(current) + 1) % inspectLayers.length]);
   }, []);
 
   const closeInspect = useCallback(() => setInspectActive(false), []);
@@ -48,8 +64,10 @@ export function SiteSystemProvider({ children }: { children: React.ReactNode }) 
       value={{
         systemActive,
         inspectActive,
+        inspectLayer,
         activateSystem,
         toggleInspect,
+        cycleInspectLayer,
         closeInspect,
       }}
     >

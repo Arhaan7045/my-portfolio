@@ -25,7 +25,8 @@ export function SystemExperience() {
   const reducedMotion = useReducedMotion();
   const [step, setStep] = useState(0);
   const [visible, setVisible] = useState(false);
-  const [route, setRoute] = useState<{ x: number; y: number }[]>([]);\n  const [viewport, setViewport] = useState({ width: 1, height: 1 });
+  const [route, setRoute] = useState<{ x: number; y: number }[]>([]);
+  const [viewport, setViewport] = useState({ width: 1, height: 1 });
   const runRef = useRef(0);
 
   const targets = useMemo(() => SYSTEM_TARGETS, []);
@@ -101,7 +102,10 @@ export function SystemExperience() {
   useEffect(() => {
     if (!systemActive) return;
 
-    const update = () => {\n      setViewport({ width: window.innerWidth, height: window.innerHeight });\n      measureRoute();\n    };
+    const update = () => {
+      setViewport({ width: window.innerWidth, height: window.innerHeight });
+      measureRoute();
+    };
     update();
     window.addEventListener("resize", update);
     window.addEventListener("scroll", update, { passive: true });

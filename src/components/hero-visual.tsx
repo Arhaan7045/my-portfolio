@@ -1,196 +1,132 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { ControlButton } from "@/components/control-surface";
-import { useSiteSystem } from "@/components/site-system-provider";
 
-export type HeroMode = "LEARN" | "TEST" | "BUILD";
-type HeroVisualProps = { mode: HeroMode; onModeCycle: () => void };
+type HeroVisualProps = {
+  reducedMotion?: boolean | null;
+};
 
-const nodes = [
-  { id: "obs", x: 42, y: 56, label: "OBSERVE" },
-  { id: "rte", x: 150, y: 43, label: "ROUTE" },
-  { id: "prb", x: 260, y: 64, label: "PROBE" },
-  { id: "anl", x: 145, y: 126, label: "ANALYZE" },
-  { id: "sys", x: 55, y: 192, label: "SYSTEM" },
-  { id: "bld", x: 250, y: 188, label: "BUILD" },
-] as const;
-
-const edges: [number, number][] = [
-  [0, 1],
-  [1, 2],
-  [0, 3],
-  [1, 3],
-  [2, 3],
-  [3, 4],
-  [3, 5],
-  [4, 5],
-  [2, 5],
+const signals = [
+  { x: 72, y: 76, label: "WEB" },
+  { x: 218, y: 92, label: "NETWORK" },
+  { x: 96, y: 190, label: "SYSTEM" },
+  { x: 232, y: 204, label: "SECURITY" },
 ];
 
-const modePaths: Record<HeroMode, number[][]> = {
-  LEARN: [[0, 1], [1, 3]],
-  TEST: [[0, 2], [2, 3], [3, 5]],
-  BUILD: [[3, 4], [4, 5]],
-};
-
-const descriptors: Record<HeroMode, string> = {
-  LEARN: "RECON // OBSERVE",
-  TEST: "ASSESS // VAPT",
-  BUILD: "SECURE // HARDEN",
-};
-
-export function HeroVisual({ mode, onModeCycle }: HeroVisualProps) {
-  const reducedMotion = useReducedMotion();
-  const { systemActive, activateSystem } = useSiteSystem();
-  const activeNodes = new Set(modePaths[mode].flat());
-  const activeEdges = new Set(modePaths[mode].map(([a, b]) => `${a}-${b}`));
-  const modeTransition = {
-    duration: reducedMotion ? 0 : 0.72,
-    ease: [0.22, 1, 0.36, 1] as const,
-  };
+export function HeroVisual({ reducedMotion: reducedMotionProp }: HeroVisualProps) {
+  const reducedMotionHook = useReducedMotion();
+  const reducedMotion = reducedMotionProp ?? reducedMotionHook;
 
   return (
-    <div
-      className={`hero-visual reveal${systemActive ? " hero-system-live" : ""}`}
-      data-mode={mode.toLowerCase()}
-    >
-      <div className="hero-visual-inner">
-        <svg
-          viewBox="0 0 300 230"
-          className="hero-network-svg"
-          aria-hidden="true"
-          focusable="false"
+    <div className="hero-visual reveal" aria-label="Abstract security architecture">
+      <div className="hero-visual-caption">
+        <span>FIELD / 01</span>
+        <strong>SECURITY ARCHITECTURE</strong>
+      </div>
+
+      <svg
+        className="hero-architecture"
+        viewBox="0 0 320 300"
+        role="img"
+        aria-label="Abstract architectural visualization connecting web, network, system, and security"
+      >
+        <defs>
+          <radialGradient id="heroAtmosphere" cx="50%" cy="46%" r="62%">
+            <stop offset="0%" stopColor="#966cf2" stopOpacity=".18" />
+            <stop offset="52%" stopColor="#966cf2" stopOpacity=".035" />
+            <stop offset="100%" stopColor="#09080e" stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id="heroBeam" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#d0b9ff" stopOpacity=".08" />
+            <stop offset="50%" stopColor="#d0b9ff" stopOpacity=".8" />
+            <stop offset="100%" stopColor="#966cf2" stopOpacity=".08" />
+          </linearGradient>
+          <linearGradient id="heroPlane" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#241a33" stopOpacity=".92" />
+            <stop offset="100%" stopColor="#100d17" stopOpacity=".35" />
+          </linearGradient>
+        </defs>
+
+        <rect width="320" height="300" fill="url(#heroAtmosphere)" />
+
+        <g className="hero-architecture-grid" aria-hidden="true">
+          <path d="M30 64H290M30 118H290M30 172H290M30 226H290" />
+          <path d="M74 34V260M128 34V260M182 34V260M236 34V260" />
+        </g>
+
+        <g className="hero-architecture-planes">
+          <path d="M54 84L178 48L268 92L143 128Z" className="hero-plane hero-plane-back" />
+          <path d="M52 150L178 112L270 154L144 192Z" className="hero-plane" />
+          <path d="M54 216L178 178L268 218L143 254Z" className="hero-plane hero-plane-front" />
+        </g>
+
+        <g className="hero-architecture-frame" aria-hidden="true">
+          <path d="M54 84L54 216M178 48L178 178M268 92L268 218M143 128L143 254" />
+          <path d="M54 150L178 112L270 154L144 192L52 150Z" />
+        </g>
+
+        <motion.path
+          className="hero-beam"
+          d="M40 52L280 246"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={
+            reducedMotion
+              ? { pathLength: 1, opacity: 0.55 }
+              : { pathLength: [0, 1, 1], opacity: [0, 0.72, 0] }
+          }
+          transition={
+            reducedMotion
+              ? { duration: 0 }
+              : { duration: 4.8, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.8 }
+          }
+        />
+
+        <motion.g
+          className="hero-core"
+          animate={reducedMotion ? undefined : { rotate: 360 }}
+          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+          style={{ transformOrigin: "160px 151px" }}
         >
-          <defs>
-            <radialGradient id="map-light">
-              <stop stopColor="#966cf2" stopOpacity=".11" />
-              <stop offset="1" stopColor="#09080e" stopOpacity="0" />
-            </radialGradient>
-            <linearGradient id="route-light" x1="0" x2="1">
-              <stop stopColor="#966cf2" stopOpacity=".2" />
-              <stop offset=".5" stopColor="#d0b9ff" stopOpacity=".8" />
-              <stop offset="1" stopColor="#966cf2" stopOpacity=".2" />
-            </linearGradient>
-            <radialGradient id="core-well">
-              <stop stopColor="#30233e" stopOpacity=".8" />
-              <stop offset=".72" stopColor="#15111d" />
-              <stop offset="1" stopColor="#09080e" />
-            </radialGradient>
-          </defs>
+          <circle cx="160" cy="151" r="39" />
+          <circle cx="160" cy="151" r="28" />
+          <circle cx="160" cy="151" r="8" />
+          <path d="M160 104V198M113 151H207" />
+        </motion.g>
 
-          <rect width="300" height="230" fill="url(#map-light)" />
-
-          <g className="map-shell" aria-hidden="true">
-            <rect className="map-recess" x="20" y="28" width="260" height="174" rx="2" />
-            <path className="map-shell-line" d="M20 48V28h28M252 28h28v20M20 182v20h28M252 202h28v-20" />
-            <path className="map-shell-detail" d="M28 78h18M28 151h18M254 78h18M254 151h18M72 28v12M228 28v12M72 202v-12M228 202v-12" />
+        {signals.map((signal, index) => (
+          <g key={signal.label} className="hero-signal">
+            <line x1="160" y1="151" x2={signal.x} y2={signal.y} />
+            <circle cx={signal.x} cy={signal.y} r="4" />
+            <text x={signal.x + (signal.x < 160 ? -10 : 10)} y={signal.y - 9}>
+              {signal.label}
+            </text>
+            <motion.circle
+              cx={signal.x}
+              cy={signal.y}
+              r="2"
+              className="hero-signal-pulse"
+              animate={
+                reducedMotion
+                  ? undefined
+                  : { opacity: [0.25, 1, 0.25], r: [2, 4, 2] }
+              }
+              transition={{
+                duration: 2.8,
+                repeat: Infinity,
+                delay: index * 0.45,
+                ease: "easeInOut",
+              }}
+            />
           </g>
+        ))}
+      </svg>
 
-          <text x="10" y="15" className="map-meta">SYS. MAP // 01</text>
-          <text x="290" y="15" textAnchor="end" className="map-meta map-status">
-            {descriptors[mode]}
-          </text>
-
-          <g className="map-pathways" aria-hidden="true">
-            {edges.map(([a, b]) => (
-              <line
-                key={`${a}-${b}`}
-                x1={nodes[a].x}
-                y1={nodes[a].y}
-                x2={nodes[b].x}
-                y2={nodes[b].y}
-                className={activeEdges.has(`${a}-${b}`) ? "hero-edge hero-edge-selected" : "hero-edge"}
-              />
-            ))}
-            {modePaths[mode].map(([a, b], index) => {
-              const from = nodes[a];
-              const to = nodes[b];
-              return (
-                <motion.path
-                  key={`${mode}-${a}-${b}`}
-                  d={`M ${from.x} ${from.y} L ${to.x} ${to.y}`}
-                  pathLength={1}
-                  className="map-mode-path"
-                  initial={false}
-                  animate={{ pathLength: 0.78, strokeDashoffset: 0, opacity: 0.72 }}
-                  transition={{ ...modeTransition, delay: reducedMotion ? 0 : index * 0.06 }}
-                />
-              );
-            })}
-          </g>
-
-          <motion.g
-            className="system-core"
-            style={{ transformOrigin: "145px 126px" }}
-            animate={{
-              scale: mode === "LEARN" ? 1 : mode === "TEST" ? 0.96 : 1.035,
-              rotate: mode === "LEARN" ? -5 : mode === "TEST" ? 0 : 5,
-            }}
-            transition={modeTransition}
-            aria-hidden="true"
-          >
-            <circle className="system-core-well" cx="145" cy="126" r="18" />
-            <circle className="system-core-ring" cx="145" cy="126" r="12" />
-            <path className="system-core-mark" d="M139 126h12M145 120v12" />
-            <circle className="system-core-pin" cx="145" cy="126" r="2.2" />
-          </motion.g>
-
-          {nodes.map((node, index) => {
-            const isActive = activeNodes.has(index);
-            return (
-              <motion.g
-                key={node.id}
-                className="map-node"
-                initial={false}
-                animate={{ opacity: isActive ? 1 : 0.66 }}
-                transition={modeTransition}
-              >
-                <motion.circle
-                  cx={node.x}
-                  cy={node.y}
-                  initial={false}
-                  animate={{ r: isActive ? 8 : 5.5 }}
-                  transition={modeTransition}
-                  className={isActive ? "map-node-ring map-node-active" : "map-node-ring"}
-                />
-                <circle cx={node.x} cy={node.y} r={isActive ? 2.5 : 1.8} className="map-node-core" />
-                <text
-                  x={node.x}
-                  y={node.y + (node.y > 120 ? 18 : -12)}
-                  textAnchor="middle"
-                  className={isActive ? "map-label map-label-active" : "map-label"}
-                >
-                  {node.label}
-                </text>
-              </motion.g>
-            );
-          })}
-        </svg>
-
-        <div className="hero-controls" role="group" aria-label="System map controls">
-          <ControlButton
-            type="button"
-            className="hero-btn hero-btn-mode"
-            onClick={onModeCycle}
-            aria-label={`Mode: ${mode}. Click to cycle mode.`}
-          >
-            <span className="hero-btn-pip" aria-hidden="true" />
-            <span className="hero-btn-label">MODE</span>
-            <span className="hero-btn-state">{mode}</span>
-          </ControlButton>
-          <ControlButton
-            type="button"
-            className={`hero-btn ${systemActive ? "hero-btn-active" : ""}`}
-            onClick={activateSystem}
-            aria-label="Activate the portfolio system"
-            aria-pressed={systemActive}
-          >
-            <span className="hero-btn-pip" aria-hidden="true" />
-            <span className="hero-btn-label">SYSTEM</span>
-            {systemActive && <span className="hero-btn-state">LIVE</span>}
-          </ControlButton>
-        </div>
+      <div className="hero-visual-footer">
+        <span>LEARN</span>
+        <i aria-hidden="true" />
+        <span>TEST</span>
+        <i aria-hidden="true" />
+        <span>BUILD</span>
       </div>
     </div>
   );

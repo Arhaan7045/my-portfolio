@@ -154,7 +154,7 @@ export default function Home() {
         </section>
 
         {/* Currently Learning */}
-        <section className="section shell learning-section">
+        <section className="section shell learning-section" id="learning">
           <SectionHeading
             eyebrow="Learning lab"
             title="Currently learning."

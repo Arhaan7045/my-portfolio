@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import { ControlButton } from "@/components/control-surface";
 import { useSiteSystem } from "@/components/site-system-provider";
 
 export type HeroMode = "LEARN" | "TEST" | "BUILD";
@@ -59,15 +60,38 @@ export function HeroVisual({ mode, onModeCycle }: HeroVisualProps) {
           </g>)}
         </svg>
         <div className="hero-controls" role="group" aria-label="System map controls">
-          <button type="button" className="hero-btn hero-btn-mode" onClick={onModeCycle} aria-label={`Mode: ${mode}. Click to cycle mode.`}>
-            <span className="hero-btn-pip" aria-hidden="true"/><span className="hero-btn-label">MODE</span><span className="hero-btn-state">{mode}</span>
-          </button>
-          <button type="button" className={`hero-btn ${trace !== "idle" ? "hero-btn-active" : ""}`} onClick={startTrace} aria-pressed={trace !== "idle"}>
-            <span className={`hero-btn-pip${trace === "running" ? " hero-btn-pip-pulse" : ""}`} aria-hidden="true"/><span className="hero-btn-label">TRACE</span>{trace === "complete" && <span className="hero-btn-state">DONE</span>}
-          </button>
-          <button type="button" className={`hero-btn ${systemActive ? "hero-btn-active" : ""}`} onClick={activateSystem} aria-pressed={systemActive}>
-            <span className="hero-btn-pip" aria-hidden="true"/><span className="hero-btn-label">SYSTEM</span>{systemActive && <span className="hero-btn-state">LIVE</span>}
-          </button>
+          <ControlButton
+            type="button"
+            className="hero-btn hero-btn-mode"
+            onClick={onModeCycle}
+            aria-label={`Mode: ${mode}. Click to cycle mode.`}
+          >
+            <span className="hero-btn-pip" aria-hidden="true" />
+            <span className="hero-btn-label">MODE</span>
+            <span className="hero-btn-state">{mode}</span>
+          </ControlButton>
+          <ControlButton
+            type="button"
+            className={`hero-btn ${trace !== "idle" ? "hero-btn-active" : ""}`}
+            onClick={startTrace}
+            aria-label="Trace the connected system paths"
+            aria-pressed={trace !== "idle"}
+          >
+            <span className={`hero-btn-pip${trace === "running" ? " hero-btn-pip-pulse" : ""}`} aria-hidden="true" />
+            <span className="hero-btn-label">TRACE</span>
+            {trace === "complete" && <span className="hero-btn-state">DONE</span>}
+          </ControlButton>
+          <ControlButton
+            type="button"
+            className={`hero-btn ${systemActive ? "hero-btn-active" : ""}`}
+            onClick={activateSystem}
+            aria-label="Activate the portfolio system"
+            aria-pressed={systemActive}
+          >
+            <span className="hero-btn-pip" aria-hidden="true" />
+            <span className="hero-btn-label">SYSTEM</span>
+            {systemActive && <span className="hero-btn-state">LIVE</span>}
+          </ControlButton>
         </div>
       </div>
     </div>

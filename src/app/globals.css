@@ -428,3 +428,37 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--lavender); out
   .control-surface::before { display: none; }
   .control-surface:hover, .control-surface:active { transform: none; }
 }
+
+/* ─── Cinematic SYSTEM journey ─── */
+.system-experience { position: fixed; z-index: 18; inset: 0; pointer-events: none; overflow: hidden; }
+.system-vignette { position: absolute; inset: 0; background: radial-gradient(circle at 50% 46%, transparent 28%, rgba(9, 8, 14, .2) 68%, rgba(9, 8, 14, .58) 100%); opacity: 0; animation: system-vignette-in 900ms ease forwards; }
+.system-signal { position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(208,185,255,.72), transparent); box-shadow: 0 0 1.5rem rgba(150,108,242,.28); }
+.system-route { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.system-route-path { fill: none; stroke: rgba(208,185,255,.16); stroke-width: 1.2; vector-effect: non-scaling-stroke; stroke-dasharray: 3 9; }
+.system-route-node { fill: var(--lavender); stroke: rgba(208,185,255,.22); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.system-minimal-ui { position: absolute; right: 1.25rem; bottom: 1.25rem; display: grid; grid-template-columns: auto auto auto auto; align-items: center; gap: .7rem; padding: .55rem .65rem .55rem .8rem; border: 1px solid rgba(208,185,255,.2); background: rgba(9,8,14,.78); backdrop-filter: blur(12px); color: var(--muted); font-family: var(--font-geist-mono), monospace; font-size: .62rem; letter-spacing: .12em; }
+.system-minimal-label { color: var(--lavender); font-weight: 700; }
+.system-minimal-current { color: var(--text); }
+.system-minimal-count { color: rgba(208,185,255,.58); }
+.system-minimal-ui button { pointer-events: auto; border: 0; border-left: 1px solid var(--line); padding: .15rem 0 .15rem .7rem; background: transparent; color: var(--muted); font: inherit; cursor: pointer; }
+.system-minimal-ui button:hover { color: var(--lavender); }
+.system-progress { position: absolute; right: 0; bottom: 0; left: 0; height: 1px; background: rgba(208,185,255,.08); }
+.system-progress span { display: block; width: var(--system-progress); height: 100%; background: var(--lavender); box-shadow: 0 0 .7rem rgba(150,108,242,.55); transition: width 700ms cubic-bezier(.22,1,.36,1); }
+.system-focus { position: relative; z-index: 2; }
+.system-focus::before { content: ""; position: absolute; inset: -.75rem -1rem; pointer-events: none; border: 1px solid rgba(208,185,255,.18); box-shadow: 0 0 4rem rgba(150,108,242,.08); opacity: 0; animation: system-focus-in 700ms ease forwards; }
+.system-next { transition: border-color 500ms ease, opacity 500ms ease; }
+.site-frame.system-active .section { transition: background-color 700ms ease, border-color 700ms ease; }
+@keyframes system-vignette-in { to { opacity: 1; } }
+@keyframes system-focus-in { to { opacity: 1; } }
+
+@media (max-width: 640px) {
+  .system-minimal-ui { right: .75rem; bottom: .75rem; grid-template-columns: auto auto auto auto; gap: .45rem; padding: .5rem .55rem .5rem .65rem; font-size: .54rem; letter-spacing: .08em; }
+  .system-minimal-ui button { padding-left: .5rem; }
+  .system-focus::before { inset: -.45rem -.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .system-vignette, .system-signal, .system-focus::before { animation: none; opacity: 1; }
+  .system-route-path { stroke-dasharray: none; }
+  .system-progress span { transition: none; }
+}

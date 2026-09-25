@@ -69,7 +69,29 @@ export function InspectOverlay() {
     };
     window.addEventListener("keydown", escape);
 
-    return (\n    <>
+    return (\n      <>) => {
+      window.removeEventListener("resize", measure);
+      window.removeEventListener("keydown", escape);
+      observer?.disconnect();
+    };
+  }, [closeInspect, inspectActive]);
+
+  const paths = useMemo(
+    () =>
+      nodes.slice(0, -1).map((node, index) => {
+        const next = nodes[index + 1];
+        const midpoint = (node.y + next.y) / 2;
+        return {
+          id: node.id + "-" + next.id,
+          d: "M " + node.x + " " + node.y + " C " + node.x + " " + midpoint + ", " + next.x + " " + midpoint + ", " + next.x + " " + next.y,
+        };
+      }),
+    [nodes],
+  );
+
+  if (!inspectActive || !canvas.width || !nodes.length) return null;
+
+
       <style>{`
         .site-frame.inspect-active > :not(.inspect-overlay) {
           transition: opacity 320ms ease, filter 320ms ease, transform 320ms ease;
@@ -238,27 +260,7 @@ export function InspectOverlay() {
         @media (prefers-reduced-motion: reduce) {
           .site-frame.inspect-active > :not(.inspect-overlay) { transition: none; }
         }
-      `}</style>) => {
-      window.removeEventListener("resize", measure);
-      window.removeEventListener("keydown", escape);
-      observer?.disconnect();
-    };
-  }, [closeInspect, inspectActive]);
-
-  const paths = useMemo(
-    () =>
-      nodes.slice(0, -1).map((node, index) => {
-        const next = nodes[index + 1];
-        const midpoint = (node.y + next.y) / 2;
-        return {
-          id: node.id + "-" + next.id,
-          d: "M " + node.x + " " + node.y + " C " + node.x + " " + midpoint + ", " + next.x + " " + midpoint + ", " + next.x + " " + next.y,
-        };
-      }),
-    [nodes],
-  );
-
-  if (!inspectActive || !canvas.width || !nodes.length) return null;
+      `}</style>
 
   return (
     <div className="inspect-overlay" aria-hidden="false">
@@ -358,5 +360,6 @@ export function InspectOverlay() {
         <span>SIGNAL PATH</span>
       </div>
     </div>
+      </>
   );
 }

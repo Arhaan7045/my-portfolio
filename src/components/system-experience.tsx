@@ -25,7 +25,7 @@ export function SystemExperience() {
   const reducedMotion = useReducedMotion();
   const [step, setStep] = useState(0);
   const [visible, setVisible] = useState(false);
-  const [route, setRoute] = useState<{ x: number; y: number }[]>([]);
+  const [route, setRoute] = useState<{ x: number; y: number }[]>([]);\n  const [viewport, setViewport] = useState({ width: 1, height: 1 });
   const runRef = useRef(0);
 
   const targets = useMemo(() => SYSTEM_TARGETS, []);
@@ -101,7 +101,7 @@ export function SystemExperience() {
   useEffect(() => {
     if (!systemActive) return;
 
-    const update = () => measureRoute();
+    const update = () => {\n      setViewport({ width: window.innerWidth, height: window.innerHeight });\n      measureRoute();\n    };
     update();
     window.addEventListener("resize", update);
     window.addEventListener("scroll", update, { passive: true });
@@ -141,7 +141,7 @@ export function SystemExperience() {
         style={{ transformOrigin: "left center" }}
       />
 
-      <svg className="system-route" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <svg className="system-route" viewBox={`0 0 ${viewport.width} ${viewport.height}`} preserveAspectRatio="none">
         <path
           d={route.length > 1 ? route.map((point, index) => `${index === 0 ? "M" : "L"} ${point.x} ${point.y}`).join(" ") : ""}
           pathLength={1}

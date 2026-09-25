@@ -431,8 +431,8 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--lavender); out
 
 /* HERO IDENTITY REFRESH */
 .hero { display:grid; min-height:min(50rem,calc(100vh - 5rem)); grid-template-columns:1.02fr .98fr; align-items:center; gap:clamp(3rem,6vw,6.5rem); padding-block:6rem; }
-.hero-headline-identity { max-width:none; margin:0 0 .7rem; font-size:clamp(3.9rem,6.8vw,7rem); line-height:.9; letter-spacing:-.07em; font-weight:700; }
-.hero-headline-identity span { color:var(--lavender); }
+.hero-headline-identity { display:block; max-width:none; margin:0 0 .7rem; font-size:clamp(3.9rem,6.8vw,7rem); line-height:.9; letter-spacing:-.07em; font-weight:700; }
+.hero-headline-identity span { display:inline; color:var(--lavender); }
 .hero-positioning { max-width:37rem; margin:0 0 1.15rem; color:var(--text); font-size:clamp(1.5rem,2.5vw,2rem); line-height:1.15; letter-spacing:-.035em; }
 .hero-positioning strong { color:var(--lavender); font-weight:650; }
 .hero-intro { max-width:37rem; margin-bottom:.85rem; color:var(--text); font-size:clamp(1.12rem,1.9vw,1.42rem); line-height:1.42; }

@@ -24,14 +24,8 @@ export function HeroSection() {
         </p>
 
         <p className="hero-intro">
-          I&apos;m an MCA student learning how systems work, how they break,
-          and how they can be secured.
-        </p>
-
-        <p className="hero-detail">
-          Currently focused on web application security, VAPT, Linux,
-          networking, and security operations — building practical skills
-          through hands-on learning and real-world experience.
+          I&apos;m an MCA student developing practical cybersecurity skills
+          through hands-on learning, labs, and real-world experience.
         </p>
 
         <div className="hero-actions">
@@ -50,13 +44,9 @@ export function HeroSection() {
           </ControlLink>
         </div>
 
-        <div className="hero-meta" aria-label="Current focus">
-          <span><i aria-hidden="true" /> MCA STUDENT</span>
-          <span>•</span>
-          <span>CYBERSECURITY</span>
-          <span>•</span>
-          <span>VAPT</span>
-        </div>
+        <p className="hero-focus" aria-label="Current focus">
+          WEB SECURITY <span>·</span> VAPT <span>·</span> LINUX <span>·</span> NETWORKING
+        </p>
       </div>
 
       <HeroVisual reducedMotion={reducedMotion} />

@@ -141,7 +141,7 @@ export function SystemExperience() {
         style={{ transformOrigin: "left center" }}
       />
 
-      <svg className="system-route" viewBox={`0 0 ${Math.max(window.innerWidth, 1)} ${Math.max(window.innerHeight, 1)}`} preserveAspectRatio="none">
+      <svg className="system-route" viewBox="0 0 100 100" preserveAspectRatio="none">
         <path
           d={route.length > 1 ? route.map((point, index) => `${index === 0 ? "M" : "L"} ${point.x} ${point.y}`).join(" ") : ""}
           pathLength={1}

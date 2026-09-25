@@ -42,7 +42,7 @@ const descriptors: Record<HeroMode, string> = {
 
 export function HeroVisual({ mode, onModeCycle }: HeroVisualProps) {
   const reducedMotion = useReducedMotion();
-  const { systemActive, inspectActive, activateSystem, toggleInspect } = useSiteSystem();
+  const { systemActive, inspectActive, inspectLayer, activateSystem, toggleInspect, cycleInspectLayer } = useSiteSystem();
   const activeNodes = new Set(modePaths[mode].flat());
   const activeEdges = new Set(modePaths[mode].map(([a, b]) => a + "-" + b));
   const modeTransition = {
@@ -182,8 +182,8 @@ export function HeroVisual({ mode, onModeCycle }: HeroVisualProps) {
           <ControlButton
             type="button"
             className={"hero-btn " + (inspectActive ? "hero-btn-active" : "")}
-            onClick={toggleInspect}
-            aria-label={inspectActive ? "Close portfolio inspection" : "Inspect portfolio anatomy"}
+            onClick={inspectActive ? cycleInspectLayer : toggleInspect}
+            aria-label={inspectActive ? "Cycle inspection layer. Current layer: " + inspectLayer : "Inspect portfolio anatomy"}
             aria-pressed={inspectActive}
           >
             <span className="hero-btn-pip" aria-hidden="true" />

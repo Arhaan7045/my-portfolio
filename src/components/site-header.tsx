@@ -23,7 +23,8 @@ export function SiteHeader() {
 
         <details className="mobile-navigation">
           <summary aria-label="Open navigation menu">
-            <span /><span /><span />
+            <span className="menu-label">MENU</span>
+            <span className="menu-icon" aria-hidden="true"><i /><i /><i /></span>
           </summary>
           <div className="mobile-navigation-menu">
             {navigationItems.map((item) => (

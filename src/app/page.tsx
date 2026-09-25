@@ -1,5 +1,7 @@
 import { SectionHeading } from "@/components/section-heading";
 import { SiteHeader } from "@/components/site-header";
+import { HeroSection } from "@/components/hero-section";
+import { SiteSystemProvider } from "@/components/site-system-provider";
 import {
   certifications,
   contactLinks,
@@ -11,65 +13,11 @@ import {
 
 export default function Home() {
   return (
-    <div id="top" className="site-frame">
+    <SiteSystemProvider>
       <SiteHeader />
       <main>
         {/* Hero */}
-        <section className="hero shell" aria-labelledby="hero-title">
-          <div className="hero-copy reveal">
-            <p className="eyebrow">CYBERSECURITY • VAPT • SECURITY</p>
-            <h1
-              id="hero-title"
-              className="hero-headline"
-              aria-label="Learn. Test. Build."
-            >
-              <span className="hero-word hero-word-active">
-                LEARN<span className="hero-word-dot" aria-hidden="true">.</span>
-              </span>
-              <span className="hero-word">
-                TEST<span className="hero-word-dot" aria-hidden="true">.</span>
-              </span>
-              <span className="hero-word">
-                BUILD<span className="hero-word-dot" aria-hidden="true">.</span>
-              </span>
-            </h1>
-            <p className="hero-intro">
-              Building practical cybersecurity skills through labs, testing, and
-              hands-on experience.
-            </p>
-            <p className="availability">
-              <span aria-hidden="true" />
-              Currently focused on hands-on cybersecurity learning
-            </p>
-            <div className="hero-actions">
-              <a className="button button-primary" href="#projects">
-                View Projects <span aria-hidden="true">↗</span>
-              </a>
-              <a
-                className="button button-secondary"
-                href="https://drive.google.com/file/d/1OgThSdbwqbpWfB8Nqk0tC27hgMRb07kV/view?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Resume <span aria-hidden="true">↓</span>
-              </a>
-            </div>
-          </div>
-          <div className="hero-visual reveal" aria-hidden="true">
-            <div className="system-card system-card-primary">
-              <span>System / 01</span>
-              <i />
-              <i />
-              <i />
-            </div>
-            <div className="system-card system-card-secondary">
-              <span>Secure path</span>
-              <strong>↗</strong>
-            </div>
-            <div className="orb orb-one" />
-            <div className="orb orb-two" />
-          </div>
-        </section>
+        <HeroSection />
 
         {/* About */}
         <section className="section shell" id="about">
@@ -297,6 +245,6 @@ export default function Home() {
           <a href="mailto:arhaan.s7045@gmail.com">Email</a>
         </div>
       </footer>
-    </div>
+    </SiteSystemProvider>
   );
 }

@@ -108,7 +108,7 @@ export default function Home() {
                       <p className="project-card-category">{project.category}</p>
                       <h3>{project.title}</h3>
                     </div>
-                    <span className="project-card-arrow" aria-hidden="true">↗</span>
+                    <span className="project-card-arrow" aria-hidden="true">+</span>
                   </div>
                   <p className="project-card-description">{project.description}</p>
                   <div className="project-card-tags">

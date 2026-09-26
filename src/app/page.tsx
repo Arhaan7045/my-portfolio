@@ -234,6 +234,14 @@ export default function Home() {
               <a className="contact-link-email" href="mailto:arhaan.s7045@gmail.com">
                 <span>EMAIL</span><strong>arhaan.s7045@gmail.com</strong><b>↗</b>
               </a>
+              <a
+                className="contact-link-whatsapp"
+                href={`https://wa.me/${contactLinks.find((link) => link.label === "Phone")?.value.replace(/\\D/g, "")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>WHATSAPP</span><strong>{contactLinks.find((link) => link.label === "Phone")?.value}</strong><b>↗</b>
+              </a>
             </address>
           </div>
         </section>

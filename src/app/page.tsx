@@ -237,6 +237,7 @@ export default function Home() {
             </address>
           </div>
         </section>
+      </main>
 
       {/* Footer */}
       <footer className="footer shell">

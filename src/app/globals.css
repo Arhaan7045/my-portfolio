@@ -723,3 +723,34 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--lavender); out
   .footer-copy { width:100%; order:3; }
   .footer-links { width:100%; gap:1.1rem; }
 }
+
+/* ─── Contact / Footer signature ─── */
+.contact-layout-premium { align-items:center; }
+.contact-intro h2 { margin-bottom:1.15rem; font-size:clamp(3rem,6vw,5.8rem); letter-spacing:-.07em; line-height:.92; }
+.contact-intro > p:not(.eyebrow) { max-width:31rem; color:var(--muted); line-height:1.75; }
+.contact-note { display:block; margin-top:2rem; color:rgba(208,185,255,.5); font-family:var(--font-geist-mono),monospace; font-size:.56rem; letter-spacing:.08em; }
+.contact-links-premium { border-top:1px solid var(--line); }
+.contact-links-premium a { min-height:5.4rem; transition:color 200ms ease,padding 180ms ease,background 180ms ease; }
+.contact-links-premium a:hover { padding-left:.8rem; background:rgba(150,108,242,.035); }
+.contact-links-premium a b { font-size:.9rem; font-weight:400; transition:transform 200ms ease; }
+.contact-links-premium a:hover b { transform:translate(2px,-2px); }
+.footer { display:flex; min-height:9rem; flex-direction:column; align-items:stretch; justify-content:space-between; gap:2rem; padding-block:2rem 1.25rem; }
+.footer-quote { display:flex; align-items:flex-end; justify-content:space-between; gap:2rem; }
+.footer-quote span { max-width:34rem; color:var(--text); font-size:clamp(1.25rem,2.2vw,1.8rem); font-weight:500; letter-spacing:-.035em; }
+.footer-quote small { color:rgba(208,185,255,.45); font-family:var(--font-geist-mono),monospace; font-size:.52rem; letter-spacing:.1em; }
+.footer-bottom { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding-top:1rem; border-top:1px solid var(--line); color:rgba(208,185,255,.45); font-size:.58rem; }
+.footer-links { display:flex; gap:1rem; }
+.footer-links a { transition:color 180ms ease,transform 180ms ease; }
+.footer-links a:hover { color:var(--lavender); transform:translateY(-1px); }
+@media (max-width:640px) {
+  .contact-layout-premium { gap:2.5rem; }
+  .contact-intro h2 { font-size:clamp(2.7rem,14vw,4rem); }
+  .contact-note { margin-top:1.4rem; font-size:.5rem; line-height:1.5; }
+  .contact-links-premium a { min-height:4.8rem; grid-template-columns:4.5rem 1fr auto; }
+  .footer { min-height:auto; gap:2.25rem; padding-block:2rem 1.25rem; }
+  .footer-quote { display:block; }
+  .footer-quote span { display:block; font-size:1.3rem; }
+  .footer-quote small { display:block; margin-top:.7rem; }
+  .footer-bottom { flex-wrap:wrap; }
+  .footer-links { width:100%; gap:1.1rem; }
+}

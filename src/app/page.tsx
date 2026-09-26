@@ -107,16 +107,19 @@ export default function Home() {
             eyebrow="Experience"
             title="Learning, contribution, and professional context."
           />
-          <div className="timeline">
-            {experience.map((item) => (
-              <article
-                className="timeline-entry reveal"
-                key={`${item.period}-${item.title}`}
-              >
-                <p>{item.period}</p>
-                <div>
-                  <h3>{item.title}</h3>
-                  <p className="timeline-organization">{item.organization}</p>
+          <div className="experience-list">
+            {experience.map((item, index) => (
+              <article className="experience-entry reveal" key={item.period + "-" + item.title}>
+                <div className="experience-index">0{index + 1}</div>
+                <div className="experience-period">{item.period}</div>
+                <div className="experience-main">
+                  <div className="experience-heading">
+                    <div>
+                      <h3>{item.title}</h3>
+                      <p className="experience-organization">{item.organization}</p>
+                    </div>
+                    <span className="experience-arrow" aria-hidden="true">↗</span>
+                  </div>
                   <p>{item.description}</p>
                 </div>
               </article>
@@ -126,43 +129,47 @@ export default function Home() {
 
         {/* Certifications */}
         <section className="section shell" id="certifications">
-          <SectionHeading eyebrow="Credentials" title="Certifications." />
-          <div className="certifications-grid">
+          <SectionHeading
+            eyebrow="Credentials"
+            title="Proof of structured learning and practical exposure."
+          />
+          <div className="credentials-primary">
             {certifications.map((certification, index) => (
-              <article
-                className="certification-card reveal"
-                key={`${certification.title}-${index}`}
-              >
-                <span className="certification-mark" aria-hidden="true">
-                  ✦
-                </span>
-                <h3>{certification.title}</h3>
-                <p>{certification.issuer}</p>
-                <p>{certification.description}</p>
+              <article className="credential-primary-card reveal" key={certification.title + "-" + index}>
+                <div className="credential-meta">
+                  <span>01 / FORMAL CREDENTIAL</span>
+                  <span>{certification.issuer}</span>
+                </div>
+                <div className="credential-body">
+                  <span className="credential-mark" aria-hidden="true">✦</span>
+                  <div>
+                    <h3>{certification.title}</h3>
+                    <p>{certification.description}</p>
+                  </div>
+                </div>
+                <div className="credential-footer">
+                  <span>COMPLETED</span>
+                  <span>9 COURSES</span>
+                </div>
               </article>
             ))}
           </div>
-
-          {/* Virtual Experience — clearly distinguished from formal certifications */}
-          <div className="section-subheading reveal">
+          <div className="section-subheading credential-subheading reveal">
             <p className="eyebrow">Virtual Experience</p>
             <p className="section-description">
               Completed via Forage. These are job simulations, not professional
               employment or client engagements.
             </p>
           </div>
-          <div className="certifications-grid">
+          <div className="virtual-experience-list">
             {virtualExperiences.map((item, index) => (
-              <article
-                className="certification-card reveal"
-                key={`${item.title}-${index}`}
-              >
-                <span className="certification-mark" aria-hidden="true">
-                  ◆
-                </span>
-                <h3>{item.title}</h3>
-                <p>{item.platform}</p>
-                <p>{item.description}</p>
+              <article className="virtual-experience-row reveal" key={item.title + "-" + index}>
+                <span className="virtual-experience-index">0{index + 1}</span>
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
+                <span className="virtual-experience-platform">{item.platform}</span>
               </article>
             ))}
           </div>
@@ -175,21 +182,16 @@ export default function Home() {
             title="Currently learning."
             description="A living space for the areas currently being explored."
           />
-          <div className="learning-list">
+          <div className="learning-list learning-list-premium">
             {learningAreas.map((area, index) => (
-              <div
-                className="learning-item reveal"
-                key={`${area.title}-${index}`}
-              >
+              <article className="learning-item learning-item-premium reveal" key={area.title + "-" + index}>
                 <span>0{index + 1}</span>
                 <div>
-                  <p>
-                    <strong>{area.title}</strong>
-                  </p>
+                  <p><strong>{area.title}</strong></p>
                   <p>{area.description}</p>
                 </div>
-                <i aria-hidden="true" />
-              </div>
+                <i aria-hidden="true">↗</i>
+              </article>
             ))}
           </div>
         </section>

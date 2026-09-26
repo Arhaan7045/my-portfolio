@@ -461,7 +461,18 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--lavender); out
   .section-heading { margin-bottom: 2rem; }
 
   /* About */
-  .about-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .about-layout { grid-template-columns: 1fr; gap: 2.2rem; }
+  .about-profile {
+    min-height: 18rem;
+    max-width: none;
+    aspect-ratio: 1.18 / 1;
+    padding: 1rem;
+  }
+  .about-profile::before { inset: 1.5rem; }
+  .about-monogram { font-size: clamp(4.2rem, 18vw, 6rem); }
+  .about-profile-top,
+  .about-profile-bottom { font-size: .52rem; }
+
   .profile-placeholder { max-width: 11rem; aspect-ratio: 1; }
   .body-copy { padding-left: 0.85rem; font-size: 0.95rem; }
 

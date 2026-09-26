@@ -801,3 +801,16 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--lavender); out
   .footer-bottom { flex-wrap:wrap; }
   .footer-links { width:100%; gap:1.1rem; }
 }
+
+/* ─── Project card interaction ─── */
+.project-card-summary { display:block; width:100%; border:0; color:inherit; font:inherit; text-align:left; background:transparent; cursor:pointer; }
+.project-card-summary:focus-visible { outline:2px solid var(--lavender); outline-offset:-3px; }
+.project-card-details-shell { display:grid; grid-template-rows:0fr; opacity:0; transition:grid-template-rows 420ms cubic-bezier(.22,1,.36,1),opacity 220ms ease; }
+.project-card-details-shell-open { grid-template-rows:1fr; opacity:1; }
+.project-card-details { min-height:0; overflow:hidden; }
+.project-card-arrow { transform-origin:center; }
+.project-card-open .project-card-arrow { transform:rotate(45deg); color:var(--lavender); border-color:rgba(208,185,255,.38); background:rgba(150,108,242,.06); }
+.project-card-open .project-card-heading { margin-bottom:1rem; }
+@media (prefers-reduced-motion: reduce) {
+  .project-card-details-shell { transition:none; }
+}

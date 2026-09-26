@@ -732,8 +732,17 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--lavender); out
 .contact-links-premium { border-top:1px solid var(--line); }
 .contact-links-premium a { min-height:5.4rem; transition:color 200ms ease,padding 180ms ease,background 180ms ease; }
 .contact-links-premium a:hover { padding-left:.8rem; background:rgba(150,108,242,.035); }
-.contact-links-premium a b { font-size:.9rem; font-weight:400; transition:transform 200ms ease; }
+.contact-links-premium a b { font-size:.9rem; font-weight:400; transition:transform 200ms ease,color 200ms ease; }
 .contact-links-premium a:hover b { transform:translate(2px,-2px); }
+.contact-links-premium a:hover strong { transition:color 200ms ease; }
+.contact-links-premium .contact-link-github:hover strong,
+.contact-links-premium .contact-link-github:hover b { color:#f1edf6; }
+.contact-links-premium .contact-link-linkedin:hover strong,
+.contact-links-premium .contact-link-linkedin:hover b { color:#4f9cff; }
+.contact-links-premium .contact-link-email:hover strong,
+.contact-links-premium .contact-link-email:hover b { color:#a778f2; }
+.contact-links-premium .contact-link-whatsapp:hover strong,
+.contact-links-premium .contact-link-whatsapp:hover b { color:#25d366; }
 .footer { display:flex; min-height:9rem; flex-direction:column; align-items:stretch; justify-content:space-between; gap:2rem; padding-block:2rem 1.25rem; }
 .footer-quote { display:flex; align-items:flex-end; justify-content:space-between; gap:2rem; }
 .footer-quote span { max-width:34rem; color:var(--text); font-size:clamp(1.25rem,2.2vw,1.8rem); font-weight:500; letter-spacing:-.035em; }

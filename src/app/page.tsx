@@ -171,21 +171,23 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <div className="credentials-archive-divider">
-              <span>VIRTUAL EXPERIENCE</span>
-              <span>FORAGE / JOB SIMULATIONS</span>
-            </div>
-            <div className="virtual-experience-list">
-              {virtualExperiences.map((item, index) => (
-                <article className="virtual-experience-row" key={item.title + "-" + index}>
-                  <span className="virtual-experience-index">0{index + 1}</span>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
-                  </div>
-                  <span className="virtual-experience-platform">{item.platform}</span>
-                </article>
-              ))}
+            <div className="virtual-experience-card">
+              <div className="credentials-archive-divider">
+                <span>VIRTUAL EXPERIENCE</span>
+                <span>FORAGE / JOB SIMULATIONS</span>
+              </div>
+              <div className="virtual-experience-list">
+                {virtualExperiences.map((item, index) => (
+                  <article className="virtual-experience-row" key={item.title + "-" + index}>
+                    <span className="virtual-experience-index">0{index + 1}</span>
+                    <div>
+                      <h3>{item.title}</h3>
+                      <p>{item.description}</p>
+                    </div>
+                    <span className="virtual-experience-platform">{item.platform}</span>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </section>

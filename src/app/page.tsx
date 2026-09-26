@@ -1,4 +1,5 @@
 import { SectionHeading } from "@/components/section-heading";
+import { ProjectCard } from "@/components/project-card";
 import { SiteHeader } from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
 import { SiteSystemProvider } from "@/components/site-system-provider";
@@ -97,13 +98,9 @@ export default function Home() {
           />
           <div className="projects-grid">
             {projects.map((project, index) => (
-              <details className="project-card reveal" key={project.title}>
-                <summary className="project-card-summary">
-                  <div className="project-card-meta">
-                    <span>0{index + 1}</span>
-                    <span>{project.status}</span>
-                  </div>
-                  <div className="project-card-heading">
+              <ProjectCard key={project.title} project={project} index={index} />
+            ))}
+          </div>                 <div className="project-card-heading">
                     <div>
                       <p className="project-card-category">{project.category}</p>
                       <h3>{project.title}</h3>

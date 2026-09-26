@@ -90,14 +90,30 @@ export default function Home() {
         {/* Projects */}
         <section className="section shell" id="projects">
           <SectionHeading
-            eyebrow="PROJECTS & PRACTICE"
+            eyebrow="Projects & Practice"
             title="Work I'm building along the way."
             description="I'm currently building my hands-on cybersecurity experience through labs, practical exercises, and my upcoming VAPT internship. Projects will be added here as I complete them."
           />
-          <div className="projects-empty reveal">
-            <p>
-              Projects coming soon — check back as hands-on work is completed.
-            </p>
+          <div className="projects-empty projects-empty-premium reveal">
+            <div className="projects-empty-top">
+              <span>FIELD NOTES / 01</span>
+              <span>BUILDING</span>
+            </div>
+            <div className="projects-empty-core">
+              <span className="projects-empty-mark" aria-hidden="true">+</span>
+              <div>
+                <h3>Projects are in progress.</h3>
+                <p>Hands-on work, labs, and documented security practice will appear here as they are completed.</p>
+              </div>
+              <span className="projects-empty-arrow" aria-hidden="true">↗</span>
+            </div>
+            <div className="projects-empty-footer">
+              <span>WEB SECURITY</span>
+              <i aria-hidden="true" />
+              <span>VAPT</span>
+              <i aria-hidden="true" />
+              <span>LINUX</span>
+            </div>
           </div>
         </section>
 
@@ -242,23 +258,14 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="footer shell">
-        <span>Arhaan</span>
-        <span>© 2026 Arhaan. Built with Next.js.</span>
-        <div>
-          <a
-            href="https://github.com/Arhaan7045"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://www.linkedin.com/in/arhaanshaikh1/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </a>
+        <div className="footer-identity">
+          <span>ARHAAN SHAIKH</span>
+          <small>CYBERSECURITY · MCA</small>
+        </div>
+        <span className="footer-copy">© 2026 Arhaan. Built with Next.js.</span>
+        <div className="footer-links">
+          <a href="https://github.com/Arhaan7045" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/arhaanshaikh1/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           <a href="mailto:arhaan.s7045@gmail.com">Email</a>
         </div>
       </footer>

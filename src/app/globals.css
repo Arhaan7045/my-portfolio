@@ -708,10 +708,10 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--lavender); out
 .project-card-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:2rem; margin:3.2rem 0 1rem; }
 .project-card-category { margin:0 0 .45rem; color:rgba(208,185,255,.55); font-family:var(--font-geist-mono),monospace; font-size:.56rem; letter-spacing:.09em; text-transform:uppercase; }
 .project-card-heading h3 { margin:0; font-size:clamp(1.45rem,3vw,2.15rem); letter-spacing:-.045em; }
-.project-card-arrow { color:rgba(208,185,255,.45); transition:color 200ms ease,transform 220ms ease; }
+.project-card-arrow { display:grid; place-items:center; width:2rem; height:2rem; border:1px solid rgba(208,185,255,.2); color:rgba(208,185,255,.55); font-size:1.15rem; font-weight:300; line-height:1; transition:color 200ms ease,border-color 200ms ease,transform 220ms ease,background 200ms ease; }
 .project-card:hover { border-color:rgba(208,185,255,.3); }
-.project-card:hover .project-card-arrow { color:var(--lavender); transform:translate(2px,-2px); }
-.project-card[open] .project-card-arrow { transform:rotate(90deg); color:var(--lavender); }
+.project-card:hover .project-card-arrow { color:var(--lavender); border-color:rgba(208,185,255,.38); background:rgba(150,108,242,.06); transform:translateY(-1px); }
+.project-card[open] .project-card-arrow { transform:rotate(45deg); color:var(--lavender); border-color:rgba(208,185,255,.38); }
 .project-card-description { max-width:48rem; margin:0; color:var(--muted); font-size:.86rem; line-height:1.7; }
 .project-card-tags { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:1.4rem; }
 .project-card-tags span { padding:.35rem .5rem; border:1px solid rgba(208,185,255,.1); color:rgba(208,185,255,.62); font-family:var(--font-geist-mono),monospace; font-size:.5rem; letter-spacing:.08em; }

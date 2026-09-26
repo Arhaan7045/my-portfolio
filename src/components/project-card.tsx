@@ -37,7 +37,17 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           <button
             type="button"
             className="project-card-toggle"
-            onClick={() => setOpen((value) => !value)}
+            onPointerUp={(event) => {
+              if (event.pointerType === "touch") {
+                event.preventDefault();
+                setOpen((value) => !value);
+              }
+            }}
+            onClick={(event) => {
+              if (event.detail !== 0) {
+                setOpen((value) => !value);
+              }
+            }}
             aria-expanded={open}
             aria-controls={detailsId}
             aria-label={open ? "Close project notes" : "Open project notes"}

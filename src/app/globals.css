@@ -719,7 +719,6 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--lavender); out
 .project-card-details p { margin:0; max-width:45rem; color:var(--muted); font-size:.76rem; line-height:1.65; }
 .project-card-detail-status { color:var(--lavender); text-align:right; }
 @media (max-width:640px) {
-  .project-card-summary { padding:.95rem; }
   .project-card-heading { margin:2.2rem 0 .9rem; gap:1rem; }
   .project-card-heading h3 { font-size:1.25rem; }
   .project-card-description { font-size:.76rem; }
@@ -802,14 +801,19 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--lavender); out
 }
 
 /* ─── Project card interaction ─── */
-.project-card-summary { position:relative; z-index:2; display:block; width:100%; margin:0; padding:1.25rem 1.35rem 1.1rem; border:0; color:inherit; font:inherit; text-align:left; background:transparent; cursor:pointer; pointer-events:auto; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
+.project-card-summary { position:relative; z-index:2; display:block; width:100%; margin:0; padding:1.25rem 1.35rem 1.1rem; border:0; color:inherit; font:inherit; text-align:left; background:transparent; cursor:pointer; list-style:none; -webkit-tap-highlight-color:transparent; }
+.project-card-summary::-webkit-details-marker { display:none; }
+.project-card-summary::marker { content:""; }
 .project-card-summary:focus-visible { outline:2px solid var(--lavender); outline-offset:-3px; }
 .project-card-details-shell { display:grid; grid-template-rows:0fr; opacity:0; transition:grid-template-rows 420ms cubic-bezier(.22,1,.36,1),opacity 220ms ease; }
-.project-card-details-shell-open { grid-template-rows:1fr; opacity:1; }
+.project-card[open] .project-card-details-shell { grid-template-rows:1fr; opacity:1; }
 .project-card-details { min-height:0; overflow:hidden; }
-.project-card-arrow { transform-origin:center; }
-.project-card-open .project-card-arrow { transform:rotate(45deg); color:var(--lavender); border-color:rgba(208,185,255,.38); background:rgba(150,108,242,.06); }
-.project-card-open .project-card-heading { margin-bottom:1rem; }
+.project-card[open] .project-card-toggle {
+  color:var(--lavender);
+  border-color:rgba(208,185,255,.38);
+  background:rgba(150,108,242,.06);
+}
+.project-card[open] .project-card-toggle > span { transform:rotate(45deg); }
 @media (prefers-reduced-motion: reduce) {
   .project-card-details-shell { transition:none; }
 }
@@ -817,45 +821,26 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--lavender); out
 /* Project notes: dedicated touch target */
 .project-card-toggle {
   position:relative;
-  z-index:5;
+  z-index:1;
   display:grid;
   place-items:center;
-  width:2.25rem;
-  height:2.25rem;
+  width:2.5rem;
+  height:2.5rem;
   flex:0 0 auto;
-  padding:0;
   border:1px solid rgba(208,185,255,.2);
   color:rgba(208,185,255,.55);
   background:transparent;
-  font:inherit;
-  font-size:1.2rem;
+  font-size:1.3rem;
   font-weight:300;
   line-height:1;
-  cursor:pointer;
-  pointer-events:auto;
-  touch-action:manipulation;
-  -webkit-tap-highlight-color:transparent;
-  transition:color 200ms ease,border-color 200ms ease,background 200ms ease,transform 260ms ease;
+  transition:color 200ms ease,border-color 200ms ease,background 200ms ease;
 }
-.project-card-toggle:hover,
-.project-card-toggle:focus-visible {
+.project-card-summary:hover .project-card-toggle {
   color:var(--lavender);
   border-color:rgba(208,185,255,.42);
   background:rgba(150,108,242,.07);
 }
-.project-card-toggle:focus-visible {
-  outline:2px solid var(--lavender);
-  outline-offset:3px;
-}
-.project-card-open .project-card-toggle {
-  color:var(--lavender);
-  border-color:rgba(208,185,255,.38);
-  background:rgba(150,108,242,.06);
-}
-.project-card-open .project-card-toggle span {
-  transform:rotate(45deg);
-}
-.project-card-toggle span {
+.project-card-toggle > span {
   display:block;
   transition:transform 260ms cubic-bezier(.22,1,.36,1);
 }

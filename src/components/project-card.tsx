@@ -1,7 +1,5 @@
 "use client";
 
-import { useRef, useState } from "react";
-
 type Project = {
   title: string;
   category: string;
@@ -17,13 +15,11 @@ type ProjectCardProps = {
 };
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
-  const [open, setOpen] = useState(false);
-  const skipNextClick = useRef(false);
   const detailsId = `project-details-${index}`;
 
   return (
-    <article className={`project-card reveal${open ? " project-card-open" : ""}`}>
-      <div className="project-card-summary">
+    <details className="project-card reveal">
+      <summary className="project-card-summary">
         <div className="project-card-meta">
           <span>0{index + 1}</span>
           <span>{project.status}</span>
@@ -35,29 +31,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             <h3>{project.title}</h3>
           </div>
 
-          <button
-            type="button"
+          <span
             className="project-card-toggle"
-            onPointerUp={(event) => {
-              if (event.pointerType === "touch") {
-                event.preventDefault();
-                skipNextClick.current = true;
-                setOpen((value) => !value);
-              }
-            }}
-            onClick={(event) => {
-              if (skipNextClick.current) {
-                skipNextClick.current = false;
-                return;
-              }
-              setOpen((value) => !value);
-            }}
-            aria-expanded={open}
-            aria-controls={detailsId}
-            aria-label={open ? "Close project notes" : "Open project notes"}
+            aria-hidden="true"
           >
-            <span aria-hidden="true">{open ? "×" : "+"}</span>
-          </button>
+            <span>+</span>
+          </span>
         </div>
 
         <p className="project-card-description">{project.description}</p>
@@ -67,12 +46,11 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             <span key={tag}>{tag}</span>
           ))}
         </div>
-      </div>
+      </summary>
 
       <div
         id={detailsId}
-        className={`project-card-details-shell${open ? " project-card-details-shell-open" : ""}`}
-        aria-hidden={!open}
+        className="project-card-details-shell"
       >
         <div className="project-card-details">
           <span>PROJECT NOTES</span>
@@ -82,6 +60,6 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           </span>
         </div>
       </div>
-    </article>
+    </details>
   );
 }

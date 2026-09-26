@@ -805,9 +805,20 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--lavender); out
 .project-card-summary::-webkit-details-marker { display:none; }
 .project-card-summary::marker { content:""; }
 .project-card-summary:focus-visible { outline:2px solid var(--lavender); outline-offset:-3px; }
-.project-card-details-shell { display:grid; grid-template-rows:0fr; opacity:0; transition:grid-template-rows 420ms cubic-bezier(.22,1,.36,1),opacity 220ms ease; }
-.project-card[open] .project-card-details-shell { grid-template-rows:1fr; opacity:1; }
-.project-card-details { min-height:0; overflow:hidden; }
+.project-card-details-shell {
+  display:block;
+  max-height:0;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(-.35rem);
+  transition:max-height 520ms cubic-bezier(.22,1,.36,1),opacity 260ms ease,transform 520ms cubic-bezier(.22,1,.36,1);
+}
+.project-card[open] .project-card-details-shell {
+  max-height:20rem;
+  opacity:1;
+  transform:translateY(0);
+}
+.project-card-details { min-height:0; }
 .project-card[open] .project-card-toggle {
   color:var(--lavender);
   border-color:rgba(208,185,255,.38);

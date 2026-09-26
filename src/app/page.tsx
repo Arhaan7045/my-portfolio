@@ -213,60 +213,44 @@ export default function Home() {
         </section>
 
         {/* Contact */}
-        <section
-          className="contact-section"
-          id="contact"
-          aria-labelledby="contact-title"
-        >
-          <div className="shell contact-layout">
-            <div className="reveal">
-              <p className="eyebrow">Contact</p>
-              <h2 id="contact-title">Let&apos;s connect.</h2>
+        <section className="contact-section" id="contact">
+          <div className="shell contact-layout contact-layout-premium">
+            <div className="contact-intro">
+              <p className="eyebrow">GET IN TOUCH</p>
+              <h2>Let&apos;s connect.</h2>
               <p>
-                I&apos;m always open to connecting with people interested in
-                cybersecurity, technology, and learning through hands-on work.
+                Whether it&apos;s a cybersecurity opportunity, collaboration,
+                project, or just a conversation about the field, you can reach me here.
               </p>
+              <span className="contact-note">OPEN TO LEARNING · BUILDING · COLLABORATING</span>
             </div>
-            <address className="contact-links reveal">
-              {contactLinks.map((link) => (
-                <a
-                  href={link.href}
-                  key={link.label}
-                  className={`contact-link-${link.label.toLowerCase()}`}
-                  target={
-                    link.href.startsWith("mailto:") ||
-                    link.href.startsWith("tel:")
-                      ? undefined
-                      : "_blank"
-                  }
-                  rel={
-                    link.href.startsWith("mailto:") ||
-                    link.href.startsWith("tel:")
-                      ? undefined
-                      : "noopener noreferrer"
-                  }
-                >
-                  <span>{link.label}</span>
-                  <strong>{link.value}</strong>
-                  <b aria-hidden="true">↗</b>
-                </a>
-              ))}
+            <address className="contact-links contact-links-premium">
+              <a className="contact-link-github" href="https://github.com/Arhaan7045" target="_blank" rel="noopener noreferrer">
+                <span>GITHUB</span><strong>@Arhaan7045</strong><b>↗</b>
+              </a>
+              <a className="contact-link-linkedin" href="https://www.linkedin.com/in/arhaanshaikh1/" target="_blank" rel="noopener noreferrer">
+                <span>LINKEDIN</span><strong>Connect with me</strong><b>↗</b>
+              </a>
+              <a className="contact-link-email" href="mailto:arhaan.s7045@gmail.com">
+                <span>EMAIL</span><strong>arhaan.s7045@gmail.com</strong><b>↗</b>
+              </a>
             </address>
           </div>
         </section>
-      </main>
 
       {/* Footer */}
       <footer className="footer shell">
-        <div className="footer-identity">
-          <span>ARHAAN SHAIKH</span>
-          <small>CYBERSECURITY · MCA</small>
+        <div className="footer-quote">
+          <span>&ldquo;Learn. Build. Secure. Repeat.&rdquo;</span>
+          <small>ARHAAN SHAIKH / CYBERSECURITY</small>
         </div>
-        <span className="footer-copy">© 2026 Arhaan. Built with Next.js.</span>
-        <div className="footer-links">
-          <a href="https://github.com/Arhaan7045" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://www.linkedin.com/in/arhaanshaikh1/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="mailto:arhaan.s7045@gmail.com">Email</a>
+        <div className="footer-bottom">
+          <span>© 2026 Arhaan</span>
+          <div className="footer-links">
+            <a href="https://github.com/Arhaan7045" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/arhaanshaikh1/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="mailto:arhaan.s7045@gmail.com">Email</a>
+          </div>
         </div>
       </footer>
     </SiteSystemProvider>

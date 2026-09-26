@@ -37,9 +37,18 @@ export const skillGroups = [
   },
 ] as const;
 
-// No completed projects yet. This array is intentionally empty.
-// Real projects will be added here as they are completed.
-export const projects: readonly never[] = [] as const;
+export const projects = [
+  {
+    title: "Web Application Security Lab",
+    category: "Web Security / Practice Project",
+    status: "IN PROGRESS",
+    description:
+      "A hands-on practice project for developing web application security skills through structured labs, testing techniques, and security documentation.",
+    details:
+      "Current focus includes HTTP fundamentals, web application security concepts, vulnerability testing, Burp Suite workflows, and documenting findings as practical learning progresses.",
+    tags: ["WEB SECURITY", "VAPT", "BURP SUITE"],
+  },
+] as const;
 
 export const experience = [
   {

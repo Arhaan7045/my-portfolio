@@ -100,25 +100,6 @@ export default function Home() {
             {projects.map((project, index) => (
               <ProjectCard key={project.title} project={project} index={index} />
             ))}
-          </div>                 <div className="project-card-heading">
-                    <div>
-                      <p className="project-card-category">{project.category}</p>
-                      <h3>{project.title}</h3>
-                    </div>
-                    <span className="project-card-arrow" aria-hidden="true">+</span>
-                  </div>
-                  <p className="project-card-description">{project.description}</p>
-                  <div className="project-card-tags">
-                    {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
-                  </div>
-                </summary>
-                <div className="project-card-details">
-                  <span>PROJECT NOTES</span>
-                  <p>{project.details}</p>
-                  <span className="project-card-detail-status">DOCUMENTATION IN PROGRESS</span>
-                </div>
-              </details>
-            ))}
           </div>
         </section>
 

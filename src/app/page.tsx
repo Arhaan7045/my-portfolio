@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <SiteSystemProvider>
       <SiteHeader />
-      <main>
+      <main id="main-content">
         {/* Hero */}
         <HeroSection />
 

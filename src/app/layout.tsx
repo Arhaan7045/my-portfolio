@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -15,6 +15,11 @@ const geistMono = localFont({
   display: "swap",
   weight: "100 900",
 });
+
+export const viewport: Viewport = {
+  colorScheme: "dark",
+  themeColor: "#09080e",
+};
 
 export const metadata: Metadata = {
   title: "Arhaan Shaikh | Cybersecurity Portfolio",

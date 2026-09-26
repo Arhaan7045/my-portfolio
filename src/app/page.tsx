@@ -64,12 +64,22 @@ export default function Home() {
             title="Skills, organized by practice area."
           />
           <div className="skills-grid">
-            {skillGroups.map((group) => (
-              <article className="skill-group reveal" key={group.title}>
-                <h3>{group.title}</h3>
+            {skillGroups.map((group, index) => (
+              <article
+                className="skill-group skill-group-premium reveal"
+                key={group.title}
+              >
+                <div className="skill-card-top">
+                  <span className="skill-index">0{index + 1}</span>
+                  <span className="skill-count">{group.skills.length} AREAS</span>
+                </div>
+                <div className="skill-card-heading">
+                  <h3>{group.title}</h3>
+                  <span className="skill-card-arrow" aria-hidden="true">↗</span>
+                </div>
                 <ul>
-                  {group.skills.map((skill, index) => (
-                    <li key={`${skill}-${index}`}>{skill}</li>
+                  {group.skills.map((skill, skillIndex) => (
+                    <li key={skill + "-" + skillIndex}>{skill}</li>
                   ))}
                 </ul>
               </article>

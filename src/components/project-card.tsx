@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 type Project = {
   title: string;
   category: string;
@@ -17,12 +15,11 @@ type ProjectCardProps = {
 };
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
-  const [open, setOpen] = useState(false);
   const detailsId = `project-details-${index}`;
 
   return (
-    <article className={`project-card reveal${open ? " project-card-open" : ""}`}>
-      <div className="project-card-summary">
+    <details className="project-card reveal">
+      <summary className="project-card-summary">
         <div className="project-card-meta">
           <span>0{index + 1}</span>
           <span>{project.status}</span>
@@ -34,16 +31,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             <h3>{project.title}</h3>
           </div>
 
-          <button
-            type="button"
-            className="project-card-toggle"
-            onClick={() => setOpen((value) => !value)}
-            aria-expanded={open}
-            aria-controls={detailsId}
-            aria-label={open ? "Close project notes" : "Open project notes"}
-          >
-            <span aria-hidden="true">{open ? "×" : "+"}</span>
-          </button>
+          <span className="project-card-toggle" aria-hidden="true">
+            <span>+</span>
+          </span>
         </div>
 
         <p className="project-card-description">{project.description}</p>
@@ -53,13 +43,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             <span key={tag}>{tag}</span>
           ))}
         </div>
-      </div>
+      </summary>
 
-      <div
-        id={detailsId}
-        className={`project-card-details-shell${open ? " project-card-details-shell-open" : ""}`}
-        aria-hidden={!open}
-      >
+      <div id={detailsId} className="project-card-details-shell">
         <div className="project-card-details">
           <span>PROJECT NOTES</span>
           <p>{project.details}</p>
@@ -68,6 +54,6 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           </span>
         </div>
       </div>
-    </article>
+    </details>
   );
 }

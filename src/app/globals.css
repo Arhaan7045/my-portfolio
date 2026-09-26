@@ -813,3 +813,56 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--lavender); out
 @media (prefers-reduced-motion: reduce) {
   .project-card-details-shell { transition:none; }
 }
+
+/* Project notes: dedicated touch target */
+.project-card-toggle {
+  position:relative;
+  z-index:5;
+  display:grid;
+  place-items:center;
+  width:2.25rem;
+  height:2.25rem;
+  flex:0 0 auto;
+  padding:0;
+  border:1px solid rgba(208,185,255,.2);
+  color:rgba(208,185,255,.55);
+  background:transparent;
+  font:inherit;
+  font-size:1.2rem;
+  font-weight:300;
+  line-height:1;
+  cursor:pointer;
+  pointer-events:auto;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  transition:color 200ms ease,border-color 200ms ease,background 200ms ease,transform 260ms ease;
+}
+.project-card-toggle:hover,
+.project-card-toggle:focus-visible {
+  color:var(--lavender);
+  border-color:rgba(208,185,255,.42);
+  background:rgba(150,108,242,.07);
+}
+.project-card-toggle:focus-visible {
+  outline:2px solid var(--lavender);
+  outline-offset:3px;
+}
+.project-card-open .project-card-toggle {
+  color:var(--lavender);
+  border-color:rgba(208,185,255,.38);
+  background:rgba(150,108,242,.06);
+}
+.project-card-open .project-card-toggle span {
+  transform:rotate(45deg);
+}
+.project-card-toggle span {
+  display:block;
+  transition:transform 260ms cubic-bezier(.22,1,.36,1);
+}
+@media (max-width:640px) {
+  .project-card-toggle {
+    width:2.5rem;
+    height:2.5rem;
+    font-size:1.3rem;
+  }
+}

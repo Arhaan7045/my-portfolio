@@ -18,16 +18,11 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const [open, setOpen] = useState(false);
+  const detailsId = `project-details-${index}`;
 
   return (
     <article className={`project-card reveal${open ? " project-card-open" : ""}`}>
-      <button
-        type="button"
-        className="project-card-summary"
-        onClick={() => setOpen((value) => !value)}
-        aria-expanded={open}
-        aria-controls={`project-details-${index}`}
-      >
+      <div className="project-card-summary">
         <div className="project-card-meta">
           <span>0{index + 1}</span>
           <span>{project.status}</span>
@@ -38,9 +33,17 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             <p className="project-card-category">{project.category}</p>
             <h3>{project.title}</h3>
           </div>
-          <span className="project-card-arrow" aria-hidden="true">
-            +
-          </span>
+
+          <button
+            type="button"
+            className="project-card-toggle"
+            onClick={() => setOpen((value) => !value)}
+            aria-expanded={open}
+            aria-controls={detailsId}
+            aria-label={open ? "Close project notes" : "Open project notes"}
+          >
+            <span aria-hidden="true">{open ? "×" : "+"}</span>
+          </button>
         </div>
 
         <p className="project-card-description">{project.description}</p>
@@ -50,10 +53,10 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             <span key={tag}>{tag}</span>
           ))}
         </div>
-      </button>
+      </div>
 
       <div
-        id={`project-details-${index}`}
+        id={detailsId}
         className={`project-card-details-shell${open ? " project-card-details-shell-open" : ""}`}
         aria-hidden={!open}
       >

@@ -4,6 +4,7 @@ export const navigationItems = [
   { href: "#projects", label: "Projects" },
   { href: "#experience", label: "Experience" },
   { href: "#certifications", label: "Certifications" },
+  { href: "#learning", label: "Learning" },
   { href: "#contact", label: "Contact" },
 ] as const;
 
@@ -36,9 +37,18 @@ export const skillGroups = [
   },
 ] as const;
 
-// No completed projects yet. This array is intentionally empty.
-// Real projects will be added here as they are completed.
-export const projects: readonly never[] = [] as const;
+export const projects = [
+  {
+    title: "VAPT Internship — Web Application Security Assessment",
+    category: "VAPT / Internship Project",
+    status: "IN PROGRESS",
+    description:
+      "A practical web application security assessment project developed during my VAPT internship, covering reconnaissance, testing, vulnerability analysis, and security documentation.",
+    details:
+      "The project will document the assessment methodology, tools and techniques used, validated findings, evidence, risk context, and remediation guidance as the internship work is completed.",
+    tags: ["VAPT", "WEB SECURITY", "BURP SUITE", "SECURITY TESTING"],
+  },
+] as const;
 
 export const experience = [
   {

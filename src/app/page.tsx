@@ -1,4 +1,5 @@
 import { SectionHeading } from "@/components/section-heading";
+import { ProjectCard } from "@/components/project-card";
 import { SiteHeader } from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
 import { SiteSystemProvider } from "@/components/site-system-provider";
@@ -7,6 +8,7 @@ import {
   contactLinks,
   experience,
   learningAreas,
+  projects,
   skillGroups,
   virtualExperiences,
 } from "@/data/portfolio";
@@ -22,13 +24,18 @@ export default function Home() {
         {/* About */}
         <section className="section shell" id="about">
           <div className="about-layout">
-            <div
-              className="profile-placeholder reveal"
-              aria-label="Future profile image placeholder"
-            >
-              <span>Profile image</span>
+            <div className="about-profile reveal" aria-label="Arhaan Shaikh profile">
+              <div className="about-profile-top">
+                <span>ABOUT / 01</span>
+                <span>PROFILE</span>
+              </div>
+              <div className="about-monogram" aria-hidden="true">AS</div>
+              <div className="about-profile-bottom">
+                <strong>MCA STUDENT</strong>
+                <span>CYBERSECURITY</span>
+              </div>
             </div>
-            <div>
+            <div className="about-content">
               <SectionHeading
                 eyebrow="ABOUT"
                 title="Learning cybersecurity by building and doing."
@@ -59,12 +66,22 @@ export default function Home() {
             title="Skills, organized by practice area."
           />
           <div className="skills-grid">
-            {skillGroups.map((group) => (
-              <article className="skill-group reveal" key={group.title}>
-                <h3>{group.title}</h3>
+            {skillGroups.map((group, index) => (
+              <article
+                className="skill-group skill-group-premium reveal"
+                key={group.title}
+              >
+                <div className="skill-card-top">
+                  <span className="skill-index">0{index + 1}</span>
+                  <span className="skill-count">{group.skills.length} AREAS</span>
+                </div>
+                <div className="skill-card-heading">
+                  <h3>{group.title}</h3>
+                  <span className="skill-card-arrow" aria-hidden="true">↗</span>
+                </div>
                 <ul>
-                  {group.skills.map((skill, index) => (
-                    <li key={`${skill}-${index}`}>{skill}</li>
+                  {group.skills.map((skill, skillIndex) => (
+                    <li key={skill + "-" + skillIndex}>{skill}</li>
                   ))}
                 </ul>
               </article>
@@ -75,14 +92,14 @@ export default function Home() {
         {/* Projects */}
         <section className="section shell" id="projects">
           <SectionHeading
-            eyebrow="PROJECTS & PRACTICE"
+            eyebrow="Projects & Practice"
             title="Work I'm building along the way."
-            description="I'm currently building my hands-on cybersecurity experience through labs, practical exercises, and my upcoming VAPT internship. Projects will be added here as I complete them."
+            description="A growing collection of hands-on security work, practice projects, and documented learning."
           />
-          <div className="projects-empty reveal">
-            <p>
-              Projects coming soon — check back as hands-on work is completed.
-            </p>
+          <div className="projects-grid">
+            {projects.map((project, index) => (
+              <ProjectCard key={project.title} project={project} index={index} />
+            ))}
           </div>
         </section>
 
@@ -92,16 +109,19 @@ export default function Home() {
             eyebrow="Experience"
             title="Learning, contribution, and professional context."
           />
-          <div className="timeline">
-            {experience.map((item) => (
-              <article
-                className="timeline-entry reveal"
-                key={`${item.period}-${item.title}`}
-              >
-                <p>{item.period}</p>
-                <div>
-                  <h3>{item.title}</h3>
-                  <p className="timeline-organization">{item.organization}</p>
+          <div className="experience-list">
+            {experience.map((item, index) => (
+              <article className="experience-entry reveal" key={item.period + "-" + item.title}>
+                <div className="experience-index">0{index + 1}</div>
+                <div className="experience-period">{item.period}</div>
+                <div className="experience-main">
+                  <div className="experience-heading">
+                    <div>
+                      <h3>{item.title}</h3>
+                      <p className="experience-organization">{item.organization}</p>
+                    </div>
+                    <span className="experience-arrow" aria-hidden="true">↗</span>
+                  </div>
                   <p>{item.description}</p>
                 </div>
               </article>
@@ -111,45 +131,50 @@ export default function Home() {
 
         {/* Certifications */}
         <section className="section shell" id="certifications">
-          <SectionHeading eyebrow="Credentials" title="Certifications." />
-          <div className="certifications-grid">
-            {certifications.map((certification, index) => (
-              <article
-                className="certification-card reveal"
-                key={`${certification.title}-${index}`}
-              >
-                <span className="certification-mark" aria-hidden="true">
-                  ✦
-                </span>
-                <h3>{certification.title}</h3>
-                <p>{certification.issuer}</p>
-                <p>{certification.description}</p>
-              </article>
-            ))}
-          </div>
-
-          {/* Virtual Experience — clearly distinguished from formal certifications */}
-          <div className="section-subheading reveal">
-            <p className="eyebrow">Virtual Experience</p>
-            <p className="section-description">
-              Completed via Forage. These are job simulations, not professional
-              employment or client engagements.
-            </p>
-          </div>
-          <div className="certifications-grid">
-            {virtualExperiences.map((item, index) => (
-              <article
-                className="certification-card reveal"
-                key={`${item.title}-${index}`}
-              >
-                <span className="certification-mark" aria-hidden="true">
-                  ◆
-                </span>
-                <h3>{item.title}</h3>
-                <p>{item.platform}</p>
-                <p>{item.description}</p>
-              </article>
-            ))}
+          <SectionHeading
+            eyebrow="Credentials"
+            title="Proof of structured learning and practical exposure."
+          />
+          <div className="credentials-archive reveal">
+            <div className="credential-primary-card">
+              {certifications.map((certification, index) => (
+                <div key={certification.title + "-" + index}>
+                  <div className="credential-meta">
+                    <span>FORMAL CREDENTIAL</span>
+                    <span>{certification.issuer}</span>
+                  </div>
+                  <div className="credential-body">
+                    <span className="credential-mark" aria-hidden="true">✦</span>
+                    <div>
+                      <h3>{certification.title}</h3>
+                      <p>{certification.description}</p>
+                    </div>
+                  </div>
+                  <div className="credential-footer">
+                    <span>COMPLETED</span>
+                    <span>9 COURSES</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="virtual-experience-card">
+              <div className="credentials-archive-divider">
+                <span>VIRTUAL EXPERIENCE</span>
+                <span>FORAGE / JOB SIMULATIONS</span>
+              </div>
+              <div className="virtual-experience-list">
+                {virtualExperiences.map((item, index) => (
+                  <article className="virtual-experience-row" key={item.title + "-" + index}>
+                    <span className="virtual-experience-index">0{index + 1}</span>
+                    <div>
+                      <h3>{item.title}</h3>
+                      <p>{item.description}</p>
+                    </div>
+                    <span className="virtual-experience-platform">{item.platform}</span>
+                  </article>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
@@ -160,64 +185,57 @@ export default function Home() {
             title="Currently learning."
             description="A living space for the areas currently being explored."
           />
-          <div className="learning-list">
+          <div className="learning-list learning-list-premium">
             {learningAreas.map((area, index) => (
-              <div
-                className="learning-item reveal"
-                key={`${area.title}-${index}`}
-              >
+              <article className="learning-item learning-item-premium reveal" key={area.title + "-" + index}>
                 <span>0{index + 1}</span>
                 <div>
-                  <p>
-                    <strong>{area.title}</strong>
-                  </p>
+                  <p><strong>{area.title}</strong></p>
                   <p>{area.description}</p>
                 </div>
-                <i aria-hidden="true" />
-              </div>
+                <i aria-hidden="true">↗</i>
+              </article>
             ))}
           </div>
         </section>
 
         {/* Contact */}
-        <section
-          className="contact-section"
-          id="contact"
-          aria-labelledby="contact-title"
-        >
-          <div className="shell contact-layout">
-            <div className="reveal">
-              <p className="eyebrow">Contact</p>
-              <h2 id="contact-title">Let&apos;s connect.</h2>
+        <section className="contact-section" id="contact">
+          <div className="shell contact-layout contact-layout-premium">
+            <div className="contact-intro">
+              <p className="eyebrow">GET IN TOUCH</p>
+              <h2>Let&apos;s connect.</h2>
               <p>
-                I&apos;m always open to connecting with people interested in
-                cybersecurity, technology, and learning through hands-on work.
+                Whether it&apos;s a cybersecurity opportunity, collaboration,
+                project, or just a conversation about the field, you can reach me here.
               </p>
+              <span className="contact-note">OPEN TO LEARNING · BUILDING · COLLABORATING</span>
             </div>
-            <address className="contact-links reveal">
-              {contactLinks.map((link) => (
-                <a
-                  href={link.href}
-                  key={link.label}
-                  className={`contact-link-${link.label.toLowerCase()}`}
-                  target={
-                    link.href.startsWith("mailto:") ||
-                    link.href.startsWith("tel:")
-                      ? undefined
-                      : "_blank"
-                  }
-                  rel={
-                    link.href.startsWith("mailto:") ||
-                    link.href.startsWith("tel:")
-                      ? undefined
-                      : "noopener noreferrer"
-                  }
-                >
-                  <span>{link.label}</span>
-                  <strong>{link.value}</strong>
-                  <b aria-hidden="true">↗</b>
-                </a>
-              ))}
+            <address className="contact-links contact-links-premium">
+              <a className="contact-link-github" href="https://github.com/Arhaan7045" target="_blank" rel="noopener noreferrer">
+                <span>GITHUB</span><strong>@Arhaan7045</strong><b>↗</b>
+              </a>
+              <a className="contact-link-linkedin" href="https://www.linkedin.com/in/arhaanshaikh1/" target="_blank" rel="noopener noreferrer">
+                <span>LINKEDIN</span><strong>Connect with me</strong><b>↗</b>
+              </a>
+              <a className="contact-link-email" href="mailto:arhaan.s7045@gmail.com">
+                <span>EMAIL</span><strong>arhaan.s7045@gmail.com</strong><b>↗</b>
+              </a>
+              {(() => {
+                const phone = contactLinks.find((link) => link.label === "Phone");
+                if (!phone) return null;
+                const whatsappNumber = phone.value.replace(/\D/g, "");
+                return (
+                  <a
+                    className="contact-link-whatsapp"
+                    href={`https://wa.me/${whatsappNumber}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>WHATSAPP</span><strong>{phone.value}</strong><b>↗</b>
+                  </a>
+                );
+              })()}
             </address>
           </div>
         </section>
@@ -225,24 +243,17 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="footer shell">
-        <span>Arhaan</span>
-        <span>© 2026 Arhaan. Built with Next.js.</span>
-        <div>
-          <a
-            href="https://github.com/Arhaan7045"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://www.linkedin.com/in/arhaanshaikh1/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </a>
-          <a href="mailto:arhaan.s7045@gmail.com">Email</a>
+        <div className="footer-quote">
+          <span>&ldquo;Learn. Build. Secure. Repeat.&rdquo;</span>
+          <small>ARHAAN SHAIKH / CYBERSECURITY</small>
+        </div>
+        <div className="footer-bottom">
+          <span>© 2026 Arhaan</span>
+          <div className="footer-links">
+            <a href="https://github.com/Arhaan7045" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/arhaanshaikh1/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="mailto:arhaan.s7045@gmail.com">Email</a>
+          </div>
         </div>
       </footer>
     </SiteSystemProvider>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 type Project = {
   title: string;
@@ -18,6 +18,7 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const [open, setOpen] = useState(false);
+  const skipNextClick = useRef(false);
   const detailsId = `project-details-${index}`;
 
   return (
@@ -40,13 +41,16 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             onPointerUp={(event) => {
               if (event.pointerType === "touch") {
                 event.preventDefault();
+                skipNextClick.current = true;
                 setOpen((value) => !value);
               }
             }}
             onClick={(event) => {
-              if (event.detail !== 0) {
-                setOpen((value) => !value);
+              if (skipNextClick.current) {
+                skipNextClick.current = false;
+                return;
               }
+              setOpen((value) => !value);
             }}
             aria-expanded={open}
             aria-controls={detailsId}

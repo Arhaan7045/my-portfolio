@@ -261,6 +261,47 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--lavender); out
 .learning-item > div p:last-child { margin-top: 0.2rem; color: var(--muted); font-size: 0.82rem; }
 .learning-item i { width: 1.4rem; height: 1px; background: currentColor; }
 
+/* ─── Experience / Credentials / Learning refresh ─── */
+.experience-list { border-top:1px solid var(--line); }
+.experience-entry { position:relative; display:grid; grid-template-columns:3.5rem 8rem 1fr; gap:1.5rem; padding:1.6rem .25rem 1.6rem 1rem; border-bottom:1px solid var(--line); transition:background 220ms ease,padding 220ms ease; }
+.experience-entry::before { position:absolute; inset:0; background:linear-gradient(90deg,rgba(167,120,242,.08),transparent 68%); content:""; opacity:0; transition:opacity 220ms ease; pointer-events:none; }
+.experience-entry:hover { padding-left:1.35rem; background:rgba(167,120,242,.025); }
+.experience-entry:hover::before { opacity:1; }
+.experience-index,.experience-period { position:relative; z-index:1; color:rgba(208,185,255,.55); font-family:var(--font-geist-mono),monospace; font-size:.6rem; letter-spacing:.08em; text-transform:uppercase; }
+.experience-index { color:var(--lavender); }
+.experience-main { position:relative; z-index:1; max-width:48rem; }
+.experience-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; }
+.experience-heading h3 { margin:0 0 .35rem; font-size:1.35rem; letter-spacing:-.025em; }
+.experience-organization { margin:0; color:var(--lavender); font-size:.86rem; }
+.experience-main > p { margin:.9rem 0 0; color:var(--muted); font-size:.86rem; line-height:1.65; max-width:42rem; }
+.experience-arrow { color:rgba(208,185,255,.35); transition:transform 220ms ease,color 220ms ease; }
+.experience-entry:hover .experience-arrow { color:var(--lavender); transform:translate(2px,-2px); }
+.credentials-primary { display:grid; gap:1rem; }
+.credential-primary-card { position:relative; overflow:hidden; padding:1.5rem; border:1px solid rgba(208,185,255,.22); background:linear-gradient(135deg,rgba(150,108,242,.1),transparent 58%),var(--surface); transition:border-color 220ms ease,transform 220ms ease,box-shadow 220ms ease; }
+.credential-primary-card::after { position:absolute; right:-4rem; bottom:-5rem; width:13rem; height:13rem; border:1px solid rgba(208,185,255,.08); border-radius:50%; content:""; }
+.credential-primary-card:hover { border-color:rgba(208,185,255,.42); transform:translateY(-2px); box-shadow:0 1.5rem 3rem rgba(0,0,0,.18); }
+.credential-meta,.credential-footer { position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; gap:1rem; color:rgba(208,185,255,.52); font-family:var(--font-geist-mono),monospace; font-size:.58rem; letter-spacing:.08em; text-transform:uppercase; }
+.credential-meta span:last-child { color:rgba(241,237,246,.58); }
+.credential-body { position:relative; z-index:1; display:flex; align-items:flex-start; gap:1.2rem; margin:3rem 0 2.5rem; max-width:54rem; }
+.credential-mark { color:var(--lavender); font-size:1.3rem; line-height:1; }
+.credential-body h3 { margin:0 0 .65rem; font-size:clamp(1.35rem,2.5vw,2rem); letter-spacing:-.035em; }
+.credential-body p { margin:0; max-width:48rem; color:var(--muted); font-size:.88rem; line-height:1.7; }
+.credential-footer { padding-top:1rem; border-top:1px solid rgba(208,185,255,.1); }
+.credential-footer span:last-child { color:var(--lavender); }
+.credential-subheading { margin-top:4.5rem; margin-bottom:1.5rem; }
+.virtual-experience-list { border-top:1px solid var(--line); }
+.virtual-experience-row { display:grid; grid-template-columns:3rem 1fr auto; align-items:center; gap:1rem; min-height:6.2rem; padding:1rem .25rem 1rem 1rem; border-bottom:1px solid var(--line); transition:background 220ms ease,padding 220ms ease; }
+.virtual-experience-row:hover { padding-left:1.35rem; background:rgba(167,120,242,.025); }
+.virtual-experience-index { color:var(--lavender); font-family:var(--font-geist-mono),monospace; font-size:.58rem; }
+.virtual-experience-row h3 { margin:0 0 .3rem; font-size:.98rem; }
+.virtual-experience-row p { margin:0; color:var(--muted); font-size:.76rem; line-height:1.5; }
+.virtual-experience-platform { color:rgba(208,185,255,.5); font-family:var(--font-geist-mono),monospace; font-size:.56rem; letter-spacing:.08em; text-transform:uppercase; }
+.learning-list-premium { border-top:1px solid var(--line); }
+.learning-item-premium { min-height:6.5rem; grid-template-columns:4rem 1fr 2rem; }
+.learning-item-premium i { display:grid; place-items:center; width:1.4rem; height:1.4rem; color:rgba(208,185,255,.35); background:rgba(150,108,242,.04); font-style:normal; font-size:.75rem; transition:color 220ms ease,transform 220ms ease; }
+.learning-item-premium:hover i { color:var(--lavender); transform:translate(2px,-2px); }
+.learning-item-premium:hover > div p:first-child { color:var(--text); }
+
 /* ─── Contact ─── */
 .contact-section { padding-block: 7.5rem; border-top: 1px solid var(--line); background: radial-gradient(circle at 82% 50%, rgba(127, 77, 218, 0.16), transparent 29rem), #100d18; }
 .contact-layout { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: clamp(3rem, 8vw, 8rem); }
@@ -500,6 +541,21 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--lavender); out
   .skill-card-top { font-size:.5rem; }
   .skill-group ul { margin-top:.9rem; line-height:1.8; font-size:.72rem; }
 
+  /* Experience / credentials / learning */
+  .experience-entry { grid-template-columns:2rem 1fr; gap:.35rem .75rem; padding:1.15rem 0; }
+  .experience-index { grid-row:1 / span 2; }
+  .experience-period { grid-column:2; font-size:.5rem; }
+  .experience-main { grid-column:2; }
+  .experience-heading h3 { font-size:1.08rem; }
+  .experience-main > p { font-size:.78rem; }
+  .credential-primary-card { padding:1rem; }
+  .credential-meta,.credential-footer { font-size:.5rem; }
+  .credential-body { margin:2.2rem 0 2rem; gap:.75rem; }
+  .credential-body h3 { font-size:1.25rem; }
+  .credential-body p { font-size:.78rem; }
+  .virtual-experience-row { grid-template-columns:2rem 1fr; gap:.6rem; padding:1rem 0; align-items:start; }
+  .virtual-experience-platform { grid-column:2; font-size:.5rem; }
+  .learning-item-premium { min-height:6rem; }
   /* Timeline */
   .timeline-entry { grid-template-columns: 1fr; gap: 0.2rem; padding-left: 1.25rem; padding-bottom: 2.5rem; }
 

@@ -149,45 +149,44 @@ export default function Home() {
             eyebrow="Credentials"
             title="Proof of structured learning and practical exposure."
           />
-          <div className="credentials-primary">
-            {certifications.map((certification, index) => (
-              <article className="credential-primary-card reveal" key={certification.title + "-" + index}>
-                <div className="credential-meta">
-                  <span>01 / FORMAL CREDENTIAL</span>
-                  <span>{certification.issuer}</span>
-                </div>
-                <div className="credential-body">
-                  <span className="credential-mark" aria-hidden="true">✦</span>
-                  <div>
-                    <h3>{certification.title}</h3>
-                    <p>{certification.description}</p>
+          <div className="credentials-archive reveal">
+            <div className="credential-primary-card">
+              {certifications.map((certification, index) => (
+                <div key={certification.title + "-" + index}>
+                  <div className="credential-meta">
+                    <span>FORMAL CREDENTIAL</span>
+                    <span>{certification.issuer}</span>
+                  </div>
+                  <div className="credential-body">
+                    <span className="credential-mark" aria-hidden="true">✦</span>
+                    <div>
+                      <h3>{certification.title}</h3>
+                      <p>{certification.description}</p>
+                    </div>
+                  </div>
+                  <div className="credential-footer">
+                    <span>COMPLETED</span>
+                    <span>9 COURSES</span>
                   </div>
                 </div>
-                <div className="credential-footer">
-                  <span>COMPLETED</span>
-                  <span>9 COURSES</span>
-                </div>
-              </article>
-            ))}
-          </div>
-          <div className="section-subheading credential-subheading reveal">
-            <p className="eyebrow">Virtual Experience</p>
-            <p className="section-description">
-              Completed via Forage. These are job simulations, not professional
-              employment or client engagements.
-            </p>
-          </div>
-          <div className="virtual-experience-list">
-            {virtualExperiences.map((item, index) => (
-              <article className="virtual-experience-row reveal" key={item.title + "-" + index}>
-                <span className="virtual-experience-index">0{index + 1}</span>
-                <div>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </div>
-                <span className="virtual-experience-platform">{item.platform}</span>
-              </article>
-            ))}
+              ))}
+            </div>
+            <div className="credentials-archive-divider">
+              <span>VIRTUAL EXPERIENCE</span>
+              <span>FORAGE / JOB SIMULATIONS</span>
+            </div>
+            <div className="virtual-experience-list">
+              {virtualExperiences.map((item, index) => (
+                <article className="virtual-experience-row" key={item.title + "-" + index}>
+                  <span className="virtual-experience-index">0{index + 1}</span>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
+                  <span className="virtual-experience-platform">{item.platform}</span>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 

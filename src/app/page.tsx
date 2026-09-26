@@ -7,6 +7,7 @@ import {
   contactLinks,
   experience,
   learningAreas,
+  projects,
   skillGroups,
   virtualExperiences,
 } from "@/data/portfolio";
@@ -92,28 +93,35 @@ export default function Home() {
           <SectionHeading
             eyebrow="Projects & Practice"
             title="Work I'm building along the way."
-            description="I'm currently building my hands-on cybersecurity experience through labs, practical exercises, and my upcoming VAPT internship. Projects will be added here as I complete them."
+            description="A growing collection of hands-on security work, practice projects, and documented learning."
           />
-          <div className="projects-empty projects-empty-premium reveal">
-            <div className="projects-empty-top">
-              <span>FIELD NOTES / 01</span>
-              <span>BUILDING</span>
-            </div>
-            <div className="projects-empty-core">
-              <span className="projects-empty-mark" aria-hidden="true">+</span>
-              <div>
-                <h3>Projects are in progress.</h3>
-                <p>Hands-on work, labs, and documented security practice will appear here as they are completed.</p>
-              </div>
-              <span className="projects-empty-arrow" aria-hidden="true">↗</span>
-            </div>
-            <div className="projects-empty-footer">
-              <span>WEB SECURITY</span>
-              <i aria-hidden="true" />
-              <span>VAPT</span>
-              <i aria-hidden="true" />
-              <span>LINUX</span>
-            </div>
+          <div className="projects-grid">
+            {projects.map((project, index) => (
+              <details className="project-card reveal" key={project.title}>
+                <summary className="project-card-summary">
+                  <div className="project-card-meta">
+                    <span>0{index + 1}</span>
+                    <span>{project.status}</span>
+                  </div>
+                  <div className="project-card-heading">
+                    <div>
+                      <p className="project-card-category">{project.category}</p>
+                      <h3>{project.title}</h3>
+                    </div>
+                    <span className="project-card-arrow" aria-hidden="true">↗</span>
+                  </div>
+                  <p className="project-card-description">{project.description}</p>
+                  <div className="project-card-tags">
+                    {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
+                  </div>
+                </summary>
+                <div className="project-card-details">
+                  <span>PROJECT NOTES</span>
+                  <p>{project.details}</p>
+                  <span className="project-card-detail-status">DOCUMENTATION IN PROGRESS</span>
+                </div>
+              </details>
+            ))}
           </div>
         </section>
 
@@ -235,14 +243,21 @@ export default function Home() {
               <a className="contact-link-email" href="mailto:arhaan.s7045@gmail.com">
                 <span>EMAIL</span><strong>arhaan.s7045@gmail.com</strong><b>↗</b>
               </a>
-              <a
-                className="contact-link-whatsapp"
-                href={`https://wa.me/${contactLinks.find((link) => link.label === "Phone")?.value.replace(/\\D/g, "")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span>WHATSAPP</span><strong>{contactLinks.find((link) => link.label === "Phone")?.value}</strong><b>↗</b>
-              </a>
+              {(() => {
+                const phone = contactLinks.find((link) => link.label === "Phone");
+                if (!phone) return null;
+                const whatsappNumber = phone.value.replace(/\D/g, "");
+                return (
+                  <a
+                    className="contact-link-whatsapp"
+                    href={`https://wa.me/${whatsappNumber}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>WHATSAPP</span><strong>{phone.value}</strong><b>↗</b>
+                  </a>
+                );
+              })()}
             </address>
           </div>
         </section>

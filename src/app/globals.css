@@ -702,7 +702,6 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--lavender); out
 .project-card { overflow:hidden; border:1px solid var(--line); background:linear-gradient(145deg,rgba(150,108,242,.07),transparent 58%),var(--surface); }
 .project-card summary { list-style:none; cursor:pointer; }
 .project-card summary::-webkit-details-marker { display:none; }
-.project-card-summary { padding:1.25rem 1.35rem 1.1rem; }
 .project-card-meta { display:flex; justify-content:space-between; gap:1rem; color:rgba(208,185,255,.5); font-family:var(--font-geist-mono),monospace; font-size:.56rem; letter-spacing:.1em; }
 .project-card-meta span:last-child { color:var(--lavender); }
 .project-card-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:2rem; margin:3.2rem 0 1rem; }
@@ -803,7 +802,7 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--lavender); out
 }
 
 /* ─── Project card interaction ─── */
-.project-card-summary { display:block; width:100%; border:0; color:inherit; font:inherit; text-align:left; background:transparent; cursor:pointer; }
+.project-card-summary { position:relative; z-index:2; display:block; width:100%; margin:0; padding:1.25rem 1.35rem 1.1rem; border:0; color:inherit; font:inherit; text-align:left; background:transparent; cursor:pointer; pointer-events:auto; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
 .project-card-summary:focus-visible { outline:2px solid var(--lavender); outline-offset:-3px; }
 .project-card-details-shell { display:grid; grid-template-rows:0fr; opacity:0; transition:grid-template-rows 420ms cubic-bezier(.22,1,.36,1),opacity 220ms ease; }
 .project-card-details-shell-open { grid-template-rows:1fr; opacity:1; }

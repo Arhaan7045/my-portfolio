@@ -22,13 +22,18 @@ export default function Home() {
         {/* About */}
         <section className="section shell" id="about">
           <div className="about-layout">
-            <div
-              className="profile-placeholder reveal"
-              aria-label="Future profile image placeholder"
-            >
-              <span>Profile image</span>
+            <div className="about-profile reveal" aria-label="Arhaan Shaikh profile">
+              <div className="about-profile-top">
+                <span>ABOUT / 01</span>
+                <span>PROFILE</span>
+              </div>
+              <div className="about-monogram" aria-hidden="true">AS</div>
+              <div className="about-profile-bottom">
+                <strong>MCA STUDENT</strong>
+                <span>CYBERSECURITY</span>
+              </div>
             </div>
-            <div>
+            <div className="about-content">
               <SectionHeading
                 eyebrow="ABOUT"
                 title="Learning cybersecurity by building and doing."

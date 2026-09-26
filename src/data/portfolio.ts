@@ -39,14 +39,14 @@ export const skillGroups = [
 
 export const projects = [
   {
-    title: "Web Application Security Lab",
-    category: "Web Security / Practice Project",
+    title: "VAPT Internship — Web Application Security Assessment",
+    category: "VAPT / Internship Project",
     status: "IN PROGRESS",
     description:
-      "A hands-on practice project for developing web application security skills through structured labs, testing techniques, and security documentation.",
+      "A practical web application security assessment project developed during my VAPT internship, covering reconnaissance, testing, vulnerability analysis, and security documentation.",
     details:
-      "Current focus includes HTTP fundamentals, web application security concepts, vulnerability testing, Burp Suite workflows, and documenting findings as practical learning progresses.",
-    tags: ["WEB SECURITY", "VAPT", "BURP SUITE"],
+      "The project will document the assessment methodology, tools and techniques used, validated findings, evidence, risk context, and remediation guidance as the internship work is completed.",
+    tags: ["VAPT", "WEB SECURITY", "BURP SUITE", "SECURITY TESTING"],
   },
 ] as const;
 

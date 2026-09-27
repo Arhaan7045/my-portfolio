@@ -57,7 +57,7 @@ section[id],
 /* ─── Header / nav ─── */
 .site-header { position: sticky; z-index: 20; top: 0; border-bottom: 1px solid rgba(215, 196, 255, 0.1); background: rgba(9, 8, 14, 0.74); backdrop-filter: blur(18px) saturate(125%); }
 .navigation { display: flex; min-height: 5rem; align-items: center; justify-content: space-between; gap: 1rem; }
-.wordmark { display: inline-flex; align-items: center; gap: 0.7rem; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; flex-shrink: 0; }
+.wordmark { display: inline-flex; align-items: center; gap: 0.7rem; padding: 0; border: 0; background: none; color: inherit; font: inherit; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; flex-shrink: 0; cursor: pointer; }
 .wordmark-mark { width: 0.62rem; height: 0.62rem; flex-shrink: 0; border: 1px solid var(--lavender); box-shadow: 0 0 0 4px rgba(208, 185, 255, 0.08); transform: rotate(45deg); }
 .desktop-navigation { display:flex; align-items:center; gap:clamp(1.05rem,1.8vw,1.65rem); color:var(--muted); font-size:.8rem; }
 .desktop-navigation a { position:relative; padding:.65rem .05rem; transition:color 220ms ease,transform 220ms ease; }

@@ -14,10 +14,16 @@ export function SiteHeader() {
           type="button"
           className="wordmark"
           onClick={() => {
-            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-            requestAnimationFrame(() => {
-              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-            });
+            const scrollToTop = () => {
+              window.scrollTo(0, 0);
+              document.documentElement.scrollTop = 0;
+              document.body.scrollTop = 0;
+              document.scrollingElement?.scrollTo(0, 0);
+            };
+
+            scrollToTop();
+            requestAnimationFrame(scrollToTop);
+            setTimeout(scrollToTop, 50);
           }}
           aria-label="Arhaan Shaikh — back to top"
         >

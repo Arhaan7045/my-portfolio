@@ -38,10 +38,10 @@ export default async function AdminLoginPage() {
           </div>
 
           <div className="admin-auth-heading">
-            <span className="admin-auth-label">Secure access</span>
+            <span className="admin-auth-label">Private access</span>
             <h1 id="admin-login-title">Welcome back.</h1>
             <p>
-              Sign in to manage the content that appears across the portfolio.
+              Sign in to manage the content that appears across your portfolio.
             </p>
           </div>
 

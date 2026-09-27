@@ -49,7 +49,7 @@ section[id],
 }
 
 /* ─── Layout frame ─── */
-.site-frame { min-width: 0; overflow: clip; background: radial-gradient(ellipse 72rem 42rem at 80% -8%, rgba(120, 71, 211, 0.18), transparent 62%), radial-gradient(ellipse 42rem 28rem at -10% 44%, rgba(90, 52, 158, 0.1), transparent 70%), var(--background); }
+.site-frame { position: relative; min-width: 0; background: radial-gradient(ellipse 72rem 42rem at 80% -8%, rgba(120, 71, 211, 0.18), transparent 62%), radial-gradient(ellipse 42rem 28rem at -10% 44%, rgba(90, 52, 158, 0.1), transparent 70%), var(--background); }
 .site-frame::before { content: ""; position: fixed; z-index: 0; inset: 0; pointer-events: none; opacity: 0.2; background-image: linear-gradient(rgba(211, 194, 255, 0.13) 1px, transparent 1px), linear-gradient(90deg, rgba(211, 194, 255, 0.13) 1px, transparent 1px); background-size: 72px 72px; mask-image: linear-gradient(to bottom, black, transparent 62rem); }
 .site-frame::after { content: ""; position: fixed; z-index: 0; inset: 0; pointer-events: none; opacity: 0.045; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E"); }
 .shell { position: relative; z-index: 1; width: min(100% - 3rem, 1160px); margin-inline: auto; }

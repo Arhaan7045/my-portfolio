@@ -14,7 +14,7 @@ import {
 
 export default function Home() {
   return (
-    <>
+    <div className="site-frame">
       <div id="page-top" aria-hidden="true" />
       <SiteHeader />
       <main id="main-content">
@@ -256,6 +256,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

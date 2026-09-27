@@ -10,21 +10,23 @@ export function SiteHeader() {
     <header id="top" className="site-header">
       <a className="skip-link" href="#main-content">Skip to content</a>
       <nav aria-label="Primary navigation" className="shell navigation">
-        <button
-          type="button"
+        <a
           className="wordmark"
+          href="#page-top"
           onClick={() => {
-            document.getElementById("page-top")?.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-              inline: "nearest",
-            });
+            window.setTimeout(() => {
+              window.history.replaceState(
+                null,
+                "",
+                window.location.pathname + window.location.search,
+              );
+            }, 0);
           }}
           aria-label="Arhaan Shaikh — back to top"
         >
           <span className="wordmark-mark" aria-hidden="true" />
           <span>Arhaan Shaikh</span>
-        </button>
+        </a>
 
         <div className="desktop-navigation">
           {navigationItems.map((item) => (

@@ -6,7 +6,7 @@ const RESUME_URL =
 export function SiteHeader() {
   return (
     <header id="top" className="site-header">
-      <a className="skip-link" href="#main-content">Skip to content</a>
+      <a className="skip-link" href="/">Skip to content</a>
       <nav aria-label="Primary navigation" className="shell navigation">
         <a className="wordmark" href="#main-content" aria-label="Arhaan Shaikh — back to top">
           <span className="wordmark-mark" aria-hidden="true" />

@@ -8,6 +8,7 @@ export function AdminLoginForm() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -46,14 +47,21 @@ export function AdminLoginForm() {
   }
 
   return (
-    <form className="admin-login-form" onSubmit={handleSubmit}>
+    <form
+      className="admin-login-form"
+      onSubmit={handleSubmit}
+      autoComplete="off"
+      data-lpignore="true"
+      data-1p-ignore="true"
+    >
       <label>
         <span>Email address</span>
         <input
           type="email"
-          name="email"
-          autoComplete="email"
+          name="admin-email"
+          autoComplete="off"
           inputMode="email"
+          spellCheck={false}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           placeholder="you@example.com"
@@ -63,15 +71,30 @@ export function AdminLoginForm() {
 
       <label>
         <span>Password</span>
-        <input
-          type="password"
-          name="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          placeholder="••••••••••••"
-          required
-        />
+        <div className="admin-password-field">
+          <input
+            type={showPassword ? "text" : "password"}
+            name="admin-password"
+            autoComplete="new-password"
+            spellCheck={false}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            placeholder="Enter your password"
+            required
+          />
+          <button
+            className="admin-password-toggle"
+            type="button"
+            aria-label={showPassword ? "Hide password" : "Show password"}
+            aria-pressed={showPassword}
+            onClick={() => setShowPassword((visible) => !visible)}
+          >
+            <span className="admin-eye-icon" aria-hidden="true">
+              <span />
+            </span>
+            <span>{showPassword ? "HIDE" : "SHOW"}</span>
+          </button>
+        </div>
       </label>
 
       {errorMessage ? (
@@ -82,7 +105,7 @@ export function AdminLoginForm() {
 
       <button className="admin-login-submit" type="submit" disabled={isSubmitting}>
         <span>{isSubmitting ? "VERIFYING..." : "SIGN IN"}</span>
-        <span aria-hidden="true">↗</span>
+        <span className="admin-submit-arrow" aria-hidden="true">↗</span>
       </button>
     </form>
   );

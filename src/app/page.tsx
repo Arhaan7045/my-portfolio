@@ -109,7 +109,7 @@ export default async function Home() {
             title="Skills, organized by practice area."
           />
           <div className="skills-grid">
-            {skillGroups.map((group, index) => (
+            {(skillGroups ?? []).map((group, index) => (
               <article
                 className="skill-group skill-group-premium reveal"
                 key={group.title}
@@ -140,7 +140,7 @@ export default async function Home() {
             description="A growing collection of hands-on security work, practice projects, and documented learning."
           />
           <div className="projects-grid">
-            {projects.map((project, index) => (
+            {(projects ?? []).map((project, index) => (
               <ProjectCard key={project.title} project={project} index={index} />
             ))}
           </div>
@@ -153,7 +153,7 @@ export default async function Home() {
             title="Learning, contribution, and professional context."
           />
           <div className="experience-list">
-            {experience.map((item, index) => (
+            {(experience ?? []).map((item, index) => (
               <article className="experience-entry reveal" key={item.period + "-" + item.title}>
                 <div className="experience-index">0{index + 1}</div>
                 <div className="experience-period">{item.period}</div>
@@ -180,7 +180,7 @@ export default async function Home() {
           />
           <div className="credentials-archive reveal">
             <div className="credential-primary-card">
-              {certifications.map((certification, index) => (
+              {formalCertifications.map((certification, index) => (
                 <div key={certification.title + "-" + index}>
                   <div className="credential-meta">
                     <span>FORMAL CREDENTIAL</span>
@@ -229,7 +229,7 @@ export default async function Home() {
             description="A living space for the areas currently being explored."
           />
           <div className="learning-list learning-list-premium">
-            {learningAreas.map((area, index) => (
+            {(learningAreas ?? []).map((area, index) => (
               <article className="learning-item learning-item-premium reveal" key={area.title + "-" + index}>
                 <span>0{index + 1}</span>
                 <div>

@@ -2,17 +2,60 @@ import { SectionHeading } from "@/components/section-heading";
 import { ProjectCard } from "@/components/project-card";
 import { SiteHeader } from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
+import { createClient } from "@/lib/supabase/server";
 import {
-  certifications,
   contactLinks,
-  experience,
-  learningAreas,
-  projects,
-  skillGroups,
-  virtualExperiences,
 } from "@/data/portfolio";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const supabase = await createClient();
+
+  const [
+    { data: projects },
+    { data: experience },
+    { data: skillGroups },
+    { data: certifications },
+    { data: learningAreas },
+  ] = await Promise.all([
+    supabase
+      .from("projects")
+      .select("title, category, status, slug, description, details, tags, sort_order")
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true }),
+    supabase
+      .from("experience")
+      .select("period, title, organization, description, sort_order")
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true }),
+    supabase
+      .from("skill_groups")
+      .select("title, skills, sort_order")
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true }),
+    supabase
+      .from("certifications")
+      .select("title, issuer, description, type, sort_order")
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true }),
+    supabase
+      .from("learning_areas")
+      .select("title, description, sort_order")
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true }),
+  ]);
+
+  const formalCertifications = (certifications ?? []).filter(
+    (certification) => certification.type === "formal",
+  );
+  const virtualExperiences = (certifications ?? [])
+    .filter((certification) => certification.type === "virtual")
+    .map((certification) => ({
+      title: certification.title,
+      platform: certification.issuer,
+      description: certification.description,
+    }));
   return (
     <div className="site-frame">
       <div id="page-top" aria-hidden="true" />

@@ -1202,12 +1202,13 @@ section[id],
   .case-study-main { padding-block:2.5rem 5rem; }
   .case-study-shell { width:min(100% - 2rem,1160px); }
   .case-study-back { margin-bottom:2.25rem; }
-  .case-study-title { margin-top:3rem; font-size:clamp(2.55rem,14vw,4.2rem); }
+  .case-study-title { margin-top:2.8rem; font-size:clamp(2.45rem,12.5vw,4rem); }
   .case-study-grid { grid-template-columns:1fr; }
   .case-study-flow { grid-template-columns:1fr 1fr; }
   .case-study-flow-item:nth-child(2) { border-right:0; }
   .case-study-flow-item:nth-child(-n+2) { border-bottom:1px solid var(--line); }
   .case-study-next { align-items:flex-start; flex-direction:column; }
+  .case-study-tool-list { gap:.45rem; }
 }
 @media (max-width:480px) {
   .case-study-kicker { align-items:flex-start; flex-direction:column; }

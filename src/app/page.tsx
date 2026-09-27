@@ -15,6 +15,7 @@ import {
 export default function Home() {
   return (
     <>
+      <div id="page-top" aria-hidden="true" />
       <SiteHeader />
       <main id="main-content">
         {/* Hero */}

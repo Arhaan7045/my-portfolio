@@ -1,0 +1,111 @@
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import { ExperienceManager } from "@/components/experience-manager";
+
+export const dynamic = "force-dynamic";
+
+export default async function AdminExperiencePage() {
+  const supabase = await createClient();
+  const { data: claimsData } = await supabase.auth.getClaims();
+  const userId = claimsData?.claims?.sub;
+
+  if (!userId) {
+    redirect("/admin/login");
+  }
+
+  const { data: admin } = await supabase
+    .from("admin_users")
+    .select("user_id")
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (!admin) {
+    redirect("/admin/login");
+  }
+
+  const { data: experience, error } = await supabase
+    .from("experience")
+    .select(
+      "id, period, title, organization, description, sort_order, is_published, created_at, updated_at",
+    )
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
+
+  if (error) {
+    return (
+      <main className="admin-page">
+        <div className="admin-shell">
+          <header className="admin-topbar">
+            <Link href="/admin" className="admin-auth-wordmark" aria-label="Back to admin dashboard">
+              <span className="wordmark-mark" aria-hidden="true" />
+              <span>Arhaan Shaikh</span>
+            </Link>
+            <div className="admin-topbar-meta">
+              <span>PRIVATE / ADMIN</span>
+              <form action="/auth/signout" method="post">
+                <button type="submit">SIGN OUT ↗</button>
+              </form>
+            </div>
+          </header>
+
+          <section className="admin-error-panel" role="alert">
+            <span className="admin-auth-label">Database error</span>
+            <h1>Experience could not be loaded.</h1>
+            <p>{error.message}</p>
+            <Link className="admin-secondary-action" href="/admin">
+              ← Back to dashboard
+            </Link>
+          </section>
+        </div>
+      </main>
+    );
+  }
+
+  return (
+    <main className="admin-page">
+      <div className="admin-shell">
+        <header className="admin-topbar">
+          <Link href="/admin" className="admin-auth-wordmark" aria-label="Back to admin dashboard">
+            <span className="wordmark-mark" aria-hidden="true" />
+            <span>Arhaan Shaikh</span>
+          </Link>
+
+          <div className="admin-topbar-meta">
+            <span>PRIVATE / ADMIN / EXPERIENCE</span>
+            <form action="/auth/signout" method="post">
+              <button type="submit">SIGN OUT ↗</button>
+            </form>
+          </div>
+        </header>
+
+        <section className="admin-content-heading">
+          <div>
+            <Link className="admin-back-link" href="/admin">
+              ← Control room
+            </Link>
+            <span className="admin-auth-label">02 / Experience</span>
+            <h1>Manage experience.</h1>
+            <p>
+              Maintain the roles, organizations, descriptions, ordering, and
+              publishing state used by the portfolio experience section.
+            </p>
+          </div>
+
+          <div className="admin-count-card">
+            <span>EXPERIENCE RECORDS</span>
+            <strong>{experience?.length ?? 0}</strong>
+            <small>SUPABASE / RLS PROTECTED</small>
+          </div>
+        </section>
+
+        <ExperienceManager experience={experience ?? []} />
+
+        <footer className="admin-dashboard-footer admin-content-footer">
+          <Link href="/admin">← BACK TO CONTROL ROOM</Link>
+          <Link href="/">VIEW PUBLIC PORTFOLIO ↗</Link>
+        </footer>
+      </div>
+    </main>
+  );
+}

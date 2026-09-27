@@ -1,9 +1,12 @@
 "use client";
 
+import Link from "next/link";
+
 type Project = {
   title: string;
   category: string;
   status: string;
+  slug: string;
   description: string;
   details: string;
   tags: readonly string[];
@@ -52,6 +55,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           <span className="project-card-detail-status">
             DOCUMENTATION IN PROGRESS
           </span>
+          <Link className="project-card-case-study" href={`/projects/${project.slug}`}>
+            VIEW CASE STUDY <span aria-hidden="true">↗</span>
+          </Link>
         </div>
       </div>
     </details>

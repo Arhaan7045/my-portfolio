@@ -15,7 +15,7 @@ const workflow = [
   ["04", "Documentation"],
 ] as const;
 
-const tools = ["Burp Suite", "Web Security Testing", "Security Testing", "VAPT"] as const;
+const focus = ["Burp Suite", "Web Application Security", "VAPT"] as const;
 
 export default function VaptInternshipCaseStudy() {
   return (
@@ -49,9 +49,8 @@ export default function VaptInternshipCaseStudy() {
 
             <div className="case-study-meta" aria-label="Project tags">
               <span>VAPT</span>
-              <span>WEB SECURITY</span>
+              <span>WEB APPLICATION SECURITY</span>
               <span>BURP SUITE</span>
-              <span>SECURITY TESTING</span>
             </div>
           </header>
 
@@ -101,13 +100,13 @@ export default function VaptInternshipCaseStudy() {
 
           <section className="case-study-panel case-study-evidence">
             <div className="case-study-section-head">
-              <span>02 / Tooling</span>
-              <span>Working stack</span>
+              <span>02 / Working focus</span>
+              <span>Current focus</span>
             </div>
             <div className="case-study-panel-body">
-              <h2>Tools and techniques used during the work.</h2>
+              <h2>What I am working with during the assessment.</h2>
               <div className="case-study-tool-list">
-                {tools.map((tool) => (
+                {focus.map((tool) => (
                   <span className="case-study-tool" key={tool}>{tool}</span>
                 ))}
               </div>
@@ -117,18 +116,17 @@ export default function VaptInternshipCaseStudy() {
           <section className="case-study-panel case-study-evidence">
             <div className="case-study-section-head">
               <span>03 / Findings & evidence</span>
-              <span>To be documented</span>
+              <span>Awaiting validation</span>
             </div>
             <div className="case-study-evidence-card">
               <span className="case-study-evidence-mark" aria-hidden="true">+</span>
               <div>
-                <h3>Validated findings will appear here.</h3>
+                <h3>Findings will be documented as they are validated.</h3>
                 <p>
-                  This section is intentionally kept factual and incomplete
-                  until the assessment produces validated results. It will
-                  contain the relevant evidence, risk context, and remediation
-                  guidance rather than placeholder vulnerabilities or invented
-                  statistics.
+                  This section will be updated with validated findings, supporting
+                  evidence, risk context, and remediation guidance as the
+                  assessment progresses. Nothing is added here until it has
+                  been verified.
                 </p>
               </div>
             </div>

@@ -70,11 +70,13 @@ export default async function AdminPage() {
             </Link>
           </article>
 
-          <article className="admin-module-card">
+          <article className="admin-module-card admin-module-card-active">
             <span>02</span>
             <h2>Experience</h2>
             <p>Roles, organizations, descriptions, ordering, and visibility.</p>
-            <strong>COMING NEXT</strong>
+            <Link className="admin-module-action" href="/admin/experience">
+              MANAGE EXPERIENCE ↗
+            </Link>
           </article>
 
           <article className="admin-module-card">

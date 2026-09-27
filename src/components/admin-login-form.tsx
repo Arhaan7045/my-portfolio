@@ -58,8 +58,8 @@ export function AdminLoginForm() {
         <span>Email address</span>
         <input
           type="email"
-          name="admin-email"
-          autoComplete="off"
+          name="email"
+          autoComplete="email"
           inputMode="email"
           spellCheck={false}
           value={email}
@@ -74,8 +74,13 @@ export function AdminLoginForm() {
         <div className="admin-password-field">
           <input
             type={showPassword ? "text" : "password"}
-            name="admin-password"
-            autoComplete="new-password"
+            name="admin-passcode"
+            autoComplete="off"
+            data-lpignore="true"
+            data-1p-ignore="true"
+            data-bwignore="true"
+            data-dashlane-ignore="true"
+            data-form-type="other"
             spellCheck={false}
             value={password}
             onChange={(event) => setPassword(event.target.value)}

@@ -14,6 +14,7 @@ import {
 
 export default function Home() {
   return (
+    <>
       <SiteHeader />
       <main id="main-content">
         {/* Hero */}
@@ -254,5 +255,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
+    </>
   );
 }

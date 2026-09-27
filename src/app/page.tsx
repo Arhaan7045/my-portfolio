@@ -46,6 +46,11 @@ export default async function Home() {
       .order("created_at", { ascending: true }),
   ]);
 
+  const publicProjects = (projects ?? []).map((project) => ({
+    ...project,
+    tags: project.tags ?? [],
+  }));
+
   const formalCertifications = (certifications ?? []).filter(
     (certification) => certification.type === "formal",
   );
@@ -140,7 +145,7 @@ export default async function Home() {
             description="A growing collection of hands-on security work, practice projects, and documented learning."
           />
           <div className="projects-grid">
-            {(projects ?? []).map((project, index) => (
+            {publicProjects.map((project, index) => (
               <ProjectCard key={project.title} project={project} index={index} />
             ))}
           </div>

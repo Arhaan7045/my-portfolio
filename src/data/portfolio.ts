@@ -42,6 +42,7 @@ export const projects = [
     title: "VAPT Internship — Web Application Security Assessment",
     category: "VAPT / Internship Project",
     status: "IN PROGRESS",
+    slug: "vapt-internship",
     description:
       "A practical web application security assessment project developed during my VAPT internship, covering reconnaissance, testing, vulnerability analysis, and security documentation.",
     details:

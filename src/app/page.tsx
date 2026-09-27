@@ -2,7 +2,6 @@ import { SectionHeading } from "@/components/section-heading";
 import { ProjectCard } from "@/components/project-card";
 import { SiteHeader } from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
-import { SiteSystemProvider } from "@/components/site-system-provider";
 import {
   certifications,
   contactLinks,
@@ -15,7 +14,6 @@ import {
 
 export default function Home() {
   return (
-    <SiteSystemProvider>
       <SiteHeader />
       <main id="main-content">
         {/* Hero */}
@@ -256,6 +254,5 @@ export default function Home() {
           </div>
         </div>
       </footer>
-    </SiteSystemProvider>
   );
 }

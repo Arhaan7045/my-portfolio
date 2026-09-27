@@ -79,18 +79,22 @@ export default async function AdminPage() {
             </Link>
           </article>
 
-          <article className="admin-module-card">
+          <article className="admin-module-card admin-module-card-active">
             <span>03</span>
             <h2>Skills & learning</h2>
             <p>Skill groups, learning areas, and their public visibility.</p>
-            <strong>COMING NEXT</strong>
+            <Link className="admin-module-action" href="/admin/skills">
+              MANAGE SKILLS & LEARNING ↗
+            </Link>
           </article>
 
-          <article className="admin-module-card">
+          <article className="admin-module-card admin-module-card-active">
             <span>04</span>
             <h2>Certifications</h2>
             <p>Credentials and virtual experiences managed from one place.</p>
-            <strong>COMING NEXT</strong>
+            <Link className="admin-module-action" href="/admin/certifications">
+              MANAGE CERTIFICATIONS ↗
+            </Link>
           </article>
         </section>
 

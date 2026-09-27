@@ -1,8 +1,6 @@
 -- Initial content seed for the Supabase-backed public portfolio.
 -- Run this once in the Supabase SQL Editor after the CMS schema is installed.
 -- It mirrors the current public content in src/data/portfolio.ts.
--- Safe to re-run: existing rows with the same logical title/slug are removed first.
-
 delete from public.projects;
 delete from public.experience;
 delete from public.skill_groups;

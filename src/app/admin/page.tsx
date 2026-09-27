@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
@@ -60,11 +61,13 @@ export default async function AdminPage() {
         </section>
 
         <section className="admin-module-grid" aria-label="Admin modules">
-          <article className="admin-module-card">
+          <article className="admin-module-card admin-module-card-active">
             <span>01</span>
             <h2>Projects</h2>
             <p>Case studies, project status, descriptions, tags, and publishing.</p>
-            <strong>COMING NEXT</strong>
+            <Link className="admin-module-action" href="/admin/projects">
+              MANAGE PROJECTS ↗
+            </Link>
           </article>
 
           <article className="admin-module-card">

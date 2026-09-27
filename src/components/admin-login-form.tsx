@@ -9,6 +9,7 @@ export function AdminLoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [passwordReady, setPasswordReady] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -82,6 +83,8 @@ export function AdminLoginForm() {
             data-dashlane-ignore="true"
             data-form-type="other"
             spellCheck={false}
+            readOnly={!passwordReady}
+            onFocus={() => setPasswordReady(true)}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             placeholder="Enter your password"

@@ -10,24 +10,20 @@ export function SiteHeader() {
     <header id="top" className="site-header">
       <a className="skip-link" href="#main-content">Skip to content</a>
       <nav aria-label="Primary navigation" className="shell navigation">
-        <a
+        <button
+          type="button"
           className="wordmark"
-          href="#top"
-          onClick={(event) => {
-            event.preventDefault();
-            const scrollToTop = () => {
-              window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-              document.documentElement.scrollTop = 0;
-              document.body.scrollTop = 0;
-            };
-            scrollToTop();
-            requestAnimationFrame(scrollToTop);
+          onClick={() => {
+            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            requestAnimationFrame(() => {
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            });
           }}
           aria-label="Arhaan Shaikh — back to top"
         >
           <span className="wordmark-mark" aria-hidden="true" />
           <span>Arhaan Shaikh</span>
-        </a>
+        </button>
 
         <div className="desktop-navigation">
           {navigationItems.map((item) => (

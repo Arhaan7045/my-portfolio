@@ -5,7 +5,7 @@ const RESUME_URL =
 
 export function SiteHeader() {
   return (
-    <header className="site-header">
+    <header id="top" className="site-header">
       <a className="skip-link" href="#main-content">Skip to content</a>
       <nav aria-label="Primary navigation" className="shell navigation">
         <a className="wordmark" href="#top" aria-label="Arhaan Shaikh — home">

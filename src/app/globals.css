@@ -45,7 +45,7 @@ a:focus-visible, summary:focus-visible {
 
 section[id],
 .contact-section {
-  scroll-margin-top: 0;
+  scroll-margin-top: 2rem;
 }
 
 /* ─── Layout frame ─── */
@@ -550,7 +550,7 @@ section[id],
 
   /* Sections */
   section[id],
-  .contact-section { scroll-margin-top: 0.5rem; }
+  .contact-section { scroll-margin-top: 1.5rem; }
   .section { padding-block: 4.5rem; }
   .section-heading { margin-bottom: 2rem; }
 

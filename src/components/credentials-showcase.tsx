@@ -25,8 +25,17 @@ export function CredentialsShowcase({
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [autoPeekIndex, setAutoPeekIndex] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const reducedMotion = useReducedMotion();
   const credentialCount = formalCertifications.length;
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 760px)");
+    const updateViewport = () => setIsMobile(mediaQuery.matches);
+    updateViewport();
+    mediaQuery.addEventListener("change", updateViewport);
+    return () => mediaQuery.removeEventListener("change", updateViewport);
+  }, []);
 
   useEffect(() => {
     setActiveIndex((current) =>
@@ -73,7 +82,14 @@ export function CredentialsShowcase({
 
   return (
     <div className="credentials-showcase reveal">
-      <div className="credential-deck-wrap">
+      <div
+        className="credential-deck-wrap"
+        style={
+          {
+            "--credential-count": Math.max(credentialCount, 1),
+          } as CSSProperties
+        }
+      >
         <div className="credential-deck-label">
           <span>01 / FORMAL CREDENTIALS</span>
           <span>

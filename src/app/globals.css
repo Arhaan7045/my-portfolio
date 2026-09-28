@@ -3023,3 +3023,132 @@ section[id],
     min-height: max(29rem, calc(28rem + (var(--credential-count, 1) - 1) * 2.25rem));
   }
 }
+
+
+/* ─── Credentials deck: layered stack with adaptive vertical room ─── */
+.credential-deck-wrap {
+  min-height: max(31rem, calc(28rem + (var(--credential-count, 1) - 1) * 3.25rem));
+}
+
+.credential-deck {
+  inset: 3.9rem 0 2.8rem;
+  overflow: visible;
+}
+
+.credential-deck-card {
+  width: min(42rem, 64%);
+  height: auto;
+  min-height: calc(100% - .65rem);
+  margin-left: calc(-1 * min(21rem, 32%));
+}
+
+@media (max-width: 760px) {
+  .credential-deck-wrap {
+    min-height: max(27rem, calc(27rem + (var(--credential-count, 1) - 1) * 2.25rem));
+  }
+
+  .credential-deck-wrap::before {
+    inset: 3.2rem .55rem 3.65rem;
+  }
+
+  .credential-deck-label {
+    padding: 1rem .9rem 0;
+    font-size: .5rem;
+  }
+
+  .credential-deck {
+    inset: 3.65rem .55rem 3rem;
+    overflow: visible;
+  }
+
+  .credential-deck-card {
+    left: 50%;
+    width: calc(100% - .8rem);
+    min-height: calc(100% - .6rem);
+    height: auto;
+    margin-left: calc(-1 * (50% - .4rem));
+    padding: .9rem .8rem;
+  }
+
+  .credential-deck-core {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: .7rem;
+    margin-top: 2rem;
+  }
+
+  .credential-deck-mark {
+    width: 2rem;
+    height: 2rem;
+    font-size: .8rem;
+  }
+
+  .credential-deck-title {
+    max-width: none;
+    font-size: clamp(1.02rem, 5.2vw, 1.28rem);
+    line-height: 1.08;
+  }
+
+  .credential-deck-description {
+    max-width: none;
+    margin-top: .55rem;
+    font-size: .68rem;
+    line-height: 1.48;
+  }
+
+  .credential-deck-top,
+  .credential-deck-bottom {
+    font-size: .5rem;
+  }
+
+  .credential-deck-bottom {
+    right: .8rem;
+    bottom: .8rem;
+    left: .8rem;
+    padding-top: .65rem;
+  }
+
+  .credential-deck-hint {
+    right: .8rem;
+    bottom: .62rem;
+    left: .8rem;
+    font-size: .4rem;
+    line-height: 1.35;
+  }
+}
+
+@media (max-width: 390px) {
+  .credential-deck-wrap {
+    min-height: max(28rem, calc(28rem + (var(--credential-count, 1) - 1) * 2rem));
+  }
+
+  .credential-deck-card {
+    width: calc(100% - .6rem);
+    margin-left: calc(-1 * (50% - .3rem));
+    padding-inline: .7rem;
+  }
+
+  .credential-deck-core {
+    grid-template-columns: 1.85rem minmax(0, 1fr);
+    gap: .6rem;
+    margin-top: 1.9rem;
+  }
+
+  .credential-deck-mark {
+    width: 1.85rem;
+    height: 1.85rem;
+  }
+
+  .credential-deck-title {
+    font-size: 1rem;
+  }
+
+  .credential-deck-description {
+    font-size: .65rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .credential-deck-card {
+    transition: none !important;
+  }
+}

@@ -805,7 +805,7 @@ section[id],
   position: absolute;
   z-index: 40;
   right: 1.35rem;
-  bottom: .72rem;
+  bottom: .32rem;
   margin: 0;
   color: rgba(208,185,255,.38);
   font-family: var(--font-geist-mono), monospace;
@@ -882,7 +882,7 @@ section[id],
 
   .credential-deck-hint {
     right: 1.1rem;
-    bottom: .75rem;
+    bottom: .36rem;
     left: 1.1rem;
     font-size: .45rem;
   }
@@ -2834,7 +2834,7 @@ section[id],
 
   .credential-deck-hint {
     right: .9rem;
-    bottom: .65rem;
+    bottom: .34rem;
     left: .9rem;
     font-size: .43rem;
     line-height: 1.4;

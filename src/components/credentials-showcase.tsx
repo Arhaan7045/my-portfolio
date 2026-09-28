@@ -134,8 +134,8 @@ export function CredentialsShowcase({
                     ? isActive
                       ? 0
                       : isPeeking
-                        ? 5
-                        : 10 + Math.min(depth, 3) * 7
+                        ? 14
+                        : 20 + Math.min(depth, 3) * 8
                     : isActive
                       ? 0
                       : restingY,
@@ -202,7 +202,7 @@ export function CredentialsShowcase({
 
         {formalCertifications.length > 1 && (
           <p className="credential-deck-hint">
-            Hover the exposed edge to preview · click or tap to select
+            Tap the exposed edge to preview · click or tap to select
           </p>
         )}
       </div>

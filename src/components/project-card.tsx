@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-type Project = {
+export type Project = {
   title: string;
   category: string;
   status: string;
@@ -15,14 +15,36 @@ type Project = {
 type ProjectCardProps = {
   project: Project;
   index: number;
+  isOpen: boolean;
+  isDesktop: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+  onToggle: () => void;
 };
 
-export function ProjectCard({ project, index }: ProjectCardProps) {
-  const detailsId = `project-details-${index}`;
-
+export function ProjectCard({
+  project,
+  index,
+  isOpen,
+  isDesktop,
+  onOpen,
+  onClose,
+  onToggle,
+}: ProjectCardProps) {
   return (
-    <details className="project-card reveal" name="portfolio-projects">
-      <summary className="project-card-summary">
+    <details
+      className="project-card reveal"
+      open={isOpen}
+      onMouseEnter={isDesktop ? onOpen : undefined}
+      onMouseLeave={isDesktop ? onClose : undefined}
+    >
+      <summary
+        className="project-card-summary"
+        onClick={(event) => {
+          event.preventDefault();
+          onToggle();
+        }}
+      >
         <div className="project-card-meta">
           <span>0{index + 1}</span>
           <span>{project.status}</span>
@@ -48,7 +70,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
       </summary>
 
-      <div id={detailsId} className="project-card-details-shell">
+      <div className="project-card-details-shell">
         <div className="project-card-details">
           <span>PROJECT DOCUMENTATION</span>
           <p>{project.details}</p>

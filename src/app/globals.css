@@ -2975,3 +2975,51 @@ section[id],
     font-size: .69rem;
   }
 }
+
+
+/* ─── Credentials deck: preserve the original layered UI, give it vertical room ─── */
+.credential-deck-wrap {
+  min-height: max(31rem, calc(28rem + (var(--credential-count, 1) - 1) * 3rem));
+}
+
+.credential-deck {
+  inset: 3.9rem 0 2.8rem;
+  overflow: visible;
+}
+
+.credential-deck-card {
+  width: min(42rem, 64%);
+  height: auto;
+  min-height: calc(100% - .65rem);
+  margin-left: calc(-1 * min(21rem, 32%));
+}
+
+@media (max-width: 760px) {
+  .credential-deck-wrap {
+    min-height: max(28rem, calc(27rem + (var(--credential-count, 1) - 1) * 2.5rem));
+  }
+
+  .credential-deck {
+    inset: 3.7rem .55rem 3.15rem;
+    overflow: visible;
+  }
+
+  .credential-deck-card {
+    left: 50%;
+    width: calc(100% - .4rem);
+    min-height: calc(100% - .65rem);
+    height: auto;
+    margin-left: calc(-1 * (50% - .2rem));
+    padding: 1rem .9rem;
+  }
+
+  .credential-deck-core {
+    margin-top: 2.3rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .credential-deck-wrap {
+    min-height: max(29rem, calc(28rem + (var(--credential-count, 1) - 1) * 2.25rem));
+  }
+}

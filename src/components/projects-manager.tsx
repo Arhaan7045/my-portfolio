@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { AdminConfirmDialog } from "@/components/admin-confirm-dialog";
 import {
   createProject,
   deleteProject,
@@ -75,6 +76,7 @@ export function ProjectsManager({ projects }: { projects: Project[] }) {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [pendingDelete, setPendingDelete] = useState<Project | null>(null);
 
   function resetForm() {
     setEditingId(null);
@@ -132,18 +134,17 @@ export function ProjectsManager({ projects }: { projects: Project[] }) {
     }
   }
 
-  async function handleDelete(project: Project) {
-    if (!window.confirm(`Delete “${project.title}”? This cannot be undone.`)) {
-      return;
-    }
+  function requestDelete(project: Project) {
+    setPendingDelete(project);
+  }
 
+  async function handleDeleteConfirmed() {
+    if (!pendingDelete) return;
     setBusy(true);
     setError("");
-    setMessage("");
-
     try {
-      await deleteProject(project.id);
-      setMessage("Project deleted successfully.");
+      await deleteProject(pendingDelete.id);
+      setPendingDelete(null);
       window.location.reload();
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "Something went wrong.");
@@ -388,7 +389,7 @@ export function ProjectsManager({ projects }: { projects: Project[] }) {
                 <button
                   className="admin-danger-action"
                   type="button"
-                  onClick={() => handleDelete(project)}
+                  onClick={() => requestDelete(project)}
                   disabled={busy}
                 >
                   DELETE
@@ -398,6 +399,14 @@ export function ProjectsManager({ projects }: { projects: Project[] }) {
           ))}
         </div>
       )}
+      <AdminConfirmDialog
+        open={Boolean(pendingDelete)}
+        title={pendingDelete ? `Delete “${pendingDelete.title}”?` : "Delete project?"}
+        description="This will permanently remove the project and close its position in the project order. This action cannot be undone."
+        busy={busy}
+        onCancel={() => setPendingDelete(null)}
+        onConfirm={handleDeleteConfirmed}
+      />
     </section>
   );
 }

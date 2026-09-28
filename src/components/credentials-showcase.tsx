@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 type Certification = {
@@ -29,75 +29,20 @@ export function CredentialsShowcase({
   const [swipeDirection, setSwipeDirection] = useState<"next" | "prev" | null>(null);
   const [outgoingIndex, setOutgoingIndex] = useState<number | null>(null);
   const deckRef = useRef<HTMLDivElement | null>(null);
+  const pointerStart = useRef<{ x: number; y: number } | null>(null);
+  const pointerSwipeTriggered = useRef(false);
   const reducedMotion = useReducedMotion();
   const credentialCount = formalCertifications.length;
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 760px)");
-    const update = () => setIsMobile(mediaQuery.matches);
+    const updateMobile = () => setIsMobile(mediaQuery.matches);
 
-    update();
-    mediaQuery.addEventListener("change", update);
-
-    return () => mediaQuery.removeEventListener("change", update);
+    updateMobile();
+    mediaQuery.addEventListener("change", updateMobile);
+    return () => mediaQuery.removeEventListener("change", updateMobile);
   }, []);
 
-  const swipeTo = (direction: "next" | "prev") => {
-    if (formalCertifications.length < 2 || outgoingIndex !== null) return;
-
-    const nextIndex =
-      direction === "next" ? activeIndex + 1 : activeIndex - 1;
-
-    if (nextIndex < 0 || nextIndex >= formalCertifications.length) return;
-
-    setSwipeDirection(direction);
-    setOutgoingIndex(activeIndex);
-    setActiveIndex(nextIndex);
-    setHoveredIndex(null);
-    setAutoPeekIndex(null);
-
-    window.setTimeout(() => {
-      setOutgoingIndex(null);
-      setSwipeDirection(null);
-    }, 360);
-  };
-
-  useEffect(() => {
-    const deck = deckRef.current;
-    if (!deck) return;
-
-    let startX = 0;
-    let startY = 0;
-
-    const handleTouchStart = (event: TouchEvent) => {
-      const touch = event.touches[0];
-      if (!touch) return;
-      startX = touch.clientX;
-      startY = touch.clientY;
-    };
-
-    const handleTouchEnd = (event: TouchEvent) => {
-      const touch = event.changedTouches[0];
-      if (!touch || formalCertifications.length < 2) return;
-
-      const deltaX = touch.clientX - startX;
-      const deltaY = touch.clientY - startY;
-
-      if (Math.abs(deltaX) < 45 || Math.abs(deltaX) <= Math.abs(deltaY)) {
-        return;
-      }
-
-      swipeTo(deltaX < 0 ? "next" : "prev");
-    };
-
-    deck.addEventListener("touchstart", handleTouchStart, { passive: true });
-    deck.addEventListener("touchend", handleTouchEnd, { passive: true });
-
-    return () => {
-      deck.removeEventListener("touchstart", handleTouchStart);
-      deck.removeEventListener("touchend", handleTouchEnd);
-    };
-  }, [activeIndex, formalCertifications.length]);
 
   useEffect(() => {
     setActiveIndex((current) =>
@@ -144,6 +89,26 @@ export function CredentialsShowcase({
   }, [activeIndex, formalCertifications.length, reducedMotion, isMobile]);
 
   const peekIndex = hoveredIndex ?? autoPeekIndex;
+
+  const swipeTo = (direction: "next" | "prev") => {
+    if (formalCertifications.length < 2 || outgoingIndex !== null) return;
+
+    const nextIndex =
+      direction === "next" ? activeIndex + 1 : activeIndex - 1;
+
+    if (nextIndex < 0 || nextIndex >= formalCertifications.length) return;
+
+    setSwipeDirection(direction);
+    setOutgoingIndex(activeIndex);
+    setActiveIndex(nextIndex);
+    setHoveredIndex(null);
+    setAutoPeekIndex(null);
+
+    window.setTimeout(() => {
+      setOutgoingIndex(null);
+      setSwipeDirection(null);
+    }, 360);
+  };
 
   const selectCredential = (index: number) => {
     if (index < 0 || index >= formalCertifications.length || index === activeIndex) {
@@ -240,7 +205,47 @@ export function CredentialsShowcase({
                     current === index ? null : current,
                   );
                 }}
+                onPointerDown={(event: PointerEvent<HTMLButtonElement>) => {
+                  if (event.pointerType === "mouse") return;
+                  pointerStart.current = {
+                    x: event.clientX,
+                    y: event.clientY,
+                  };
+                  pointerSwipeTriggered.current = false;
+                  event.currentTarget.setPointerCapture(event.pointerId);
+                }}
+                onPointerMove={(event: PointerEvent<HTMLButtonElement>) => {
+                  const start = pointerStart.current;
+                  if (!start || event.pointerType === "mouse") return;
+
+                  const deltaX = event.clientX - start.x;
+                  const deltaY = event.clientY - start.y;
+
+                  if (
+                    Math.abs(deltaX) < 10 ||
+                    Math.abs(deltaX) <= Math.abs(deltaY) ||
+                    pointerSwipeTriggered.current
+                  ) {
+                    return;
+                  }
+
+                  if (Math.abs(deltaX) >= 40) {
+                    pointerSwipeTriggered.current = true;
+                    swipeTo(deltaX < 0 ? "next" : "prev");
+                  }
+                }}
+                onPointerUp={() => {
+                  pointerStart.current = null;
+                }}
+                onPointerCancel={() => {
+                  pointerStart.current = null;
+                  pointerSwipeTriggered.current = false;
+                }}
                 onClick={() => {
+                  if (pointerSwipeTriggered.current) {
+                    pointerSwipeTriggered.current = false;
+                    return;
+                  }
                   selectCredential(index);
                 }}
                 aria-pressed={isActive}
@@ -290,7 +295,7 @@ export function CredentialsShowcase({
               <button
                 type="button"
                 className="credential-deck-nav"
-                onClick={() => swipeTo("prev")}
+                onClick={() => (isMobile ? swipeTo("prev") : selectCredential(activeIndex - 1))}
                 disabled={activeIndex === 0 || outgoingIndex !== null}
                 aria-label="Previous certificate"
               >
@@ -310,7 +315,7 @@ export function CredentialsShowcase({
               <button
                 type="button"
                 className="credential-deck-nav"
-                onClick={() => swipeTo("next")}
+                onClick={() => (isMobile ? swipeTo("next") : selectCredential(activeIndex + 1))}
                 disabled={activeIndex === formalCertifications.length - 1 || outgoingIndex !== null}
                 aria-label="Next certificate"
               >

@@ -615,7 +615,7 @@ section[id],
 
 .credential-deck-wrap {
   position: relative;
-  min-height: 29rem;
+  min-height: 31rem;
   overflow: hidden;
   border: 1px solid var(--line);
   background:
@@ -662,9 +662,9 @@ section[id],
   top: 0;
   left: 50%;
   display: block;
-  width: min(46rem, 76%);
+  width: min(44rem, 66%);
   height: calc(100% - .55rem);
-  margin: 0 0 0 calc(-1 * min(23rem, 38%));
+  margin: 0 0 0 calc(-1 * min(22rem, 33%));
   padding: 1.3rem 1.5rem;
   border: 1px solid rgba(208,185,255,.22);
   border-radius: 2px;
@@ -824,8 +824,8 @@ section[id],
 
 @media (max-width: 760px) {
   .credential-deck-wrap {
-    min-height: 22rem;
-    padding-bottom: 2.25rem;
+    min-height: 26rem;
+    padding-bottom: 2.1rem;
   }
 
   .credential-deck-wrap::before {
@@ -842,20 +842,20 @@ section[id],
 
   .credential-deck {
     position: absolute;
-    inset: 3.65rem .85rem 3.45rem;
+    inset: 3.65rem .85rem 2.85rem;
   }
 
   .credential-deck-card {
-    width: calc(100% - 2rem);
+    width: calc(100% - 1.4rem);
     height: calc(100% - .35rem);
-    margin: 0 0 0 1rem;
-    padding: 1.05rem 1.1rem;
+    margin: 0 0 0 .7rem;
+    padding: 1rem 1.05rem;
   }
 
   .credential-deck-core {
     grid-template-columns: 2.25rem minmax(0,1fr);
     gap: .85rem;
-    margin-top: 2.35rem;
+    margin-top: 2.15rem;
   }
 
   .credential-deck-mark {
@@ -864,14 +864,14 @@ section[id],
   }
 
   .credential-deck-title {
-    font-size: 1.38rem;
-    line-height: 1.08;
+    font-size: 1.3rem;
+    line-height: 1.06;
   }
 
   .credential-deck-description {
-    margin-top: .7rem;
-    font-size: .75rem;
-    line-height: 1.55;
+    margin-top: .65rem;
+    font-size: .73rem;
+    line-height: 1.5;
   }
 
   .credential-deck-bottom {

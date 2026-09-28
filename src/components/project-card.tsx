@@ -21,7 +21,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   const detailsId = `project-details-${index}`;
 
   return (
-    <details className="project-card reveal">
+    <details className="project-card reveal" name="portfolio-projects">
       <summary className="project-card-summary">
         <div className="project-card-meta">
           <span>0{index + 1}</span>
@@ -52,9 +52,6 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         <div className="project-card-details">
           <span>PROJECT DOCUMENTATION</span>
           <p>{project.details}</p>
-          <span className="project-card-detail-status">
-            DOCUMENTATION IN PROGRESS
-          </span>
           <Link className="project-card-case-study" href={`/projects/${project.slug}`}>
             VIEW CASE STUDY <span aria-hidden="true">↗</span>
           </Link>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import Link from "next/link";
 
 export type Project = {
@@ -31,16 +32,17 @@ export function ProjectCard({
   onClose,
   onToggle,
 }: ProjectCardProps) {
+  const touchHandled = useRef(false);
   const detailsId = `project-documentation-${index}`;
 
   return (
     <article
       className={`project-card${isOpen ? " is-open" : ""}`}
-      onPointerEnter={(event) => {
-        if (isDesktop && event.pointerType === "mouse") onOpen();
+      onMouseEnter={() => {
+        if (isDesktop) onOpen();
       }}
-      onPointerLeave={(event) => {
-        if (isDesktop && event.pointerType === "mouse") onClose();
+      onMouseLeave={() => {
+        if (isDesktop) onClose();
       }}
     >
       <button
@@ -48,7 +50,18 @@ export function ProjectCard({
         className="project-card-summary"
         aria-expanded={isOpen}
         aria-controls={detailsId}
-        onClick={onToggle}
+        onTouchEnd={(event) => {
+          event.preventDefault();
+          touchHandled.current = true;
+          onToggle();
+        }}
+        onClick={() => {
+          if (touchHandled.current) {
+            touchHandled.current = false;
+            return;
+          }
+          onToggle();
+        }}
       >
         <span className="project-card-meta">
           <span>0{index + 1}</span>

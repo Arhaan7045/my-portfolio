@@ -41,7 +41,7 @@ export async function createProject(input:ProjectInput) {
   const supabase=await requireAdmin();
   const existing=await getOrders(supabase);
   const target=Math.max(1,Math.min(parseOrder(input.sortOrder,existing.length+1),existing.length+1));
-  const affected=existing.filter(item=>item.sort_order>=target).sort((a,b)=>b.sort_order-a.sort_order);
+  const affected=existing.filter(item=>item.sort_order>=target).sort((a,b)=>a.sort_order-b.sort_order);
   await setOrders(supabase,affected.map(item=>item.id),target+1);
   const project=normalizeProject(input,target);
   if(!project.slug||!project.title||!project.category) throw new Error("Title, slug, and category are required.");

@@ -12,7 +12,7 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 901px) and (pointer: fine)");
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
     const update = () => setIsDesktop(mediaQuery.matches);
 
     update();

@@ -27,6 +27,7 @@ export function CredentialsShowcase({
   const [autoPeekIndex, setAutoPeekIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState<"next" | "prev" | null>(null);
+  const [swipeOut, setSwipeOut] = useState<"next" | "prev" | null>(null);
   const touchStartX = useRef<number | null>(null);
   const reducedMotion = useReducedMotion();
   const credentialCount = formalCertifications.length;
@@ -89,14 +90,31 @@ export function CredentialsShowcase({
 
   const peekIndex = hoveredIndex ?? autoPeekIndex;
 
-  const selectCredential = (index: number, direction?: "next" | "prev") => {
+  const selectCredential = (index: number) => {
+    if (index < 0 || index >= formalCertifications.length || index === activeIndex) {
+      return;
+    }
     setActiveIndex(index);
     setHoveredIndex(null);
     setAutoPeekIndex(null);
-    if (isMobile) {
-      setSwipeDirection(direction ?? null);
-      window.setTimeout(() => setSwipeDirection(null), 360);
-    }
+  };
+
+  const swipeTo = (direction: "next" | "prev") => {
+    if (!isMobile || formalCertifications.length < 2 || swipeOut) return;
+
+    const nextIndex =
+      direction === "next" ? activeIndex + 1 : activeIndex - 1;
+
+    if (nextIndex < 0 || nextIndex >= formalCertifications.length) return;
+
+    setSwipeDirection(direction);
+    setSwipeOut(direction);
+
+    window.setTimeout(() => {
+      setActiveIndex(nextIndex);
+      setSwipeOut(null);
+      setSwipeDirection(null);
+    }, 280);
   };
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
@@ -116,13 +134,9 @@ export function CredentialsShowcase({
     if (Math.abs(deltaX) < 45) return;
 
     if (deltaX < 0) {
-      const next = (activeIndex + 1) % formalCertifications.length;
-      selectCredential(next, "next");
+      swipeTo("next");
     } else {
-      const previous =
-        (activeIndex - 1 + formalCertifications.length) %
-        formalCertifications.length;
-      selectCredential(previous, "prev");
+      swipeTo("prev");
     }
   };
 
@@ -171,12 +185,10 @@ export function CredentialsShowcase({
                 initial={false}
                 animate={{
                   x: isMobile
-                    ? isActive
-                      ? swipeDirection === "next"
-                        ? 0
-                        : swipeDirection === "prev"
-                          ? 0
-                          : 0
+                    ? isActive && swipeOut
+                      ? swipeOut === "next"
+                        ? -360
+                        : 360
                       : 0
                     : isActive
                       ? 0
@@ -185,7 +197,9 @@ export function CredentialsShowcase({
                         : restingX,
                   y: isMobile
                     ? isActive
-                      ? 0
+                      ? swipeOut
+                        ? 8
+                        : 0
                       : isPeeking
                         ? 14
                         : 20 + Math.min(depth, 3) * 8
@@ -196,7 +210,7 @@ export function CredentialsShowcase({
                   scale: isMobile ? 1 : isActive ? 1 : 0.975,
                 }}
                 transition={{
-                  duration: isPeeking ? 0.72 : 0.58,
+                  duration: swipeOut ? 0.28 : isPeeking ? 0.72 : 0.58,
                   ease,
                 }}
                 onHoverStart={() => {
@@ -208,7 +222,7 @@ export function CredentialsShowcase({
                   );
                 }}
                 onClick={() => {
-                  selectCredential(index);
+                  if (!isMobile) selectCredential(index);
                 }}
                 aria-pressed={isActive}
               >
@@ -252,11 +266,44 @@ export function CredentialsShowcase({
         </div>
 
         {formalCertifications.length > 1 && (
-          <p className="credential-deck-hint">
-            {isMobile
-              ? "Swipe left or right to switch · tap to select"
-              : "Hover the exposed edge to preview · click or tap to select"}
-          </p>
+          <>
+            <div className="credential-deck-position" aria-label="Credential position">
+              <button
+                type="button"
+                className="credential-deck-nav"
+                onClick={() => (isMobile ? swipeTo("prev") : selectCredential(activeIndex - 1))}
+                disabled={activeIndex === 0 || !!swipeOut}
+                aria-label="Previous certificate"
+              >
+                ‹
+              </button>
+              <span className="credential-deck-position-label">
+                CERTIFICATE {String(activeIndex + 1).padStart(2, "0")} / {String(formalCertifications.length).padStart(2, "0")}
+              </span>
+              <div className="credential-deck-progress" aria-hidden="true">
+                {formalCertifications.map((_, index) => (
+                  <span
+                    key={index}
+                    className={index === activeIndex ? "is-active" : ""}
+                  />
+                ))}
+              </div>
+              <button
+                type="button"
+                className="credential-deck-nav"
+                onClick={() => (isMobile ? swipeTo("next") : selectCredential(activeIndex + 1))}
+                disabled={activeIndex === formalCertifications.length - 1 || !!swipeOut}
+                aria-label="Next certificate"
+              >
+                ›
+              </button>
+            </div>
+            <p className="credential-deck-hint">
+              {isMobile
+                ? "Swipe left or right to move through certificates"
+                : "Hover the exposed edge to preview · click or tap to select"}
+            </p>
+          </>
         )}
       </div>
 

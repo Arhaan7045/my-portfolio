@@ -283,7 +283,7 @@ export function CredentialsShowcase({
                 type="button"
                 className="credential-deck-nav"
                 onClick={() => (isMobile ? swipeTo("prev") : selectCredential(activeIndex - 1))}
-                disabled={activeIndex === 0 || !!swipeOut}
+                disabled={activeIndex === 0 || !outgoingIndex === null}
                 aria-label="Previous certificate"
               >
                 ‹
@@ -303,7 +303,7 @@ export function CredentialsShowcase({
                 type="button"
                 className="credential-deck-nav"
                 onClick={() => (isMobile ? swipeTo("next") : selectCredential(activeIndex + 1))}
-                disabled={activeIndex === formalCertifications.length - 1 || !!swipeOut}
+                disabled={activeIndex === formalCertifications.length - 1 || !outgoingIndex === null}
                 aria-label="Next certificate"
               >
                 ›

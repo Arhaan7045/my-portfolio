@@ -331,7 +331,8 @@ section[id],
   font-weight: 600;
   letter-spacing: -.045em;
   line-height: 1.08;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  text-wrap: balance;
 }
 
 .project-card-description {
@@ -464,6 +465,7 @@ section[id],
 
   .project-card:hover .project-card-details-shell {
     max-height: 18rem;
+    transition-delay: 110ms;
   }
 
   .project-card:hover .project-card-details {
@@ -472,7 +474,7 @@ section[id],
     border-top-color: var(--line);
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 70ms, 70ms, 0ms, 0ms;
+    transition-delay: 80ms, 80ms, 0ms, 0ms;
   }
 
   .project-card:hover .project-card-toggle {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type TouchEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 type Certification = {
@@ -31,7 +31,6 @@ export function CredentialsShowcase({
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
   const touchActive = useRef(false);
-  const pointerActive = useRef(false);
   const reducedMotion = useReducedMotion();
   const credentialCount = formalCertifications.length;
 
@@ -57,11 +56,8 @@ export function CredentialsShowcase({
       return;
     }
 
-    // On mobile, reveal the first archived edge immediately so the stack
-    // communicates that it is interactive without waiting for the timer.
     if (isMobile) {
-      const firstPeek = activeIndex === 0 ? 1 : 0;
-      setAutoPeekIndex(firstPeek);
+      setAutoPeekIndex(activeIndex === 0 ? 1 : 0);
     }
 
     let nextCandidate = 0;
@@ -79,7 +75,6 @@ export function CredentialsShowcase({
       setAutoPeekIndex(candidate);
 
       if (resetTimer) clearTimeout(resetTimer);
-
       resetTimer = setTimeout(() => {
         setAutoPeekIndex((current) => (current === candidate ? null : current));
       }, PEEK_DURATION);
@@ -89,7 +84,7 @@ export function CredentialsShowcase({
       clearInterval(interval);
       if (resetTimer) clearTimeout(resetTimer);
     };
-  }, [activeIndex, formalCertifications.length, reducedMotion]);
+  }, [activeIndex, formalCertifications.length, reducedMotion, isMobile]);
 
   const peekIndex = hoveredIndex ?? autoPeekIndex;
 
@@ -103,13 +98,11 @@ export function CredentialsShowcase({
   };
 
   const swipeTo = (direction: "next" | "prev") => {
-    if (!isMobile || formalCertifications.length < 2 || outgoingIndex !== null) {
+    if (formalCertifications.length < 2 || outgoingIndex !== null) {
       return;
     }
 
-    const nextIndex =
-      direction === "next" ? activeIndex + 1 : activeIndex - 1;
-
+    const nextIndex = direction === "next" ? activeIndex + 1 : activeIndex - 1;
     if (nextIndex < 0 || nextIndex >= formalCertifications.length) return;
 
     setSwipeDirection(direction);
@@ -124,43 +117,45 @@ export function CredentialsShowcase({
     }, 360);
   };
 
-  const resetGesture = () => {
-    pointerActive.current = false;
+  const resetTouch = () => {
+    touchActive.current = false;
     touchStartX.current = null;
     touchStartY.current = null;
   };
 
-  const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    if (!isMobile || formalCertifications.length < 2 || event.pointerType === "mouse") {
-      return;
-    }
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    if (!isMobile || formalCertifications.length < 2) return;
 
-    pointerActive.current = true;
-    touchStartX.current = event.clientX;
-    touchStartY.current = event.clientY;
-    try {
-      event.currentTarget.setPointerCapture(event.pointerId);
-    } catch {
-      // Pointer capture is optional.
-    }
+    const touch = event.touches[0];
+    if (!touch) return;
+
+    touchActive.current = true;
+    touchStartX.current = touch.clientX;
+    touchStartY.current = touch.clientY;
   };
 
-  const handlePointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
+  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
     if (
       !isMobile ||
       formalCertifications.length < 2 ||
-      !pointerActive.current ||
-      touchStartX.current === null ||
-      event.pointerType === "mouse"
+      !touchActive.current ||
+      touchStartX.current === null
     ) {
+      resetTouch();
       return;
     }
 
-    const deltaX = event.clientX - touchStartX.current;
-    const deltaY = event.clientY - (touchStartY.current ?? event.clientY);
-    resetGesture();
+    const touch = event.changedTouches[0];
+    if (!touch) {
+      resetTouch();
+      return;
+    }
 
-    if (Math.abs(deltaX) < 35 || Math.abs(deltaX) < Math.abs(deltaY)) {
+    const deltaX = touch.clientX - touchStartX.current;
+    const deltaY = touch.clientY - (touchStartY.current ?? touch.clientY);
+    resetTouch();
+
+    if (Math.abs(deltaX) < 45 || Math.abs(deltaX) <= Math.abs(deltaY)) {
       return;
     }
 
@@ -186,9 +181,9 @@ export function CredentialsShowcase({
         <div
           className="credential-deck"
           aria-label="Formal certifications"
-          onPointerDown={handlePointerDown}
-          onPointerUp={handlePointerUp}
-          onPointerCancel={resetGesture}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onTouchCancel={resetTouch}
         >
           {formalCertifications.map((certification, index) => {
             const isActive = activeIndex === index;

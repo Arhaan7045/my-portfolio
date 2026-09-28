@@ -2,7 +2,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { ProjectCard } from "@/components/project-card";
 import { SiteHeader } from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import {
   contactLinks,
 } from "@/data/portfolio";
@@ -10,7 +10,7 @@ import {
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
 
   const [
     { data: projects },

@@ -3170,3 +3170,121 @@ section[id],
     transition: none !important;
   }
 }
+
+
+/* ─── Credential deck navigation / position system ─── */
+.credential-deck-position {
+  position: absolute;
+  right: 1rem;
+  bottom: 2.65rem;
+  left: 1rem;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  pointer-events: none;
+}
+
+.credential-deck-position-label {
+  font-size: .46rem;
+  letter-spacing: .12em;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.credential-deck-nav {
+  width: 1.45rem;
+  height: 1.45rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(190, 164, 255, .18);
+  background: rgba(16, 14, 25, .72);
+  color: var(--foreground);
+  font: inherit;
+  font-size: .9rem;
+  line-height: 1;
+  pointer-events: auto;
+  transition: opacity .2s ease, border-color .2s ease;
+}
+
+.credential-deck-nav:hover:not(:disabled) {
+  border-color: rgba(190, 164, 255, .42);
+}
+
+.credential-deck-nav:disabled {
+  opacity: .25;
+  cursor: default;
+}
+
+.credential-deck-progress {
+  display: flex;
+  align-items: center;
+  gap: .22rem;
+  max-width: 7rem;
+  overflow: hidden;
+}
+
+.credential-deck-progress span {
+  display: block;
+  width: .65rem;
+  height: 1px;
+  background: rgba(190, 164, 255, .18);
+  transition: width .3s ease, background .3s ease;
+}
+
+.credential-deck-progress span.is-active {
+  width: 1.2rem;
+  background: rgba(210, 194, 255, .8);
+}
+
+.credential-deck-card:not(.is-active) .credential-deck-copy,
+.credential-deck-card:not(.is-active) .credential-deck-bottom {
+  opacity: .2;
+}
+
+.credential-deck-card:not(.is-active) .credential-deck-core {
+  opacity: .62;
+}
+
+@media (max-width: 760px) {
+  .credential-deck-position {
+    right: .7rem;
+    bottom: 2.95rem;
+    left: .7rem;
+    gap: .5rem;
+  }
+
+  .credential-deck-position-label {
+    font-size: .42rem;
+    letter-spacing: .09em;
+  }
+
+  .credential-deck-nav {
+    width: 1.3rem;
+    height: 1.3rem;
+    font-size: .78rem;
+  }
+
+  .credential-deck-progress {
+    gap: .16rem;
+    max-width: 5rem;
+  }
+
+  .credential-deck-progress span {
+    width: .42rem;
+  }
+
+  .credential-deck-progress span.is-active {
+    width: .8rem;
+  }
+
+  .credential-deck-card:not(.is-active) .credential-deck-copy,
+  .credential-deck-card:not(.is-active) .credential-deck-bottom {
+    opacity: .08;
+  }
+
+  .credential-deck-card:not(.is-active) .credential-deck-core {
+    opacity: .45;
+  }
+}

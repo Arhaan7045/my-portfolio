@@ -615,19 +615,27 @@ section[id],
 
 .credential-deck-wrap {
   position: relative;
-  min-height: 27rem;
+  min-height: 29rem;
   overflow: hidden;
   border: 1px solid var(--line);
   background:
-    radial-gradient(circle at 78% 28%, rgba(150,108,242,.14), transparent 19rem),
-    linear-gradient(145deg, rgba(150,108,242,.05), transparent 58%),
+    radial-gradient(circle at 78% 24%, rgba(150,108,242,.13), transparent 20rem),
+    linear-gradient(145deg, rgba(150,108,242,.055), transparent 58%),
     var(--surface);
+}
+
+.credential-deck-wrap::before {
+  position: absolute;
+  inset: 3.25rem 1rem 2.5rem;
+  border: 1px solid rgba(208,185,255,.045);
+  content: "";
+  pointer-events: none;
 }
 
 .credential-deck-label {
   position: absolute;
-  z-index: 30;
-  top: 1.2rem;
+  z-index: 40;
+  top: 1.15rem;
   right: 1.35rem;
   left: 1.35rem;
   display: flex;
@@ -646,7 +654,7 @@ section[id],
 
 .credential-deck {
   position: absolute;
-  inset: 3.4rem 0 2.6rem;
+  inset: 3.75rem 0 2.55rem;
 }
 
 .credential-deck-card {
@@ -654,18 +662,18 @@ section[id],
   top: 0;
   left: 50%;
   display: block;
-  width: min(42rem, 72%);
-  height: calc(100% - 1rem);
-  margin: 0 0 0 calc(-1 * min(21rem, 36%));
-  padding: 1.4rem 1.5rem;
+  width: min(46rem, 76%);
+  height: calc(100% - .55rem);
+  margin: 0 0 0 calc(-1 * min(23rem, 38%));
+  padding: 1.3rem 1.5rem;
   border: 1px solid rgba(208,185,255,.22);
   border-radius: 2px;
   color: inherit;
   background:
-    linear-gradient(145deg, rgba(150,108,242,.095), transparent 52%),
+    linear-gradient(135deg, rgba(150,108,242,.075), transparent 54%),
     #11101a;
   box-shadow:
-    0 1.6rem 3.5rem rgba(0,0,0,.25),
+    0 1.5rem 3.2rem rgba(0,0,0,.24),
     inset 0 0 0 1px rgba(255,255,255,.018);
   text-align: left;
   font: inherit;
@@ -673,27 +681,40 @@ section[id],
   transform-origin: center center;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
 }
 
 .credential-deck-card::before {
   position: absolute;
   inset: .55rem;
-  border: 1px solid rgba(208,185,255,.06);
+  border: 1px solid rgba(208,185,255,.065);
   content: "";
   pointer-events: none;
+}
+
+.credential-deck-card::after {
+  position: absolute;
+  right: -5rem;
+  bottom: -6rem;
+  width: 15rem;
+  height: 15rem;
+  border: 1px solid rgba(208,185,255,.055);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.credential-deck-card.is-active {
+  border-color: rgba(208,185,255,.3);
+  box-shadow:
+    0 1.7rem 3.8rem rgba(0,0,0,.3),
+    0 0 2.2rem rgba(150,108,242,.055),
+    inset 0 0 0 1px rgba(255,255,255,.024);
 }
 
 .credential-deck-card:focus-visible {
   outline: 2px solid var(--lavender);
   outline-offset: 3px;
-}
-
-.credential-deck-card.is-focused {
-  border-color: rgba(208,185,255,.34);
-  box-shadow:
-    0 1.8rem 4rem rgba(0,0,0,.32),
-    0 0 2rem rgba(150,108,242,.07),
-    inset 0 0 0 1px rgba(255,255,255,.025);
 }
 
 .credential-deck-top,
@@ -703,9 +724,9 @@ section[id],
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  color: rgba(208,185,255,.5);
+  color: rgba(208,185,255,.52);
   font-family: var(--font-geist-mono), monospace;
-  font-size: .52rem;
+  font-size: .55rem;
   letter-spacing: .08em;
   text-transform: uppercase;
 }
@@ -719,58 +740,62 @@ section[id],
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 2.6rem minmax(0,1fr);
+  grid-template-columns: 2.65rem minmax(0,1fr);
   gap: 1.2rem;
   align-items: start;
-  margin-top: 4.2rem;
-  max-width: 38rem;
+  margin-top: 3rem;
+  max-width: 43rem;
 }
 
 .credential-deck-mark {
   display: grid;
   place-items: center;
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 2.65rem;
+  height: 2.65rem;
   border: 1px solid rgba(208,185,255,.22);
   color: var(--lavender);
-  background: rgba(150,108,242,.06);
+  background: rgba(150,108,242,.055);
   font-size: .95rem;
+}
+
+.credential-deck-copy {
+  min-width: 0;
 }
 
 .credential-deck-issuer {
   display: block;
   margin-bottom: .55rem;
-  color: rgba(208,185,255,.48);
+  color: rgba(208,185,255,.5);
   font-family: var(--font-geist-mono), monospace;
-  font-size: .54rem;
+  font-size: .55rem;
   letter-spacing: .08em;
   text-transform: uppercase;
 }
 
 .credential-deck-title {
   display: block;
-  max-width: 34rem;
+  max-width: 40rem;
   color: var(--text);
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
   font-weight: 600;
   letter-spacing: -.045em;
-  line-height: 1.02;
+  line-height: 1.04;
   text-wrap: balance;
 }
 
 .credential-deck-description {
   display: block;
-  max-width: 34rem;
-  margin-top: .9rem;
+  max-width: 40rem;
+  margin-top: .85rem;
   color: var(--muted);
-  font-size: .8rem;
+  font-size: .82rem;
   line-height: 1.65;
 }
 
 .credential-deck-bottom {
   position: absolute;
   right: 1.5rem;
-  bottom: 1.35rem;
+  bottom: 1.25rem;
   left: 1.5rem;
   padding-top: .8rem;
   border-top: 1px solid rgba(208,185,255,.1);
@@ -778,14 +803,14 @@ section[id],
 
 .credential-deck-hint {
   position: absolute;
-  z-index: 30;
+  z-index: 40;
   right: 1.35rem;
-  bottom: .75rem;
+  bottom: .72rem;
   margin: 0;
   color: rgba(208,185,255,.38);
   font-family: var(--font-geist-mono), monospace;
   font-size: .48rem;
-  letter-spacing: .06em;
+  letter-spacing: .055em;
   text-transform: uppercase;
 }
 
@@ -799,9 +824,12 @@ section[id],
 
 @media (max-width: 760px) {
   .credential-deck-wrap {
-    min-height: 0;
-    overflow: hidden;
-    padding-bottom: .85rem;
+    min-height: 22rem;
+    padding-bottom: 2.25rem;
+  }
+
+  .credential-deck-wrap::before {
+    inset: 3.2rem .65rem 3.6rem;
   }
 
   .credential-deck-label {
@@ -809,32 +837,25 @@ section[id],
     top: auto;
     right: auto;
     left: auto;
-    padding: 1.1rem 1.1rem 0;
+    padding: 1.05rem 1.1rem 0;
   }
 
   .credential-deck {
-    position: relative;
-    inset: auto;
-    display: grid;
-    gap: .75rem;
-    margin: 2.5rem 1rem 0;
+    position: absolute;
+    inset: 3.65rem .85rem 3.45rem;
   }
 
   .credential-deck-card {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: 100%;
-    height: auto;
-    min-height: 15rem;
-    margin: 0;
-    padding: 1.1rem;
+    width: calc(100% - 2rem);
+    height: calc(100% - .35rem);
+    margin: 0 0 0 1rem;
+    padding: 1.05rem 1.1rem;
   }
 
   .credential-deck-core {
     grid-template-columns: 2.25rem minmax(0,1fr);
     gap: .85rem;
-    margin-top: 2.8rem;
+    margin-top: 2.35rem;
   }
 
   .credential-deck-mark {
@@ -843,24 +864,27 @@ section[id],
   }
 
   .credential-deck-title {
-    font-size: 1.4rem;
+    font-size: 1.38rem;
+    line-height: 1.08;
   }
 
   .credential-deck-description {
-    font-size: .76rem;
+    margin-top: .7rem;
+    font-size: .75rem;
+    line-height: 1.55;
   }
 
   .credential-deck-bottom {
     right: 1.1rem;
-    bottom: 1.1rem;
+    bottom: 1rem;
     left: 1.1rem;
   }
 
   .credential-deck-hint {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    margin: .8rem 1.1rem 0;
+    right: 1.1rem;
+    bottom: .75rem;
+    left: 1.1rem;
+    font-size: .45rem;
   }
 }
 

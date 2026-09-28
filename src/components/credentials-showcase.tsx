@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 type Certification = {
@@ -87,7 +87,7 @@ export function CredentialsShowcase({
           style={
             {
               "--credential-count": Math.max(credentialCount, 1),
-            } as React.CSSProperties
+            } as CSSProperties
           }
         >
           {formalCertifications.map((certification, index) => {

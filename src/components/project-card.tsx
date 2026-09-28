@@ -35,7 +35,7 @@ export function ProjectCard({
 
   return (
     <article
-      className={`project-card reveal${isOpen ? " is-open" : ""}`}
+      className={`project-card${isOpen ? " is-open" : ""}`}
       onPointerEnter={(event) => {
         if (isDesktop && event.pointerType === "mouse") onOpen();
       }}
@@ -48,18 +48,7 @@ export function ProjectCard({
         className="project-card-summary"
         aria-expanded={isOpen}
         aria-controls={detailsId}
-        onPointerUp={(event) => {
-          if (event.pointerType !== "mouse") {
-            event.preventDefault();
-            onToggle();
-          }
-        }}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            onToggle();
-          }
-        }}
+        onClick={onToggle}
       >
         <span className="project-card-meta">
           <span>0{index + 1}</span>

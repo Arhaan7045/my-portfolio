@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { AdminConfirmDialog } from "@/components/admin-confirm-dialog";
 import {
   createExperience,
   deleteExperience,
@@ -62,6 +63,7 @@ export function ExperienceManager({ experience }: { experience: Experience[] }) 
   const [form, setForm] = useState<ExperienceFormState>(emptyForm);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [pendingDelete, setPendingDelete] = useState<Experience | null>(null);
 
   function resetForm() {
     setEditingId(null);
@@ -114,16 +116,17 @@ export function ExperienceManager({ experience }: { experience: Experience[] }) 
     }
   }
 
-  async function handleDelete(item: Experience) {
-    if (!window.confirm(`Delete “${item.title}” at ${item.organization}? This cannot be undone.`)) {
-      return;
-    }
+  function requestDelete(item: Experience) {
+    setPendingDelete(item);
+  }
 
+  async function handleDeleteConfirmed() {
+    if (!pendingDelete) return;
     setBusy(true);
     setError("");
-
     try {
-      await deleteExperience(item.id);
+      await deleteExperience(pendingDelete.id);
+      setPendingDelete(null);
       window.location.reload();
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "Something went wrong.");
@@ -320,7 +323,7 @@ export function ExperienceManager({ experience }: { experience: Experience[] }) 
                 <button
                   className="admin-danger-action"
                   type="button"
-                  onClick={() => handleDelete(item)}
+                  onClick={() => requestDelete(item)}
                   disabled={busy}
                 >
                   DELETE
@@ -330,6 +333,14 @@ export function ExperienceManager({ experience }: { experience: Experience[] }) 
           ))}
         </div>
       )}
+      <AdminConfirmDialog
+        open={Boolean(pendingDelete)}
+        title={pendingDelete ? `Delete “${pendingDelete.title}”?` : "Delete experience?"}
+        description={pendingDelete ? `This will permanently remove the ${pendingDelete.title} record and close its position in the experience order. This action cannot be undone.` : ""}
+        busy={busy}
+        onCancel={() => setPendingDelete(null)}
+        onConfirm={handleDeleteConfirmed}
+      />
     </section>
   );
 }

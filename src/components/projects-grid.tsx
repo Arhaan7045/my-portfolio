@@ -20,22 +20,20 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
     return () => mediaQuery.removeEventListener("change", update);
   }, []);
 
-  useEffect(() => {
-    if (!isDesktop) setOpenIndex(null);
-  }, [isDesktop]);
-
   return (
     <div className="projects-grid">
       {projects.map((project, index) => (
         <ProjectCard
-          key={project.title}
+          key={project.slug}
           project={project}
           index={index}
           isOpen={openIndex === index}
           isDesktop={isDesktop}
           onOpen={() => setOpenIndex(index)}
           onClose={() => setOpenIndex(null)}
-          onToggle={() => setOpenIndex(openIndex === index ? null : index)}
+          onToggle={() =>
+            setOpenIndex((current) => (current === index ? null : index))
+          }
         />
       ))}
     </div>

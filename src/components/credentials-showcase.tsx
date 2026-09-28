@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties, type TouchEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 type Certification = {
@@ -26,29 +26,60 @@ export function CredentialsShowcase({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [autoPeekIndex, setAutoPeekIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState<"next" | "prev" | null>(null);
   const [outgoingIndex, setOutgoingIndex] = useState<number | null>(null);
-  const touchStartX = useRef<number | null>(null);
-  const touchStartY = useRef<number | null>(null);
-  const touchActive = useRef(false);
+  const deckRef = useRef<HTMLDivElement | null>(null);
   const reducedMotion = useReducedMotion();
   const credentialCount = formalCertifications.length;
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 760px)");
-    const updateViewport = () => setIsMobile(mediaQuery.matches);
-    const updateTouch = () => {
-      setIsTouchDevice(
-        navigator.maxTouchPoints > 0 ||
-        window.matchMedia("(pointer: coarse)").matches,
-      );
+    const deck = deckRef.current;
+    if (!deck) return;
+
+    let startX = 0;
+    let startY = 0;
+
+    const handleTouchStart = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (!touch) return;
+      startX = touch.clientX;
+      startY = touch.clientY;
     };
-    updateViewport();
-    updateTouch();
-    mediaQuery.addEventListener("change", updateViewport);
-    return () => mediaQuery.removeEventListener("change", updateViewport);
-  }, []);
+
+    const handleTouchEnd = (event: TouchEvent) => {
+      const touch = event.changedTouches[0];
+      if (!touch || formalCertifications.length < 2) return;
+
+      const deltaX = touch.clientX - startX;
+      const deltaY = touch.clientY - startY;
+
+      if (Math.abs(deltaX) < 45 || Math.abs(deltaX) <= Math.abs(deltaY)) {
+        return;
+      }
+
+      const nextIndex = deltaX < 0 ? activeIndex + 1 : activeIndex - 1;
+      if (nextIndex < 0 || nextIndex >= formalCertifications.length) return;
+
+      setSwipeDirection(deltaX < 0 ? "next" : "prev");
+      setOutgoingIndex(activeIndex);
+      setActiveIndex(nextIndex);
+      setHoveredIndex(null);
+      setAutoPeekIndex(null);
+
+      window.setTimeout(() => {
+        setOutgoingIndex(null);
+        setSwipeDirection(null);
+      }, 360);
+    };
+
+    deck.addEventListener("touchstart", handleTouchStart, { passive: true });
+    deck.addEventListener("touchend", handleTouchEnd, { passive: true });
+
+    return () => {
+      deck.removeEventListener("touchstart", handleTouchStart);
+      deck.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [activeIndex, formalCertifications.length]);
 
   useEffect(() => {
     setActiveIndex((current) =>
@@ -104,71 +135,6 @@ export function CredentialsShowcase({
     setHoveredIndex(null);
     setAutoPeekIndex(null);
   };
-
-  const swipeTo = (direction: "next" | "prev") => {
-    if (formalCertifications.length < 2 || outgoingIndex !== null) {
-      return;
-    }
-
-    const nextIndex = direction === "next" ? activeIndex + 1 : activeIndex - 1;
-    if (nextIndex < 0 || nextIndex >= formalCertifications.length) return;
-
-    setSwipeDirection(direction);
-    setOutgoingIndex(activeIndex);
-    setActiveIndex(nextIndex);
-    setHoveredIndex(null);
-    setAutoPeekIndex(null);
-
-    window.setTimeout(() => {
-      setOutgoingIndex(null);
-      setSwipeDirection(null);
-    }, 360);
-  };
-
-  const resetTouch = () => {
-    touchActive.current = false;
-    touchStartX.current = null;
-    touchStartY.current = null;
-  };
-
-  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
-    if (!isTouchDevice || formalCertifications.length < 2) return;
-
-    const touch = event.touches[0];
-    if (!touch) return;
-
-    touchActive.current = true;
-    touchStartX.current = touch.clientX;
-    touchStartY.current = touch.clientY;
-  };
-
-  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
-    if (
-      !isTouchDevice ||
-      formalCertifications.length < 2 ||
-      !touchActive.current ||
-      touchStartX.current === null
-    ) {
-      resetTouch();
-      return;
-    }
-
-    const touch = event.changedTouches[0];
-    if (!touch) {
-      resetTouch();
-      return;
-    }
-
-    const deltaX = touch.clientX - touchStartX.current;
-    const deltaY = touch.clientY - (touchStartY.current ?? touch.clientY);
-    resetTouch();
-
-    if (Math.abs(deltaX) < 45 || Math.abs(deltaX) <= Math.abs(deltaY)) {
-      return;
-    }
-
-    swipeTo(deltaX < 0 ? "next" : "prev");
-  };
   return (
     <div className="credentials-showcase reveal">
       <div
@@ -187,11 +153,9 @@ export function CredentialsShowcase({
         </div>
 
         <div
+          ref={deckRef}
           className="credential-deck"
           aria-label="Formal certifications"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          onTouchCancel={resetTouch}
         >
           {formalCertifications.map((certification, index) => {
             const isActive = activeIndex === index;
@@ -336,7 +300,7 @@ export function CredentialsShowcase({
               </button>
             </div>
             <p className="credential-deck-hint">
-              {isTouchDevice
+              {isMobile
                 ? "Swipe left or right to move through certificates"
                 : "Hover the exposed edge to preview · click or tap to select"}
             </p>

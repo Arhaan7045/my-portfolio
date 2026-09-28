@@ -31,17 +31,35 @@ export function ProjectCard({
   onClose,
   onToggle,
 }: ProjectCardProps) {
+  const detailsId = `project-documentation-${index}`;
+
   return (
     <article
       className={`project-card reveal${isOpen ? " is-open" : ""}`}
-      onMouseEnter={isDesktop ? onOpen : undefined}
-      onMouseLeave={isDesktop ? onClose : undefined}
+      onPointerEnter={(event) => {
+        if (isDesktop && event.pointerType === "mouse") onOpen();
+      }}
+      onPointerLeave={(event) => {
+        if (isDesktop && event.pointerType === "mouse") onClose();
+      }}
     >
       <button
         type="button"
         className="project-card-summary"
         aria-expanded={isOpen}
-        onClick={onToggle}
+        aria-controls={detailsId}
+        onPointerUp={(event) => {
+          if (event.pointerType !== "mouse") {
+            event.preventDefault();
+            onToggle();
+          }
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            onToggle();
+          }
+        }}
       >
         <span className="project-card-meta">
           <span>0{index + 1}</span>
@@ -53,7 +71,6 @@ export function ProjectCard({
             <span className="project-card-category">{project.category}</span>
             <span className="project-card-title">{project.title}</span>
           </span>
-
           <span className="project-card-toggle" aria-hidden="true">
             <span>+</span>
           </span>
@@ -68,7 +85,11 @@ export function ProjectCard({
         </span>
       </button>
 
-      <div className="project-card-details-shell" aria-hidden={!isOpen}>
+      <div
+        id={detailsId}
+        className="project-card-details-shell"
+        aria-hidden={!isOpen}
+      >
         <div className="project-card-details">
           <span>PROJECT DOCUMENTATION</span>
           <p>{project.details}</p>

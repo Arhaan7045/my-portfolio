@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "motion/react";
 
 type Certification = {
@@ -14,25 +14,13 @@ type CredentialsShowcaseProps = {
   virtualExperiences: Certification[];
 };
 
-const ease = [0.16, 1, 0.3, 1] as const;
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export function CredentialsShowcase({
   formalCertifications,
   virtualExperiences,
 }: CredentialsShowcaseProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [isCompact, setIsCompact] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia("(max-width: 760px)");
-    const update = () => setIsCompact(media.matches);
-    update();
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
-
-  const focusedIndex = hoveredIndex ?? activeIndex;
 
   return (
     <div className="credentials-showcase reveal">
@@ -42,60 +30,26 @@ export function CredentialsShowcase({
           <span>ARCHIVE / {String(formalCertifications.length).padStart(2, "0")}</span>
         </div>
 
-        <div
-          className="credential-deck"
-          aria-label="Formal certifications"
-          onMouseLeave={() => setHoveredIndex(null)}
-        >
+        <div className="credential-deck" aria-label="Formal certifications">
           {formalCertifications.map((certification, index) => {
-            const isFocused = focusedIndex === index;
-            const isBehind = index !== focusedIndex;
-
-            let x = 0;
-            let rotate = 0;
-            let scale = 1;
-            let y = 0;
-
-            if (!isCompact && formalCertifications.length > 1) {
-              if (index === focusedIndex) {
-                x = 0;
-                rotate = 0;
-                scale = 1;
-                y = -4;
-              } else if (index < focusedIndex) {
-                x = -30 - (focusedIndex - index) * 5;
-                rotate = -4 - (focusedIndex - index) * 1.5;
-                scale = 0.96;
-                y = 12 + (focusedIndex - index) * 4;
-              } else {
-                x = 30 + (index - focusedIndex) * 5;
-                rotate = 4 + (index - focusedIndex) * 1.5;
-                scale = 0.96;
-                y = 12 + (index - focusedIndex) * 4;
-              }
-            }
+            const isActive = activeIndex === index;
+            const offset = index - activeIndex;
 
             return (
               <motion.button
                 type="button"
                 key={certification.title + "-" + index}
-                className={`credential-deck-card credential-deck-card-${index}${isFocused ? " is-focused" : ""}`}
-                style={{ zIndex: isFocused ? 20 : 10 - index }}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, amount: 0.2 }}
-                animate={{ x: `${x}%`, y, rotate, scale }}
-                transition={{
-                  opacity: { duration: 0.45, delay: index * 0.08, ease },
-                  x: { duration: 0.65, ease },
-                  y: { duration: 0.65, ease },
-                  rotate: { duration: 0.65, ease },
-                  scale: { duration: 0.65, ease },
+                className={`credential-deck-card${isActive ? " is-active" : ""}`}
+                style={{ zIndex: isActive ? 20 : 10 - Math.abs(offset) }}
+                animate={{
+                  x: isActive ? 0 : offset > 0 ? 34 : -34,
+                  y: isActive ? 0 : 14 + Math.abs(offset) * 5,
+                  rotate: isActive ? 0 : offset > 0 ? 2.4 : -2.4,
+                  scale: isActive ? 1 : 0.965,
                 }}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onFocus={() => setHoveredIndex(index)}
+                transition={{ duration: 0.52, ease }}
                 onClick={() => setActiveIndex(index)}
-                aria-pressed={activeIndex === index}
+                aria-pressed={isActive}
               >
                 <span className="credential-deck-top">
                   <span>FORMAL CREDENTIAL</span>
@@ -103,40 +57,30 @@ export function CredentialsShowcase({
                 </span>
 
                 <span className="credential-deck-core">
-                  <span className="credential-deck-mark" aria-hidden="true">
-                    ✦
-                  </span>
+                  <span className="credential-deck-mark" aria-hidden="true">✦</span>
                   <span>
-                    <span className="credential-deck-issuer">
-                      {certification.issuer}
-                    </span>
-                    <span className="credential-deck-title">
-                      {certification.title}
-                    </span>
-                    <span className="credential-deck-description">
-                      {certification.description}
-                    </span>
+                    <span className="credential-deck-issuer">{certification.issuer}</span>
+                    <span className="credential-deck-title">{certification.title}</span>
+                    <span className="credential-deck-description">{certification.description}</span>
                   </span>
                 </span>
 
                 <span className="credential-deck-bottom">
-                  <span>VERIFIED LEARNING</span>
-                  <span>{isFocused ? "ACTIVE" : "VIEW"}</span>
+                  <span>{isActive ? "SELECTED CREDENTIAL" : "ARCHIVED CREDENTIAL"}</span>
+                  <span>{isActive ? "ACTIVE" : "OPEN"}</span>
                 </span>
               </motion.button>
             );
           })}
 
           {formalCertifications.length === 0 && (
-            <div className="credential-deck-empty">
-              No formal credentials published yet.
-            </div>
+            <div className="credential-deck-empty">No formal credentials published yet.</div>
           )}
         </div>
 
-        <p className="credential-deck-hint">
-          Hover or select a credential to browse the archive.
-        </p>
+        {formalCertifications.length > 1 && (
+          <p className="credential-deck-hint">Click or tap a credential to bring it forward.</p>
+        )}
       </div>
 
       <div className="virtual-experience-card">
@@ -144,7 +88,6 @@ export function CredentialsShowcase({
           <span>VIRTUAL EXPERIENCE</span>
           <span>FORAGE / JOB SIMULATIONS</span>
         </div>
-
         <div className="virtual-experience-list">
           {virtualExperiences.map((item, index) => (
             <motion.article
@@ -153,11 +96,7 @@ export function CredentialsShowcase({
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.45,
-                delay: index * 0.06,
-                ease,
-              }}
+              transition={{ duration: 0.45, delay: index * 0.06, ease }}
             >
               <span className="virtual-experience-index">0{index + 1}</span>
               <div>

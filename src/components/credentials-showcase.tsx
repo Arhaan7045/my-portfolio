@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 
 type Certification = {
@@ -22,6 +22,15 @@ export function CredentialsShowcase({
 }: CredentialsShowcaseProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isCompact, setIsCompact] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 760px)");
+    const update = () => setIsCompact(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
   const focusedIndex = hoveredIndex ?? activeIndex;
 
@@ -47,7 +56,7 @@ export function CredentialsShowcase({
             let scale = 1;
             let y = 0;
 
-            if (formalCertifications.length > 1) {
+            if (!isCompact && formalCertifications.length > 1) {
               if (index === focusedIndex) {
                 x = 0;
                 rotate = 0;

@@ -653,7 +653,7 @@ section[id],
  .credential-deck-wrap::before { inset:3.1rem .55rem 1rem; }
  .credential-deck-label { position:relative; top:auto; right:auto; left:auto; padding:.9rem .8rem 0; font-size:.47rem; }
  .credential-deck { inset:3.45rem .75rem 5.45rem; touch-action:pan-y; }
- .credential-deck-card { left:50%; width:calc(100% - .5rem); height:18.75rem; min-height:18.75rem; margin-left:calc(-1 * (50% - .25rem)); padding:.8rem .78rem; touch-action:none; user-select:none; }
+ .credential-deck-card { left:50%; width:calc(100% - .5rem); height:18.75rem; min-height:18.75rem; margin-left:calc(-1 * (50% - .25rem)); padding:.8rem .78rem; touch-action:pan-y; user-select:none; }
  .credential-deck-core { grid-template-columns:1.7rem minmax(0,1fr); gap:.58rem; margin-top:1.5rem; }
  .credential-deck-mark { width:1.7rem; height:1.7rem; font-size:.68rem; }
  .credential-deck-title { max-width:none; font-size:clamp(.95rem,4.7vw,1.12rem); line-height:1.08; }

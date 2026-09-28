@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 
 export type Project = {
   title: string;
@@ -34,7 +34,7 @@ export function ProjectCard({
     <motion.article
       layout
       className={`project-card${isOpen ? " is-open" : ""}`}
-      transition={{ layout: { duration: 0.48, ease } }}
+      transition={{ layout: { duration: 0.45, ease } }}
     >
       <button
         type="button"
@@ -56,7 +56,7 @@ export function ProjectCard({
           <span className="project-card-toggle" aria-hidden="true">
             <motion.span
               animate={{ rotate: isOpen ? 45 : 0 }}
-              transition={{ duration: 0.32, ease }}
+              transition={{ duration: 0.28, ease }}
             >
               +
             </motion.span>
@@ -72,32 +72,31 @@ export function ProjectCard({
         </span>
       </button>
 
-      <AnimatePresence initial={false}>
-        {isOpen ? (
-          <motion.div
-            id={detailsId}
-            className="project-card-details-shell"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{
-              height: { duration: 0.44, ease },
-              opacity: { duration: 0.22, ease },
-            }}
+      <motion.div
+        id={detailsId}
+        className="project-card-details-shell"
+        initial={false}
+        animate={{
+          height: isOpen ? "auto" : 0,
+          opacity: isOpen ? 1 : 0,
+        }}
+        transition={{
+          height: { duration: 0.42, ease },
+          opacity: { duration: isOpen ? 0.24 : 0.16, ease },
+        }}
+        aria-hidden={!isOpen}
+      >
+        <div className="project-card-details">
+          <span>PROJECT DOCUMENTATION</span>
+          <p>{project.details}</p>
+          <Link
+            className="project-card-case-study"
+            href={`/projects/${project.slug}`}
           >
-            <div className="project-card-details">
-              <span>PROJECT DOCUMENTATION</span>
-              <p>{project.details}</p>
-              <Link
-                className="project-card-case-study"
-                href={`/projects/${project.slug}`}
-              >
-                VIEW CASE STUDY <span aria-hidden="true">↗</span>
-              </Link>
-            </div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+            VIEW CASE STUDY <span aria-hidden="true">↗</span>
+          </Link>
+        </div>
+      </motion.div>
     </motion.article>
   );
 }

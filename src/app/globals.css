@@ -615,23 +615,22 @@ section[id],
 
 .credential-deck-wrap {
   position: relative;
-  min-height: 25rem;
+  min-height: 27rem;
   overflow: hidden;
   border: 1px solid var(--line);
   background:
-    radial-gradient(circle at 78% 28%, rgba(150,108,242,.12), transparent 18rem),
-    linear-gradient(145deg, rgba(150,108,242,.045), transparent 58%),
+    radial-gradient(circle at 78% 28%, rgba(150,108,242,.14), transparent 19rem),
+    linear-gradient(145deg, rgba(150,108,242,.05), transparent 58%),
     var(--surface);
 }
 
 .credential-deck-label {
   position: absolute;
-  z-index: 20;
+  z-index: 30;
   top: 1.2rem;
   right: 1.35rem;
   left: 1.35rem;
   display: flex;
-  align-items: center;
   justify-content: space-between;
   gap: 1rem;
   color: rgba(208,185,255,.52);
@@ -647,63 +646,53 @@ section[id],
 
 .credential-deck {
   position: absolute;
-  inset: 3.2rem 1rem 2.8rem;
+  inset: 3.4rem 0 2.6rem;
 }
 
 .credential-deck-card {
   position: absolute;
-  inset: 0;
-  width: min(72%, 44rem);
-  height: 100%;
-  margin: auto;
-  padding: 1.35rem 1.45rem;
-  border: 1px solid rgba(208,185,255,.2);
+  top: 0;
+  left: 50%;
+  display: block;
+  width: min(42rem, 72%);
+  height: calc(100% - 1rem);
+  margin: 0;
+  padding: 1.4rem 1.5rem;
+  border: 1px solid rgba(208,185,255,.22);
+  border-radius: 2px;
+  color: inherit;
   background:
-    linear-gradient(145deg, rgba(150,108,242,.09), transparent 48%),
+    linear-gradient(145deg, rgba(150,108,242,.095), transparent 52%),
     #11101a;
-  box-shadow: 0 1.2rem 3rem rgba(0,0,0,.2);
-  transition:
-    transform 620ms cubic-bezier(.16,1,.3,1),
-    border-color 260ms ease,
-    box-shadow 420ms ease;
+  box-shadow:
+    0 1.6rem 3.5rem rgba(0,0,0,.25),
+    inset 0 0 0 1px rgba(255,255,255,.018);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transform-origin: center center;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .credential-deck-card::before {
   position: absolute;
   inset: .55rem;
-  border: 1px solid rgba(208,185,255,.055);
+  border: 1px solid rgba(208,185,255,.06);
   content: "";
   pointer-events: none;
 }
 
-.credential-deck-card-0 {
-  z-index: 6;
-  transform: translateX(0) translateY(0) rotate(-1.2deg);
+.credential-deck-card:focus-visible {
+  outline: 2px solid var(--lavender);
+  outline-offset: 3px;
 }
 
-.credential-deck-card-1 {
-  z-index: 5;
-  transform: translateX(3rem) translateY(.65rem) rotate(1.2deg);
-}
-
-.credential-deck-card-2 {
-  z-index: 4;
-  transform: translateX(3rem) translateY(1.05rem) rotate(2.1deg);
-}
-
-.credential-deck-card-3 {
-  z-index: 3;
-  transform: translateX(4.5rem) translateY(1.45rem) rotate(3deg);
-}
-
-.credential-deck-card-4 {
-  z-index: 2;
-  transform: translateX(6rem) translateY(1.8rem) rotate(3.8deg);
-}
-
-.credential-deck-card-5 {
-  z-index: 1;
-  transform: translateX(7.5rem) translateY(2rem) rotate(4.5deg);
+.credential-deck-card.is-focused {
+  border-color: rgba(208,185,255,.34);
+  box-shadow:
+    0 1.8rem 4rem rgba(0,0,0,.32),
+    0 0 2rem rgba(150,108,242,.07),
+    inset 0 0 0 1px rgba(255,255,255,.025);
 }
 
 .credential-deck-top,
@@ -711,7 +700,6 @@ section[id],
   position: relative;
   z-index: 2;
   display: flex;
-  align-items: center;
   justify-content: space-between;
   gap: 1rem;
   color: rgba(208,185,255,.5);
@@ -733,7 +721,7 @@ section[id],
   grid-template-columns: 2.6rem minmax(0,1fr);
   gap: 1.2rem;
   align-items: start;
-  margin-top: 4rem;
+  margin-top: 4.2rem;
   max-width: 38rem;
 }
 
@@ -758,19 +746,21 @@ section[id],
   text-transform: uppercase;
 }
 
-.credential-deck-core h3 {
-  margin: 0;
+.credential-deck-title {
+  display: block;
   max-width: 34rem;
   color: var(--text);
   font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600;
   letter-spacing: -.045em;
   line-height: 1.02;
   text-wrap: balance;
 }
 
-.credential-deck-core p {
-  margin: .9rem 0 0;
+.credential-deck-description {
+  display: block;
   max-width: 34rem;
+  margin-top: .9rem;
   color: var(--muted);
   font-size: .8rem;
   line-height: 1.65;
@@ -778,21 +768,20 @@ section[id],
 
 .credential-deck-bottom {
   position: absolute;
-  right: 1.45rem;
+  right: 1.5rem;
   bottom: 1.35rem;
-  left: 1.45rem;
-  z-index: 2;
+  left: 1.5rem;
   padding-top: .8rem;
   border-top: 1px solid rgba(208,185,255,.1);
 }
 
 .credential-deck-hint {
   position: absolute;
-  z-index: 20;
+  z-index: 30;
   right: 1.35rem;
-  bottom: .8rem;
+  bottom: .75rem;
   margin: 0;
-  color: rgba(208,185,255,.32);
+  color: rgba(208,185,255,.38);
   font-family: var(--font-geist-mono), monospace;
   font-size: .48rem;
   letter-spacing: .06em;
@@ -803,54 +792,15 @@ section[id],
   display: grid;
   height: 100%;
   place-items: center;
-  border: 1px dashed rgba(208,185,255,.12);
   color: var(--muted);
   font-size: .8rem;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .credential-deck-wrap:hover .credential-deck-card-0 {
-    z-index: 7;
-    transform: translateX(-30%) translateY(0) rotate(-2.2deg);
-    border-color: rgba(208,185,255,.32);
-    box-shadow: 0 1.5rem 3.5rem rgba(0,0,0,.28);
-  }
-
-  .credential-deck-wrap:hover .credential-deck-card-1 {
-    z-index: 8;
-    transform: translateX(30%) translateY(.4rem) rotate(2.2deg);
-    border-color: rgba(208,185,255,.25);
-  }
-
-  .credential-deck-wrap:hover .credential-deck-card-2 {
-    transform: translateX(25%) translateY(.9rem) rotate(5deg);
-  }
-
-  .credential-deck-wrap:hover .credential-deck-card-3 {
-    transform: translateX(38%) translateY(1.35rem) rotate(7deg);
-  }
-
-  .credential-deck-wrap:hover .credential-deck-card-4 {
-    transform: translateX(51%) translateY(1.7rem) rotate(9deg);
-  }
-
-  .credential-deck-wrap:hover .credential-deck-card-5 {
-    transform: translateX(64%) translateY(2rem) rotate(11deg);
-  }
-
-  .credential-deck-wrap:hover .credential-deck-hint {
-    color: rgba(208,185,255,.55);
-  }
 }
 
 @media (max-width: 760px) {
   .credential-deck-wrap {
     min-height: 0;
-    overflow: visible;
-    padding-bottom: 1rem;
-    background:
-      radial-gradient(circle at 82% 20%, rgba(150,108,242,.1), transparent 14rem),
-      var(--surface);
+    overflow: hidden;
+    padding-bottom: .85rem;
   }
 
   .credential-deck-label {
@@ -871,13 +821,13 @@ section[id],
 
   .credential-deck-card {
     position: relative;
-    inset: auto;
+    top: auto;
+    left: auto;
     width: 100%;
     height: auto;
     min-height: 15rem;
-    margin: 0;
     padding: 1.1rem;
-    transform: none !important;
+    transform: none;
   }
 
   .credential-deck-core {
@@ -891,11 +841,11 @@ section[id],
     height: 2.25rem;
   }
 
-  .credential-deck-core h3 {
+  .credential-deck-title {
     font-size: 1.4rem;
   }
 
-  .credential-deck-core p {
+  .credential-deck-description {
     font-size: .76rem;
   }
 
@@ -910,6 +860,12 @@ section[id],
     right: auto;
     bottom: auto;
     margin: .8rem 1.1rem 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .credential-deck-card {
+    transition: none !important;
   }
 }
 

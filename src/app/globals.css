@@ -2757,3 +2757,115 @@ section[id],
   .admin-confirm-actions { flex-direction: column-reverse; }
   .admin-confirm-actions button { width: 100%; }
 }
+
+
+/* ─── Credentials deck: final responsive pass ─── */
+.credential-deck {
+  inset: 3.9rem 0 2.8rem;
+}
+
+.credential-deck-card {
+  width: min(42rem, 62%);
+  margin-left: calc(-1 * min(21rem, 31%));
+}
+
+@media (max-width: 760px) {
+  .credential-deck-wrap {
+    min-height: 28rem;
+    padding-bottom: 2.35rem;
+  }
+
+  .credential-deck-wrap::before {
+    inset: 3.25rem .55rem 3.85rem;
+  }
+
+  .credential-deck-label {
+    padding: 1rem .9rem 0;
+    font-size: .5rem;
+  }
+
+  .credential-deck {
+    inset: 3.7rem .55rem 3.15rem;
+    overflow: visible;
+  }
+
+  .credential-deck-card {
+    width: calc(100% - .4rem);
+    height: calc(100% - .65rem);
+    margin-left: .2rem;
+    padding: 1rem .9rem;
+  }
+
+  .credential-deck-card::before {
+    inset: .45rem;
+  }
+
+  .credential-deck-core {
+    grid-template-columns: 2.15rem minmax(0, 1fr);
+    gap: .75rem;
+    margin-top: 2.3rem;
+  }
+
+  .credential-deck-mark {
+    width: 2.15rem;
+    height: 2.15rem;
+  }
+
+  .credential-deck-title {
+    max-width: none;
+    font-size: clamp(1.12rem, 5.7vw, 1.4rem);
+    line-height: 1.08;
+  }
+
+  .credential-deck-description {
+    max-width: none;
+    margin-top: .65rem;
+    font-size: .72rem;
+    line-height: 1.52;
+  }
+
+  .credential-deck-bottom {
+    right: .9rem;
+    bottom: .9rem;
+    left: .9rem;
+    padding-top: .7rem;
+    font-size: .49rem;
+  }
+
+  .credential-deck-hint {
+    right: .9rem;
+    bottom: .65rem;
+    left: .9rem;
+    font-size: .43rem;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 390px) {
+  .credential-deck-wrap {
+    min-height: 29rem;
+  }
+
+  .credential-deck-card {
+    padding-inline: .8rem;
+  }
+
+  .credential-deck-core {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: .65rem;
+    margin-top: 2.1rem;
+  }
+
+  .credential-deck-mark {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .credential-deck-title {
+    font-size: 1.08rem;
+  }
+
+  .credential-deck-description {
+    font-size: .69rem;
+  }
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties, type TouchEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 type Certification = {
@@ -29,6 +29,7 @@ export function CredentialsShowcase({
   const [swipeDirection, setSwipeDirection] = useState<"next" | "prev" | null>(null);
   const [outgoingIndex, setOutgoingIndex] = useState<number | null>(null);
   const touchStartX = useRef<number | null>(null);
+  const pointerActive = useRef(false);
   const reducedMotion = useReducedMotion();
   const credentialCount = formalCertifications.length;
 
@@ -121,27 +122,33 @@ export function CredentialsShowcase({
     }, 360);
   };
 
-  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
-    if (!isMobile || formalCertifications.length < 2) return;
-    touchStartX.current = event.touches[0]?.clientX ?? null;
+  const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    if (!isMobile || formalCertifications.length < 2 || event.pointerType === "mouse") {
+      return;
+    }
+    pointerActive.current = true;
+    touchStartX.current = event.clientX;
   };
 
-  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
-    if (!isMobile || formalCertifications.length < 2 || touchStartX.current === null) {
+  const handlePointerUp = (event: PointerEvent<HTMLDivElement>) => {
+    if (
+      !isMobile ||
+      formalCertifications.length < 2 ||
+      !pointerActive.current ||
+      touchStartX.current === null ||
+      event.pointerType === "mouse"
+    ) {
       return;
     }
 
-    const endX = event.changedTouches[0]?.clientX ?? touchStartX.current;
-    const deltaX = endX - touchStartX.current;
+    const deltaX = event.clientX - touchStartX.current;
+    pointerActive.current = false;
     touchStartX.current = null;
 
-    if (Math.abs(deltaX) < 45) return;
+    if (Math.abs(deltaX) < 35) return;
 
-    if (deltaX < 0) {
-      swipeTo("next");
-    } else {
-      swipeTo("prev");
-    }
+    if (deltaX < 0) swipeTo("next");
+    else swipeTo("prev");
   };
 
   return (
@@ -164,8 +171,12 @@ export function CredentialsShowcase({
         <div
           className="credential-deck"
           aria-label="Formal certifications"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
+          onPointerDown={handlePointerDown}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={() => {
+            pointerActive.current = false;
+            touchStartX.current = null;
+          }}
         >
           {formalCertifications.map((certification, index) => {
             const isActive = activeIndex === index;
@@ -325,17 +336,9 @@ export function CredentialsShowcase({
         </div>
         <div className="virtual-experience-list">
           {virtualExperiences.map((item, index) => (
-            <motion.article
+            <article
               className="virtual-experience-row"
               key={item.title + "-" + index}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.45,
-                delay: index * 0.06,
-                ease,
-              }}
             >
               <span className="virtual-experience-index">
                 {String(index + 1).padStart(2, "0")}
@@ -347,7 +350,7 @@ export function CredentialsShowcase({
               <span className="virtual-experience-platform">
                 {item.issuer}
               </span>
-            </motion.article>
+            </article>
           ))}
         </div>
       </div>

@@ -3172,11 +3172,16 @@ section[id],
 }
 
 
+
 /* ─── Credential deck navigation / position system ─── */
+.credential-deck {
+  inset: 3.9rem 0 5.2rem;
+}
+
 .credential-deck-position {
   position: absolute;
   right: 1rem;
-  bottom: 2.65rem;
+  bottom: 2.15rem;
   left: 1rem;
   z-index: 60;
   display: flex;
@@ -3199,7 +3204,7 @@ section[id],
   display: grid;
   place-items: center;
   border: 1px solid rgba(190, 164, 255, .18);
-  background: rgba(16, 14, 25, .72);
+  background: rgba(16, 14, 25, .86);
   color: var(--foreground);
   font: inherit;
   font-size: .9rem;
@@ -3240,17 +3245,21 @@ section[id],
 
 .credential-deck-card:not(.is-active) .credential-deck-copy,
 .credential-deck-card:not(.is-active) .credential-deck-bottom {
-  opacity: .2;
+  opacity: .18;
 }
 
 .credential-deck-card:not(.is-active) .credential-deck-core {
-  opacity: .62;
+  opacity: .55;
 }
 
 @media (max-width: 760px) {
+  .credential-deck {
+    inset: 3.45rem .75rem 5.45rem;
+  }
+
   .credential-deck-position {
     right: .7rem;
-    bottom: 2.95rem;
+    bottom: 2.15rem;
     left: .7rem;
     gap: .5rem;
   }
@@ -3285,6 +3294,6 @@ section[id],
   }
 
   .credential-deck-card:not(.is-active) .credential-deck-core {
-    opacity: .45;
+    opacity: .42;
   }
 }

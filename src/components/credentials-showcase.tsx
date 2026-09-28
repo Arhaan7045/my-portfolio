@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties, type PointerEvent, type TouchEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 type Certification = {
@@ -30,7 +30,6 @@ export function CredentialsShowcase({
   const [outgoingIndex, setOutgoingIndex] = useState<number | null>(null);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
-  const touchActive = useRef(false);
   const pointerActive = useRef(false);
   const reducedMotion = useReducedMotion();
   const credentialCount = formalCertifications.length;
@@ -57,11 +56,8 @@ export function CredentialsShowcase({
       return;
     }
 
-    // On mobile, reveal the first archived edge immediately so the stack
-    // communicates that it is interactive without waiting for the timer.
     if (isMobile) {
-      const firstPeek = activeIndex === 0 ? 1 : 0;
-      setAutoPeekIndex(firstPeek);
+      setAutoPeekIndex(activeIndex === 0 ? 1 : 0);
     }
 
     let nextCandidate = 0;
@@ -79,7 +75,6 @@ export function CredentialsShowcase({
       setAutoPeekIndex(candidate);
 
       if (resetTimer) clearTimeout(resetTimer);
-
       resetTimer = setTimeout(() => {
         setAutoPeekIndex((current) => (current === candidate ? null : current));
       }, PEEK_DURATION);
@@ -89,7 +84,7 @@ export function CredentialsShowcase({
       clearInterval(interval);
       if (resetTimer) clearTimeout(resetTimer);
     };
-  }, [activeIndex, formalCertifications.length, reducedMotion]);
+  }, [activeIndex, formalCertifications.length, reducedMotion, isMobile]);
 
   const peekIndex = hoveredIndex ?? autoPeekIndex;
 
@@ -107,9 +102,7 @@ export function CredentialsShowcase({
       return;
     }
 
-    const nextIndex =
-      direction === "next" ? activeIndex + 1 : activeIndex - 1;
-
+    const nextIndex = direction === "next" ? activeIndex + 1 : activeIndex - 1;
     if (nextIndex < 0 || nextIndex >= formalCertifications.length) return;
 
     setSwipeDirection(direction);
@@ -126,13 +119,12 @@ export function CredentialsShowcase({
 
   const resetGesture = () => {
     pointerActive.current = false;
-    touchActive.current = false;
     touchStartX.current = null;
     touchStartY.current = null;
   };
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    if (!isMobile || formalCertifications.length < 2 || event.pointerType === "mouse" || event.pointerType === "touch") {
+    if (!isMobile || formalCertifications.length < 2 || event.pointerType === "mouse") {
       return;
     }
 
@@ -143,7 +135,7 @@ export function CredentialsShowcase({
     try {
       event.currentTarget.setPointerCapture(event.pointerId);
     } catch {
-      // Some mobile browsers do not expose pointer capture consistently.
+      // Pointer capture is not required for the gesture to work.
     }
   };
 
@@ -153,7 +145,7 @@ export function CredentialsShowcase({
       formalCertifications.length < 2 ||
       !pointerActive.current ||
       touchStartX.current === null ||
-      event.pointerType === "mouse" || event.pointerType === "touch"
+      event.pointerType === "mouse"
     ) {
       return;
     }
@@ -162,52 +154,11 @@ export function CredentialsShowcase({
     const deltaY = event.clientY - (touchStartY.current ?? event.clientY);
     resetGesture();
 
-    // Ignore mostly-vertical gestures so normal page scrolling still works.
     if (Math.abs(deltaX) < 35 || Math.abs(deltaX) < Math.abs(deltaY)) return;
 
     if (deltaX < 0) swipeTo("next");
     else swipeTo("prev");
   };
-
-  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
-    if (!isMobile || formalCertifications.length < 2) return;
-
-    const touch = event.touches[0];
-    if (!touch) return;
-
-    touchActive.current = true;
-    touchStartX.current = touch.clientX;
-    touchStartY.current = touch.clientY;
-  };
-
-  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
-    if (
-      !isMobile ||
-      formalCertifications.length < 2 ||
-      !touchActive.current ||
-      touchStartX.current === null
-    ) {
-      return;
-    }
-
-    const touch = event.changedTouches[0];
-    if (!touch) {
-      resetGesture();
-      return;
-    }
-
-    const deltaX = touch.clientX - touchStartX.current;
-    const deltaY = touch.clientY - (touchStartY.current ?? touch.clientY);
-    resetGesture();
-
-    // Explicit touch handling is the reliable path on iOS/Safari and
-    // Android browsers; keep vertical gestures available for page scroll.
-    if (Math.abs(deltaX) < 35 || Math.abs(deltaX) < Math.abs(deltaY)) return;
-
-    if (deltaX < 0) swipeTo("next");
-    else swipeTo("prev");
-  };
-
   return (
     <div className="credentials-showcase reveal">
       <div
@@ -231,9 +182,6 @@ export function CredentialsShowcase({
           onPointerDown={handlePointerDown}
           onPointerUp={handlePointerUp}
           onPointerCancel={resetGesture}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          onTouchCancel={resetGesture}
         >
           {formalCertifications.map((certification, index) => {
             const isActive = activeIndex === index;

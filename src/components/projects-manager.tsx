@@ -44,7 +44,7 @@ const emptyForm: ProjectFormState = {
   description: "",
   details: "",
   tags: "",
-  sortOrder: "0",
+  sortOrder: "1",
   isPublished: true,
 };
 
@@ -57,7 +57,7 @@ function toForm(project: Project): ProjectFormState {
     description: project.description,
     details: project.details,
     tags: (project.tags ?? []).join(", "),
-    sortOrder: String(project.sort_order),
+    sortOrder: String(Math.max(1, project.sort_order)),
     isPublished: project.is_published,
   };
 }
@@ -294,6 +294,7 @@ export function ProjectsManager({ projects }: { projects: Project[] }) {
               <span>Sort order</span>
               <input
                 type="number"
+                min={1}
                 value={form.sortOrder}
                 onChange={(event) => updateField("sortOrder", event.target.value)}
               />

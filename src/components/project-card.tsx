@@ -32,45 +32,43 @@ export function ProjectCard({
   onToggle,
 }: ProjectCardProps) {
   return (
-    <details
-      className="project-card reveal"
-      open={isOpen}
+    <article
+      className={`project-card reveal${isOpen ? " is-open" : ""}`}
       onMouseEnter={isDesktop ? onOpen : undefined}
       onMouseLeave={isDesktop ? onClose : undefined}
     >
-      <summary
+      <button
+        type="button"
         className="project-card-summary"
-        onClick={(event) => {
-          event.preventDefault();
-          onToggle();
-        }}
+        aria-expanded={isOpen}
+        onClick={onToggle}
       >
-        <div className="project-card-meta">
+        <span className="project-card-meta">
           <span>0{index + 1}</span>
           <span>{project.status}</span>
-        </div>
+        </span>
 
-        <div className="project-card-heading">
-          <div>
-            <p className="project-card-category">{project.category}</p>
-            <h3>{project.title}</h3>
-          </div>
+        <span className="project-card-heading">
+          <span>
+            <span className="project-card-category">{project.category}</span>
+            <span className="project-card-title">{project.title}</span>
+          </span>
 
           <span className="project-card-toggle" aria-hidden="true">
             <span>+</span>
           </span>
-        </div>
+        </span>
 
-        <p className="project-card-description">{project.description}</p>
+        <span className="project-card-description">{project.description}</span>
 
-        <div className="project-card-tags">
+        <span className="project-card-tags">
           {project.tags.map((tag) => (
             <span key={tag}>{tag}</span>
           ))}
-        </div>
-      </summary>
+        </span>
+      </button>
 
-      <div className="project-card-details-shell">
+      <div className="project-card-details-shell" aria-hidden={!isOpen}>
         <div className="project-card-details">
           <span>PROJECT DOCUMENTATION</span>
           <p>{project.details}</p>
@@ -79,6 +77,6 @@ export function ProjectCard({
           </Link>
         </div>
       </div>
-    </details>
+    </article>
   );
 }

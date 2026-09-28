@@ -311,6 +311,7 @@ section[id],
   grid-template-columns: minmax(0, 1fr) 2.5rem;
   gap: 1rem;
   align-items: start;
+  width: min(100%, 34rem);
   margin-top: 2rem;
 }
 
@@ -337,6 +338,7 @@ section[id],
 
 .project-card-description {
   display: block;
+  width: min(100%, 34rem);
   margin-top: .9rem;
   color: var(--muted);
   font-size: .78rem;
@@ -346,6 +348,7 @@ section[id],
 .project-card-tags {
   display: flex;
   flex-wrap: wrap;
+  width: min(100%, 34rem);
   gap: .35rem;
   margin-top: .9rem;
 }

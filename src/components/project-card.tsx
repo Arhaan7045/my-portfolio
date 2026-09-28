@@ -17,7 +17,7 @@ type ProjectCardProps = {
   project: Project;
   index: number;
   isOpen: boolean;
-  onToggle: () => void;
+  onToggle: (open: boolean) => void;
 };
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -31,18 +31,12 @@ export function ProjectCard({
   const detailsId = `project-documentation-${index}`;
 
   return (
-    <motion.article
-      layout
+    <details
       className={`project-card${isOpen ? " is-open" : ""}`}
-      transition={{ layout: { duration: 0.45, ease } }}
+      open={isOpen}
+      onToggle={(event) => onToggle(event.currentTarget.open)}
     >
-      <button
-        type="button"
-        className="project-card-summary"
-        aria-expanded={isOpen}
-        aria-controls={detailsId}
-        onClick={onToggle}
-      >
+      <summary className="project-card-summary">
         <span className="project-card-meta">
           <span>0{index + 1}</span>
           <span>{project.status}</span>
@@ -70,21 +64,14 @@ export function ProjectCard({
             <span key={tag}>{tag}</span>
           ))}
         </span>
-      </button>
+      </summary>
 
       <motion.div
         id={detailsId}
         className="project-card-details-shell"
         initial={false}
-        animate={{
-          height: isOpen ? "auto" : 0,
-          opacity: isOpen ? 1 : 0,
-        }}
-        transition={{
-          height: { duration: 0.42, ease },
-          opacity: { duration: isOpen ? 0.24 : 0.16, ease },
-        }}
-        aria-hidden={!isOpen}
+        animate={{ opacity: isOpen ? 1 : 0 }}
+        transition={{ opacity: { duration: isOpen ? 0.24 : 0.14, ease } }}
       >
         <div className="project-card-details">
           <span>PROJECT DOCUMENTATION</span>
@@ -97,6 +84,6 @@ export function ProjectCard({
           </Link>
         </div>
       </motion.div>
-    </motion.article>
+    </details>
   );
 }

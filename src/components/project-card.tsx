@@ -20,61 +20,59 @@ type ProjectCardProps = {
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-export function ProjectCard({
-  project,
-  index,
-}: ProjectCardProps) {
+export function ProjectCard({ project, index }: ProjectCardProps) {
   const detailsId = `project-documentation-${index}`;
 
   return (
-    <motion.details
+    <motion.div
       layout
-      className="project-card"
+      className="project-card-motion"
       transition={{ layout: { duration: 0.45, ease } }}
     >
-      <summary className="project-card-summary">
-        <span className="project-card-meta">
-          <span>0{index + 1}</span>
-          <span>{project.status}</span>
-        </span>
-
-        <span className="project-card-heading">
-          <span>
-            <span className="project-card-category">{project.category}</span>
-            <span className="project-card-title">{project.title}</span>
+      <details className="project-card">
+        <summary className="project-card-summary">
+          <span className="project-card-meta">
+            <span>0{index + 1}</span>
+            <span>{project.status}</span>
           </span>
-          <span className="project-card-toggle" aria-hidden="true">
-            <span>+</span>
+
+          <span className="project-card-heading">
+            <span>
+              <span className="project-card-category">{project.category}</span>
+              <span className="project-card-title">{project.title}</span>
+            </span>
+            <span className="project-card-toggle" aria-hidden="true">
+              <span>+</span>
+            </span>
           </span>
-        </span>
 
-        <span className="project-card-description">{project.description}</span>
+          <span className="project-card-description">
+            {project.description}
+          </span>
 
-        <span className="project-card-tags">
-          {project.tags.map((tag) => (
-            <span key={tag}>{tag}</span>
-          ))}
-        </span>
-      </summary>
+          <span className="project-card-tags">
+            {project.tags.map((tag) => (
+              <span key={tag}>{tag}</span>
+            ))}
+          </span>
+        </summary>
 
-      <motion.div
-        id={detailsId}
-        className="project-card-details-shell"
-        initial={false}
-        animate={{ opacity: isOpen ? 1 : 0 }}
-        transition={{ opacity: { duration: isOpen ? 0.24 : 0.14, ease } }}
-      >
-        <div className="project-card-details">
-          <span>PROJECT DOCUMENTATION</span>
-          <p>{project.details}</p>
-          <Link
-            className="project-card-case-study"
-            href={`/projects/${project.slug}`}
-          >
-            VIEW CASE STUDY <span aria-hidden="true">↗</span>
-          </Link>
+        <div
+          id={detailsId}
+          className="project-card-details-shell"
+        >
+          <div className="project-card-details">
+            <span>PROJECT DOCUMENTATION</span>
+            <p>{project.details}</p>
+            <Link
+              className="project-card-case-study"
+              href={`/projects/${project.slug}`}
+            >
+              VIEW CASE STUDY <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
         </div>
-      </motion.div>
-    </motion.details>
+      </details>
+    </motion.div>
   );
 }

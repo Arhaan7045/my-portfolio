@@ -3026,30 +3026,34 @@ section[id],
 
 
 
-/* ─── Credentials deck: layered stack with adaptive sizing ─── */
+
+/* ─── Credentials deck: contained layered stack ─── */
 .credential-deck-wrap {
-  min-height: max(31rem, calc(28rem + (var(--credential-count, 1) - 1) * 3rem));
+  min-height: max(34rem, calc(30rem + (var(--credential-count, 1) - 1) * 3.5rem));
 }
 
 .credential-deck {
-  inset: 3.9rem 0 2.8rem;
+  inset: 3.9rem 0 4.1rem;
   overflow: visible;
 }
 
 .credential-deck-card {
   width: min(42rem, 64%);
-  height: auto;
-  min-height: calc(100% - .65rem);
+  height: calc(100% - .35rem);
   margin-left: calc(-1 * min(21rem, 32%));
+}
+
+.credential-deck-wrap::before {
+  inset: 3.25rem 1rem 3.7rem;
 }
 
 @media (max-width: 760px) {
   .credential-deck-wrap {
-    min-height: max(25rem, calc(25rem + (var(--credential-count, 1) - 1) * 1.5rem));
+    min-height: max(28rem, calc(28rem + (var(--credential-count, 1) - 1) * 1.8rem));
   }
 
   .credential-deck-wrap::before {
-    inset: 3.15rem .55rem 3.25rem;
+    inset: 3.15rem .55rem 3.5rem;
   }
 
   .credential-deck-label {
@@ -3058,15 +3062,15 @@ section[id],
   }
 
   .credential-deck {
-    inset: 3.5rem .65rem 2.75rem;
+    inset: 3.5rem .55rem 3.55rem;
     overflow: visible;
   }
 
   .credential-deck-card {
     left: 50%;
     width: calc(100% - .25rem);
-    min-height: 20rem;
     height: 20rem;
+    min-height: 20rem;
     margin-left: calc(-1 * (50% - .125rem));
     padding: .85rem .8rem;
   }
@@ -3123,18 +3127,19 @@ section[id],
 
 @media (max-width: 390px) {
   .credential-deck-wrap {
-    min-height: max(25.5rem, calc(25.5rem + (var(--credential-count, 1) - 1) * 1.4rem));
+    min-height: max(28.5rem, calc(28.5rem + (var(--credential-count, 1) - 1) * 1.65rem));
   }
 
   .credential-deck {
     inset-inline: .55rem;
+    bottom: 3.45rem;
   }
 
   .credential-deck-card {
     width: 100%;
     margin-left: -50%;
-    min-height: 19.25rem;
     height: 19.25rem;
+    min-height: 19.25rem;
     padding-inline: .7rem;
   }
 
@@ -3155,5 +3160,11 @@ section[id],
 
   .credential-deck-description {
     font-size: .61rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .credential-deck-card {
+    transition: none !important;
   }
 }

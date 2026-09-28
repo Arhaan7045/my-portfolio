@@ -249,34 +249,42 @@ section[id],
 
 /* ─── Projects ─── */
 .projects-grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   width: 100%;
-  gap: .75rem;
-  align-items: stretch;
+  gap: 1rem;
+  align-items: start;
 }
 
 .project-card {
-  display: flex;
+  display: block;
   min-width: 0;
-  flex: 1 1 0;
-  flex-direction: column;
+  width: 100%;
   overflow: hidden;
   border: 1px solid var(--line);
-  background: linear-gradient(145deg, rgba(158, 108, 242, .06), transparent 48%), var(--surface);
+  background:
+    linear-gradient(145deg, rgba(158, 108, 242, .055), transparent 48%),
+    var(--surface);
   transition:
-    flex-grow 480ms cubic-bezier(.16, 1, .3, 1),
-    border-color 260ms ease,
-    background-color 260ms ease;
+    border-color 240ms ease,
+    background-color 240ms ease;
+}
+
+.project-card:hover {
+  border-color: rgba(208, 185, 255, .3);
+  background:
+    linear-gradient(145deg, rgba(158, 108, 242, .075), transparent 52%),
+    var(--surface);
 }
 
 .project-card-summary {
-  list-style: none;
   display: block;
   width: 100%;
-  min-height: 16rem;
+  min-height: 17rem;
   margin: 0;
-  padding: 1.35rem;
+  padding: 1.5rem;
   border: 0;
+  list-style: none;
   color: inherit;
   background: transparent;
   text-align: left;
@@ -321,12 +329,12 @@ section[id],
   gap: 1rem;
   align-items: start;
   width: min(100%, 34rem);
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
 
 .project-card-category {
   display: block;
-  margin-bottom: .5rem;
+  margin-bottom: .55rem;
   color: rgba(208, 185, 255, .55);
   font-family: var(--font-geist-mono), monospace;
   font-size: .55rem;
@@ -337,10 +345,10 @@ section[id],
 .project-card-title {
   display: block;
   color: var(--text);
-  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-size: clamp(1.35rem, 2.15vw, 1.85rem);
   font-weight: 600;
-  letter-spacing: -.045em;
-  line-height: 1.08;
+  letter-spacing: -.05em;
+  line-height: 1.03;
   overflow-wrap: normal;
   text-wrap: balance;
 }
@@ -348,10 +356,10 @@ section[id],
 .project-card-description {
   display: block;
   width: min(100%, 34rem);
-  margin-top: .9rem;
+  margin-top: 1rem;
   color: var(--muted);
-  font-size: .78rem;
-  line-height: 1.65;
+  font-size: .8rem;
+  line-height: 1.7;
 }
 
 .project-card-tags {
@@ -359,11 +367,11 @@ section[id],
   flex-wrap: wrap;
   width: min(100%, 34rem);
   gap: .35rem;
-  margin-top: .9rem;
+  margin-top: 1rem;
 }
 
 .project-card-tags span {
-  padding: .3rem .42rem;
+  padding: .32rem .44rem;
   border: 1px solid rgba(208, 185, 255, .14);
   color: rgba(208, 185, 255, .62);
   font-family: var(--font-geist-mono), monospace;
@@ -375,30 +383,32 @@ section[id],
 .project-card-details-shell {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 460ms cubic-bezier(.16, 1, .3, 1);
+  border-top: 0 solid transparent;
+  transition:
+    max-height 420ms cubic-bezier(.16, 1, .3, 1),
+    border-color 220ms ease;
 }
 
 .project-card-details {
   min-height: 0;
-  padding: 0 1.35rem;
-  border-top: 1px solid transparent;
+  padding: 0 1.5rem;
   opacity: 0;
-  transform: translateY(-.35rem);
+  transform: translateY(-.25rem);
   transition:
     opacity 220ms ease,
-    transform 320ms cubic-bezier(.16, 1, .3, 1),
-    padding 320ms cubic-bezier(.16, 1, .3, 1),
-    border-color 220ms ease;
+    transform 300ms cubic-bezier(.16, 1, .3, 1),
+    padding 300ms cubic-bezier(.16, 1, .3, 1);
 }
 
 .project-card[open] .project-card-details-shell {
-  max-height: 24rem;
+  max-height: 22rem;
+  border-top-width: 1px;
+  border-top-color: var(--line);
 }
 
 .project-card[open] .project-card-details {
-  padding-top: .95rem;
-  padding-bottom: 1.1rem;
-  border-top-color: var(--line);
+  padding-top: 1rem;
+  padding-bottom: 1.25rem;
   opacity: 1;
   transform: translateY(0);
 }
@@ -413,10 +423,10 @@ section[id],
 
 .project-card-details p {
   margin: .6rem 0 0;
-  max-width: 45rem;
+  max-width: 52rem;
   color: var(--muted);
-  font-size: .75rem;
-  line-height: 1.65;
+  font-size: .76rem;
+  line-height: 1.7;
 }
 
 .project-card-case-study {
@@ -447,15 +457,18 @@ section[id],
   border: 1px solid rgba(208, 185, 255, .18);
   color: rgba(208, 185, 255, .5);
   background: transparent;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 300;
   line-height: 1;
-  transition: color 220ms ease, border-color 220ms ease, background 220ms ease;
+  transition:
+    color 220ms ease,
+    border-color 220ms ease,
+    background 220ms ease;
 }
 
 .project-card-toggle > span {
   display: block;
-  transition: transform 320ms cubic-bezier(.16, 1, .3, 1);
+  transition: transform 280ms cubic-bezier(.16, 1, .3, 1);
 }
 
 .project-card[open] .project-card-toggle {
@@ -468,48 +481,15 @@ section[id],
   transform: rotate(45deg);
 }
 
-/* Desktop: bundled cards, with the hovered card smoothly claiming width. */
-@media (hover: hover) and (pointer: fine) {
-  .project-card:hover {
-    flex-grow: 1.8;
-    border-color: rgba(208, 185, 255, .34);
-  }
-
-  .project-card:hover .project-card-details-shell {
-    max-height: 18rem;
-    transition-delay: 110ms;
-  }
-
-  .project-card:hover .project-card-details {
-    padding-top: .95rem;
-    padding-bottom: 1.1rem;
-    border-top-color: var(--line);
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 80ms, 80ms, 0ms, 0ms;
-  }
-
-  .project-card:hover .project-card-toggle {
-    color: var(--lavender);
-    border-color: rgba(208, 185, 255, .34);
-    background: rgba(150, 108, 242, .05);
-  }
-
-  .project-card:hover .project-card-toggle > span {
-    transform: rotate(45deg);
+@media (max-width: 900px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 760px) {
   .projects-grid {
-    display: grid;
-    grid-template-columns: 1fr;
     gap: .75rem;
-  }
-
-  .project-card {
-    width: 100%;
-    flex: none;
   }
 
   .project-card-summary {
@@ -525,6 +505,16 @@ section[id],
 
   .project-card-title {
     font-size: clamp(1.18rem, 6vw, 1.5rem);
+  }
+
+  .project-card-description {
+    width: 100%;
+    font-size: .78rem;
+    line-height: 1.7;
+  }
+
+  .project-card-tags {
+    width: 100%;
   }
 
   .project-card-details {

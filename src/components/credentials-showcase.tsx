@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 type Certification = {
@@ -28,9 +28,8 @@ export function CredentialsShowcase({
   const [isMobile, setIsMobile] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState<"next" | "prev" | null>(null);
   const [outgoingIndex, setOutgoingIndex] = useState<number | null>(null);
-  const deckRef = useRef<HTMLDivElement | null>(null);
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
-  const pointerSwipeTriggered = useRef(false);
+  const suppressClick = useRef(false);
   const reducedMotion = useReducedMotion();
   const credentialCount = formalCertifications.length;
 
@@ -136,7 +135,6 @@ export function CredentialsShowcase({
         </div>
 
         <div
-          ref={deckRef}
           className="credential-deck"
           aria-label="Formal certifications"
         >
@@ -205,45 +203,38 @@ export function CredentialsShowcase({
                     current === index ? null : current,
                   );
                 }}
-                onPointerDown={(event: PointerEvent<HTMLButtonElement>) => {
+                onPointerDown={(event) => {
                   if (event.pointerType === "mouse") return;
                   pointerStart.current = {
                     x: event.clientX,
                     y: event.clientY,
                   };
-                  pointerSwipeTriggered.current = false;
-                  event.currentTarget.setPointerCapture(event.pointerId);
+                  suppressClick.current = false;
                 }}
-                onPointerMove={(event: PointerEvent<HTMLButtonElement>) => {
+                onPointerUp={(event) => {
+                  if (event.pointerType === "mouse") return;
                   const start = pointerStart.current;
-                  if (!start || event.pointerType === "mouse") return;
+                  pointerStart.current = null;
+                  if (!start) return;
 
                   const deltaX = event.clientX - start.x;
                   const deltaY = event.clientY - start.y;
+                  const horizontalSwipe =
+                    Math.abs(deltaX) >= 45 &&
+                    Math.abs(deltaX) > Math.abs(deltaY);
 
-                  if (
-                    Math.abs(deltaX) < 10 ||
-                    Math.abs(deltaX) <= Math.abs(deltaY) ||
-                    pointerSwipeTriggered.current
-                  ) {
-                    return;
-                  }
-
-                  if (Math.abs(deltaX) >= 40) {
-                    pointerSwipeTriggered.current = true;
+                  if (horizontalSwipe) {
+                    suppressClick.current = true;
                     swipeTo(deltaX < 0 ? "next" : "prev");
                   }
                 }}
-                onPointerUp={() => {
-                  pointerStart.current = null;
-                }}
                 onPointerCancel={() => {
                   pointerStart.current = null;
-                  pointerSwipeTriggered.current = false;
+                  suppressClick.current = false;
                 }}
                 onClick={() => {
-                  if (pointerSwipeTriggered.current) {
-                    pointerSwipeTriggered.current = false;
+                  if (suppressClick.current) {
+                    suppressClick.current = false;
                     return;
                   }
                   selectCredential(index);

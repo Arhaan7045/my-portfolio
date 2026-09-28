@@ -1,23 +1,69 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/site-header";
+import { createPublicClient } from "@/lib/supabase/public";
 
-export const metadata: Metadata = {
-  title: "VAPT Internship — Web Application Security Assessment | Arhaan Shaikh",
-  description:
-    "Case study documenting Arhaan Shaikh's VAPT internship work in web application security, including assessment workflow, tools, validated findings, evidence, and remediation guidance.",
+type Project = {
+  slug: string;
+  title: string;
+  category: string;
+  status: string;
+  description: string;
+  details: string;
+  tags: string[] | null;
 };
 
-const workflow = [
-  ["01", "Reconnaissance"],
-  ["02", "Security Testing"],
-  ["03", "Vulnerability Analysis"],
-  ["04", "Documentation"],
-] as const;
+async function getProject(slug: string) {
+  const supabase = createPublicClient();
 
-const focus = ["Burp Suite", "Web Application Security", "VAPT"] as const;
+  const { data, error } = await supabase
+    .from("projects")
+    .select("slug, title, category, status, description, details, tags")
+    .eq("slug", slug)
+    .maybeSingle();
 
-export default function VaptInternshipCaseStudy() {
+  if (error || !data) {
+    return null;
+  }
+
+  return data as Project;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await getProject(slug);
+
+  if (!project) {
+    return {
+      title: "Project not found | Arhaan Shaikh",
+    };
+  }
+
+  return {
+    title: `${project.title} | Arhaan Shaikh`,
+    description: project.description || `Project case study for ${project.title}.`,
+  };
+}
+
+export default async function ProjectCaseStudy({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const project = await getProject(slug);
+
+  if (!project) {
+    notFound();
+  }
+
+  const tags = project.tags ?? [];
+
   return (
     <div className="site-frame">
       <div id="page-top" aria-hidden="true" />
@@ -31,52 +77,35 @@ export default function VaptInternshipCaseStudy() {
 
           <header className="case-study-hero">
             <div className="case-study-kicker">
-              <span>PROJECT / 01 · VAPT INTERNSHIP</span>
-              <strong>IN PROGRESS</strong>
+              <span>{project.category}</span>
+              <strong>{project.status}</strong>
             </div>
 
-            <h1 className="case-study-title">
-              Web Application
-              <br />
-              Security Assessment.
-            </h1>
+            <h1 className="case-study-title">{project.title}</h1>
 
-            <p className="case-study-intro">
-              A practical web application security assessment project developed
-              during my VAPT internship, covering reconnaissance, testing,
-              vulnerability analysis, and security documentation.
-            </p>
+            <p className="case-study-intro">{project.description}</p>
 
-            <div className="case-study-meta" aria-label="Project tags">
-              <span>VAPT</span>
-              <span>WEB APPLICATION SECURITY</span>
-              <span>BURP SUITE</span>
-            </div>
+            {tags.length > 0 ? (
+              <div className="case-study-meta" aria-label="Project tags">
+                {tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
+            ) : null}
           </header>
 
           <div className="case-study-grid">
             <section className="case-study-panel">
               <div className="case-study-section-head">
-                <span>01 / Assessment workflow</span>
+                <span>01 / Project overview</span>
                 <span>Current project</span>
               </div>
               <div className="case-study-panel-body">
-                <h2>From reconnaissance to documented security findings.</h2>
+                <h2>Project documentation.</h2>
                 <p>
-                  The project is being documented around a practical assessment
-                  workflow. The case study will grow as validated testing
-                  results, evidence, risk context, and remediation guidance are
-                  completed.
+                  {project.details ||
+                    "Detailed project documentation will be added as the work progresses."}
                 </p>
-              </div>
-
-              <div className="case-study-flow">
-                {workflow.map(([number, label]) => (
-                  <div className="case-study-flow-item" key={number}>
-                    <span>{number}</span>
-                    <h3>{label}</h3>
-                  </div>
-                ))}
               </div>
             </section>
 
@@ -88,10 +117,10 @@ export default function VaptInternshipCaseStudy() {
                 </div>
                 <div className="case-study-panel-body">
                   <span className="case-study-label">PROJECT STATE</span>
-                  <strong>Documentation in progress.</strong>
+                  <strong>{project.status}</strong>
                   <p>
-                    Findings and evidence will be added only after they are
-                    validated during the assessment.
+                    This case study is powered by the portfolio CMS and reflects
+                    the currently published project record.
                   </p>
                 </div>
               </div>
@@ -100,33 +129,36 @@ export default function VaptInternshipCaseStudy() {
 
           <section className="case-study-panel case-study-evidence">
             <div className="case-study-section-head">
-              <span>02 / Working focus</span>
-              <span>Current focus</span>
+              <span>02 / Project focus</span>
+              <span>{tags.length ? `${tags.length} tags` : "No tags yet"}</span>
             </div>
             <div className="case-study-panel-body">
-              <h2>What I am working with during the assessment.</h2>
-              <div className="case-study-tool-list">
-                {focus.map((tool) => (
-                  <span className="case-study-tool" key={tool}>{tool}</span>
-                ))}
-              </div>
+              <h2>Areas covered by this project.</h2>
+              {tags.length > 0 ? (
+                <div className="case-study-tool-list">
+                  {tags.map((tag) => (
+                    <span className="case-study-tool" key={tag}>{tag}</span>
+                  ))}
+                </div>
+              ) : (
+                <p>Add tags from the Projects CMS to show the project focus here.</p>
+              )}
             </div>
           </section>
 
           <section className="case-study-panel case-study-evidence">
             <div className="case-study-section-head">
-              <span>03 / Findings & evidence</span>
-              <span>Awaiting validation</span>
+              <span>03 / Documentation</span>
+              <span>CMS managed</span>
             </div>
             <div className="case-study-evidence-card">
               <span className="case-study-evidence-mark" aria-hidden="true">+</span>
               <div>
-                <h3>Findings will be documented as they are validated.</h3>
+                <h3>Keep the case study tied to the actual project.</h3>
                 <p>
-                  This section will be updated with validated findings, supporting
-                  evidence, risk context, and remediation guidance as the
-                  assessment progresses. Nothing is added here until it has
-                  been verified.
+                  Update the project description, details, status, and tags from
+                  the private Projects CMS. Only published projects are available
+                  on the public site.
                 </p>
               </div>
             </div>
@@ -142,7 +174,7 @@ export default function VaptInternshipCaseStudy() {
       <footer className="footer shell">
         <div className="footer-quote">
           <span>“Learn. Build. Secure. Repeat.”</span>
-          <small>ARHAAN SHAIKH / VAPT CASE STUDY</small>
+          <small>ARHAAN SHAIKH / PROJECT CASE STUDY</small>
         </div>
         <div className="footer-bottom">
           <span>© 2026 Arhaan</span>

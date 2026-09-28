@@ -29,6 +29,8 @@ export function CredentialsShowcase({
   const [swipeDirection, setSwipeDirection] = useState<"next" | "prev" | null>(null);
   const [outgoingIndex, setOutgoingIndex] = useState<number | null>(null);
   const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const touchActive = useRef(false);
   const pointerActive = useRef(false);
   const reducedMotion = useReducedMotion();
   const credentialCount = formalCertifications.length;
@@ -122,12 +124,27 @@ export function CredentialsShowcase({
     }, 360);
   };
 
+  const resetGesture = () => {
+    pointerActive.current = false;
+    touchActive.current = false;
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
+
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (!isMobile || formalCertifications.length < 2 || event.pointerType === "mouse") {
       return;
     }
+
     pointerActive.current = true;
     touchStartX.current = event.clientX;
+    touchStartY.current = event.clientY;
+
+    try {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    } catch {
+      // Some mobile browsers do not expose pointer capture consistently.
+    }
   };
 
   const handlePointerUp = (event: PointerEvent<HTMLDivElement>) => {
@@ -142,10 +159,50 @@ export function CredentialsShowcase({
     }
 
     const deltaX = event.clientX - touchStartX.current;
-    pointerActive.current = false;
-    touchStartX.current = null;
+    const deltaY = event.clientY - (touchStartY.current ?? event.clientY);
+    resetGesture();
 
-    if (Math.abs(deltaX) < 35) return;
+    // Ignore mostly-vertical gestures so normal page scrolling still works.
+    if (Math.abs(deltaX) < 35 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+    if (deltaX < 0) swipeTo("next");
+    else swipeTo("prev");
+  };
+
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (!isMobile || formalCertifications.length < 2) return;
+
+    const touch = event.touches[0];
+    if (!touch) return;
+
+    touchActive.current = true;
+    touchStartX.current = touch.clientX;
+    touchStartY.current = touch.clientY;
+  };
+
+  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (
+      !isMobile ||
+      formalCertifications.length < 2 ||
+      !touchActive.current ||
+      touchStartX.current === null
+    ) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    if (!touch) {
+      resetGesture();
+      return;
+    }
+
+    const deltaX = touch.clientX - touchStartX.current;
+    const deltaY = touch.clientY - (touchStartY.current ?? touch.clientY);
+    resetGesture();
+
+    // Explicit touch handling is the reliable path on iOS/Safari and
+    // Android browsers; keep vertical gestures available for page scroll.
+    if (Math.abs(deltaX) < 35 || Math.abs(deltaX) < Math.abs(deltaY)) return;
 
     if (deltaX < 0) swipeTo("next");
     else swipeTo("prev");
@@ -173,10 +230,10 @@ export function CredentialsShowcase({
           aria-label="Formal certifications"
           onPointerDown={handlePointerDown}
           onPointerUp={handlePointerUp}
-          onPointerCancel={() => {
-            pointerActive.current = false;
-            touchStartX.current = null;
-          }}
+          onPointerCancel={resetGesture}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onTouchCancel={resetGesture}
         >
           {formalCertifications.map((certification, index) => {
             const isActive = activeIndex === index;

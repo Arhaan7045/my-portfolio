@@ -863,16 +863,17 @@ section[id],
 .project-card-summary:focus-visible { outline:2px solid var(--lavender); outline-offset:-3px; }
 
 .project-card-details-shell {
-  display:grid;
-  grid-template-rows:0fr;
+  max-height:0;
   overflow:hidden;
   border-top:1px solid transparent;
-  transition:grid-template-rows 360ms cubic-bezier(.22,1,.36,1),border-top-color 220ms ease;
+  transition:max-height 380ms cubic-bezier(.22,1,.36,1),border-top-color 220ms ease;
 }
-.project-card.is-open .project-card-details-shell { grid-template-rows:1fr; border-top-color:var(--line); }
+.project-card.is-open .project-card-details-shell {
+  max-height:32rem;
+  border-top-color:var(--line);
+}
 .project-card-details {
   min-height:0;
-  overflow:hidden;
   padding:1rem 1.35rem 1.2rem;
   background:rgba(0,0,0,.08);
 }
@@ -908,7 +909,7 @@ section[id],
   to { opacity:1; transform:translateY(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .project-card[open] .project-card-details { animation:none; }
+  .project-card-details-shell { transition:none; }
 }
 /* Project notes: dedicated touch target */
 .project-card-toggle {

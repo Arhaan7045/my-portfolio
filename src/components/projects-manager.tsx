@@ -271,12 +271,12 @@ export function ProjectsManager({ projects }: { projects: Project[] }) {
             </label>
 
             <label className="admin-form-wide">
-              <span>Details</span>
+              <span>Documentation / project notes</span>
               <textarea
                 value={form.details}
                 onChange={(event) => updateField("details", event.target.value)}
                 rows={6}
-                placeholder="Detailed project notes..."
+                placeholder="Overview, methodology, findings, evidence, remediation, or current project notes..."
               />
             </label>
 

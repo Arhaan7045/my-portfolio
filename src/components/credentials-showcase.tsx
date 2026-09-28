@@ -51,6 +51,13 @@ export function CredentialsShowcase({
       return;
     }
 
+    // On mobile, reveal the first archived edge immediately so the stack
+    // communicates that it is interactive without waiting for the timer.
+    if (isMobile) {
+      const firstPeek = activeIndex === 0 ? 1 : 0;
+      setAutoPeekIndex(firstPeek);
+    }
+
     let nextCandidate = 0;
     let resetTimer: ReturnType<typeof setTimeout> | null = null;
 

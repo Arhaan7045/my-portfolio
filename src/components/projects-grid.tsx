@@ -18,9 +18,6 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
           project={project}
           index={index}
           isOpen={openIndex === index}
-          isDesktop={false}
-          onOpen={() => setOpenIndex(index)}
-          onClose={() => setOpenIndex(null)}
           onToggle={() =>
             setOpenIndex((current) => (current === index ? null : index))
           }

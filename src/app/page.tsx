@@ -2,6 +2,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { ProjectsGrid } from "@/components/projects-grid";
 import { SiteHeader } from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
+import { CredentialsShowcase } from "@/components/credentials-showcase";
 import { createPublicClient } from "@/lib/supabase/public";
 import {
   contactLinks,
@@ -184,47 +185,18 @@ export default async function Home() {
             eyebrow="Credentials"
             title="Proof of structured learning and practical exposure."
           />
-          <div className="credentials-archive reveal">
-            <div className="credential-primary-list">
-              {formalCertifications.map((certification, index) => (
-                <article className="credential-primary-card" key={certification.title + "-" + index}>
-                  <div className="credential-meta">
-                    <span>FORMAL CREDENTIAL</span>
-                    <span>{certification.issuer}</span>
-                  </div>
-                  <div className="credential-body">
-                    <span className="credential-mark" aria-hidden="true">✦</span>
-                    <div>
-                      <h3>{certification.title}</h3>
-                      <p>{certification.description}</p>
-                    </div>
-                  </div>
-                  <div className="credential-footer">
-                    <span>FORMAL CERTIFICATION</span>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                  </div>
-                </article>
-              ))}
-            </div>
-            <div className="virtual-experience-card">
-              <div className="credentials-archive-divider">
-                <span>VIRTUAL EXPERIENCE</span>
-                <span>FORAGE / JOB SIMULATIONS</span>
-              </div>
-              <div className="virtual-experience-list">
-                {virtualExperiences.map((item, index) => (
-                  <article className="virtual-experience-row" key={item.title + "-" + index}>
-                    <span className="virtual-experience-index">0{index + 1}</span>
-                    <div>
-                      <h3>{item.title}</h3>
-                      <p>{item.description}</p>
-                    </div>
-                    <span className="virtual-experience-platform">{item.platform}</span>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </div>
+          <CredentialsShowcase
+            formalCertifications={formalCertifications.map((certification) => ({
+              title: certification.title,
+              issuer: certification.issuer,
+              description: certification.description,
+            }))}
+            virtualExperiences={virtualExperiences.map((item) => ({
+              title: item.title,
+              issuer: item.platform,
+              description: item.description,
+            }))}
+          />
         </section>
 
         {/* Currently Learning */}

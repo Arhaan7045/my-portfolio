@@ -21,6 +21,7 @@ async function getProject(slug: string) {
     .from("projects")
     .select("slug, title, category, status, description, details, tags")
     .eq("slug", slug)
+    .eq("is_published", true)
     .maybeSingle();
 
   if (error || !data) {

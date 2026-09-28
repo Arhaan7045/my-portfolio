@@ -25,7 +25,17 @@ export function CredentialsShowcase({
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [autoPeekIndex, setAutoPeekIndex] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const reducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 760px)");
+    const updateViewport = () => setIsMobile(mediaQuery.matches);
+
+    updateViewport();
+    mediaQuery.addEventListener("change", updateViewport);
+    return () => mediaQuery.removeEventListener("change", updateViewport);
+  }, []);
 
   useEffect(() => {
     setActiveIndex((current) =>
@@ -91,7 +101,9 @@ export function CredentialsShowcase({
             const side = offset === 0 ? 0 : offset > 0 ? 1 : -1;
             const isPeeking = !isActive && peekIndex === index;
 
-            const restingX = side * (92 + Math.max(0, Math.abs(offset) - 1) * 20);
+            const restingX = side * (
+              (isMobile ? 34 : 92) + Math.max(0, Math.abs(offset) - 1) * (isMobile ? 10 : 20)
+            );
             const restingY = isActive ? 0 : 14 + Math.min(2, Math.abs(offset)) * 4;
             const restingRotate = isActive
               ? 0
@@ -107,7 +119,7 @@ export function CredentialsShowcase({
                 }}
                 initial={false}
                 animate={{
-                  x: isActive ? 0 : isPeeking ? side * 190 : restingX,
+                  x: isActive ? 0 : isPeeking ? side * (isMobile ? 92 : 190) : restingX,
                   y: isActive ? 0 : restingY,
                   rotate: isActive ? 0 : restingRotate,
                   scale: isActive ? 1 : 0.975,

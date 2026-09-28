@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type TouchEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 type Certification = {
@@ -30,16 +30,11 @@ export function CredentialsShowcase({
   const [outgoingIndex, setOutgoingIndex] = useState<number | null>(null);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
-  const pointerActive = useRef(false);
+  const touchTracking = useRef(false);
   const reducedMotion = useReducedMotion();
   const credentialCount = formalCertifications.length;
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 760px)");
-    const updateViewport = () => setIsMobile(mediaQuery.matches);
-    updateViewport();
-    mediaQuery.addEventListener("change", updateViewport);
-    return () => mediaQuery.removeEventListener("change", updateViewport);
+  return () => mediaQuery.removeEventListener("change", updateViewport);
   }, []);
 
   useEffect(() => {
@@ -179,9 +174,6 @@ export function CredentialsShowcase({
         <div
           className="credential-deck"
           aria-label="Formal certifications"
-          onPointerDown={handlePointerDown}
-          onPointerUp={handlePointerUp}
-          onPointerCancel={resetGesture}
         >
           {formalCertifications.map((certification, index) => {
             const isActive = activeIndex === index;
@@ -239,6 +231,47 @@ export function CredentialsShowcase({
                 transition={{
                   duration: isMobile && outgoingIndex === index ? 0.32 : isPeeking ? 0.72 : 0.58,
                   ease,
+                }}
+                onTouchStart={(event: TouchEvent<HTMLButtonElement>) => {
+                  if (!isMobile || formalCertifications.length < 2) return;
+                  const touch = event.touches[0];
+                  if (!touch) return;
+                  touchTracking.current = true;
+                  touchStartX.current = touch.clientX;
+                  touchStartY.current = touch.clientY;
+                }}
+                onTouchEnd={(event: TouchEvent<HTMLButtonElement>) => {
+                  if (
+                    !isMobile ||
+                    formalCertifications.length < 2 ||
+                    !touchTracking.current ||
+                    touchStartX.current === null
+                  ) {
+                    return;
+                  }
+
+                  const touch = event.changedTouches[0];
+                  const deltaX = touch ? touch.clientX - touchStartX.current : 0;
+                  const deltaY =
+                    touch && touchStartY.current !== null
+                      ? touch.clientY - touchStartY.current
+                      : 0;
+
+                  touchTracking.current = false;
+                  touchStartX.current = null;
+                  touchStartY.current = null;
+
+                  if (Math.abs(deltaX) < 35 || Math.abs(deltaX) < Math.abs(deltaY)) {
+                    return;
+                  }
+
+                  event.preventDefault();
+                  swipeTo(deltaX < 0 ? "next" : "prev");
+                }}
+                onTouchCancel={() => {
+                  touchTracking.current = false;
+                  touchStartX.current = null;
+                  touchStartY.current = null;
                 }}
                 onHoverStart={() => {
                   if (!isActive) setHoveredIndex(index);

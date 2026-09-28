@@ -25,17 +25,7 @@ export function CredentialsShowcase({
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [autoPeekIndex, setAutoPeekIndex] = useState<number | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
   const reducedMotion = useReducedMotion();
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 760px)");
-    const updateViewport = () => setIsMobile(mediaQuery.matches);
-
-    updateViewport();
-    mediaQuery.addEventListener("change", updateViewport);
-    return () => mediaQuery.removeEventListener("change", updateViewport);
-  }, []);
 
   useEffect(() => {
     setActiveIndex((current) =>
@@ -65,9 +55,7 @@ export function CredentialsShowcase({
 
       setAutoPeekIndex(candidate);
 
-      if (resetTimer) {
-        clearTimeout(resetTimer);
-      }
+      if (resetTimer) clearTimeout(resetTimer);
 
       resetTimer = setTimeout(() => {
         setAutoPeekIndex((current) => (current === candidate ? null : current));
@@ -76,9 +64,7 @@ export function CredentialsShowcase({
 
     return () => {
       clearInterval(interval);
-      if (resetTimer) {
-        clearTimeout(resetTimer);
-      }
+      if (resetTimer) clearTimeout(resetTimer);
     };
   }, [activeIndex, formalCertifications.length, reducedMotion]);
 
@@ -97,21 +83,8 @@ export function CredentialsShowcase({
         <div className="credential-deck" aria-label="Formal certifications">
           {formalCertifications.map((certification, index) => {
             const isActive = activeIndex === index;
-            const offset = index - activeIndex;
-            const side = offset === 0 ? 0 : offset > 0 ? 1 : -1;
+            const depth = Math.abs(index - activeIndex);
             const isPeeking = !isActive && peekIndex === index;
-
-            const restingX = isMobile
-              ? 0
-              : side * (92 + Math.max(0, Math.abs(offset) - 1) * 20);
-            const restingY = isActive
-              ? 0
-              : isMobile
-                ? 18 + Math.min(2, Math.abs(offset)) * 8
-                : 14 + Math.min(2, Math.abs(offset)) * 4;
-            const restingRotate = isActive
-              ? 0
-              : side * (1.6 + Math.min(2, Math.abs(offset) - 1) * 0.4);
 
             return (
               <motion.button
@@ -119,34 +92,26 @@ export function CredentialsShowcase({
                 key={certification.title + "-" + index}
                 className={`credential-deck-card${isActive ? " is-active" : ""}`}
                 style={{
-                  zIndex: isActive ? 30 : 10 - Math.abs(offset),
+                  zIndex: isActive ? 30 : 20 - Math.min(depth, 10),
                 }}
                 initial={false}
                 animate={{
-                  x: isMobile ? 0 : isActive ? 0 : isPeeking ? side * 190 : restingX,
-                  y: isMobile
-                    ? isActive
-                      ? 0
-                      : isPeeking
-                        ? 7
-                        : 18 + Math.min(2, Math.abs(offset)) * 10
-                    : isActive
-                      ? 0
-                      : restingY,
-                  rotate: isMobile ? 0 : isActive ? 0 : restingRotate,
-                  scale: isMobile ? 1 : isActive ? 1 : 0.975,
+                  x: 0,
+                  y: isActive ? 0 : isPeeking ? 6 : 12 + Math.min(depth, 5) * 9,
+                  rotate: 0,
+                  scale: 1,
                 }}
                 transition={{
                   duration: isPeeking ? 0.72 : 0.58,
                   ease,
                 }}
                 onHoverStart={() => {
-                  if (!isActive) {
-                    setHoveredIndex(index);
-                  }
+                  if (!isActive) setHoveredIndex(index);
                 }}
                 onHoverEnd={() => {
-                  setHoveredIndex((current) => (current === index ? null : current));
+                  setHoveredIndex((current) =>
+                    current === index ? null : current,
+                  );
                 }}
                 onClick={() => {
                   setActiveIndex(index);
@@ -196,9 +161,7 @@ export function CredentialsShowcase({
 
         {formalCertifications.length > 1 && (
           <p className="credential-deck-hint">
-            {isMobile
-              ? "Tap the exposed edge to preview · tap to select"
-              : "Hover the exposed edge to preview · click or tap to select"}
+            Hover the exposed edge to preview · click or tap to select
           </p>
         )}
       </div>
@@ -229,7 +192,9 @@ export function CredentialsShowcase({
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
               </div>
-              <span className="virtual-experience-platform">{item.issuer}</span>
+              <span className="virtual-experience-platform">
+                {item.issuer}
+              </span>
             </motion.article>
           ))}
         </div>

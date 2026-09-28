@@ -16,9 +16,6 @@ type ProjectCardProps = {
   project: Project;
   index: number;
   isOpen: boolean;
-  isDesktop: boolean;
-  onOpen: () => void;
-  onClose: () => void;
   onToggle: () => void;
 };
 
@@ -26,9 +23,6 @@ export function ProjectCard({
   project,
   index,
   isOpen,
-  isDesktop,
-  onOpen,
-  onClose,
   onToggle,
 }: ProjectCardProps) {
   const detailsId = `project-documentation-${index}`;

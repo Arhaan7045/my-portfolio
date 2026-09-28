@@ -2232,3 +2232,52 @@ section[id],
     width: 100%;
   }
 }
+
+
+/* ─── Admin confirmation dialog ─── */
+.admin-confirm-backdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(5, 4, 9, .72);
+  backdrop-filter: blur(12px);
+}
+.admin-confirm-dialog {
+  width: min(100%, 30rem);
+  padding: 1.4rem;
+  border: 1px solid rgba(208,185,255,.22);
+  background: linear-gradient(145deg, rgba(31,24,43,.98), rgba(14,12,20,.98));
+  box-shadow: 0 2rem 5rem rgba(0,0,0,.48);
+}
+.admin-confirm-kicker {
+  color: #e7b4b4;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: .52rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+.admin-confirm-dialog h2 {
+  margin: .65rem 0 0;
+  color: var(--text);
+  font-size: 1.5rem;
+  letter-spacing: -.04em;
+}
+.admin-confirm-dialog p {
+  margin: .7rem 0 0;
+  color: var(--muted);
+  font-size: .76rem;
+  line-height: 1.7;
+}
+.admin-confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: .55rem;
+  margin-top: 1.25rem;
+}
+@media (max-width: 520px) {
+  .admin-confirm-actions { flex-direction: column-reverse; }
+  .admin-confirm-actions button { width: 100%; }
+}

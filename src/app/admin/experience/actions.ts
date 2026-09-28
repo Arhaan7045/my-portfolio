@@ -70,23 +70,6 @@ async function getExperienceOrders(supabase: Awaited<ReturnType<typeof createCli
   return data ?? [];
 }
 
-async function shiftExperienceOrders(
-  supabase: Awaited<ReturnType<typeof createClient>>,
-  ids: string[],
-  delta: number,
-) {
-  for (const id of ids) {
-    const { error } = await supabase
-      .from("experience")
-      .update({ sort_order: delta > 0 ? undefined : undefined })
-      .eq("id", id);
-
-    if (error) {
-      throw new Error(error.message);
-    }
-  }
-}
-
 async function setExperienceOrder(
   supabase: Awaited<ReturnType<typeof createClient>>,
   ids: string[],

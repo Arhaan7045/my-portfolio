@@ -247,9 +247,6 @@ export function CredentialsShowcase({
                   duration: isMobile && outgoingIndex === index ? 0.32 : isPeeking ? 0.72 : 0.58,
                   ease,
                 }}
-                onTouchStart={handleTouchStart}
-                onTouchEnd={handleTouchEnd}
-                onTouchCancel={resetGesture}
                 onHoverStart={() => {
                   if (!isActive) setHoveredIndex(index);
                 }}

@@ -26,6 +26,7 @@ export function CredentialsShowcase({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [autoPeekIndex, setAutoPeekIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState<"next" | "prev" | null>(null);
   const [outgoingIndex, setOutgoingIndex] = useState<number | null>(null);
   const touchStartX = useRef<number | null>(null);
@@ -37,7 +38,14 @@ export function CredentialsShowcase({
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 760px)");
     const updateViewport = () => setIsMobile(mediaQuery.matches);
+    const updateTouch = () => {
+      setIsTouchDevice(
+        navigator.maxTouchPoints > 0 ||
+        window.matchMedia("(pointer: coarse)").matches,
+      );
+    };
     updateViewport();
+    updateTouch();
     mediaQuery.addEventListener("change", updateViewport);
     return () => mediaQuery.removeEventListener("change", updateViewport);
   }, []);
@@ -124,7 +132,7 @@ export function CredentialsShowcase({
   };
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
-    if (!isMobile || formalCertifications.length < 2) return;
+    if (!isTouchDevice || formalCertifications.length < 2) return;
 
     const touch = event.touches[0];
     if (!touch) return;
@@ -136,7 +144,7 @@ export function CredentialsShowcase({
 
   const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
     if (
-      !isMobile ||
+      !isTouchDevice ||
       formalCertifications.length < 2 ||
       !touchActive.current ||
       touchStartX.current === null
@@ -328,7 +336,7 @@ export function CredentialsShowcase({
               </button>
             </div>
             <p className="credential-deck-hint">
-              {isMobile
+              {isTouchDevice
                 ? "Swipe left or right to move through certificates"
                 : "Hover the exposed edge to preview · click or tap to select"}
             </p>

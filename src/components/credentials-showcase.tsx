@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 type Certification = {
@@ -26,6 +26,8 @@ export function CredentialsShowcase({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [autoPeekIndex, setAutoPeekIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [swipeDirection, setSwipeDirection] = useState<"next" | "prev" | null>(null);
+  const touchStartX = useRef<number | null>(null);
   const reducedMotion = useReducedMotion();
   const credentialCount = formalCertifications.length;
 
@@ -87,6 +89,43 @@ export function CredentialsShowcase({
 
   const peekIndex = hoveredIndex ?? autoPeekIndex;
 
+  const selectCredential = (index: number, direction?: "next" | "prev") => {
+    setActiveIndex(index);
+    setHoveredIndex(null);
+    setAutoPeekIndex(null);
+    if (isMobile) {
+      setSwipeDirection(direction ?? null);
+      window.setTimeout(() => setSwipeDirection(null), 360);
+    }
+  };
+
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (!isMobile || formalCertifications.length < 2) return;
+    touchStartX.current = event.touches[0]?.clientX ?? null;
+  };
+
+  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (!isMobile || formalCertifications.length < 2 || touchStartX.current === null) {
+      return;
+    }
+
+    const endX = event.changedTouches[0]?.clientX ?? touchStartX.current;
+    const deltaX = endX - touchStartX.current;
+    touchStartX.current = null;
+
+    if (Math.abs(deltaX) < 45) return;
+
+    if (deltaX < 0) {
+      const next = (activeIndex + 1) % formalCertifications.length;
+      selectCredential(next, "next");
+    } else {
+      const previous =
+        (activeIndex - 1 + formalCertifications.length) %
+        formalCertifications.length;
+      selectCredential(previous, "prev");
+    }
+  };
+
   return (
     <div className="credentials-showcase reveal">
       <div
@@ -107,6 +146,8 @@ export function CredentialsShowcase({
         <div
           className="credential-deck"
           aria-label="Formal certifications"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
           {formalCertifications.map((certification, index) => {
             const isActive = activeIndex === index;
@@ -129,7 +170,19 @@ export function CredentialsShowcase({
                 }}
                 initial={false}
                 animate={{
-                  x: isMobile ? 0 : isActive ? 0 : isPeeking ? side * 190 : restingX,
+                  x: isMobile
+                    ? isActive
+                      ? swipeDirection === "next"
+                        ? 0
+                        : swipeDirection === "prev"
+                          ? 0
+                          : 0
+                      : 0
+                    : isActive
+                      ? 0
+                      : isPeeking
+                        ? side * 190
+                        : restingX,
                   y: isMobile
                     ? isActive
                       ? 0
@@ -155,9 +208,7 @@ export function CredentialsShowcase({
                   );
                 }}
                 onClick={() => {
-                  setActiveIndex(index);
-                  setHoveredIndex(null);
-                  setAutoPeekIndex(null);
+                  selectCredential(index);
                 }}
                 aria-pressed={isActive}
               >
@@ -202,7 +253,9 @@ export function CredentialsShowcase({
 
         {formalCertifications.length > 1 && (
           <p className="credential-deck-hint">
-            Tap the exposed edge to preview · click or tap to select
+            {isMobile
+              ? "Swipe left or right to switch · tap to select"
+              : "Hover the exposed edge to preview · click or tap to select"}
           </p>
         )}
       </div>

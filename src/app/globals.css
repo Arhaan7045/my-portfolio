@@ -3084,6 +3084,12 @@ section[id],
     opacity: .08;
   }
 
+  .credential-deck-card {
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
   .credential-deck-card:not(.is-active) .credential-deck-core {
     opacity: .42;
   }

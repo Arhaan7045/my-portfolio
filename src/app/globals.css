@@ -656,7 +656,7 @@ section[id],
   display: block;
   width: min(42rem, 72%);
   height: calc(100% - 1rem);
-  margin: 0;
+  margin: 0 0 0 calc(-1 * min(21rem, 36%));
   padding: 1.4rem 1.5rem;
   border: 1px solid rgba(208,185,255,.22);
   border-radius: 2px;
@@ -671,6 +671,7 @@ section[id],
   font: inherit;
   cursor: pointer;
   transform-origin: center center;
+  touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -826,8 +827,8 @@ section[id],
     width: 100%;
     height: auto;
     min-height: 15rem;
+    margin: 0;
     padding: 1.1rem;
-    transform: none;
   }
 
   .credential-deck-core {

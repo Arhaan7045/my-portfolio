@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 
 export type Project = {
@@ -15,30 +13,14 @@ export type Project = {
 type ProjectCardProps = {
   project: Project;
   index: number;
-  isOpen: boolean;
-  onToggle: () => void;
 };
 
-export function ProjectCard({
-  project,
-  index,
-  isOpen,
-  onToggle,
-}: ProjectCardProps) {
+export function ProjectCard({ project, index }: ProjectCardProps) {
   const detailsId = `project-documentation-${index}`;
 
   return (
-    <article
-      className={`project-card${isOpen ? " is-open" : ""}`}
-
-    >
-      <button
-        type="button"
-        className="project-card-summary"
-        aria-expanded={isOpen}
-        aria-controls={detailsId}
-        onClick={onToggle}
-      >
+    <details className="project-card">
+      <summary className="project-card-summary">
         <span className="project-card-meta">
           <span>0{index + 1}</span>
           <span>{project.status}</span>
@@ -61,13 +43,9 @@ export function ProjectCard({
             <span key={tag}>{tag}</span>
           ))}
         </span>
-      </button>
+      </summary>
 
-      <div
-        id={detailsId}
-        className="project-card-details-shell"
-        aria-hidden={!isOpen}
-      >
+      <div id={detailsId} className="project-card-details-shell">
         <div className="project-card-details">
           <span>PROJECT DOCUMENTATION</span>
           <p>{project.details}</p>
@@ -76,6 +54,6 @@ export function ProjectCard({
           </Link>
         </div>
       </div>
-    </article>
+    </details>
   );
 }

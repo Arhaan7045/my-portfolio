@@ -3254,6 +3254,7 @@ section[id],
 
 @media (max-width: 760px) {
   .credential-deck {
+  touch-action: pan-y;
     inset: 3.45rem .75rem 5.45rem;
   }
 

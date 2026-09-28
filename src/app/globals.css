@@ -248,7 +248,7 @@ section[id],
 .skill-group h3, .project-card h3, .timeline-entry h3, .certification-card h3 { font-size:1rem; }
 
 /* ─── Projects ─── */
-.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; align-items: start; }
 .project-card { display: flex; min-height: 26rem; flex-direction: column; padding: 1.6rem; border: 1px solid var(--line); background: linear-gradient(145deg, rgba(158, 108, 242, 0.1), transparent 45%), var(--surface); transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease; }
 .project-card:hover { border-color: rgba(208, 185, 255, 0.45); box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.28); transform: translateY(-0.4rem); }
 .card-index { color: var(--lavender); font-family: var(--font-geist-mono), monospace; font-size: 0.7rem; }

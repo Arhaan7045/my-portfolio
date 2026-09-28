@@ -31,7 +31,8 @@ export function ProjectCard({
   const detailsId = `project-documentation-${index}`;
 
   return (
-    <details
+    <motion.details
+      layout
       className={`project-card${isOpen ? " is-open" : ""}`}
       open={isOpen}
       onToggle={(event) => onToggle(event.currentTarget.open)}
@@ -84,6 +85,6 @@ export function ProjectCard({
           </Link>
         </div>
       </motion.div>
-    </details>
+    </motion.details>
   );
 }

@@ -189,9 +189,9 @@ export default async function Home() {
             title="Proof of structured learning and practical exposure."
           />
           <div className="credentials-archive reveal">
-            <div className="credential-primary-card">
+            <div className="credential-primary-list">
               {formalCertifications.map((certification, index) => (
-                <div key={certification.title + "-" + index}>
+                <article className="credential-primary-card" key={certification.title + "-" + index}>
                   <div className="credential-meta">
                     <span>FORMAL CREDENTIAL</span>
                     <span>{certification.issuer}</span>
@@ -204,10 +204,10 @@ export default async function Home() {
                     </div>
                   </div>
                   <div className="credential-footer">
-                    <span>COMPLETED</span>
-                    <span>9 COURSES</span>
+                    <span>FORMAL CERTIFICATION</span>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
             <div className="virtual-experience-card">

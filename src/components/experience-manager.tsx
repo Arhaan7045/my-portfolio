@@ -35,7 +35,7 @@ const emptyForm: ExperienceFormState = {
   title: "",
   organization: "",
   description: "",
-  sortOrder: "0",
+  sortOrder: "1",
   isPublished: true,
 };
 
@@ -45,7 +45,7 @@ function toForm(item: Experience): ExperienceFormState {
     title: item.title,
     organization: item.organization,
     description: item.description,
-    sortOrder: String(item.sort_order),
+    sortOrder: String(Math.max(1, item.sort_order)),
     isPublished: item.is_published,
   };
 }
@@ -225,6 +225,7 @@ export function ExperienceManager({ experience }: { experience: Experience[] }) 
               <span>Sort order</span>
               <input
                 type="number"
+                min={1}
                 value={form.sortOrder}
                 onChange={(event) => updateField("sortOrder", event.target.value)}
               />

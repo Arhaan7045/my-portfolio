@@ -188,7 +188,9 @@ export function CredentialsShowcase({
 
         {formalCertifications.length > 1 && (
           <p className="credential-deck-hint">
-            Hover the exposed edge to preview · click or tap to select
+            {isMobile
+              ? "Tap the exposed edge to preview · tap to select"
+              : "Hover the exposed edge to preview · click or tap to select"}
           </p>
         )}
       </div>

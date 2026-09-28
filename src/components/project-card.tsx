@@ -50,7 +50,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
       <div id={detailsId} className="project-card-details-shell">
         <div className="project-card-details">
-          <span>PROJECT NOTES</span>
+          <span>PROJECT DOCUMENTATION</span>
           <p>{project.details}</p>
           <span className="project-card-detail-status">
             DOCUMENTATION IN PROGRESS

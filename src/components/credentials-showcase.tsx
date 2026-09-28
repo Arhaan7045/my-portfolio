@@ -30,11 +30,17 @@ export function CredentialsShowcase({
   const [outgoingIndex, setOutgoingIndex] = useState<number | null>(null);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
-  const touchTracking = useRef(false);
+  const touchActive = useRef(false);
+  const pointerActive = useRef(false);
   const reducedMotion = useReducedMotion();
   const credentialCount = formalCertifications.length;
 
-  return () => mediaQuery.removeEventListener("change", updateViewport);
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 760px)");
+    const updateViewport = () => setIsMobile(mediaQuery.matches);
+    updateViewport();
+    mediaQuery.addEventListener("change", updateViewport);
+    return () => mediaQuery.removeEventListener("change", updateViewport);
   }, []);
 
   useEffect(() => {
@@ -51,8 +57,11 @@ export function CredentialsShowcase({
       return;
     }
 
+    // On mobile, reveal the first archived edge immediately so the stack
+    // communicates that it is interactive without waiting for the timer.
     if (isMobile) {
-      setAutoPeekIndex(activeIndex === 0 ? 1 : 0);
+      const firstPeek = activeIndex === 0 ? 1 : 0;
+      setAutoPeekIndex(firstPeek);
     }
 
     let nextCandidate = 0;
@@ -70,6 +79,7 @@ export function CredentialsShowcase({
       setAutoPeekIndex(candidate);
 
       if (resetTimer) clearTimeout(resetTimer);
+
       resetTimer = setTimeout(() => {
         setAutoPeekIndex((current) => (current === candidate ? null : current));
       }, PEEK_DURATION);
@@ -79,7 +89,7 @@ export function CredentialsShowcase({
       clearInterval(interval);
       if (resetTimer) clearTimeout(resetTimer);
     };
-  }, [activeIndex, formalCertifications.length, reducedMotion, isMobile]);
+  }, [activeIndex, formalCertifications.length, reducedMotion]);
 
   const peekIndex = hoveredIndex ?? autoPeekIndex;
 
@@ -97,7 +107,9 @@ export function CredentialsShowcase({
       return;
     }
 
-    const nextIndex = direction === "next" ? activeIndex + 1 : activeIndex - 1;
+    const nextIndex =
+      direction === "next" ? activeIndex + 1 : activeIndex - 1;
+
     if (nextIndex < 0 || nextIndex >= formalCertifications.length) return;
 
     setSwipeDirection(direction);
@@ -114,46 +126,54 @@ export function CredentialsShowcase({
 
   const resetGesture = () => {
     pointerActive.current = false;
+    touchActive.current = false;
     touchStartX.current = null;
     touchStartY.current = null;
   };
 
-  const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    if (!isMobile || formalCertifications.length < 2 || event.pointerType === "mouse") {
-      return;
-    }
-
-    pointerActive.current = true;
-    touchStartX.current = event.clientX;
-    touchStartY.current = event.clientY;
-
-    try {
-      event.currentTarget.setPointerCapture(event.pointerId);
-    } catch {
-      // Pointer capture is not required for the gesture to work.
-    }
+  const resetGesture = () => {
+    touchActive.current = false;
+    touchStartX.current = null;
+    touchStartY.current = null;
   };
 
-  const handlePointerUp = (event: PointerEvent<HTMLDivElement>) => {
+  const handleTouchStart = (event: TouchEvent<HTMLButtonElement>) => {
+    if (!isMobile || formalCertifications.length < 2) return;
+
+    const touch = event.touches[0];
+    if (!touch) return;
+
+    touchActive.current = true;
+    touchStartX.current = touch.clientX;
+    touchStartY.current = touch.clientY;
+  };
+
+  const handleTouchEnd = (event: TouchEvent<HTMLButtonElement>) => {
     if (
       !isMobile ||
       formalCertifications.length < 2 ||
-      !pointerActive.current ||
-      touchStartX.current === null ||
-      event.pointerType === "mouse"
+      !touchActive.current ||
+      touchStartX.current === null
     ) {
       return;
     }
 
-    const deltaX = event.clientX - touchStartX.current;
-    const deltaY = event.clientY - (touchStartY.current ?? event.clientY);
+    const touch = event.changedTouches[0];
+    if (!touch) {
+      resetGesture();
+      return;
+    }
+
+    const deltaX = touch.clientX - touchStartX.current;
+    const deltaY = touch.clientY - (touchStartY.current ?? touch.clientY);
     resetGesture();
 
     if (Math.abs(deltaX) < 35 || Math.abs(deltaX) < Math.abs(deltaY)) return;
 
-    if (deltaX < 0) swipeTo("next");
-    else swipeTo("prev");
+    event.preventDefault();
+    swipeTo(deltaX < 0 ? "next" : "prev");
   };
+
   return (
     <div className="credentials-showcase reveal">
       <div
@@ -232,47 +252,9 @@ export function CredentialsShowcase({
                   duration: isMobile && outgoingIndex === index ? 0.32 : isPeeking ? 0.72 : 0.58,
                   ease,
                 }}
-                onTouchStart={(event: TouchEvent<HTMLButtonElement>) => {
-                  if (!isMobile || formalCertifications.length < 2) return;
-                  const touch = event.touches[0];
-                  if (!touch) return;
-                  touchTracking.current = true;
-                  touchStartX.current = touch.clientX;
-                  touchStartY.current = touch.clientY;
-                }}
-                onTouchEnd={(event: TouchEvent<HTMLButtonElement>) => {
-                  if (
-                    !isMobile ||
-                    formalCertifications.length < 2 ||
-                    !touchTracking.current ||
-                    touchStartX.current === null
-                  ) {
-                    return;
-                  }
-
-                  const touch = event.changedTouches[0];
-                  const deltaX = touch ? touch.clientX - touchStartX.current : 0;
-                  const deltaY =
-                    touch && touchStartY.current !== null
-                      ? touch.clientY - touchStartY.current
-                      : 0;
-
-                  touchTracking.current = false;
-                  touchStartX.current = null;
-                  touchStartY.current = null;
-
-                  if (Math.abs(deltaX) < 35 || Math.abs(deltaX) < Math.abs(deltaY)) {
-                    return;
-                  }
-
-                  event.preventDefault();
-                  swipeTo(deltaX < 0 ? "next" : "prev");
-                }}
-                onTouchCancel={() => {
-                  touchTracking.current = false;
-                  touchStartX.current = null;
-                  touchStartY.current = null;
-                }}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+                onTouchCancel={resetGesture}
                 onHoverStart={() => {
                   if (!isActive) setHoveredIndex(index);
                 }}

@@ -101,10 +101,14 @@ export function CredentialsShowcase({
             const side = offset === 0 ? 0 : offset > 0 ? 1 : -1;
             const isPeeking = !isActive && peekIndex === index;
 
-            const restingX = side * (
-              (isMobile ? 34 : 92) + Math.max(0, Math.abs(offset) - 1) * (isMobile ? 10 : 20)
-            );
-            const restingY = isActive ? 0 : 14 + Math.min(2, Math.abs(offset)) * 4;
+            const restingX = isMobile
+              ? 0
+              : side * (92 + Math.max(0, Math.abs(offset) - 1) * 20);
+            const restingY = isActive
+              ? 0
+              : isMobile
+                ? 18 + Math.min(2, Math.abs(offset)) * 8
+                : 14 + Math.min(2, Math.abs(offset)) * 4;
             const restingRotate = isActive
               ? 0
               : side * (1.6 + Math.min(2, Math.abs(offset) - 1) * 0.4);
@@ -119,8 +123,8 @@ export function CredentialsShowcase({
                 }}
                 initial={false}
                 animate={{
-                  x: isActive ? 0 : isPeeking ? side * (isMobile ? 92 : 190) : restingX,
-                  y: isActive ? 0 : restingY,
+                  x: isActive ? 0 : isPeeking && !isMobile ? side * 190 : restingX,
+                  y: isActive ? 0 : isPeeking && isMobile ? 8 : restingY,
                   rotate: isActive ? 0 : restingRotate,
                   scale: isActive ? 1 : 0.975,
                 }}

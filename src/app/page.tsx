@@ -1,5 +1,5 @@
 import { SectionHeading } from "@/components/section-heading";
-import { ProjectCard } from "@/components/project-card";
+import { ProjectsGrid } from "@/components/projects-grid";
 import { SiteHeader } from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
 import { createPublicClient } from "@/lib/supabase/public";
@@ -149,11 +149,7 @@ export default async function Home() {
             title="Work I'm building along the way."
             description="A growing collection of hands-on security work, practice projects, and documented learning."
           />
-          <div className="projects-grid">
-            {publicProjects.map((project, index) => (
-              <ProjectCard key={project.title} project={project} index={index} />
-            ))}
-          </div>
+          <ProjectsGrid projects={publicProjects} />
         </section>
 
         {/* Experience */}

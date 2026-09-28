@@ -584,6 +584,114 @@ section[id],
   .skill-card-top { font-size:.5rem; }
   .skill-group ul { margin-top:.9rem; line-height:1.8; font-size:.72rem; }
 
+  /* Projects — mobile */
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: .75rem;
+  }
+  .project-card {
+    min-height: 0;
+    width: 100%;
+    transform: none;
+  }
+  .project-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .project-card.is-open {
+    box-shadow: 0 1.2rem 2.5rem rgba(0,0,0,.22);
+  }
+  .project-card-summary {
+    padding: 1.15rem;
+  }
+  .project-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    margin-bottom: 1.15rem;
+  }
+  .project-card-heading {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) 2.35rem;
+    gap: .75rem;
+    align-items: start;
+  }
+  .project-card-category {
+    display: block;
+    margin-bottom: .45rem;
+    color: rgba(208,185,255,.58);
+    font-family: var(--font-geist-mono),monospace;
+    font-size: .52rem;
+    line-height: 1.4;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+  .project-card-title {
+    max-width: 100%;
+    color: var(--text);
+    font-size: clamp(1.15rem,5.8vw,1.55rem);
+    font-weight: 600;
+    letter-spacing: -.045em;
+    line-height: 1.08;
+    overflow-wrap: anywhere;
+  }
+  .project-card-toggle {
+    width: 2.35rem;
+    height: 2.35rem;
+    margin-top: .05rem;
+  }
+  .project-card-description {
+    display: block;
+    margin-top: 1rem;
+    color: var(--muted);
+    font-size: .78rem;
+    line-height: 1.65;
+  }
+  .project-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem;
+    margin-top: 1rem;
+  }
+  .project-card-tags span {
+    padding: .32rem .42rem;
+    border: 1px solid rgba(208,185,255,.16);
+    color: rgba(208,185,255,.68);
+    font-family: var(--font-geist-mono),monospace;
+    font-size: .48rem;
+    line-height: 1.2;
+    letter-spacing: .05em;
+  }
+  .project-card-details-shell {
+    max-height: 0;
+    transition: max-height 360ms cubic-bezier(.22,1,.36,1), border-top-color 220ms ease;
+  }
+  .project-card.is-open .project-card-details-shell {
+    max-height: 100rem;
+  }
+  .project-card-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .8rem;
+    padding: 1rem 1.15rem 1.15rem;
+  }
+  .project-card-details > span:first-child {
+    font-size: .5rem;
+  }
+  .project-card-details p {
+    margin: 0;
+    max-width: none;
+    font-size: .78rem;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+  }
+  .project-card-case-study {
+    width: fit-content;
+    max-width: 100%;
+    margin-top: .15rem;
+  }
+
   /* Experience / credentials / learning */
   .experience-entry { grid-template-columns:2rem 1fr; gap:.35rem .75rem; padding:1.15rem 0; }
   .experience-index { grid-row:1 / span 2; }

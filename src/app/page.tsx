@@ -22,26 +22,31 @@ export default async function Home() {
     supabase
       .from("projects")
       .select("title, category, status, slug, description, details, tags, sort_order")
+      .eq("is_published", true)
       .order("sort_order", { ascending: true })
       .order("created_at", { ascending: true }),
     supabase
       .from("experience")
       .select("period, title, organization, description, sort_order")
+      .eq("is_published", true)
       .order("sort_order", { ascending: true })
       .order("created_at", { ascending: true }),
     supabase
       .from("skill_groups")
       .select("title, skills, sort_order")
+      .eq("is_published", true)
       .order("sort_order", { ascending: true })
       .order("created_at", { ascending: true }),
     supabase
       .from("certifications")
       .select("title, issuer, description, type, sort_order")
+      .eq("is_published", true)
       .order("sort_order", { ascending: true })
       .order("created_at", { ascending: true }),
     supabase
       .from("learning_areas")
       .select("title, description, sort_order")
+      .eq("is_published", true)
       .order("sort_order", { ascending: true })
       .order("created_at", { ascending: true }),
   ]);

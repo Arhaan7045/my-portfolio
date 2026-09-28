@@ -33,6 +33,36 @@ export function CredentialsShowcase({
   const credentialCount = formalCertifications.length;
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 760px)");
+    const update = () => setIsMobile(mediaQuery.matches);
+
+    update();
+    mediaQuery.addEventListener("change", update);
+
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
+
+  const swipeTo = (direction: "next" | "prev") => {
+    if (formalCertifications.length < 2 || outgoingIndex !== null) return;
+
+    const nextIndex =
+      direction === "next" ? activeIndex + 1 : activeIndex - 1;
+
+    if (nextIndex < 0 || nextIndex >= formalCertifications.length) return;
+
+    setSwipeDirection(direction);
+    setOutgoingIndex(activeIndex);
+    setActiveIndex(nextIndex);
+    setHoveredIndex(null);
+    setAutoPeekIndex(null);
+
+    window.setTimeout(() => {
+      setOutgoingIndex(null);
+      setSwipeDirection(null);
+    }, 360);
+  };
+
+  useEffect(() => {
     const deck = deckRef.current;
     if (!deck) return;
 
@@ -57,19 +87,7 @@ export function CredentialsShowcase({
         return;
       }
 
-      const nextIndex = deltaX < 0 ? activeIndex + 1 : activeIndex - 1;
-      if (nextIndex < 0 || nextIndex >= formalCertifications.length) return;
-
-      setSwipeDirection(deltaX < 0 ? "next" : "prev");
-      setOutgoingIndex(activeIndex);
-      setActiveIndex(nextIndex);
-      setHoveredIndex(null);
-      setAutoPeekIndex(null);
-
-      window.setTimeout(() => {
-        setOutgoingIndex(null);
-        setSwipeDirection(null);
-      }, 360);
+      swipeTo(deltaX < 0 ? "next" : "prev");
     };
 
     deck.addEventListener("touchstart", handleTouchStart, { passive: true });
@@ -272,7 +290,7 @@ export function CredentialsShowcase({
               <button
                 type="button"
                 className="credential-deck-nav"
-                onClick={() => (isMobile ? swipeTo("prev") : selectCredential(activeIndex - 1))}
+                onClick={() => swipeTo("prev")}
                 disabled={activeIndex === 0 || outgoingIndex !== null}
                 aria-label="Previous certificate"
               >
@@ -292,7 +310,7 @@ export function CredentialsShowcase({
               <button
                 type="button"
                 className="credential-deck-nav"
-                onClick={() => (isMobile ? swipeTo("next") : selectCredential(activeIndex + 1))}
+                onClick={() => swipeTo("next")}
                 disabled={activeIndex === formalCertifications.length - 1 || outgoingIndex !== null}
                 aria-label="Next certificate"
               >

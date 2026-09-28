@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
@@ -60,32 +61,40 @@ export default async function AdminPage() {
         </section>
 
         <section className="admin-module-grid" aria-label="Admin modules">
-          <article className="admin-module-card">
+          <article className="admin-module-card admin-module-card-active">
             <span>01</span>
             <h2>Projects</h2>
             <p>Case studies, project status, descriptions, tags, and publishing.</p>
-            <strong>COMING NEXT</strong>
+            <Link className="admin-module-action" href="/admin/projects">
+              MANAGE PROJECTS ↗
+            </Link>
           </article>
 
-          <article className="admin-module-card">
+          <article className="admin-module-card admin-module-card-active">
             <span>02</span>
             <h2>Experience</h2>
             <p>Roles, organizations, descriptions, ordering, and visibility.</p>
-            <strong>COMING NEXT</strong>
+            <Link className="admin-module-action" href="/admin/experience">
+              MANAGE EXPERIENCE ↗
+            </Link>
           </article>
 
-          <article className="admin-module-card">
+          <article className="admin-module-card admin-module-card-active">
             <span>03</span>
             <h2>Skills & learning</h2>
             <p>Skill groups, learning areas, and their public visibility.</p>
-            <strong>COMING NEXT</strong>
+            <Link className="admin-module-action" href="/admin/skills">
+              MANAGE SKILLS & LEARNING ↗
+            </Link>
           </article>
 
-          <article className="admin-module-card">
+          <article className="admin-module-card admin-module-card-active">
             <span>04</span>
             <h2>Certifications</h2>
             <p>Credentials and virtual experiences managed from one place.</p>
-            <strong>COMING NEXT</strong>
+            <Link className="admin-module-action" href="/admin/certifications">
+              MANAGE CERTIFICATIONS ↗
+            </Link>
           </article>
         </section>
 

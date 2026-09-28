@@ -1,18 +1,72 @@
 import { SectionHeading } from "@/components/section-heading";
-import { ProjectCard } from "@/components/project-card";
+import { ProjectsGrid } from "@/components/projects-grid";
 import { SiteHeader } from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
+import { CredentialsShowcase } from "@/components/credentials-showcase";
+import { createPublicClient } from "@/lib/supabase/public";
 import {
-  certifications,
   contactLinks,
-  experience,
-  learningAreas,
-  projects,
-  skillGroups,
-  virtualExperiences,
 } from "@/data/portfolio";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const supabase = createPublicClient();
+
+  const [
+    { data: projects },
+    { data: experience },
+    { data: skillGroups },
+    { data: certifications },
+    { data: learningAreas },
+  ] = await Promise.all([
+    supabase
+      .from("projects")
+      .select("title, category, status, slug, description, details, tags, sort_order")
+      .eq("is_published", true)
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true }),
+    supabase
+      .from("experience")
+      .select("period, title, organization, description, sort_order")
+      .eq("is_published", true)
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true }),
+    supabase
+      .from("skill_groups")
+      .select("title, skills, sort_order")
+      .eq("is_published", true)
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true }),
+    supabase
+      .from("certifications")
+      .select("title, issuer, description, type, sort_order")
+      .eq("is_published", true)
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true }),
+    supabase
+      .from("learning_areas")
+      .select("title, description, sort_order")
+      .eq("is_published", true)
+      .order("sort_order", { ascending: true })
+      .order("created_at", { ascending: true }),
+  ]);
+
+  const publicProjects = (projects ?? []).map((project) => ({
+    ...project,
+    tags: project.tags ?? [],
+  }));
+
+  const formalCertifications = (certifications ?? []).filter(
+    (certification) => certification.type === "formal",
+  );
+  const virtualExperiences = (certifications ?? [])
+    .filter((certification) => certification.type === "virtual")
+    .map((certification) => ({
+      title: certification.title,
+      platform: certification.issuer,
+      description: certification.description,
+    }));
   return (
     <div className="site-frame">
       <div id="page-top" aria-hidden="true" />
@@ -66,7 +120,7 @@ export default function Home() {
             title="Skills, organized by practice area."
           />
           <div className="skills-grid">
-            {skillGroups.map((group, index) => (
+            {(skillGroups ?? []).map((group, index) => (
               <article
                 className="skill-group skill-group-premium reveal"
                 key={group.title}
@@ -96,11 +150,7 @@ export default function Home() {
             title="Work I'm building along the way."
             description="A growing collection of hands-on security work, practice projects, and documented learning."
           />
-          <div className="projects-grid">
-            {projects.map((project, index) => (
-              <ProjectCard key={project.title} project={project} index={index} />
-            ))}
-          </div>
+          <ProjectsGrid projects={publicProjects} />
         </section>
 
         {/* Experience */}
@@ -110,7 +160,7 @@ export default function Home() {
             title="Learning, contribution, and professional context."
           />
           <div className="experience-list">
-            {experience.map((item, index) => (
+            {(experience ?? []).map((item, index) => (
               <article className="experience-entry reveal" key={item.period + "-" + item.title}>
                 <div className="experience-index">0{index + 1}</div>
                 <div className="experience-period">{item.period}</div>
@@ -135,47 +185,18 @@ export default function Home() {
             eyebrow="Credentials"
             title="Proof of structured learning and practical exposure."
           />
-          <div className="credentials-archive reveal">
-            <div className="credential-primary-card">
-              {certifications.map((certification, index) => (
-                <div key={certification.title + "-" + index}>
-                  <div className="credential-meta">
-                    <span>FORMAL CREDENTIAL</span>
-                    <span>{certification.issuer}</span>
-                  </div>
-                  <div className="credential-body">
-                    <span className="credential-mark" aria-hidden="true">✦</span>
-                    <div>
-                      <h3>{certification.title}</h3>
-                      <p>{certification.description}</p>
-                    </div>
-                  </div>
-                  <div className="credential-footer">
-                    <span>COMPLETED</span>
-                    <span>9 COURSES</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="virtual-experience-card">
-              <div className="credentials-archive-divider">
-                <span>VIRTUAL EXPERIENCE</span>
-                <span>FORAGE / JOB SIMULATIONS</span>
-              </div>
-              <div className="virtual-experience-list">
-                {virtualExperiences.map((item, index) => (
-                  <article className="virtual-experience-row" key={item.title + "-" + index}>
-                    <span className="virtual-experience-index">0{index + 1}</span>
-                    <div>
-                      <h3>{item.title}</h3>
-                      <p>{item.description}</p>
-                    </div>
-                    <span className="virtual-experience-platform">{item.platform}</span>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </div>
+          <CredentialsShowcase
+            formalCertifications={formalCertifications.map((certification) => ({
+              title: certification.title,
+              issuer: certification.issuer,
+              description: certification.description,
+            }))}
+            virtualExperiences={virtualExperiences.map((item) => ({
+              title: item.title,
+              issuer: item.platform,
+              description: item.description,
+            }))}
+          />
         </section>
 
         {/* Currently Learning */}
@@ -186,7 +207,7 @@ export default function Home() {
             description="A living space for the areas currently being explored."
           />
           <div className="learning-list learning-list-premium">
-            {learningAreas.map((area, index) => (
+            {(learningAreas ?? []).map((area, index) => (
               <article className="learning-item learning-item-premium reveal" key={area.title + "-" + index}>
                 <span>0{index + 1}</span>
                 <div>

@@ -84,11 +84,6 @@ export function CredentialsShowcase({
         <div
           className="credential-deck"
           aria-label="Formal certifications"
-          style={
-            {
-              "--credential-count": Math.max(credentialCount, 1),
-            } as CSSProperties
-          }
         >
           {formalCertifications.map((certification, index) => {
             const isActive = activeIndex === index;
@@ -111,10 +106,18 @@ export function CredentialsShowcase({
                 }}
                 initial={false}
                 animate={{
-                  x: isActive ? 0 : isPeeking ? side * 190 : restingX,
-                  y: isActive ? 0 : restingY,
-                  rotate: isActive ? 0 : restingRotate,
-                  scale: isActive ? 1 : 0.975,
+                  x: isMobile ? 0 : isActive ? 0 : isPeeking ? side * 190 : restingX,
+                  y: isMobile
+                    ? isActive
+                      ? 0
+                      : isPeeking
+                        ? 5
+                        : 10 + Math.min(depth, 3) * 7
+                    : isActive
+                      ? 0
+                      : restingY,
+                  rotate: isMobile ? 0 : isActive ? 0 : restingRotate,
+                  scale: isMobile ? 1 : isActive ? 1 : 0.975,
                 }}
                 transition={{
                   duration: isPeeking ? 0.72 : 0.58,

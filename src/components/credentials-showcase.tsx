@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties, type TouchEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 type Certification = {
@@ -126,54 +126,46 @@ export function CredentialsShowcase({
 
   const resetGesture = () => {
     pointerActive.current = false;
-    touchActive.current = false;
     touchStartX.current = null;
     touchStartY.current = null;
   };
 
-  const resetGesture = () => {
-    touchActive.current = false;
-    touchStartX.current = null;
-    touchStartY.current = null;
+  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isMobile || formalCertifications.length < 2 || event.pointerType === "mouse") {
+      return;
+    }
+
+    pointerActive.current = true;
+    touchStartX.current = event.clientX;
+    touchStartY.current = event.clientY;
+    try {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    } catch {
+      // Pointer capture is optional.
+    }
   };
 
-  const handleTouchStart = (event: TouchEvent<HTMLButtonElement>) => {
-    if (!isMobile || formalCertifications.length < 2) return;
-
-    const touch = event.touches[0];
-    if (!touch) return;
-
-    touchActive.current = true;
-    touchStartX.current = touch.clientX;
-    touchStartY.current = touch.clientY;
-  };
-
-  const handleTouchEnd = (event: TouchEvent<HTMLButtonElement>) => {
+  const handlePointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
     if (
       !isMobile ||
       formalCertifications.length < 2 ||
-      !touchActive.current ||
-      touchStartX.current === null
+      !pointerActive.current ||
+      touchStartX.current === null ||
+      event.pointerType === "mouse"
     ) {
       return;
     }
 
-    const touch = event.changedTouches[0];
-    if (!touch) {
-      resetGesture();
+    const deltaX = event.clientX - touchStartX.current;
+    const deltaY = event.clientY - (touchStartY.current ?? event.clientY);
+    resetGesture();
+
+    if (Math.abs(deltaX) < 35 || Math.abs(deltaX) < Math.abs(deltaY)) {
       return;
     }
 
-    const deltaX = touch.clientX - touchStartX.current;
-    const deltaY = touch.clientY - (touchStartY.current ?? touch.clientY);
-    resetGesture();
-
-    if (Math.abs(deltaX) < 35 || Math.abs(deltaX) < Math.abs(deltaY)) return;
-
-    event.preventDefault();
     swipeTo(deltaX < 0 ? "next" : "prev");
   };
-
   return (
     <div className="credentials-showcase reveal">
       <div
@@ -194,6 +186,9 @@ export function CredentialsShowcase({
         <div
           className="credential-deck"
           aria-label="Formal certifications"
+          onPointerDown={handlePointerDown}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={resetGesture}
         >
           {formalCertifications.map((certification, index) => {
             const isActive = activeIndex === index;

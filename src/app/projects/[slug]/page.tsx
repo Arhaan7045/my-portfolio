@@ -14,6 +14,13 @@ type Project = {
   tags: string[] | null;
 };
 
+function documentationParagraphs(details: string) {
+  return details
+    .split(/\n\s*\n|\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+}
+
 async function getProject(slug: string) {
   const supabase = createPublicClient();
 
@@ -99,14 +106,22 @@ export default async function ProjectCaseStudy({
             <section className="case-study-panel">
               <div className="case-study-section-head">
                 <span>01 / Project overview</span>
-                <span>Current project</span>
+                <span>CMS DOCUMENTATION</span>
               </div>
               <div className="case-study-panel-body">
                 <h2>Project documentation.</h2>
-                <p>
-                  {project.details ||
-                    "Detailed project documentation will be added as the work progresses."}
-                </p>
+                {documentationParagraphs(project.details).length > 0 ? (
+                  <div className="case-study-documentation">
+                    {documentationParagraphs(project.details).map((paragraph, index) => (
+                      <p key={index}>{paragraph}</p>
+                    ))}
+                  </div>
+                ) : (
+                  <p>
+                    Documentation will be added from the Projects CMS as the
+                    project progresses.
+                  </p>
+                )}
               </div>
             </section>
 
@@ -149,17 +164,18 @@ export default async function ProjectCaseStudy({
 
           <section className="case-study-panel case-study-evidence">
             <div className="case-study-section-head">
-              <span>03 / Documentation</span>
-              <span>CMS managed</span>
+              <span>03 / Documentation status</span>
+              <span>CMS MANAGED</span>
             </div>
             <div className="case-study-evidence-card">
               <span className="case-study-evidence-mark" aria-hidden="true">+</span>
               <div>
-                <h3>Keep the case study tied to the actual project.</h3>
+                <h3>Documentation is updated from the private Projects CMS.</h3>
                 <p>
-                  Update the project description, details, status, and tags from
-                  the private Projects CMS. Only published projects are available
-                  on the public site.
+                  The published description, project notes, status, and focus
+                  tags shown here come directly from the project record. As the
+                  work develops, replace the project notes with validated
+                  methodology, evidence, findings, and remediation guidance.
                 </p>
               </div>
             </div>

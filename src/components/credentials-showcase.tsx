@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type PointerEvent, type TouchEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 type Certification = {
@@ -132,7 +132,7 @@ export function CredentialsShowcase({
   };
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    if (!isMobile || formalCertifications.length < 2 || event.pointerType === "mouse") {
+    if (!isMobile || formalCertifications.length < 2 || event.pointerType === "mouse" || event.pointerType === "touch") {
       return;
     }
 
@@ -153,7 +153,7 @@ export function CredentialsShowcase({
       formalCertifications.length < 2 ||
       !pointerActive.current ||
       touchStartX.current === null ||
-      event.pointerType === "mouse"
+      event.pointerType === "mouse" || event.pointerType === "touch"
     ) {
       return;
     }
@@ -169,7 +169,7 @@ export function CredentialsShowcase({
     else swipeTo("prev");
   };
 
-  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
     if (!isMobile || formalCertifications.length < 2) return;
 
     const touch = event.touches[0];
@@ -180,7 +180,7 @@ export function CredentialsShowcase({
     touchStartY.current = touch.clientY;
   };
 
-  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
     if (
       !isMobile ||
       formalCertifications.length < 2 ||
@@ -301,7 +301,7 @@ export function CredentialsShowcase({
                   );
                 }}
                 onClick={() => {
-                  if (!isMobile) selectCredential(index);
+                  selectCredential(index);
                 }}
                 aria-pressed={isActive}
               >

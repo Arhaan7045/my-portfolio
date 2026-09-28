@@ -608,292 +608,80 @@ section[id],
 .learning-item-premium:hover > div p:first-child { color:var(--text); }
 
 /* ─── Credentials showcase ─── */
-.credentials-showcase {
-  display: grid;
-  gap: 1.25rem;
+.credentials-showcase { display:grid; gap:1.25rem; }
+.credential-deck-wrap { position:relative; min-height:max(34rem,calc(30rem + (var(--credential-count,1) - 1) * 3.5rem)); overflow:hidden; border:1px solid var(--line); background:radial-gradient(circle at 78% 24%,rgba(150,108,242,.13),transparent 20rem),linear-gradient(145deg,rgba(150,108,242,.055),transparent 58%),var(--surface); }
+.credential-deck-wrap::before { position:absolute; inset:3.25rem 1rem 1.15rem; border:1px solid rgba(208,185,255,.045); content:""; pointer-events:none; }
+.credential-deck-label { position:absolute; z-index:40; top:1.15rem; right:1.35rem; left:1.35rem; display:flex; justify-content:space-between; gap:1rem; color:rgba(208,185,255,.52); font-family:var(--font-geist-mono),monospace; font-size:.54rem; letter-spacing:.09em; text-transform:uppercase; }
+.credential-deck-label span:first-child { color:var(--lavender); }
+.credential-deck { position:absolute; inset:3.9rem 0 5.2rem; overflow:visible; }
+.credential-deck-card { position:absolute; top:0; left:50%; display:block; width:min(42rem,64%); height:calc(100% - .35rem); margin-left:calc(-1 * min(21rem,32%)); padding:1.3rem 1.5rem; border:1px solid rgba(208,185,255,.22); border-radius:2px; color:inherit; background:linear-gradient(135deg,rgba(150,108,242,.075),transparent 54%),#11101a; box-shadow:0 1.5rem 3.2rem rgba(0,0,0,.24),inset 0 0 0 1px rgba(255,255,255,.018); text-align:left; font:inherit; cursor:pointer; transform-origin:center center; touch-action:manipulation; -webkit-tap-highlight-color:transparent; overflow:hidden; }
+.credential-deck-card::before { position:absolute; inset:.55rem; border:1px solid rgba(208,185,255,.065); content:""; pointer-events:none; }
+.credential-deck-card::after { position:absolute; right:-5rem; bottom:-6rem; width:15rem; height:15rem; border:1px solid rgba(208,185,255,.055); border-radius:50%; content:""; pointer-events:none; }
+.credential-deck-card.is-active { border-color:rgba(208,185,255,.3); box-shadow:0 1.7rem 3.8rem rgba(0,0,0,.3),0 0 2.2rem rgba(150,108,242,.055),inset 0 0 0 1px rgba(255,255,255,.024); }
+.credential-deck-card:focus-visible { outline:2px solid var(--lavender); outline-offset:3px; }
+.credential-deck-top,.credential-deck-bottom { position:relative; z-index:2; display:flex; justify-content:space-between; gap:1rem; color:rgba(208,185,255,.52); font-family:var(--font-geist-mono),monospace; font-size:.55rem; letter-spacing:.08em; text-transform:uppercase; }
+.credential-deck-top span:last-child,.credential-deck-bottom span:last-child { color:var(--lavender); }
+.credential-deck-core { position:relative; z-index:2; display:grid; grid-template-columns:2.65rem minmax(0,1fr); gap:1.2rem; align-items:start; margin-top:3rem; max-width:43rem; }
+.credential-deck-mark { display:grid; place-items:center; width:2.65rem; height:2.65rem; border:1px solid rgba(208,185,255,.22); color:var(--lavender); background:rgba(150,108,242,.055); font-size:.95rem; }
+.credential-deck-copy { min-width:0; }
+.credential-deck-issuer { display:block; margin-bottom:.55rem; color:rgba(208,185,255,.5); font-family:var(--font-geist-mono),monospace; font-size:.55rem; letter-spacing:.08em; text-transform:uppercase; }
+.credential-deck-title { display:block; max-width:40rem; color:var(--text); font-size:clamp(1.5rem,3vw,2.2rem); font-weight:600; letter-spacing:-.045em; line-height:1.04; text-wrap:balance; }
+.credential-deck-description { display:block; max-width:40rem; margin-top:.85rem; color:var(--muted); font-size:.82rem; line-height:1.65; }
+.credential-deck-bottom { position:absolute; right:1.5rem; bottom:1.25rem; left:1.5rem; padding-top:.8rem; border-top:1px solid rgba(208,185,255,.1); }
+.credential-deck-hint { position:absolute; z-index:40; right:1.35rem; bottom:.08rem; left:1.35rem; margin:0; color:rgba(208,185,255,.38); font-family:var(--font-geist-mono),monospace; font-size:.48rem; letter-spacing:.055em; text-transform:uppercase; text-align:right; }
+.credential-deck-position { position:absolute; right:1rem; bottom:2.55rem; left:1rem; z-index:60; display:flex; align-items:center; justify-content:center; gap:.7rem; pointer-events:none; }
+.credential-deck-position-label { font-size:.46rem; letter-spacing:.12em; color:var(--muted-foreground); white-space:nowrap; }
+.credential-deck-nav { width:1.45rem; height:1.45rem; display:grid; place-items:center; border:1px solid rgba(190,164,255,.18); background:rgba(16,14,25,.86); color:var(--foreground); font:inherit; font-size:.9rem; line-height:1; pointer-events:auto; }
+.credential-deck-nav:disabled { opacity:.25; cursor:default; }
+.credential-deck-progress { display:flex; align-items:center; gap:.22rem; max-width:7rem; overflow:hidden; }
+.credential-deck-progress span { display:block; width:.65rem; height:1px; background:rgba(190,185,255,.18); }
+.credential-deck-progress span.is-active { width:1.2rem; background:rgba(210,194,255,.8); }
+.credential-deck-card:not(.is-active) .credential-deck-copy,.credential-deck-card:not(.is-active) .credential-deck-bottom { opacity:.18; }
+.credential-deck-card:not(.is-active) .credential-deck-core { opacity:.55; }
+.virtual-experience-card { display:block !important; position:relative; overflow:hidden; border:1px solid var(--line); background:var(--surface); opacity:1 !important; visibility:visible !important; }
+.credentials-archive-divider { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1rem 1.5rem; border-bottom:1px solid var(--line); color:rgba(208,185,255,.52); font-family:var(--font-geist-mono),monospace; font-size:.56rem; letter-spacing:.1em; text-transform:uppercase; }
+.credentials-archive-divider span:first-child { color:var(--lavender); }
+.virtual-experience-list { display:block !important; opacity:1 !important; visibility:visible !important; }
+.virtual-experience-row { display:grid !important; grid-template-columns:3rem 1fr auto; align-items:center; gap:1rem; min-height:6.2rem; padding:1rem 1.5rem; border-bottom:1px solid var(--line); opacity:1 !important; visibility:visible !important; }
+.virtual-experience-row:last-child { border-bottom:0; }
+.virtual-experience-index { color:var(--lavender); font-family:var(--font-geist-mono),monospace; font-size:.58rem; }
+.virtual-experience-row h3 { margin:0 0 .3rem; font-size:.98rem; }
+.virtual-experience-row p { margin:0; color:var(--muted); font-size:.76rem; line-height:1.5; }
+.virtual-experience-platform { color:rgba(208,185,255,.5); font-family:var(--font-geist-mono),monospace; font-size:.56rem; letter-spacing:.08em; text-transform:uppercase; }
+@media (max-width:760px) {
+ .credential-deck-wrap { min-height:max(26rem,calc(26rem + (var(--credential-count,1) - 1) * 1.7rem)); padding-bottom:1.5rem; }
+ .credential-deck-wrap::before { inset:3.1rem .55rem 1rem; }
+ .credential-deck-label { position:relative; top:auto; right:auto; left:auto; padding:.9rem .8rem 0; font-size:.47rem; }
+ .credential-deck { inset:3.45rem .75rem 5.45rem; touch-action:pan-y; }
+ .credential-deck-card { left:50%; width:calc(100% - .5rem); height:18.75rem; min-height:18.75rem; margin-left:calc(-1 * (50% - .25rem)); padding:.8rem .78rem; touch-action:none; user-select:none; }
+ .credential-deck-core { grid-template-columns:1.7rem minmax(0,1fr); gap:.58rem; margin-top:1.5rem; }
+ .credential-deck-mark { width:1.7rem; height:1.7rem; font-size:.68rem; }
+ .credential-deck-title { max-width:none; font-size:clamp(.95rem,4.7vw,1.12rem); line-height:1.08; }
+ .credential-deck-description { max-width:none; margin-top:.45rem; font-size:.62rem; line-height:1.42; }
+ .credential-deck-bottom { right:.78rem; bottom:.7rem; left:.78rem; padding-top:.5rem; }
+ .credential-deck-position { right:.7rem; bottom:2.15rem; left:.7rem; gap:.5rem; }
+ .credential-deck-position-label { font-size:.42rem; letter-spacing:.09em; }
+ .credential-deck-nav { width:1.3rem; height:1.3rem; font-size:.78rem; }
+ .credential-deck-progress { gap:.16rem; max-width:5rem; }
+ .credential-deck-progress span { width:.42rem; }
+ .credential-deck-progress span.is-active { width:.8rem; }
+ .credential-deck-hint { right:.8rem; bottom:.08rem; left:.8rem; font-size:.38rem; line-height:1.3; text-align:center; }
+ .credential-deck-card:not(.is-active) .credential-deck-copy,.credential-deck-card:not(.is-active) .credential-deck-bottom { opacity:.08; }
+ .credential-deck-card:not(.is-active) .credential-deck-core { opacity:.42; }
+ .virtual-experience-card { margin-top:0; }
+ .credentials-archive-divider { padding:.8rem 1rem; font-size:.48rem; }
+ .credentials-archive-divider span:last-child { text-align:right; }
+ .virtual-experience-row { grid-template-columns:2rem minmax(0,1fr); gap:.6rem; padding:1rem; min-height:5.8rem; }
+ .virtual-experience-platform { grid-column:2; font-size:.5rem; }
 }
-
-.credential-deck-wrap {
-  position: relative;
-  min-height: 31rem;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  background:
-    radial-gradient(circle at 78% 24%, rgba(150,108,242,.13), transparent 20rem),
-    linear-gradient(145deg, rgba(150,108,242,.055), transparent 58%),
-    var(--surface);
+@media (max-width:390px) {
+ .credential-deck-wrap { min-height:max(25.5rem,calc(25.5rem + (var(--credential-count,1) - 1) * 1.55rem)); }
+ .credential-deck-card { height:18rem; min-height:18rem; padding-inline:.68rem; }
+ .credential-deck-core { grid-template-columns:1.6rem minmax(0,1fr); gap:.52rem; margin-top:1.4rem; }
+ .credential-deck-mark { width:1.6rem; height:1.6rem; }
+ .credential-deck-title { font-size:.92rem; }
+ .credential-deck-description { font-size:.59rem; }
 }
-
-.credential-deck-wrap::before {
-  position: absolute;
-  inset: 3.25rem 1rem 2.5rem;
-  border: 1px solid rgba(208,185,255,.045);
-  content: "";
-  pointer-events: none;
-}
-
-.credential-deck-label {
-  position: absolute;
-  z-index: 40;
-  top: 1.15rem;
-  right: 1.35rem;
-  left: 1.35rem;
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  color: rgba(208,185,255,.52);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: .54rem;
-  letter-spacing: .09em;
-  text-transform: uppercase;
-}
-
-.credential-deck-label span:first-child {
-  color: var(--lavender);
-}
-
-.credential-deck {
-  position: absolute;
-  inset: 3.75rem 0 2.55rem;
-}
-
-.credential-deck-card {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  display: block;
-  width: min(44rem, 66%);
-  height: calc(100% - .55rem);
-  margin: 0 0 0 calc(-1 * min(22rem, 33%));
-  padding: 1.3rem 1.5rem;
-  border: 1px solid rgba(208,185,255,.22);
-  border-radius: 2px;
-  color: inherit;
-  background:
-    linear-gradient(135deg, rgba(150,108,242,.075), transparent 54%),
-    #11101a;
-  box-shadow:
-    0 1.5rem 3.2rem rgba(0,0,0,.24),
-    inset 0 0 0 1px rgba(255,255,255,.018);
-  text-align: left;
-  font: inherit;
-  cursor: pointer;
-  transform-origin: center center;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  overflow: hidden;
-}
-
-.credential-deck-card::before {
-  position: absolute;
-  inset: .55rem;
-  border: 1px solid rgba(208,185,255,.065);
-  content: "";
-  pointer-events: none;
-}
-
-.credential-deck-card::after {
-  position: absolute;
-  right: -5rem;
-  bottom: -6rem;
-  width: 15rem;
-  height: 15rem;
-  border: 1px solid rgba(208,185,255,.055);
-  border-radius: 50%;
-  content: "";
-  pointer-events: none;
-}
-
-.credential-deck-card.is-active {
-  border-color: rgba(208,185,255,.3);
-  box-shadow:
-    0 1.7rem 3.8rem rgba(0,0,0,.3),
-    0 0 2.2rem rgba(150,108,242,.055),
-    inset 0 0 0 1px rgba(255,255,255,.024);
-}
-
-.credential-deck-card:focus-visible {
-  outline: 2px solid var(--lavender);
-  outline-offset: 3px;
-}
-
-.credential-deck-top,
-.credential-deck-bottom {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  color: rgba(208,185,255,.52);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: .55rem;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
-.credential-deck-top span:last-child,
-.credential-deck-bottom span:last-child {
-  color: var(--lavender);
-}
-
-.credential-deck-core {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: 2.65rem minmax(0,1fr);
-  gap: 1.2rem;
-  align-items: start;
-  margin-top: 3rem;
-  max-width: 43rem;
-}
-
-.credential-deck-mark {
-  display: grid;
-  place-items: center;
-  width: 2.65rem;
-  height: 2.65rem;
-  border: 1px solid rgba(208,185,255,.22);
-  color: var(--lavender);
-  background: rgba(150,108,242,.055);
-  font-size: .95rem;
-}
-
-.credential-deck-copy {
-  min-width: 0;
-}
-
-.credential-deck-issuer {
-  display: block;
-  margin-bottom: .55rem;
-  color: rgba(208,185,255,.5);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: .55rem;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
-.credential-deck-title {
-  display: block;
-  max-width: 40rem;
-  color: var(--text);
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
-  font-weight: 600;
-  letter-spacing: -.045em;
-  line-height: 1.04;
-  text-wrap: balance;
-}
-
-.credential-deck-description {
-  display: block;
-  max-width: 40rem;
-  margin-top: .85rem;
-  color: var(--muted);
-  font-size: .82rem;
-  line-height: 1.65;
-}
-
-.credential-deck-bottom {
-  position: absolute;
-  right: 1.5rem;
-  bottom: 1.25rem;
-  left: 1.5rem;
-  padding-top: .8rem;
-  border-top: 1px solid rgba(208,185,255,.1);
-}
-
-.credential-deck-hint {
-  position: absolute;
-  z-index: 40;
-  right: 1.35rem;
-  bottom: .08rem;
-  margin: 0;
-  color: rgba(208,185,255,.38);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: .48rem;
-  letter-spacing: .055em;
-  text-transform: uppercase;
-}
-
-.credential-deck-empty {
-  display: grid;
-  height: 100%;
-  place-items: center;
-  color: var(--muted);
-  font-size: .8rem;
-}
-
-@media (max-width: 760px) {
-  .credential-deck-wrap {
-    min-height: 26rem;
-    padding-bottom: 2.1rem;
-  }
-
-  .credential-deck-wrap::before {
-    inset: 3.2rem .65rem 3.6rem;
-  }
-
-  .credential-deck-label {
-    position: relative;
-    top: auto;
-    right: auto;
-    left: auto;
-    padding: 1.05rem 1.1rem 0;
-  }
-
-  .credential-deck {
-    position: absolute;
-    inset: 3.65rem .85rem 2.85rem;
-  }
-
-  .credential-deck-card {
-    width: calc(100% - 1.4rem);
-    height: calc(100% - .35rem);
-    margin: 0 0 0 .7rem;
-    padding: 1rem 1.05rem;
-  }
-
-  .credential-deck-core {
-    grid-template-columns: 2.25rem minmax(0,1fr);
-    gap: .85rem;
-    margin-top: 2.15rem;
-  }
-
-  .credential-deck-mark {
-    width: 2.25rem;
-    height: 2.25rem;
-  }
-
-  .credential-deck-title {
-    font-size: 1.3rem;
-    line-height: 1.06;
-  }
-
-  .credential-deck-description {
-    margin-top: .65rem;
-    font-size: .73rem;
-    line-height: 1.5;
-  }
-
-  .credential-deck-bottom {
-    right: 1.1rem;
-    bottom: 1rem;
-    left: 1.1rem;
-  }
-
-  .credential-deck-hint {
-    right: 1.1rem;
-    bottom: .08rem;
-    left: 1.1rem;
-    font-size: .45rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .credential-deck-card {
-    transition: none !important;
-  }
-}
-
 /* ─── Contact ─── */
 .contact-section { padding-block: 7.5rem; border-top: 1px solid var(--line); background: radial-gradient(circle at 82% 50%, rgba(127, 77, 218, 0.16), transparent 29rem), #100d18; }
 .contact-layout { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: clamp(3rem, 8vw, 8rem); }

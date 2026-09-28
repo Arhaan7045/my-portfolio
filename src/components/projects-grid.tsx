@@ -18,8 +18,8 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
           project={project}
           index={index}
           isOpen={openIndex === index}
-          onToggle={() =>
-            setOpenIndex((current) => (current === index ? null : index))
+          onToggle={(open) =>
+            setOpenIndex(open ? index : null)
           }
         />
       ))}

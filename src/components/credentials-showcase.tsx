@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type TouchEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 type Certification = {
@@ -99,12 +99,12 @@ export function CredentialsShowcase({
     }
   };
 
-  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
     if (!isMobile || formalCertifications.length < 2) return;
     touchStartX.current = event.touches[0]?.clientX ?? null;
   };
 
-  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
     if (!isMobile || formalCertifications.length < 2 || touchStartX.current === null) {
       return;
     }

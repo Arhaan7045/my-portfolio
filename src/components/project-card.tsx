@@ -16,8 +16,6 @@ export type Project = {
 type ProjectCardProps = {
   project: Project;
   index: number;
-  isOpen: boolean;
-  onToggle: (open: boolean) => void;
 };
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -25,17 +23,14 @@ const ease = [0.22, 1, 0.36, 1] as const;
 export function ProjectCard({
   project,
   index,
-  isOpen,
-  onToggle,
 }: ProjectCardProps) {
   const detailsId = `project-documentation-${index}`;
 
   return (
     <motion.details
       layout
-      className={`project-card${isOpen ? " is-open" : ""}`}
-      open={isOpen}
-      onToggle={(event) => onToggle(event.currentTarget.open)}
+      className="project-card"
+      transition={{ layout: { duration: 0.45, ease } }}
     >
       <summary className="project-card-summary">
         <span className="project-card-meta">
@@ -49,12 +44,7 @@ export function ProjectCard({
             <span className="project-card-title">{project.title}</span>
           </span>
           <span className="project-card-toggle" aria-hidden="true">
-            <motion.span
-              animate={{ rotate: isOpen ? 45 : 0 }}
-              transition={{ duration: 0.28, ease }}
-            >
-              +
-            </motion.span>
+            <span>+</span>
           </span>
         </span>
 

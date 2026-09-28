@@ -26,6 +26,7 @@ export function CredentialsShowcase({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [autoPeekIndex, setAutoPeekIndex] = useState<number | null>(null);
   const reducedMotion = useReducedMotion();
+  const credentialCount = formalCertifications.length;
 
   useEffect(() => {
     setActiveIndex((current) =>
@@ -80,11 +81,25 @@ export function CredentialsShowcase({
           </span>
         </div>
 
-        <div className="credential-deck" aria-label="Formal certifications">
+        <div
+          className="credential-deck"
+          aria-label="Formal certifications"
+          style={
+            {
+              "--credential-count": Math.max(credentialCount, 1),
+            } as React.CSSProperties
+          }
+        >
           {formalCertifications.map((certification, index) => {
             const isActive = activeIndex === index;
             const depth = Math.abs(index - activeIndex);
+            const side = index === activeIndex ? 0 : index > activeIndex ? 1 : -1;
             const isPeeking = !isActive && peekIndex === index;
+            const restingX =
+              side * (92 + Math.max(0, depth - 1) * 20);
+            const restingY = 14 + Math.min(2, depth) * 4;
+            const restingRotate =
+              side * (1.6 + Math.min(2, Math.max(0, depth - 1)) * 0.4);
 
             return (
               <motion.button
@@ -96,10 +111,10 @@ export function CredentialsShowcase({
                 }}
                 initial={false}
                 animate={{
-                  x: 0,
-                  y: isActive ? 0 : isPeeking ? 6 : 12 + Math.min(depth, 5) * 9,
-                  rotate: 0,
-                  scale: 1,
+                  x: isActive ? 0 : isPeeking ? side * 190 : restingX,
+                  y: isActive ? 0 : restingY,
+                  rotate: isActive ? 0 : restingRotate,
+                  scale: isActive ? 1 : 0.975,
                 }}
                 transition={{
                   duration: isPeeking ? 0.72 : 0.58,

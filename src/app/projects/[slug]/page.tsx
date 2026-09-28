@@ -105,11 +105,11 @@ export default async function ProjectCaseStudy({
           <div className="case-study-grid">
             <section className="case-study-panel">
               <div className="case-study-section-head">
-                <span>01 / Project overview</span>
-                <span>CMS DOCUMENTATION</span>
+                <span>01 / Documentation</span>
+                <span>CMS MANAGED</span>
               </div>
               <div className="case-study-panel-body">
-                <h2>Project documentation.</h2>
+                <h2>Project documentation</h2>
                 {documentationParagraphs(project.details).length > 0 ? (
                   <div className="case-study-documentation">
                     {documentationParagraphs(project.details).map((paragraph, index) => (
@@ -164,26 +164,23 @@ export default async function ProjectCaseStudy({
 
           <section className="case-study-panel case-study-evidence">
             <div className="case-study-section-head">
-              <span>03 / Documentation status</span>
-              <span>CMS MANAGED</span>
+              <span>03 / Record status</span>
+              <span>LIVE CMS RECORD</span>
             </div>
             <div className="case-study-evidence-card">
               <span className="case-study-evidence-mark" aria-hidden="true">+</span>
               <div>
-                <h3>Documentation is updated from the private Projects CMS.</h3>
+                <h3>This case study is linked to the project record.</h3>
                 <p>
-                  The published description, project notes, status, and focus
-                  tags shown here come directly from the project record. As the
-                  work develops, replace the project notes with validated
-                  methodology, evidence, findings, and remediation guidance.
+                  The published description, project notes, status, and focus tags shown here are pulled from the private Projects CMS. Update the project record as the assessment develops.
                 </p>
               </div>
             </div>
           </section>
 
           <div className="case-study-next">
-            <span>Project documentation</span>
-            <Link href="/#projects">Return to the project archive ↗</Link>
+            <span>{project.status} / {project.category}</span>
+            <Link href="/#projects">Return to project archive ↗</Link>
           </div>
         </div>
       </main>

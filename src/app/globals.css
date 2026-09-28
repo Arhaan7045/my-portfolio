@@ -713,8 +713,6 @@ section[id],
   .hero-network-svg { max-height: 16rem; }
   .skills-grid { grid-template-columns:repeat(2,1fr); }
   .skill-group:first-child { grid-column:span 2; }
-  .projects-grid { grid-template-columns: 1fr; }
-  .project-card { min-height: 0; }
   .contact-layout { grid-template-columns: 1fr; gap: 2.8rem; }
   .certifications-grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -782,22 +780,6 @@ section[id],
   .skill-card-heading h3 { font-size:.95rem; }
   .skill-card-top { font-size:.5rem; }
   .skill-group ul { margin-top:.9rem; line-height:1.8; font-size:.72rem; }
-
-  /* Projects — mobile */
-  .projects-grid { grid-template-columns:1fr; gap:.75rem; }
-  .project-card { width:100%; }
-  .project-card:hover { border-color:var(--line); box-shadow:none; }
-  .project-card.is-open { box-shadow:0 1rem 2.2rem rgba(0,0,0,.2); }
-  .project-card-summary { min-height:0; padding:1.15rem; }
-  .project-card-heading { grid-template-columns:minmax(0,1fr) 2.25rem; gap:.7rem; margin-top:1.35rem; }
-  .project-card-title { font-size:clamp(1.18rem,6vw,1.5rem); line-height:1.08; }
-  .project-card-description { margin-top:.9rem; font-size:.78rem; line-height:1.65; }
-  .project-card-tags { gap:.3rem; margin-top:.9rem; }
-  .project-card-tags span { padding:.3rem .4rem; font-size:.47rem; }
-  .project-card-details { padding-left:1.15rem; padding-right:1.15rem; }
-  .project-card.is-open .project-card-details { padding-top:.95rem; padding-bottom:1.1rem; }
-  .project-card-details p { max-width:none; font-size:.78rem; line-height:1.7; overflow-wrap:anywhere; }
-  .project-card-case-study { width:fit-content; margin-top:.9rem; }
 
   /* Experience / credentials / learning */
   .experience-entry { grid-template-columns:2rem 1fr; gap:.35rem .75rem; padding:1.15rem 0; }

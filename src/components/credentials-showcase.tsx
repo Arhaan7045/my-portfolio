@@ -27,7 +27,7 @@ export function CredentialsShowcase({
   const [autoPeekIndex, setAutoPeekIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState<"next" | "prev" | null>(null);
-  const [swipeOut, setSwipeOut] = useState<"next" | "prev" | null>(null);
+  const [outgoingIndex, setOutgoingIndex] = useState<number | null>(null);
   const touchStartX = useRef<number | null>(null);
   const reducedMotion = useReducedMotion();
   const credentialCount = formalCertifications.length;
@@ -100,7 +100,9 @@ export function CredentialsShowcase({
   };
 
   const swipeTo = (direction: "next" | "prev") => {
-    if (!isMobile || formalCertifications.length < 2 || swipeOut) return;
+    if (!isMobile || formalCertifications.length < 2 || outgoingIndex !== null) {
+      return;
+    }
 
     const nextIndex =
       direction === "next" ? activeIndex + 1 : activeIndex - 1;
@@ -108,13 +110,15 @@ export function CredentialsShowcase({
     if (nextIndex < 0 || nextIndex >= formalCertifications.length) return;
 
     setSwipeDirection(direction);
-    setSwipeOut(direction);
+    setOutgoingIndex(activeIndex);
+    setActiveIndex(nextIndex);
+    setHoveredIndex(null);
+    setAutoPeekIndex(null);
 
     window.setTimeout(() => {
-      setActiveIndex(nextIndex);
-      setSwipeOut(null);
+      setOutgoingIndex(null);
       setSwipeDirection(null);
-    }, 280);
+    }, 360);
   };
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
@@ -180,13 +184,18 @@ export function CredentialsShowcase({
                 key={certification.title + "-" + index}
                 className={`credential-deck-card${isActive ? " is-active" : ""}`}
                 style={{
-                  zIndex: isActive ? 30 : 20 - Math.min(depth, 10),
+                  zIndex:
+                    isActive
+                      ? 30
+                      : outgoingIndex === index
+                        ? 29
+                        : 20 - Math.min(depth, 10),
                 }}
                 initial={false}
                 animate={{
                   x: isMobile
-                    ? isActive && swipeOut
-                      ? swipeOut === "next"
+                    ? outgoingIndex === index
+                      ? swipeDirection === "next"
                         ? -360
                         : 360
                       : 0
@@ -196,10 +205,8 @@ export function CredentialsShowcase({
                         ? side * 190
                         : restingX,
                   y: isMobile
-                    ? isActive
-                      ? swipeOut
-                        ? 8
-                        : 0
+                    ? outgoingIndex === index
+                      ? 8
                       : isPeeking
                         ? 14
                         : 20 + Math.min(depth, 3) * 8
@@ -208,9 +215,13 @@ export function CredentialsShowcase({
                       : restingY,
                   rotate: isMobile ? 0 : isActive ? 0 : restingRotate,
                   scale: isMobile ? 1 : isActive ? 1 : 0.975,
+                  opacity:
+                    isMobile && outgoingIndex === index
+                      ? 0.35
+                      : 1,
                 }}
                 transition={{
-                  duration: swipeOut ? 0.28 : isPeeking ? 0.72 : 0.58,
+                  duration: isMobile && outgoingIndex === index ? 0.32 : isPeeking ? 0.72 : 0.58,
                   ease,
                 }}
                 onHoverStart={() => {

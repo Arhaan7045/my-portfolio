@@ -185,7 +185,7 @@ export default async function Home() {
         </section>
 
         {/* Currently Learning */}
-        <section className="section shell current-focus-section" aria-labelledby="current-focus-title">
+        <section className="section shell current-focus-section" id="focus">
           <SectionHeading
             eyebrow="Current focus"
             title="What I&apos;m sharpening now."

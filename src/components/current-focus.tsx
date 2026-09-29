@@ -17,7 +17,7 @@ export function CurrentFocus({ items }: { items: FocusItem[] }) {
   const progress = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <div id="learning" ref={ref} className="current-focus">
+    <div ref={ref} className="current-focus">
       <div className="current-focus-head">
         <div>
           <span>NOW</span>

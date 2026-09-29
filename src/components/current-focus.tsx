@@ -14,7 +14,7 @@ export function CurrentFocus({ items }: { items: FocusItem[] }) {
     target: ref,
     offset: ["start 85%", "end 35%"],
   });
-  const progress = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const progress = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
     <div id="learning" ref={ref} className="current-focus">

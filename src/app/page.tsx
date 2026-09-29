@@ -3,6 +3,8 @@ import { ProjectsGrid } from "@/components/projects-grid";
 import { SiteHeader } from "@/components/site-header";
 import { HeroSection } from "@/components/hero-section";
 import { CredentialsShowcase } from "@/components/credentials-showcase";
+import { CurrentFocus } from "@/components/current-focus";
+import { ExperienceShowcase } from "@/components/experience-showcase";
 import { createPublicClient } from "@/lib/supabase/public";
 import {
   contactLinks,
@@ -159,24 +161,7 @@ export default async function Home() {
             eyebrow="Experience"
             title="Learning, contribution, and professional context."
           />
-          <div className="experience-list">
-            {(experience ?? []).map((item, index) => (
-              <article className="experience-entry reveal" key={item.period + "-" + item.title}>
-                <div className="experience-index">0{index + 1}</div>
-                <div className="experience-period">{item.period}</div>
-                <div className="experience-main">
-                  <div className="experience-heading">
-                    <div>
-                      <h3>{item.title}</h3>
-                      <p className="experience-organization">{item.organization}</p>
-                    </div>
-                    <span className="experience-arrow" aria-hidden="true">↗</span>
-                  </div>
-                  <p>{item.description}</p>
-                </div>
-              </article>
-            ))}
-          </div>
+          <ExperienceShowcase items={experience ?? []} />
         </section>
 
         {/* Certifications */}
@@ -200,24 +185,13 @@ export default async function Home() {
         </section>
 
         {/* Currently Learning */}
-        <section className="section shell learning-section" id="learning">
+        <section className="section shell current-focus-section" aria-labelledby="current-focus-title">
           <SectionHeading
-            eyebrow="Learning lab"
-            title="Currently learning."
-            description="A living space for the areas currently being explored."
+            eyebrow="Current focus"
+            title="What I&apos;m sharpening now."
+            description="A compact view of the areas I&apos;m actively developing through labs, projects, and practice."
           />
-          <div className="learning-list learning-list-premium">
-            {(learningAreas ?? []).map((area, index) => (
-              <article className="learning-item learning-item-premium reveal" key={area.title + "-" + index}>
-                <span>0{index + 1}</span>
-                <div>
-                  <p><strong>{area.title}</strong></p>
-                  <p>{area.description}</p>
-                </div>
-                <i aria-hidden="true">↗</i>
-              </article>
-            ))}
-          </div>
+          <CurrentFocus items={learningAreas ?? []} />
         </section>
 
         {/* Contact */}

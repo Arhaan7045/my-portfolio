@@ -72,7 +72,7 @@ export function ExperienceShowcase({ items }: { items: ExperienceItem[] }) {
     target: sectionRef,
     offset: ["start 72%", "end 28%"],
   });
-  const progress = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const progress = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
     <div ref={sectionRef} className="field-log">

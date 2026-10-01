@@ -4086,3 +4086,67 @@ section[id],
     min-height: 0;
   }
 }
+
+
+/* Final mobile layout cleanup: readable learning intro, compact cards. */
+@media (max-width: 760px) {
+  .learning-console-aside {
+    grid-template-columns: 3rem minmax(0, 1fr);
+    column-gap: .8rem;
+    row-gap: .35rem;
+    align-items: center;
+    padding: 1rem;
+  }
+  .learning-console-orbit {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 3rem;
+    max-width: 3rem;
+    margin: 0;
+  }
+  .learning-console-kicker {
+    grid-column: 2;
+    margin: 0;
+    font-size: .48rem;
+    letter-spacing: .1em;
+    line-height: 1.5;
+  }
+  .learning-console-aside h3 {
+    grid-column: 2;
+    margin: 0;
+    font-size: clamp(1.05rem, 4.6vw, 1.3rem);
+    line-height: 1.25;
+    letter-spacing: -.045em;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .learning-console-aside h3 br {
+    display: none;
+  }
+  .learning-console-summary {
+    grid-column: 1 / -1;
+    margin: .8rem 0 .55rem;
+    font-size: .76rem;
+    line-height: 1.65;
+  }
+  .learning-console-status {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem;
+    margin-top: .25rem;
+    font-size: .46rem;
+    line-height: 1.5;
+  }
+  .learning-console-status b {
+    margin-left: auto;
+  }
+  .learning-console-row-copy h3 {
+    overflow-wrap: anywhere;
+    font-size: .92rem;
+  }
+  .learning-console-row-mark {
+    justify-self: end;
+  }
+}

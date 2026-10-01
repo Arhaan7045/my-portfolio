@@ -154,28 +154,40 @@ export default async function Home() {
         </section>
 
         {/* Experience */}
-        <section className="section shell" id="experience">
-          <SectionHeading
-            eyebrow="Experience"
-            title="Learning, contribution, and professional context."
-          />
-          <div className="experience-list">
+        <section className="section shell experience-field-section" id="experience">
+          <div className="experience-field-intro">
+            <div>
+              <p className="eyebrow">Experience / Field record</p>
+              <h2>Where learning meets <span>real-world practice.</span></h2>
+            </div>
+            <p className="experience-field-note">
+              A record of the roles, responsibilities, and hands-on exposure shaping my cybersecurity journey.
+            </p>
+          </div>
+          <div className="experience-field-list">
             {(experience ?? []).map((item, index) => (
-              <article className="experience-entry reveal" key={item.period + "-" + item.title}>
-                <div className="experience-index">0{index + 1}</div>
-                <div className="experience-period">{item.period}</div>
-                <div className="experience-main">
-                  <div className="experience-heading">
+              <article className={`experience-field-entry ${index === 0 ? "experience-field-entry-featured" : ""}`} key={item.period + "-" + item.title}>
+                <div className="experience-field-rail">
+                  <span className="experience-field-number">0{index + 1}</span>
+                  <span className="experience-field-line" aria-hidden="true" />
+                </div>
+                <div className="experience-field-date">{item.period}</div>
+                <div className="experience-field-content">
+                  <div className="experience-field-heading">
                     <div>
+                      <p className="experience-field-type">{index === 0 ? "LATEST EXPERIENCE" : "EXPERIENCE"}</p>
                       <h3>{item.title}</h3>
-                      <p className="experience-organization">{item.organization}</p>
+                      <p className="experience-field-organization">{item.organization}</p>
                     </div>
-                    <span className="experience-arrow" aria-hidden="true">↗</span>
+                    <span className="experience-field-arrow" aria-hidden="true">↗</span>
                   </div>
-                  <p>{item.description}</p>
+                  <p className="experience-field-description">{item.description}</p>
                 </div>
               </article>
             ))}
+            {(!experience || experience.length === 0) && (
+              <p className="experience-field-empty">Experience entries will appear here as they are published.</p>
+            )}
           </div>
         </section>
 
@@ -200,24 +212,35 @@ export default async function Home() {
         </section>
 
         {/* Currently Learning */}
-        <section className="section shell learning-section" id="learning">
-          <SectionHeading
-            eyebrow="Learning lab"
-            title="Currently learning."
-            description="A living space for the areas currently being explored."
-          />
-          <div className="learning-list learning-list-premium">
+        <section className="section shell learning-workbench-section" id="learning">
+          <div className="learning-workbench-intro">
+            <div>
+              <p className="eyebrow">Currently learning / Learning lab</p>
+              <h2>Curiosity, translated into <span>capability.</span></h2>
+            </div>
+            <p className="learning-workbench-note">
+              The concepts and tools I’m studying now — with an emphasis on understanding, practice, and steady progress.
+            </p>
+          </div>
+          <div className="learning-workbench">
             {(learningAreas ?? []).map((area, index) => (
-              <article className="learning-item learning-item-premium reveal" key={area.title + "-" + index}>
-                <span>0{index + 1}</span>
-                <div>
-                  <p><strong>{area.title}</strong></p>
+              <article className={`learning-workbench-item ${index === 0 ? "learning-workbench-item-featured" : ""}`} key={area.title + "-" + index}>
+                <div className="learning-workbench-top">
+                  <span className="learning-workbench-index">FOCUS / 0{index + 1}</span>
+                  <span className="learning-workbench-symbol" aria-hidden="true">{index === 0 ? "↗" : "＋"}</span>
+                </div>
+                <div className="learning-workbench-copy">
+                  <h3>{area.title}</h3>
                   <p>{area.description}</p>
                 </div>
-                <i aria-hidden="true">↗</i>
+                <span className="learning-workbench-watermark" aria-hidden="true">0{index + 1}</span>
               </article>
             ))}
+            {(!learningAreas || learningAreas.length === 0) && (
+              <p className="learning-workbench-empty">Learning areas will appear here as they are published.</p>
+            )}
           </div>
+          <p className="learning-workbench-footer"><span /> ACTIVE LEARNING · PRACTICE-LED · ALWAYS EVOLVING</p>
         </section>
 
         {/* Contact */}

@@ -4547,3 +4547,12 @@ section[id],
     font-size: .64rem;
   }
 }
+
+
+/* Mobile fix: allow normal page scrolling while browsing the certification deck. */
+@media (max-width: 760px) {
+  .credential-deck,
+  .credential-deck-card {
+    touch-action: pan-y !important;
+  }
+}

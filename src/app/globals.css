@@ -4487,3 +4487,63 @@ section[id],
     line-height: 1.16;
   }
 }
+
+
+/* Mobile AS mark: retain the desktop emblem's layered, precise appearance. */
+@media (max-width: 760px) {
+  .learning-console-orbit {
+    width: 3.25rem;
+    height: 3.25rem;
+    max-width: 3.25rem;
+    aspect-ratio: 1;
+    position: relative;
+    justify-self: center;
+    overflow: visible;
+    isolation: isolate;
+  }
+  .learning-console-orbit-ring-one,
+  .learning-console-orbit-ring-two {
+    display: block !important;
+    position: absolute;
+    inset: .12rem;
+    border: 1px solid rgba(201, 174, 255, .72);
+    border-radius: 50%;
+    opacity: .75;
+  }
+  .learning-console-orbit-ring-two {
+    inset: .35rem -.08rem;
+    border-color: rgba(201, 174, 255, .35);
+    border-radius: 42%;
+    opacity: .65;
+  }
+  .learning-console-orbit-core {
+    position: absolute;
+    inset: .55rem;
+    width: auto;
+    height: auto;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(201, 174, 255, .55);
+    border-radius: .35rem;
+    background: linear-gradient(145deg, rgba(171, 128, 255, .18), rgba(10, 9, 16, .96) 70%);
+    box-shadow: 0 0 .9rem rgba(171, 128, 255, .12), inset 0 0 .65rem rgba(171, 128, 255, .08);
+    color: var(--lavender);
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+  }
+  .learning-console-orbit-dot {
+    display: none !important;
+  }
+}
+@media (max-width: 380px) {
+  .learning-console-orbit {
+    width: 2.9rem;
+    height: 2.9rem;
+    max-width: 2.9rem;
+  }
+  .learning-console-orbit-core {
+    inset: .5rem;
+    font-size: .64rem;
+  }
+}

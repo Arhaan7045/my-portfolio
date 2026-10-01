@@ -3293,3 +3293,156 @@ section[id],
 @media (prefers-reduced-motion:reduce) {
   .learning-console-row,.learning-console-row-mark { transition:none; }
 }
+
+
+/* ─── Experience + learning: immersive motion, shared site palette ─── */
+.experience-field-section,
+.learning-console-section {
+  position: relative;
+  isolation: isolate;
+}
+.experience-field-section::before,
+.learning-console-section::before {
+  position: absolute;
+  z-index: -1;
+  top: 4rem;
+  right: -2.5rem;
+  left: -2.5rem;
+  height: calc(100% - 8rem);
+  border: 1px solid rgba(208, 185, 255, 0.045);
+  background: linear-gradient(115deg, rgba(150, 108, 242, 0.025), transparent 48%, rgba(208, 185, 255, 0.018));
+  content: "";
+  pointer-events: none;
+}
+.experience-field-intro h2,
+.learning-console-heading h2 {
+  text-wrap: balance;
+}
+.experience-field-intro h2 span,
+.learning-console-heading h2 span {
+  text-shadow: 0 0 2.2rem rgba(150, 108, 242, 0.16);
+}
+.experience-field-list {
+  position: relative;
+}
+.experience-field-list::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1.58rem;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(208, 185, 255, 0.28), rgba(208, 185, 255, 0.04) 85%, transparent);
+  content: "";
+  pointer-events: none;
+}
+.experience-field-entry {
+  position: relative;
+  transform-origin: center left;
+  will-change: transform, opacity;
+}
+.experience-field-entry-featured {
+  box-shadow: inset 2px 0 0 rgba(208, 185, 255, 0.42);
+}
+.experience-field-entry:hover .experience-field-number {
+  text-shadow: 0 0 1rem rgba(208, 185, 255, 0.35);
+}
+.experience-field-endnote {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  margin-top: 1.2rem;
+  color: var(--muted);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: .53rem;
+  letter-spacing: .1em;
+}
+.experience-field-endnote span {
+  width: .42rem;
+  height: .42rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--lavender);
+  box-shadow: 0 0 .8rem rgba(208, 185, 255, .32);
+}
+.learning-console-layout {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, .12);
+}
+.learning-console-layout::before {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  width: 45%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(208, 185, 255, .45), transparent);
+  content: "";
+  pointer-events: none;
+}
+.learning-console-aside,
+.learning-console-list {
+  position: relative;
+  z-index: 1;
+}
+.learning-console-orbit-ring {
+  transform-origin: center;
+  will-change: transform;
+}
+.learning-console-orbit-core {
+  animation: learning-core-breathe 5s ease-in-out infinite;
+}
+.learning-console-row {
+  position: relative;
+  overflow: hidden;
+}
+.learning-console-row::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: var(--lavender);
+  content: "";
+  opacity: 0;
+  transform: scaleY(.2);
+  transform-origin: center;
+  transition: opacity 240ms ease, transform 360ms cubic-bezier(.22, 1, .36, 1);
+}
+.learning-console-row:hover::before {
+  opacity: .7;
+  transform: scaleY(1);
+}
+.learning-console-row:hover .learning-console-row-number {
+  text-shadow: 0 0 .9rem rgba(208, 185, 255, .28);
+}
+@keyframes learning-core-breathe {
+  0%, 100% { box-shadow: 0 0 3rem rgba(150,108,242,.16), inset 0 0 1.4rem rgba(150,108,242,.12); }
+  50% { box-shadow: 0 0 3.8rem rgba(150,108,242,.23), inset 0 0 1.8rem rgba(150,108,242,.16); }
+}
+@media (max-width: 760px) {
+  .experience-field-section::before,
+  .learning-console-section::before {
+    right: -.75rem;
+    left: -.75rem;
+  }
+  .experience-field-list::before {
+    left: .8rem;
+  }
+  .experience-field-endnote {
+    font-size: .46rem;
+    line-height: 1.7;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .learning-console-orbit-core {
+    animation: none !important;
+  }
+  .experience-field-entry,
+  .learning-console-row,
+  .learning-console-row::before,
+  .learning-console-orbit-core {
+    transition: none !important;
+    will-change: auto;
+  }
+}

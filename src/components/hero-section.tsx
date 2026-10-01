@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { useReducedMotion } from "motion/react";
 import { ControlLink } from "@/components/control-surface";
 import { HeroVisual } from "@/components/hero-visual";
 

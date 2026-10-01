@@ -4060,3 +4060,29 @@ section[id],
     filter: none;
   }
 }
+
+
+/* Mobile safety: never leave scroll-reveal content invisible on small screens. */
+@media (max-width: 760px) {
+  .experience-field-intro,
+  .experience-field-entry,
+  .learning-console-heading,
+  .learning-console-aside,
+  .learning-console-row {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+  .experience-field-section,
+  .learning-console-section {
+    display: block;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+  .experience-field-list,
+  .learning-console-layout,
+  .learning-console-list {
+    min-height: 0;
+  }
+}

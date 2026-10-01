@@ -52,6 +52,8 @@ export default async function Home() {
       .order("created_at", { ascending: true }),
   ]);
 
+  const publicSkillGroups = (skillGroups ?? []) as { title: string; skills: string[] }[];
+
   const publicProjects = (projects ?? []).map((project) => ({
     ...project,
     tags: project.tags ?? [],
@@ -120,7 +122,7 @@ export default async function Home() {
             title="Skills, organized by practice area."
           />
           <div className="skills-grid">
-            {(skillGroups ?? []).map((group, index) => (
+            {publicSkillGroups.map((group, index) => (
               <article
                 className="skill-group skill-group-premium reveal"
                 key={group.title}

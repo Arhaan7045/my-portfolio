@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AdminLoginForm } from "@/components/admin-login-form";
@@ -24,10 +25,10 @@ export default async function AdminLoginPage() {
     <main className="admin-auth-page">
       <div className="admin-auth-shell">
         <div className="admin-auth-brand">
-          <a href="/" className="admin-auth-wordmark" aria-label="Back to portfolio">
+          <Link href="/" className="admin-auth-wordmark" aria-label="Back to portfolio">
             <span className="wordmark-mark" aria-hidden="true" />
             <span>Arhaan Shaikh</span>
-          </a>
+          </Link>
           <span className="admin-auth-code">PRIVATE / ADMIN</span>
         </div>
 
@@ -48,7 +49,7 @@ export default async function AdminLoginPage() {
           <AdminLoginForm />
 
           <div className="admin-auth-footer">
-            <a href="/">← Back to portfolio</a>
+            <Link href="/">← Back to portfolio</Link>
             <span>AUTHENTICATED ACCESS ONLY</span>
           </div>
         </section>

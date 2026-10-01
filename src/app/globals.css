@@ -4221,3 +4221,132 @@ section[id],
     font-size: .48rem;
   }
 }
+
+
+/* Mobile learning console: give the logo and heading breathing room. */
+@media (max-width: 760px) {
+  .learning-console-aside {
+    grid-template-columns: 3.4rem minmax(0, 1fr);
+    column-gap: 1rem;
+    row-gap: .45rem;
+    padding: 1.15rem;
+  }
+  .learning-console-orbit {
+    width: 3.25rem;
+    max-width: 3.25rem;
+    min-width: 0;
+    justify-self: center;
+    align-self: center;
+  }
+  .learning-console-orbit-core {
+    width: 2.15rem;
+    height: 2.15rem;
+    display: grid;
+    place-items: center;
+  }
+  .learning-console-kicker {
+    min-width: 0;
+    font-size: .47rem;
+    letter-spacing: .09em;
+    overflow-wrap: anywhere;
+  }
+  .learning-console-aside h3 {
+    min-width: 0;
+    font-size: clamp(1.08rem, 4.3vw, 1.28rem);
+    line-height: 1.35;
+    letter-spacing: -.04em;
+    overflow-wrap: normal;
+  }
+  .learning-console-summary {
+    margin-top: .95rem;
+    line-height: 1.7;
+  }
+  .learning-console-status {
+    padding-top: .15rem;
+  }
+
+  /* Topic selection uses a left-to-right lavender wash, not a box outline. */
+  .learning-console-row {
+    position: relative;
+    isolation: isolate;
+    border: 0 !important;
+    border-bottom: 1px solid rgba(190, 170, 225, .15) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    overflow: hidden;
+    transition: color 240ms ease, padding-left 240ms ease;
+  }
+  .learning-console-row::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(174, 130, 255, .24) 0%, rgba(174, 130, 255, .10) 42%, rgba(174, 130, 255, 0) 100%);
+    opacity: 0;
+    transition: opacity 280ms ease;
+    pointer-events: none;
+  }
+  .learning-console-row:active::before,
+  .learning-console-row:focus-within::before {
+    opacity: 1;
+  }
+  .learning-console-row:active,
+  .learning-console-row:focus-within {
+    padding-left: .45rem;
+    border-bottom-color: rgba(190, 160, 245, .3) !important;
+  }
+  .learning-console-row:active .learning-console-row-number,
+  .learning-console-row:focus-within .learning-console-row-number {
+    color: var(--lavender);
+  }
+}
+@media (max-width: 380px) {
+  .learning-console-aside {
+    grid-template-columns: 3rem minmax(0, 1fr);
+    column-gap: .8rem;
+    padding: 1rem;
+  }
+  .learning-console-orbit {
+    width: 2.85rem;
+    max-width: 2.85rem;
+  }
+  .learning-console-aside h3 {
+    font-size: 1.05rem;
+  }
+}
+/* Keep the same left gradient on desktop hover/focus without an outline box. */
+@media (hover: hover) and (pointer: fine) {
+  .learning-console-row {
+    position: relative;
+    isolation: isolate;
+    border-radius: 0 !important;
+    transition: color 240ms ease, padding-left 260ms ease;
+  }
+  .learning-console-row::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(174, 130, 255, .22) 0%, rgba(174, 130, 255, .09) 44%, transparent 100%);
+    opacity: 0;
+    transition: opacity 300ms ease;
+    pointer-events: none;
+  }
+  .learning-console-row:hover::before,
+  .learning-console-row:focus-within::before {
+    opacity: 1;
+  }
+  .learning-console-row:hover,
+  .learning-console-row:focus-within {
+    padding-left: .45rem;
+    border-color: rgba(190, 160, 245, .25) !important;
+    box-shadow: none !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .learning-console-row,
+  .learning-console-row::before {
+    transition: none !important;
+  }
+}

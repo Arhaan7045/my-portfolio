@@ -4350,3 +4350,126 @@ section[id],
     transition: none !important;
   }
 }
+
+
+/* Mobile learning: balanced height with clear breathing room. */
+@media (max-width: 760px) {
+  .learning-console-section {
+    padding-top: 3.75rem;
+    padding-bottom: 3.75rem;
+  }
+  .learning-console-heading {
+    margin-bottom: 1.35rem;
+  }
+  .learning-console-heading h2 {
+    font-size: clamp(2.1rem, 8.5vw, 2.7rem);
+    line-height: 1.08;
+  }
+  .learning-console-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .learning-console-aside {
+    display: grid;
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    align-items: center;
+    column-gap: .95rem;
+    row-gap: .35rem;
+    padding: 1.2rem;
+    border-right: 0;
+    border-bottom: 1px solid rgba(208,185,255,.14);
+  }
+  .learning-console-orbit {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 3.1rem;
+    max-width: 3.1rem;
+    margin: 0;
+    align-self: center;
+  }
+  .learning-console-orbit-core {
+    width: 2rem;
+    font-size: .72rem;
+  }
+  .learning-console-kicker {
+    grid-column: 2;
+    margin: 0;
+    font-size: .48rem;
+    line-height: 1.5;
+    letter-spacing: .1em;
+  }
+  .learning-console-aside h3 {
+    grid-column: 2;
+    margin: 0;
+    font-size: clamp(1.12rem, 4.7vw, 1.35rem);
+    line-height: 1.35;
+    letter-spacing: -.045em;
+  }
+  .learning-console-aside h3 br {
+    display: initial;
+  }
+  .learning-console-aside h3 span {
+    white-space: nowrap;
+  }
+  .learning-console-summary {
+    grid-column: 1 / -1;
+    margin: .8rem 0 .65rem;
+    font-size: .79rem;
+    line-height: 1.65;
+  }
+  .learning-console-status {
+    grid-column: 1 / -1;
+    margin-top: .15rem;
+    padding-top: .75rem;
+    font-size: .5rem;
+  }
+  .learning-console-list {
+    padding: 0 1rem;
+  }
+  .learning-console-row {
+    min-height: 3.85rem;
+    grid-template-columns: 1.55rem minmax(0, 1fr) 1.45rem;
+    align-items: center;
+    gap: .65rem;
+    padding: 1rem .2rem;
+  }
+  .learning-console-row-copy h3 {
+    font-size: .96rem;
+    line-height: 1.4;
+  }
+  .learning-console-row-copy p {
+    display: none;
+  }
+  .learning-console-row-mark {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+  .learning-console-list-foot {
+    padding: .85rem 0;
+    font-size: .51rem;
+    line-height: 1.6;
+  }
+}
+@media (max-width: 380px) {
+  .learning-console-aside {
+    grid-template-columns: 2.8rem minmax(0, 1fr);
+    column-gap: .75rem;
+    padding: 1rem;
+  }
+  .learning-console-orbit {
+    width: 2.7rem;
+    max-width: 2.7rem;
+  }
+  .learning-console-aside h3 {
+    font-size: 1.05rem;
+  }
+  .learning-console-aside h3 span {
+    white-space: normal;
+  }
+  .learning-console-list {
+    padding: 0 .8rem;
+  }
+  .learning-console-row {
+    grid-template-columns: 1.4rem minmax(0, 1fr) 1.3rem;
+    gap: .5rem;
+  }
+}

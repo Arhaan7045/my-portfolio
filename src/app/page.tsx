@@ -212,35 +212,44 @@ export default async function Home() {
         </section>
 
         {/* Currently Learning */}
-        <section className="section shell learning-workbench-section" id="learning">
-          <div className="learning-workbench-intro">
-            <div>
-              <p className="eyebrow">Currently learning / Learning lab</p>
-              <h2>Curiosity, translated into <span>capability.</span></h2>
+        <section className="section shell learning-console-section" id="learning">
+          <div className="learning-console-heading">
+            <p className="eyebrow">Currently learning / Field notes 02</p>
+            <h2>Building the mindset to <span>think like a defender.</span></h2>
+          </div>
+          <div className="learning-console-layout">
+            <aside className="learning-console-aside">
+              <div className="learning-console-orbit" aria-hidden="true">
+                <span className="learning-console-orbit-ring learning-console-orbit-ring-one" />
+                <span className="learning-console-orbit-ring learning-console-orbit-ring-two" />
+                <span className="learning-console-orbit-core"><span>AS</span></span>
+                <span className="learning-console-orbit-dot learning-console-orbit-dot-one" />
+                <span className="learning-console-orbit-dot learning-console-orbit-dot-two" />
+              </div>
+              <p className="learning-console-kicker">THE LEARNING LOOP</p>
+              <h3>Study.<br />Practice.<br /><span>Understand.</span></h3>
+              <p className="learning-console-summary">
+                A living record of the concepts I’m exploring and the foundations I’m strengthening on my cybersecurity path.
+              </p>
+              <div className="learning-console-status"><span /> OPEN KNOWLEDGE BASE <b>{String((learningAreas ?? []).length).padStart(2, "0")} TOPICS</b></div>
+            </aside>
+            <div className="learning-console-list" aria-label="Current learning topics">
+              {(learningAreas ?? []).map((area, index) => (
+                <article className="learning-console-row" key={area.title + "-" + index}>
+                  <span className="learning-console-row-number">{String(index + 1).padStart(2, "0")}</span>
+                  <div className="learning-console-row-copy">
+                    <h3>{area.title}</h3>
+                    <p>{area.description}</p>
+                  </div>
+                  <span className="learning-console-row-mark" aria-hidden="true">↗</span>
+                </article>
+              ))}
+              {(!learningAreas || learningAreas.length === 0) && (
+                <p className="learning-console-empty">Learning topics will appear here as they are published.</p>
+              )}
+              <div className="learning-console-list-foot"><span /> PROGRESS IS BUILT ONE CONCEPT AT A TIME</div>
             </div>
-            <p className="learning-workbench-note">
-              The concepts and tools I’m studying now — with an emphasis on understanding, practice, and steady progress.
-            </p>
           </div>
-          <div className="learning-workbench">
-            {(learningAreas ?? []).map((area, index) => (
-              <article className={`learning-workbench-item ${index === 0 ? "learning-workbench-item-featured" : ""}`} key={area.title + "-" + index}>
-                <div className="learning-workbench-top">
-                  <span className="learning-workbench-index">FOCUS / 0{index + 1}</span>
-                  <span className="learning-workbench-symbol" aria-hidden="true">{index === 0 ? "↗" : "＋"}</span>
-                </div>
-                <div className="learning-workbench-copy">
-                  <h3>{area.title}</h3>
-                  <p>{area.description}</p>
-                </div>
-                <span className="learning-workbench-watermark" aria-hidden="true">0{index + 1}</span>
-              </article>
-            ))}
-            {(!learningAreas || learningAreas.length === 0) && (
-              <p className="learning-workbench-empty">Learning areas will appear here as they are published.</p>
-            )}
-          </div>
-          <p className="learning-workbench-footer"><span /> ACTIVE LEARNING · PRACTICE-LED · ALWAYS EVOLVING</p>
         </section>
 
         {/* Contact */}

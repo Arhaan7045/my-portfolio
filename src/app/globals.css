@@ -4473,3 +4473,17 @@ section[id],
     gap: .5rem;
   }
 }
+
+
+/* Balance experience title hierarchy: role titles share one consistent scale. */
+.experience-field-content .experience-field-heading h3 {
+  font-size: clamp(1.8rem, 3vw, 2.45rem);
+  line-height: 1.12;
+  letter-spacing: -.055em;
+}
+@media (max-width: 760px) {
+  .experience-field-content .experience-field-heading h3 {
+    font-size: clamp(1.55rem, 6.2vw, 2rem);
+    line-height: 1.16;
+  }
+}

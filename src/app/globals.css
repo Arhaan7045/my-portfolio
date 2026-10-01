@@ -4556,3 +4556,52 @@ section[id],
     touch-action: pan-y !important;
   }
 }
+
+
+/* Selective violet-tinted surfaces, sampled from the credentials showcase.
+   Apply only to primary content panels—not every bordered element or Experience. */
+.project-card {
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(150,108,242,.095), transparent 58%),
+    linear-gradient(145deg, rgba(150,108,242,.075), transparent 58%),
+    var(--surface);
+}
+.project-card[open] {
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(150,108,242,.12), transparent 60%),
+    linear-gradient(145deg, rgba(150,108,242,.085), transparent 62%),
+    var(--surface);
+}
+.skill-group {
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(150,108,242,.075), transparent 60%),
+    linear-gradient(145deg, rgba(150,108,242,.055), transparent 58%),
+    var(--surface);
+}
+.credential-primary-card {
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(150,108,242,.12), transparent 58%),
+    linear-gradient(145deg, rgba(150,108,242,.085), transparent 58%),
+    var(--surface);
+}
+.credential-deck-card.is-active {
+  background:
+    radial-gradient(ellipse at 82% 100%, rgba(150,108,242,.105), transparent 48%),
+    linear-gradient(135deg, rgba(150,108,242,.105), transparent 58%),
+    #11101a;
+}
+.learning-console-aside {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(150,108,242,.13), transparent 58%),
+    linear-gradient(145deg, rgba(150,108,242,.065), transparent 62%),
+    #0d0b13;
+}
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover,
+  .skill-group:hover {
+    background:
+      radial-gradient(ellipse at 100% 0%, rgba(150,108,242,.14), transparent 60%),
+      linear-gradient(145deg, rgba(150,108,242,.09), transparent 62%),
+      var(--surface-raised);
+  }
+}

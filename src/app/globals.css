@@ -3963,3 +3963,54 @@ section[id],
     translate: none !important;
   }
 }
+
+
+/* Experience cards: focus the hovered record and soften the rest. */
+.experience-field-list {
+  --experience-card-dim: .46;
+}
+.experience-field-entry {
+  transition:
+    opacity 520ms cubic-bezier(.22, 1, .36, 1),
+    filter 520ms cubic-bezier(.22, 1, .36, 1),
+    border-color 420ms cubic-bezier(.22, 1, .36, 1),
+    background 420ms cubic-bezier(.22, 1, .36, 1),
+    translate 420ms cubic-bezier(.22, 1, .36, 1),
+    box-shadow 420ms cubic-bezier(.22, 1, .36, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .experience-field-list:hover .experience-field-entry {
+    opacity: var(--experience-card-dim);
+    filter: saturate(.62);
+  }
+  .experience-field-list .experience-field-entry:hover {
+    opacity: 1;
+    filter: saturate(1);
+    border-color: rgba(208,185,255,.42);
+    background:
+      linear-gradient(120deg, rgba(150,108,242,.12), transparent 70%),
+      rgba(17,14,25,.94);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.16), inset 2px 0 0 rgba(208,185,255,.28);
+    translate: 0 -3px;
+  }
+  .experience-field-list .experience-field-entry:hover .experience-field-number {
+    border-color: rgba(208,185,255,.82);
+    box-shadow: 0 0 1.5rem rgba(150,108,242,.22);
+  }
+  .experience-field-list .experience-field-entry:hover .experience-field-arrow {
+    translate: 2px -2px;
+    background: rgba(150,108,242,.12);
+  }
+}
+@media (max-width: 760px), (hover: none) {
+  .experience-field-list:hover .experience-field-entry,
+  .experience-field-list .experience-field-entry:hover {
+    opacity: 1;
+    filter: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .experience-field-entry {
+    transition: none !important;
+  }
+}

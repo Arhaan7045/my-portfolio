@@ -30,10 +30,10 @@ export default async function AdminPage() {
     <main className="admin-page">
       <div className="admin-shell">
         <header className="admin-topbar">
-          <a href="/" className="admin-auth-wordmark" aria-label="Back to portfolio">
+          <Link href="/" className="admin-auth-wordmark" aria-label="Back to portfolio">
             <span className="wordmark-mark" aria-hidden="true" />
             <span>Arhaan Shaikh</span>
-          </a>
+          </Link>
 
           <div className="admin-topbar-meta">
             <span>PRIVATE / ADMIN</span>
@@ -100,7 +100,7 @@ export default async function AdminPage() {
 
         <footer className="admin-dashboard-footer">
           <span>DATABASE CONNECTED</span>
-          <a href="/">VIEW PUBLIC PORTFOLIO ↗</a>
+          <Link href="/">VIEW PUBLIC PORTFOLIO ↗</Link>
         </footer>
       </div>
     </main>

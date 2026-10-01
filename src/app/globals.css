@@ -4150,3 +4150,74 @@ section[id],
     justify-self: end;
   }
 }
+
+
+/* Mobile learning rows: reserve a real number column and improve footer legibility. */
+@media (max-width: 760px) {
+  .learning-console-list {
+    box-sizing: border-box;
+    padding-inline: 1rem;
+  }
+  .learning-console-row {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1.65rem minmax(0, 1fr) 1.5rem;
+    align-items: center;
+    column-gap: .7rem;
+    min-width: 0;
+    padding: 1rem .25rem;
+  }
+  .learning-console-row-number {
+    display: block;
+    width: 1.65rem;
+    text-align: left;
+    padding-left: .1rem;
+    line-height: 1.4;
+  }
+  .learning-console-row-copy {
+    min-width: 0;
+  }
+  .learning-console-row-copy h3 {
+    margin: 0;
+    font-size: .93rem;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+  .learning-console-row-mark {
+    justify-self: end;
+    margin-right: .1rem;
+  }
+  .learning-console-list-foot {
+    display: flex;
+    align-items: flex-start;
+    gap: .55rem;
+    padding: .9rem .1rem .35rem;
+    font-size: .52rem;
+    line-height: 1.65;
+    letter-spacing: .075em;
+    overflow-wrap: anywhere;
+  }
+  .learning-console-list-foot > span {
+    flex: 0 0 auto;
+    margin-top: .28rem;
+  }
+}
+@media (max-width: 380px) {
+  .learning-console-list {
+    padding-inline: .8rem;
+  }
+  .learning-console-row {
+    grid-template-columns: 1.45rem minmax(0, 1fr) 1.3rem;
+    column-gap: .55rem;
+    padding-inline: .15rem;
+  }
+  .learning-console-row-number {
+    width: 1.45rem;
+  }
+  .learning-console-row-copy h3 {
+    font-size: .88rem;
+  }
+  .learning-console-list-foot {
+    font-size: .48rem;
+  }
+}

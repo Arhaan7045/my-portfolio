@@ -22,7 +22,7 @@ export function CredentialsShowcase({
   formalCertifications,
   virtualExperiences,
 }: CredentialsShowcaseProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [storedActiveIndex, setActiveIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [autoPeekIndex, setAutoPeekIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -33,6 +33,10 @@ export function CredentialsShowcase({
   const pointerSwipeTriggered = useRef(false);
   const reducedMotion = useReducedMotion();
   const credentialCount = formalCertifications.length;
+  const activeIndex =
+    credentialCount === 0
+      ? 0
+      : Math.min(storedActiveIndex, credentialCount - 1);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 760px)");
@@ -43,23 +47,9 @@ export function CredentialsShowcase({
     return () => mediaQuery.removeEventListener("change", updateMobile);
   }, []);
 
-
-  useEffect(() => {
-    setActiveIndex((current) =>
-      formalCertifications.length === 0
-        ? 0
-        : Math.min(current, formalCertifications.length - 1),
-    );
-  }, [formalCertifications.length]);
-
   useEffect(() => {
     if (reducedMotion || formalCertifications.length < 2) {
-      setAutoPeekIndex(null);
       return;
-    }
-
-    if (isMobile) {
-      setAutoPeekIndex(activeIndex === 0 ? 1 : 0);
     }
 
     let nextCandidate = 0;
@@ -88,7 +78,11 @@ export function CredentialsShowcase({
     };
   }, [activeIndex, formalCertifications.length, reducedMotion, isMobile]);
 
-  const peekIndex = hoveredIndex ?? autoPeekIndex;
+  const peekIndex =
+    hoveredIndex ??
+    (reducedMotion || credentialCount < 2
+      ? null
+      : autoPeekIndex ?? (isMobile ? (activeIndex === 0 ? 1 : 0) : null));
 
   const swipeTo = (direction: "next" | "prev") => {
     if (formalCertifications.length < 2 || outgoingIndex !== null) return;

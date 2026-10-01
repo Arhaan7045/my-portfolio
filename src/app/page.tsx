@@ -154,25 +154,28 @@ export default async function Home() {
         </section>
 
         {/* Experience */}
-        <section className="section shell" id="experience">
-          <SectionHeading
-            eyebrow="Experience"
-            title="Learning, contribution, and professional context."
-          />
-          <div className="experience-list">
+        <section className="section shell experience-section-v2" id="experience">
+          <div className="experience-intro-v2">
+            <SectionHeading
+              eyebrow="Experience / 01"
+              title="Where I’ve been putting skills into practice."
+            />
+            <p className="experience-side-note">A snapshot of the roles, responsibilities, and learning that shape my cybersecurity journey.</p>
+          </div>
+          <div className="experience-board-v2">
             {(experience ?? []).map((item, index) => (
-              <article className="experience-entry reveal" key={item.period + "-" + item.title}>
-                <div className="experience-index">0{index + 1}</div>
-                <div className="experience-period">{item.period}</div>
-                <div className="experience-main">
-                  <div className="experience-heading">
-                    <div>
-                      <h3>{item.title}</h3>
-                      <p className="experience-organization">{item.organization}</p>
-                    </div>
-                    <span className="experience-arrow" aria-hidden="true">↗</span>
+              <article className={`experience-card-v2 reveal ${index === 0 ? "experience-card-featured-v2" : ""}`} key={item.period + "-" + item.title}>
+                <div className="experience-card-meta-v2">
+                  <span className="experience-card-index-v2">0{index + 1} <i aria-hidden="true">/</i> EXPERIENCE</span>
+                  <span className="experience-card-period-v2">{item.period}</span>
+                </div>
+                <div className="experience-card-content-v2">
+                  <div className="experience-card-heading-v2">
+                    <h3>{item.title}</h3>
+                    <span className="experience-card-mark-v2" aria-hidden="true">↗</span>
                   </div>
-                  <p>{item.description}</p>
+                  <p className="experience-card-org-v2">{item.organization}</p>
+                  <p className="experience-card-description-v2">{item.description}</p>
                 </div>
               </article>
             ))}
@@ -200,21 +203,26 @@ export default async function Home() {
         </section>
 
         {/* Currently Learning */}
-        <section className="section shell learning-section" id="learning">
-          <SectionHeading
-            eyebrow="Learning lab"
-            title="Currently learning."
-            description="A living space for the areas currently being explored."
-          />
-          <div className="learning-list learning-list-premium">
+        <section className="section shell learning-section learning-section-v2" id="learning">
+          <div className="learning-intro-v2">
+            <div>
+              <p className="eyebrow">Currently learning / 02</p>
+              <h2>Curiosity, turned into practice.</h2>
+            </div>
+            <p className="learning-side-note">The foundations and security disciplines I’m actively exploring, one practical step at a time.</p>
+          </div>
+          <div className="learning-board-v2">
             {(learningAreas ?? []).map((area, index) => (
-              <article className="learning-item learning-item-premium reveal" key={area.title + "-" + index}>
-                <span>0{index + 1}</span>
-                <div>
-                  <p><strong>{area.title}</strong></p>
+              <article className={`learning-card-v2 learning-card-v2-${index + 1} reveal`} key={area.title + "-" + index}>
+                <div className="learning-card-top-v2">
+                  <span>FOCUS / 0{index + 1}</span>
+                  <span className="learning-card-symbol-v2" aria-hidden="true">{["⌘", "⌁", "↗", "⊹"][index % 4]}</span>
+                </div>
+                <div className="learning-card-bottom-v2">
+                  <h3>{area.title}</h3>
                   <p>{area.description}</p>
                 </div>
-                <i aria-hidden="true">↗</i>
+                <span className="learning-card-watermark-v2" aria-hidden="true">0{index + 1}</span>
               </article>
             ))}
           </div>

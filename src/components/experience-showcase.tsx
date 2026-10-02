@@ -63,7 +63,7 @@ export function ExperienceShowcase({ items }: { items: ExperienceItem[] }) {
         )}
       </div>
       <div className="experience-field-endnote" aria-hidden="true">
-        <span /> CONTINUOUSLY LEARNING · BUILDING · CONTRIBUTING
+        <span /> LEARNING · BUILDING · CONTRIBUTING
       </div>
     </section>
   );

@@ -20,7 +20,7 @@ export function HeroSection() {
         </h1>
 
         <p className="hero-positioning">
-          I&apos;m building my way into <strong>cybersecurity.</strong>
+          Aspiring cybersecurity professional focused on <strong>finding and fixing security issues.</strong>
         </p>
 
         <p className="hero-intro">

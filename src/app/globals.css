@@ -5490,3 +5490,150 @@ section[id],
     font-size: clamp(1.7rem, 7vw, 2.25rem) !important;
   }
 }
+
+
+/* Projects are a compact work gallery; experience is a simple career timeline. */
+#projects .projects-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 1rem !important;
+}
+#projects .project-card {
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0;
+  min-height: 17rem;
+  padding: 1.35rem !important;
+  border: 1px solid rgba(208,185,255,.15) !important;
+  border-radius: .85rem !important;
+  background: linear-gradient(145deg, rgba(150,108,242,.055), rgba(255,255,255,.012) 55%) !important;
+  transition: border-color 180ms ease, background-color 180ms ease !important;
+}
+#projects .project-card:hover {
+  border-color: rgba(208,185,255,.34) !important;
+  background: linear-gradient(145deg, rgba(150,108,242,.09), rgba(255,255,255,.018) 60%) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+#projects .project-card-topline {
+  display: flex !important;
+  align-items: center !important;
+  gap: .65rem !important;
+  flex-wrap: wrap;
+}
+#projects .project-card-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border: 1px solid rgba(208,185,255,.22);
+  border-radius: 50%;
+  color: var(--lavender);
+}
+#projects .project-card-main {
+  display: flex !important;
+  flex: 1;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 1.2rem !important;
+  margin-top: 1.5rem !important;
+}
+#projects .project-card-title {
+  font-size: clamp(1.3rem, 2vw, 1.75rem) !important;
+  line-height: 1.2 !important;
+  overflow-wrap: break-word;
+  hyphens: none;
+}
+#projects .project-card-description {
+  max-width: 48ch;
+  margin-top: .65rem !important;
+  line-height: 1.7 !important;
+}
+#projects .project-card-open {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100%;
+  margin-top: auto !important;
+  padding-top: .9rem !important;
+  border-top: 1px solid rgba(208,185,255,.12);
+}
+#projects .project-card-tags { margin-top: 1rem !important; }
+#experience .experience-field-list {
+  display: block !important;
+  border-top: 1px solid rgba(208,185,255,.16) !important;
+}
+#experience .experience-field-entry,
+#experience .experience-field-list .experience-field-entry,
+#experience .experience-field-list .experience-field-entry-featured {
+  display: grid !important;
+  grid-template-columns: 7rem minmax(0, 1fr) 2.4rem !important;
+  gap: 1.5rem !important;
+  margin: 0 !important;
+  padding: 1.7rem .25rem !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(208,185,255,.14) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+#experience .experience-field-entry::after { display: none !important; }
+#experience .experience-field-date {
+  padding-top: .25rem;
+  color: var(--muted) !important;
+  font-size: .8rem;
+}
+#experience .experience-field-content { min-width: 0 !important; }
+#experience .experience-field-heading h3 {
+  font-size: clamp(1.55rem, 2.5vw, 2.1rem) !important;
+  line-height: 1.15 !important;
+  overflow-wrap: break-word !important;
+  word-break: normal !important;
+  hyphens: none !important;
+}
+#experience .experience-field-type {
+  margin-bottom: .6rem !important;
+  letter-spacing: .12em !important;
+}
+#experience .experience-field-organization { margin-top: .4rem !important; }
+#experience .experience-field-description {
+  max-width: 65ch !important;
+  margin-top: .8rem !important;
+  line-height: 1.75 !important;
+}
+#experience .experience-field-number {
+  width: 2.2rem !important;
+  height: 2.2rem !important;
+  border: 1px solid rgba(208,185,255,.18) !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  color: var(--lavender) !important;
+  text-shadow: none !important;
+}
+#experience .experience-field-entry:hover,
+#experience .experience-field-list .experience-field-entry:hover,
+#experience .experience-field-list .experience-field-entry-featured:hover {
+  padding: 1.7rem .25rem !important;
+  border-color: transparent !important;
+  border-bottom-color: rgba(208,185,255,.24) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+#experience .experience-field-endnote { margin-top: 1.5rem !important; }
+@media (max-width: 760px) {
+  #projects .projects-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  #projects .project-card { min-height: 0; }
+  #experience .experience-field-entry,
+  #experience .experience-field-list .experience-field-entry,
+  #experience .experience-field-list .experience-field-entry-featured {
+    grid-template-columns: minmax(0, 1fr) 2.2rem !important;
+    gap: .7rem .8rem !important;
+    padding: 1.25rem 0 !important;
+  }
+  #experience .experience-field-date { grid-column: 1 !important; grid-row: 1 !important; }
+  #experience .experience-field-content { grid-column: 1 / -1 !important; grid-row: 2 !important; }
+  #experience .experience-field-rail { grid-column: 2 !important; grid-row: 1 !important; }
+}

@@ -4888,3 +4888,47 @@ section[id],
   #projects .projects-grid { grid-template-columns: minmax(0, 1fr); }
   #projects .project-card { padding: 1.1rem; }
 }
+
+
+/* Project cards use the full row when there are only a few projects. */
+#projects .projects-grid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: .85rem;
+}
+#projects .project-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 2rem;
+  row-gap: 0;
+  padding: 1.25rem 1.4rem;
+}
+#projects .project-card-topline {
+  grid-column: 1 / -1;
+  padding-bottom: .75rem;
+}
+#projects .project-card-main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem 0 .15rem;
+}
+#projects .project-card-copy { max-width: 54rem; }
+#projects .project-card-title { font-size: clamp(1.35rem, 2.4vw, 1.9rem); }
+#projects .project-card-description { max-width: 46rem; margin-bottom: 0; }
+#projects .project-card-tags { grid-column: 1 / -1; margin-top: .9rem; }
+@media (max-width: 640px) {
+  #projects .project-card {
+    display: flex;
+    align-items: stretch;
+    padding: 1rem;
+  }
+  #projects .project-card-main {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  #projects .project-card-open { width: 100%; }
+}

@@ -5162,3 +5162,152 @@ section[id],
 @media (prefers-reduced-motion: reduce) {
   .case-study-back { transition: none; }
 }
+
+
+/* Experience layout correction: give the role the space, not the empty card. */
+.experience-field-list .experience-field-entry,
+.experience-field-list .experience-field-entry-featured {
+  display: grid !important;
+  grid-template-columns: minmax(5.5rem, 7rem) minmax(0, 1fr) 2.75rem !important;
+  align-items: start !important;
+  column-gap: clamp(1rem, 3vw, 2.5rem) !important;
+  row-gap: 0 !important;
+  min-height: 0 !important;
+  padding: clamp(1.25rem, 3vw, 2rem) !important;
+  border-radius: 1rem !important;
+  background: rgba(255,255,255,.018) !important;
+  transition: border-color 180ms ease, background-color 180ms ease !important;
+}
+.experience-field-list .experience-field-date {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  min-width: 0 !important;
+  padding-top: .2rem;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+}
+.experience-field-list .experience-field-content {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+.experience-field-list .experience-field-heading {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 1.25rem !important;
+  width: 100% !important;
+}
+.experience-field-list .experience-field-title-group {
+  flex: 1 1 auto !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+.experience-field-list .experience-field-type {
+  margin: 0 0 .65rem !important;
+}
+.experience-field-list .experience-field-heading h3 {
+  max-width: none !important;
+  width: auto !important;
+  margin: 0 !important;
+  font-size: clamp(1.65rem, 3.2vw, 2.65rem) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.045em !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  hyphens: none !important;
+  text-wrap: balance;
+}
+.experience-field-list .experience-field-organization {
+  margin-top: .55rem !important;
+}
+.experience-field-list .experience-field-description {
+  max-width: 52rem !important;
+  width: auto !important;
+  margin-top: 1rem !important;
+  line-height: 1.75 !important;
+}
+.experience-field-list .experience-field-rail {
+  grid-column: 3 !important;
+  grid-row: 1 !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: flex-start !important;
+  padding: 0 !important;
+}
+.experience-field-list .experience-field-number {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(208,185,255,.22);
+  border-radius: 50%;
+  color: var(--lavender) !important;
+  font-size: .68rem;
+  text-shadow: none !important;
+}
+.experience-field-list .experience-field-arrow {
+  flex: 0 0 auto !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  margin-top: .05rem;
+  border: 1px solid rgba(208,185,255,.18) !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  transform: none !important;
+}
+.experience-field-list .experience-field-entry:hover,
+.experience-field-list .experience-field-entry-featured:hover {
+  padding: clamp(1.25rem, 3vw, 2rem) !important;
+  border-color: rgba(208,185,255,.3) !important;
+  background: rgba(150,108,242,.045) !important;
+  box-shadow: none !important;
+}
+.experience-field-list .experience-field-entry:hover::after { opacity: .6; }
+.experience-field-list .experience-field-entry:hover .experience-field-arrow {
+  color: var(--lavender) !important;
+  border-color: rgba(208,185,255,.32) !important;
+  background: rgba(150,108,242,.07) !important;
+  transform: none !important;
+}
+@media (max-width: 700px) {
+  .experience-field-list .experience-field-entry,
+  .experience-field-list .experience-field-entry-featured {
+    grid-template-columns: minmax(0, 1fr) 2.5rem !important;
+    column-gap: .8rem !important;
+    row-gap: .75rem !important;
+    padding: 1.15rem !important;
+  }
+  .experience-field-list .experience-field-date {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+  }
+  .experience-field-list .experience-field-content {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+  }
+  .experience-field-list .experience-field-rail {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+  }
+  .experience-field-list .experience-field-heading h3 {
+    font-size: clamp(1.6rem, 7vw, 2.2rem) !important;
+  }
+  .experience-field-list .experience-field-arrow {
+    width: 2.15rem !important;
+    height: 2.15rem !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .experience-field-list .experience-field-entry,
+  .experience-field-list .experience-field-arrow {
+    transition: none !important;
+  }
+}

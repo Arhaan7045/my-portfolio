@@ -36,14 +36,10 @@ export function ExperienceShowcase({ items }: { items: ExperienceItem[] }) {
             className={`experience-field-entry ${index === 0 ? "experience-field-entry-featured" : ""}`}
             key={item.period + "-" + item.title}
           >
-            <div className="experience-field-rail" aria-hidden="true">
-              <span className="experience-field-number">{String(index + 1).padStart(2, "0")}</span>
-              <span className="experience-field-line" />
-            </div>
             <div className="experience-field-date">{item.period}</div>
             <div className="experience-field-content">
               <div className="experience-field-heading">
-                <div>
+                <div className="experience-field-title-group">
                   <p className="experience-field-type">{index === 0 ? "CURRENT ROLE" : "EXPERIENCE"}</p>
                   <h3>{item.title}</h3>
                   <p className="experience-field-organization">{item.organization}</p>
@@ -51,6 +47,9 @@ export function ExperienceShowcase({ items }: { items: ExperienceItem[] }) {
                 <span className="experience-field-arrow" aria-hidden="true">↗</span>
               </div>
               <p className="experience-field-description">{item.description}</p>
+            </div>
+            <div className="experience-field-rail" aria-hidden="true">
+              <span className="experience-field-number">{String(index + 1).padStart(2, "0")}</span>
             </div>
           </article>
         ))}

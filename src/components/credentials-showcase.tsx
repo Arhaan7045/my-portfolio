@@ -7,6 +7,7 @@ type Certification = {
   title: string;
   issuer: string;
   description: string;
+  certificateUrl?: string | null;
 };
 
 type CredentialsShowcaseProps = {
@@ -263,6 +264,11 @@ export function CredentialsShowcase({
                     <span className="credential-deck-description">
                       {certification.description}
                     </span>
+                    {certification.certificateUrl ? (
+                      <a className="credential-view-link" href={certification.certificateUrl} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()} onPointerDown={(event) => event.stopPropagation()}>
+                        View certificate <span aria-hidden="true">↗</span>
+                      </a>
+                    ) : null}
                   </span>
                 </span>
 
@@ -342,6 +348,7 @@ export function CredentialsShowcase({
               <div>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
+                {item.certificateUrl ? <a className="credential-view-link credential-view-link-virtual" href={item.certificateUrl} target="_blank" rel="noopener noreferrer">View certificate ↗</a> : null}
               </div>
               <span className="virtual-experience-platform">
                 {item.issuer}

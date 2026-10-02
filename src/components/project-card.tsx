@@ -62,13 +62,13 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           className="project-card-details-shell"
         >
           <div className="project-card-details">
-            <span>PROJECT DOCUMENTATION</span>
+            <span>OVERVIEW & NOTES</span>
             <p>{project.details}</p>
             <Link
               className="project-card-case-study"
               href={`/projects/${project.slug}`}
             >
-              VIEW CASE STUDY <span aria-hidden="true">↗</span>
+              EXPLORE PROJECT <span aria-hidden="true">↗</span>
             </Link>
           </div>
         </div>

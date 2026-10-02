@@ -102,7 +102,7 @@ export default async function ProjectCaseStudy({
             ) : null}
           </header>
 
-          <div className="case-study-content">
+          <div className="case-study-grid">
             <section className="case-study-panel">
               <div className="case-study-section-head">
                 <span>PROJECT NOTES</span>

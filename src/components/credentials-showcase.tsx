@@ -123,9 +123,9 @@ export function CredentialsShowcase({
         }
       >
         <div className="credential-deck-label">
-          <span>01 / FORMAL CREDENTIALS</span>
+          <span>01 / CERTIFICATIONS</span>
           <span>
-            ARCHIVE / {String(formalCertifications.length).padStart(2, "0")}
+            RECORD / {String(formalCertifications.length).padStart(2, "0")}
           </span>
         </div>
 
@@ -245,7 +245,7 @@ export function CredentialsShowcase({
                 aria-pressed={isActive}
               >
                 <span className="credential-deck-top">
-                  <span>FORMAL CREDENTIAL</span>
+                  <span>CERTIFICATION</span>
                   <span>{String(index + 1).padStart(2, "0")}</span>
                 </span>
 
@@ -268,7 +268,7 @@ export function CredentialsShowcase({
 
                 <span className="credential-deck-bottom">
                   <span>
-                    {isActive ? "SELECTED CREDENTIAL" : "ARCHIVED CREDENTIAL"}
+                    {isActive ? "SELECTED CERTIFICATION" : "AVAILABLE CERTIFICATION"}
                   </span>
                   <span>{isActive ? "ACTIVE" : "OPEN"}</span>
                 </span>
@@ -327,8 +327,8 @@ export function CredentialsShowcase({
 
       <div className="virtual-experience-card">
         <div className="credentials-archive-divider">
-          <span>VIRTUAL EXPERIENCE</span>
-          <span>FORAGE / JOB SIMULATIONS</span>
+          <span>JOB SIMULATIONS</span>
+          <span>PRACTICAL / CAREER EXPLORATION</span>
         </div>
         <div className="virtual-experience-list">
           {virtualExperiences.map((item, index) => (

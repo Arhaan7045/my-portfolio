@@ -4,9 +4,9 @@ import { useState, type FormEvent } from "react";
 import { AdminConfirmDialog } from "@/components/admin-confirm-dialog";
 import { createCertification, deleteCertification, toggleCertificationPublished, updateCertification } from "@/app/admin/certifications/actions";
 
-type Certification = { id: string; title: string; issuer: string; description: string; type: string; sort_order: number; is_published: boolean; created_at: string; updated_at: string };
-type Form = { title: string; issuer: string; description: string; type: string; sortOrder: string; isPublished: boolean };
-const empty: Form = { title: "", issuer: "", description: "", type: "formal", sortOrder: "1", isPublished: true };
+type Certification = { id: string; title: string; issuer: string; description: string; certificate_url: string | null; type: string; sort_order: number; is_published: boolean; created_at: string; updated_at: string };
+type Form = { title: string; issuer: string; description: string; certificateUrl: string; type: string; sortOrder: string; isPublished: boolean };
+const empty: Form = { title: "", issuer: "", description: "", certificateUrl: "", type: "formal", sortOrder: "1", isPublished: true };
 const date = (value: string) => new Intl.DateTimeFormat("en", { dateStyle: "medium", timeStyle: "short" }).format(new Date(value));
 
 export function CertificationsManager({ certifications }: { certifications: Certification[] }) {
@@ -90,6 +90,7 @@ export function CertificationsManager({ certifications }: { certifications: Cert
             <label><span>Type</span><select value={form.type} onChange={event => setForm({ ...form, type: event.target.value })}><option value="formal">Formal certification</option><option value="virtual">Virtual experience</option></select></label>
             <label><span>Sort order</span><input type="number" min={1} value={form.sortOrder} onChange={event => setForm({ ...form, sortOrder: event.target.value })} /></label>
             <label className="admin-form-wide"><span>Description</span><textarea rows={6} value={form.description} onChange={event => setForm({ ...form, description: event.target.value })} placeholder="What was completed and what it covered..." /></label>
+            <label className="admin-form-wide"><span>Certificate URL (optional)</span><input type="url" value={form.certificateUrl} onChange={event => setForm({ ...form, certificateUrl: event.target.value })} placeholder="https://..." /><small className="admin-field-help">Paste a shareable certificate link or a URL to the certificate file. It will appear as a View certificate link on your public portfolio.</small></label>
           </div>
           <label className="admin-checkbox-row"><input type="checkbox" checked={form.isPublished} onChange={event => setForm({ ...form, isPublished: event.target.checked })} /><span><strong>Published</strong><small>Visible to the public after migration.</small></span></label>
           <div className="admin-project-form-actions"><button className="admin-primary-action" disabled={busy}>{busy ? "SAVING..." : editing ? "SAVE CHANGES ↗" : "CREATE CREDENTIAL ↗"}</button></div>
@@ -106,10 +107,11 @@ export function CertificationsManager({ certifications }: { certifications: Cert
               <div className="admin-project-main">
                 <div className="admin-project-card-head"><div><span>{item.type.toUpperCase()}</span><h2>{item.title}</h2></div><strong>{item.issuer}</strong></div>
                 <p>{item.description || "No description added yet."}</p>
+                {item.certificate_url ? <a className="admin-credential-view-link" href={item.certificate_url} target="_blank" rel="noopener noreferrer">VIEW CERTIFICATE ↗</a> : null}
                 <div className="admin-project-meta"><span>ORDER {Math.max(1, item.sort_order)}</span><span>UPDATED {date(item.updated_at)}</span></div>
               </div>
               <div className="admin-project-actions">
-                <button className="admin-ghost-action" type="button" onClick={() => { setEditing(item.id); setForm({ title: item.title, issuer: item.issuer, description: item.description, type: item.type, sortOrder: String(Math.max(1, item.sort_order)), isPublished: item.is_published }); setOpen(true); }} disabled={busy}>EDIT</button>
+                <button className="admin-ghost-action" type="button" onClick={() => { setEditing(item.id); setForm({ title: item.title, issuer: item.issuer, description: item.description, certificateUrl: item.certificate_url ?? "", type: item.type, sortOrder: String(Math.max(1, item.sort_order)), isPublished: item.is_published }); setOpen(true); }} disabled={busy}>EDIT</button>
                 <button className="admin-ghost-action" type="button" onClick={() => toggle(item)} disabled={busy}>{item.is_published ? "UNPUBLISH" : "PUBLISH"}</button>
                 <button className="admin-danger-action" type="button" onClick={() => requestDelete(item)} disabled={busy}>DELETE</button>
               </div>

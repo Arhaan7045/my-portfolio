@@ -5791,3 +5791,39 @@ section[id],
 @media (prefers-reduced-motion: reduce) {
   .case-study-back, .case-study-next a { transition: none; }
 }
+
+
+/* Project hero sizing: keep large type bold, not oversized. */
+.case-study-hero {
+  min-height: 0 !important;
+  padding: clamp(2rem, 4.5vw, 4.25rem) !important;
+}
+.case-study-title {
+  max-width: 15ch !important;
+  margin: clamp(2rem, 4vw, 3rem) 0 1.25rem !important;
+  font-size: clamp(2.8rem, 6.2vw, 5.4rem) !important;
+  line-height: .99 !important;
+  letter-spacing: -.065em !important;
+}
+.case-study-intro { max-width: 39rem !important; }
+.case-study-sidebar .case-study-section-head {
+  padding: .85rem 1.1rem !important;
+}
+.case-study-sidebar .case-study-panel-body {
+  padding: 1.2rem 1.4rem 1.35rem !important;
+}
+.case-study-sidebar .case-study-panel-body strong {
+  margin-top: .55rem !important;
+  font-size: 1.2rem !important;
+  line-height: 1.2 !important;
+}
+.case-study-sidebar .case-study-panel-body p { display: none !important; }
+@media (max-width: 760px) {
+  .case-study-hero { padding: 1.35rem !important; }
+  .case-study-title {
+    max-width: 14ch !important;
+    margin-top: 2rem !important;
+    font-size: clamp(2.65rem, 11vw, 4.2rem) !important;
+    line-height: 1 !important;
+  }
+}

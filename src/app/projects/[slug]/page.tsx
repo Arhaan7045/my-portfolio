@@ -80,36 +80,31 @@ export default async function ProjectCaseStudy({
       <main id="main-content" className="case-study-main">
         <div className="case-study-shell">
           <Link className="case-study-back" href="/#projects">
-            <span aria-hidden="true">←</span> Back to projects
+            <span aria-hidden="true">←</span> All projects
           </Link>
 
           <header className="case-study-hero">
             <div className="case-study-kicker">
               <span>{project.category}</span>
-              <strong>{project.status}</strong>
+              <strong><span className="case-study-status-dot" aria-hidden="true" />{project.status}</strong>
             </div>
-
-            <h1 className="case-study-title">{project.title}</h1>
-
+            <h1 className="case-study-title">{project.title.replaceAll("—", ":").replaceAll("–", ":")}</h1>
             <p className="case-study-intro">{project.description}</p>
-
             {tags.length > 0 ? (
-              <div className="case-study-meta" aria-label="Project tags">
-                {tags.map((tag) => (
-                  <span key={tag}>{tag}</span>
-                ))}
+              <div className="case-study-meta" aria-label="Project topics">
+                {tags.map((tag) => <span key={tag}>{tag}</span>)}
               </div>
             ) : null}
           </header>
 
-          <div className="case-study-grid">
-            <section className="case-study-panel">
+          <div className="case-study-content">
+            <section className="case-study-document-panel">
               <div className="case-study-section-head">
-                <span>01 / Documentation</span>
-                <span>CMS MANAGED</span>
+                <span>PROJECT NOTES</span>
+                <span>{String(documentationParagraphs(project.details).length).padStart(2, "0")} ENTRIES</span>
               </div>
               <div className="case-study-panel-body">
-                <h2>Project documentation</h2>
+                <h2>What I’ve worked on</h2>
                 {documentationParagraphs(project.details).length > 0 ? (
                   <div className="case-study-documentation">
                     {documentationParagraphs(project.details).map((paragraph, index) => (
@@ -117,78 +112,40 @@ export default async function ProjectCaseStudy({
                     ))}
                   </div>
                 ) : (
-                  <p>
-                    Documentation will be added from the Projects CMS as the
-                    project progresses.
-                  </p>
+                  <p>Project notes will be added as I make progress.</p>
                 )}
               </div>
             </section>
 
-            <aside className="case-study-panel case-study-status">
-              <div>
-                <div className="case-study-section-head">
-                  <span>Status</span>
-                  <span>01</span>
-                </div>
-                <div className="case-study-panel-body">
-                  <span className="case-study-label">PROJECT STATE</span>
-                  <strong>{project.status}</strong>
-                  <p>
-                    This case study is powered by the portfolio CMS and reflects
-                    the currently published project record.
-                  </p>
-                </div>
+            <aside className="case-study-sidebar">
+              <p className="case-study-sidebar-label">AT A GLANCE</p>
+              <div className="case-study-sidebar-item">
+                <span>Category</span>
+                <strong>{project.category}</strong>
               </div>
+              <div className="case-study-sidebar-item">
+                <span>Status</span>
+                <strong>{project.status}</strong>
+              </div>
+              <div className="case-study-sidebar-item">
+                <span>Topics</span>
+                <strong>{tags.length ? String(tags.length).padStart(2, "0") : "Not added yet"}</strong>
+              </div>
+              <p className="case-study-sidebar-note">I’ll update this page as the project develops.</p>
             </aside>
           </div>
 
-          <section className="case-study-panel case-study-evidence">
-            <div className="case-study-section-head">
-              <span>02 / Project focus</span>
-              <span>{tags.length ? `${tags.length} tags` : "No tags yet"}</span>
-            </div>
-            <div className="case-study-panel-body">
-              <h2>Areas covered by this project.</h2>
-              {tags.length > 0 ? (
-                <div className="case-study-tool-list">
-                  {tags.map((tag) => (
-                    <span className="case-study-tool" key={tag}>{tag}</span>
-                  ))}
-                </div>
-              ) : (
-                <p>Add tags from the Projects CMS to show the project focus here.</p>
-              )}
-            </div>
-          </section>
-
-          <section className="case-study-panel case-study-evidence">
-            <div className="case-study-section-head">
-              <span>03 / Record status</span>
-              <span>LIVE CMS RECORD</span>
-            </div>
-            <div className="case-study-evidence-card">
-              <span className="case-study-evidence-mark" aria-hidden="true">+</span>
-              <div>
-                <h3>This case study is linked to the project record.</h3>
-                <p>
-                  The published description, project notes, status, and focus tags shown here are pulled from the private Projects CMS. Update the project record as the assessment develops.
-                </p>
-              </div>
-            </div>
-          </section>
-
           <div className="case-study-next">
-            <span>{project.status} / {project.category}</span>
-            <Link href="/#projects">Return to project archive ↗</Link>
+            <span>MORE PROJECTS</span>
+            <Link href="/#projects">Back to all projects <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
       </main>
 
       <footer className="footer shell">
         <div className="footer-quote">
-          <span>“Learn. Build. Secure. Repeat.”</span>
-          <small>ARHAAN SHAIKH / PROJECT CASE STUDY</small>
+          <span>Keep learning. Keep building.</span>
+          <small>ARHAAN SHAIKH / PROJECT NOTES</small>
         </div>
         <div className="footer-bottom">
           <span>© 2026 Arhaan</span>

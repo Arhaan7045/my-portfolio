@@ -22,11 +22,11 @@ export function ExperienceShowcase({ items }: { items: ExperienceItem[] }) {
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
         <div>
-          <p className="eyebrow">EXPERIENCE / FIELD RECORD</p>
-          <h2 id="experience-title">Where learning meets <span>real-world practice.</span></h2>
+          <p className="eyebrow">EXPERIENCE</p>
+          <h2 id="experience-title">Experience in <span>cybersecurity.</span></h2>
         </div>
         <p className="experience-field-note">
-          A record of the roles, responsibilities, and hands-on exposure shaping my cybersecurity journey.
+          Internships and practical experience that are helping me build my skills.
         </p>
       </motion.div>
 
@@ -48,7 +48,7 @@ export function ExperienceShowcase({ items }: { items: ExperienceItem[] }) {
             <div className="experience-field-content">
               <div className="experience-field-heading">
                 <div>
-                  <p className="experience-field-type">{index === 0 ? "LATEST EXPERIENCE" : "FIELD EXPERIENCE"}</p>
+                  <p className="experience-field-type">{index === 0 ? "CURRENT ROLE" : "EXPERIENCE"}</p>
                   <h3>{item.title}</h3>
                   <p className="experience-field-organization">{item.organization}</p>
                 </div>
@@ -63,7 +63,7 @@ export function ExperienceShowcase({ items }: { items: ExperienceItem[] }) {
         )}
       </div>
       <div className="experience-field-endnote" aria-hidden="true">
-        <span /> LEARNING · BUILDING · CONTRIBUTING
+        <span /> LEARN · PRACTISE · IMPROVE
       </div>
     </section>
   );

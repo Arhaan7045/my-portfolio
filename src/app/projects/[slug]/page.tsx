@@ -80,7 +80,7 @@ export default async function ProjectCaseStudy({
       <main id="main-content" className="case-study-main">
         <div className="case-study-shell">
           <Link className="case-study-back" href="/#projects">
-            <span aria-hidden="true">←</span> All projects
+            <span aria-hidden="true">←</span> Back to projects
           </Link>
 
           <header className="case-study-hero">
@@ -102,14 +102,14 @@ export default async function ProjectCaseStudy({
             ) : null}
           </header>
 
-          <div className="case-study-grid">
+          <div className="case-study-content">
             <section className="case-study-panel">
               <div className="case-study-section-head">
-                <span>01 / Documentation</span>
-                <span>CMS MANAGED</span>
+                <span>PROJECT NOTES</span>
+                <span>PROJECT DETAILS</span>
               </div>
               <div className="case-study-panel-body">
-                <h2>Project documentation</h2>
+                <h2>What I’ve worked on</h2>
                 {documentationParagraphs(project.details).length > 0 ? (
                   <div className="case-study-documentation">
                     {documentationParagraphs(project.details).map((paragraph, index) => (
@@ -125,7 +125,7 @@ export default async function ProjectCaseStudy({
               </div>
             </section>
 
-            <aside className="case-study-panel case-study-status">
+            <aside className="case-study-sidebar">
               <div>
                 <div className="case-study-section-head">
                   <span>Status</span>
@@ -145,11 +145,11 @@ export default async function ProjectCaseStudy({
 
           <section className="case-study-panel case-study-evidence">
             <div className="case-study-section-head">
-              <span>02 / Project focus</span>
+              <span>PROJECT FOCUS</span>
               <span>{tags.length ? `${tags.length} tags` : "No tags yet"}</span>
             </div>
             <div className="case-study-panel-body">
-              <h2>Areas covered by this project.</h2>
+              <h2>Tools and areas covered.</h2>
               {tags.length > 0 ? (
                 <div className="case-study-tool-list">
                   {tags.map((tag) => (
@@ -164,13 +164,13 @@ export default async function ProjectCaseStudy({
 
           <section className="case-study-panel case-study-evidence">
             <div className="case-study-section-head">
-              <span>03 / Record status</span>
+              <span>PROJECT RECORD</span>
               <span>LIVE CMS RECORD</span>
             </div>
             <div className="case-study-evidence-card">
               <span className="case-study-evidence-mark" aria-hidden="true">+</span>
               <div>
-                <h3>This case study is linked to the project record.</h3>
+                <h3>Project record and progress.</h3>
                 <p>
                   The published description, project notes, status, and focus tags shown here are pulled from the private Projects CMS. Update the project record as the assessment develops.
                 </p>
@@ -180,7 +180,7 @@ export default async function ProjectCaseStudy({
 
           <div className="case-study-next">
             <span>{project.status} / {project.category}</span>
-            <Link href="/#projects">Return to project archive ↗</Link>
+            <Link href="/#projects">Back to all projects ↗</Link>
           </div>
         </div>
       </main>

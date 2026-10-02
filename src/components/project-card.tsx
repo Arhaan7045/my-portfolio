@@ -45,10 +45,6 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         </ul>
       )}
 
-      <div className="project-card-footer">
-        <span>PROJECT NOTES</span>
-        <p>{project.details}</p>
-      </div>
     </article>
   );
 }

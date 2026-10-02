@@ -96,22 +96,16 @@ export default async function Home() {
             <div className="about-content">
               <SectionHeading
                 eyebrow="ABOUT"
-                title="Learning cybersecurity by building and doing."
+                title="A practical approach to cybersecurity."
               />
               <p className="body-copy reveal">
-                I&apos;m building my cybersecurity skills through hands-on
-                learning, practical labs, projects, and real-world experience.
+                I&apos;m an MCA student working towards a career in cybersecurity. I learn by practising, building projects, and documenting what I find.
               </p>
               <p className="body-copy reveal">
-                My current focus includes web application security, VAPT, Linux,
-                networking, and security operations. I&apos;m interested in
-                understanding how systems work, how they can be secured, and how
-                security issues can be identified in practice.
+                Right now, I&apos;m focused on web application security, VAPT, Linux, networking, and security operations. I want to understand how systems work and how to make them more secure.
               </p>
               <p className="body-copy reveal">
-                This portfolio documents that journey — what I&apos;m learning,
-                what I&apos;m building, and the experience I&apos;m gaining
-                along the way.
+                This site brings together my projects, experience, certifications, and current learning.
               </p>
             </div>
           </div>
@@ -121,7 +115,7 @@ export default async function Home() {
         <section className="section shell" id="skills">
           <SectionHeading
             eyebrow="Skills"
-            title="Skills, organized by practice area."
+            title="What I’m learning and practising."
           />
           <div className="skills-grid">
             {publicSkillGroups.map((group, index) => (
@@ -151,8 +145,8 @@ export default async function Home() {
         <section className="section shell" id="projects">
           <SectionHeading
             eyebrow="Projects"
-            title="Things I've been working on."
-            description="Security labs, small projects, and notes from what I'm learning."
+            title="Projects and hands-on work."
+            description="A look at the security work I’ve practised, the tools I’ve used, and what I’ve learned along the way."
           />
           <ProjectsGrid projects={publicProjects} />
         </section>
@@ -169,7 +163,7 @@ export default async function Home() {
         <section className="section shell" id="certifications">
           <SectionHeading
             eyebrow="Credentials"
-            title="Proof of structured learning and practical exposure."
+            title="Courses and practical experience."
           />
           <CredentialsShowcase
             formalCertifications={formalCertifications.map((certification) => ({
@@ -200,8 +194,7 @@ export default async function Home() {
               <p className="eyebrow">GET IN TOUCH</p>
               <h2>Let&apos;s connect.</h2>
               <p>
-                Whether it&apos;s a cybersecurity opportunity, collaboration,
-                project, or just a conversation about the field, you can reach me here.
+                Open to entry-level cybersecurity opportunities, internships, collaborations, and conversations about security.
               </p>
               <span className="contact-note">OPEN TO LEARNING · BUILDING · COLLABORATING</span>
             </div>

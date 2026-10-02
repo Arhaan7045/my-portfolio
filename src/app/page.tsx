@@ -150,9 +150,9 @@ export default async function Home() {
         {/* Projects */}
         <section className="section shell" id="projects">
           <SectionHeading
-            eyebrow="Projects & Practice"
-            title="Work I'm building along the way."
-            description="A growing collection of hands-on security work, practice projects, and documented learning."
+            eyebrow="Projects"
+            title="Things I've been working on."
+            description="Security labs, small projects, and notes from what I'm learning."
           />
           <ProjectsGrid projects={publicProjects} />
         </section>

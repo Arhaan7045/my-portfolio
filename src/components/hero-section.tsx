@@ -20,16 +20,17 @@ export function HeroSection() {
         </h1>
 
         <p className="hero-positioning">
-          Exploring systems. Learning to secure them.
+          I&apos;m building my way into <strong>cybersecurity.</strong>
         </p>
 
         <p className="hero-intro">
-          I’m an MCA student building practical cybersecurity skills through hands-on labs, security projects, and continuous learning—with a focus on understanding systems and finding ways to make them safer.
+          I&apos;m an MCA student developing practical cybersecurity skills
+          through hands-on learning, labs, and real-world experience.
         </p>
 
         <div className="hero-actions">
           <ControlLink className="button button-primary" href="#projects">
-            <span className="control-label">EXPLORE PROJECTS</span>
+            <span className="control-label">EXPLORE MY WORK</span>
             <span className="control-arrow control-arrow-up" aria-hidden="true">↗</span>
           </ControlLink>
           <ControlLink

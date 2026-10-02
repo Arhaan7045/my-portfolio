@@ -5311,3 +5311,83 @@ section[id],
     transition: none !important;
   }
 }
+
+
+/* Detailed project page: preserve the original sections and improve their layout. */
+.case-study-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem);
+  gap: 1rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+.case-study-panel,
+.case-study-status,
+.case-study-evidence {
+  min-width: 0;
+  border: 1px solid rgba(208,185,255,.13);
+  border-radius: 1rem;
+  background: rgba(255,255,255,.018);
+}
+.case-study-grid .case-study-panel-body h2,
+.case-study-evidence .case-study-panel-body h2 {
+  margin-bottom: 1rem;
+}
+.case-study-grid .case-study-panel-body p,
+.case-study-evidence .case-study-panel-body p {
+  max-width: 68ch;
+  line-height: 1.85;
+}
+.case-study-status .case-study-panel-body > strong {
+  display: block;
+  margin-top: .45rem;
+  font-size: 1.2rem;
+  font-weight: 550;
+  overflow-wrap: anywhere;
+}
+.case-study-status .case-study-panel-body > p {
+  margin-top: .8rem;
+}
+.case-study-evidence { margin-top: 1rem; }
+.case-study-tool-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+}
+.case-study-tool {
+  padding: .5rem .7rem;
+  border: 1px solid rgba(208,185,255,.16);
+  border-radius: .45rem;
+  color: #c5b2ec;
+  font-size: .75rem;
+}
+.case-study-evidence-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: clamp(1.25rem,3vw,2rem);
+}
+.case-study-evidence-mark {
+  display: inline-flex;
+  flex: 0 0 2.25rem;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(208,185,255,.2);
+  border-radius: 50%;
+  color: var(--lavender);
+}
+.case-study-evidence-card h3 { margin: 0; font-size: 1rem; font-weight: 550; }
+.case-study-evidence-card p { margin: .6rem 0 0; color: var(--muted); font-size: .85rem; line-height: 1.8; }
+.case-study-title {
+  max-width: 22ch;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+}
+@media (max-width: 760px) {
+  .case-study-grid { grid-template-columns: minmax(0,1fr); }
+  .case-study-evidence { margin-top: .8rem; }
+  .case-study-evidence-card { padding: 1.25rem; }
+}

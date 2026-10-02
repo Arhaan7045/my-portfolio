@@ -16,7 +16,7 @@ export default async function AdminCertificationsPage() {
 
   const { data: certifications, error } = await supabase
     .from("certifications")
-    .select("id, title, issuer, description, type, sort_order, is_published, created_at, updated_at")
+    .select("id, title, issuer, description, certificate_url, type, sort_order, is_published, created_at, updated_at")
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: true });
 

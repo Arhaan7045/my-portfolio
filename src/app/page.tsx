@@ -96,22 +96,16 @@ export default async function Home() {
             <div className="about-content">
               <SectionHeading
                 eyebrow="ABOUT"
-                title="Learning cybersecurity by building and doing."
+                title="Curious by nature. Security-minded by design."
               />
               <p className="body-copy reveal">
-                I&apos;m building my cybersecurity skills through hands-on
-                learning, practical labs, projects, and real-world experience.
+                I&apos;m an MCA student focused on understanding how technology works—and how to make it more secure. I turn learning into practice through labs, projects, and guided security work.
               </p>
               <p className="body-copy reveal">
-                My current focus includes web application security, VAPT, Linux,
-                networking, and security operations. I&apos;m interested in
-                understanding how systems work, how they can be secured, and how
-                security issues can be identified in practice.
+                I&apos;m developing my foundations in web application security, VAPT, Linux, networking, and security operations. My approach is practical: understand the system, test thoughtfully, document what matters, and learn from every finding.
               </p>
               <p className="body-copy reveal">
-                This portfolio documents that journey — what I&apos;m learning,
-                what I&apos;m building, and the experience I&apos;m gaining
-                along the way.
+                This portfolio is my working record of that process: the skills I’m building, the projects I’m exploring, and the progress I’m making toward a career in cybersecurity.
               </p>
             </div>
           </div>
@@ -120,8 +114,8 @@ export default async function Home() {
         {/* Skills */}
         <section className="section shell" id="skills">
           <SectionHeading
-            eyebrow="Skills"
-            title="Skills, organized by practice area."
+            eyebrow="Technical Toolkit"
+            title="The foundations behind the work."
           />
           <div className="skills-grid">
             {publicSkillGroups.map((group, index) => (
@@ -150,9 +144,9 @@ export default async function Home() {
         {/* Projects */}
         <section className="section shell" id="projects">
           <SectionHeading
-            eyebrow="Projects & Practice"
-            title="Work I'm building along the way."
-            description="A growing collection of hands-on security work, practice projects, and documented learning."
+            eyebrow="Selected Work"
+            title="Turning curiosity into hands-on practice."
+            description="Explore practical projects, security exercises, and documented experiments—built to strengthen my skills one challenge at a time."
           />
           <ProjectsGrid projects={publicProjects} />
         </section>
@@ -168,8 +162,8 @@ export default async function Home() {
         {/* Certifications */}
         <section className="section shell" id="certifications">
           <SectionHeading
-            eyebrow="Credentials"
-            title="Proof of structured learning and practical exposure."
+            eyebrow="Certifications & Simulations"
+            title="Learning with structure. Practising with purpose."
           />
           <CredentialsShowcase
             formalCertifications={formalCertifications.map((certification) => ({
@@ -198,10 +192,9 @@ export default async function Home() {
           <div className="shell contact-layout contact-layout-premium">
             <div className="contact-intro">
               <p className="eyebrow">GET IN TOUCH</p>
-              <h2>Let&apos;s connect.</h2>
+              <h2>Good work starts with a conversation.</h2>
               <p>
-                Whether it&apos;s a cybersecurity opportunity, collaboration,
-                project, or just a conversation about the field, you can reach me here.
+                Open to entry-level cybersecurity opportunities, meaningful collaboration, and conversations with people who enjoy solving problems and securing systems. Reach out and let’s connect.
               </p>
               <span className="contact-note">OPEN TO LEARNING · BUILDING · COLLABORATING</span>
             </div>
@@ -238,7 +231,7 @@ export default async function Home() {
       {/* Footer */}
       <footer className="footer shell">
         <div className="footer-quote">
-          <span>&ldquo;Learn. Build. Secure. Repeat.&rdquo;</span>
+          <span>&ldquo;Stay curious. Test thoughtfully. Build securely.&rdquo;</span>
           <small>ARHAAN SHAIKH / CYBERSECURITY</small>
         </div>
         <div className="footer-bottom">

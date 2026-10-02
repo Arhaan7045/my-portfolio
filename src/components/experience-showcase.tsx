@@ -44,7 +44,6 @@ export function ExperienceShowcase({ items }: { items: ExperienceItem[] }) {
                   <h3>{item.title}</h3>
                   <p className="experience-field-organization">{item.organization}</p>
                 </div>
-                <span className="experience-field-arrow" aria-hidden="true">↗</span>
               </div>
               <p className="experience-field-description">{item.description}</p>
             </div>

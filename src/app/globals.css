@@ -5827,3 +5827,36 @@ section[id],
     line-height: 1 !important;
   }
 }
+
+
+/* Align the case-study overview and status panels cleanly. */
+.case-study-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.8fr) minmax(14rem, .82fr) !important;
+  align-items: start !important;
+  gap: 1rem !important;
+}
+.case-study-grid > .case-study-panel,
+.case-study-grid > .case-study-sidebar {
+  align-self: start !important;
+  min-width: 0;
+  margin: 0 !important;
+}
+.case-study-grid > .case-study-panel .case-study-panel-body {
+  padding: 1.65rem 1.8rem !important;
+}
+.case-study-grid > .case-study-sidebar .case-study-panel-body {
+  padding: 1.35rem 1.4rem 1.45rem !important;
+}
+.case-study-grid > .case-study-sidebar .case-study-section-head {
+  padding: .85rem 1.1rem !important;
+}
+.case-study-grid > .case-study-sidebar .case-study-panel-body strong {
+  margin-top: .5rem !important;
+}
+@media (max-width: 760px) {
+  .case-study-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .case-study-grid > .case-study-panel .case-study-panel-body {
+    padding: 1.25rem !important;
+  }
+}

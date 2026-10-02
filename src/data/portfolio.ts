@@ -1,10 +1,10 @@
 export const navigationItems = [
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
+  { href: "#projects", label: "Work" },
   { href: "#experience", label: "Experience" },
-  { href: "#certifications", label: "Certifications" },
-  { href: "#learning", label: "Learning" },
+  { href: "#certifications", label: "Credentials" },
+  { href: "#learning", label: "Learning Lab" },
   { href: "#contact", label: "Contact" },
 ] as const;
 

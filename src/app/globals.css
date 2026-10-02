@@ -5391,3 +5391,102 @@ section[id],
   .case-study-evidence { margin-top: .8rem; }
   .case-study-evidence-card { padding: 1.25rem; }
 }
+
+
+/* Final experience layout: clear hierarchy, no overlapping decorative controls. */
+.experience-field-list .experience-field-entry,
+.experience-field-list .experience-field-entry-featured {
+  grid-template-columns: minmax(5rem, 7rem) minmax(0, 1fr) 2.5rem !important;
+  column-gap: clamp(1rem, 2.6vw, 2.25rem) !important;
+  align-items: start !important;
+  padding: clamp(1.25rem, 2.8vw, 1.9rem) !important;
+  border: 1px solid rgba(208,185,255,.14) !important;
+  border-radius: 1rem !important;
+  background: rgba(255,255,255,.015) !important;
+}
+.experience-field-list .experience-field-date {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  padding-top: .2rem;
+  color: var(--muted) !important;
+  font-size: .75rem;
+  line-height: 1.5;
+}
+.experience-field-list .experience-field-content {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  min-width: 0 !important;
+}
+.experience-field-list .experience-field-heading {
+  display: block !important;
+}
+.experience-field-list .experience-field-title-group {
+  min-width: 0 !important;
+  max-width: none !important;
+}
+.experience-field-list .experience-field-heading h3 {
+  max-width: none !important;
+  font-size: clamp(1.8rem, 3vw, 2.6rem) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -.04em !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+  hyphens: none !important;
+}
+.experience-field-list .experience-field-description {
+  max-width: 65ch !important;
+  margin-top: .85rem !important;
+  line-height: 1.75 !important;
+}
+.experience-field-list .experience-field-rail {
+  grid-column: 3 !important;
+  grid-row: 1 !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  padding: 0 !important;
+}
+.experience-field-list .experience-field-number {
+  display: inline-flex !important;
+  width: 2.35rem !important;
+  height: 2.35rem !important;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(208,185,255,.22) !important;
+  border-radius: 50% !important;
+  color: var(--lavender) !important;
+  font-size: .68rem !important;
+  text-shadow: none !important;
+}
+.experience-field-list .experience-field-entry:hover,
+.experience-field-list .experience-field-entry-featured:hover {
+  padding: clamp(1.25rem, 2.8vw, 1.9rem) !important;
+  border-color: rgba(208,185,255,.3) !important;
+  background: rgba(150,108,242,.04) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+@media (max-width: 700px) {
+  .experience-field-list .experience-field-entry,
+  .experience-field-list .experience-field-entry-featured {
+    grid-template-columns: minmax(0, 1fr) 2.35rem !important;
+    column-gap: .8rem !important;
+    row-gap: .7rem !important;
+    padding: 1.2rem !important;
+  }
+  .experience-field-list .experience-field-date {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+  }
+  .experience-field-list .experience-field-content {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+  }
+  .experience-field-list .experience-field-rail {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+  }
+  .experience-field-list .experience-field-heading h3 {
+    font-size: clamp(1.7rem, 7vw, 2.25rem) !important;
+  }
+}

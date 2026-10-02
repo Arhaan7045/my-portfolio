@@ -132,12 +132,9 @@ export default async function ProjectCaseStudy({
                   <span>01</span>
                 </div>
                 <div className="case-study-panel-body">
-                  <span className="case-study-label">PROJECT STATE</span>
+                  <span className="case-study-label">STATUS</span>
                   <strong>{project.status}</strong>
-                  <p>
-                    This case study is powered by the portfolio CMS and reflects
-                    the currently published project record.
-                  </p>
+
                 </div>
               </div>
             </aside>

@@ -42,7 +42,7 @@ export default async function Home() {
       .order("created_at", { ascending: true }),
     supabase
       .from("certifications")
-      .select("title, issuer, description, type, sort_order")
+      .select("title, issuer, description, certificate_url, type, sort_order")
       .eq("is_published", true)
       .order("sort_order", { ascending: true })
       .order("created_at", { ascending: true }),
@@ -70,6 +70,7 @@ export default async function Home() {
       title: certification.title,
       platform: certification.issuer,
       description: certification.description,
+      certificateUrl: certification.certificate_url,
     }));
   return (
     <div className="site-frame">
@@ -170,11 +171,13 @@ export default async function Home() {
               title: certification.title,
               issuer: certification.issuer,
               description: certification.description,
+              certificateUrl: certification.certificate_url,
             }))}
             virtualExperiences={virtualExperiences.map((item) => ({
               title: item.title,
               issuer: item.platform,
               description: item.description,
+              certificateUrl: item.certificateUrl,
             }))}
           />
         </section>

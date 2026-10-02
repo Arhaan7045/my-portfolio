@@ -109,7 +109,7 @@ export default async function ProjectCaseStudy({
                 <span>PROJECT DETAILS</span>
               </div>
               <div className="case-study-panel-body">
-                <h2>What I’ve worked on</h2>
+                <h2>Project overview</h2>
                 {documentationParagraphs(project.details).length > 0 ? (
                   <div className="case-study-documentation">
                     {documentationParagraphs(project.details).map((paragraph, index) => (
@@ -132,7 +132,7 @@ export default async function ProjectCaseStudy({
                   <span>01</span>
                 </div>
                 <div className="case-study-panel-body">
-                  <span className="case-study-label">STATUS</span>
+                  <span className="case-study-label">PROJECT STATUS</span>
                   <strong>{project.status}</strong>
 
                 </div>
@@ -146,7 +146,7 @@ export default async function ProjectCaseStudy({
               <span>{tags.length ? `${tags.length} tags` : "No tags yet"}</span>
             </div>
             <div className="case-study-panel-body">
-              <h2>Tools and areas covered.</h2>
+              <h2>Tools and focus areas</h2>
               {tags.length > 0 ? (
                 <div className="case-study-tool-list">
                   {tags.map((tag) => (
@@ -156,22 +156,6 @@ export default async function ProjectCaseStudy({
               ) : (
                 <p>Add tags from the Projects CMS to show the project focus here.</p>
               )}
-            </div>
-          </section>
-
-          <section className="case-study-panel case-study-evidence">
-            <div className="case-study-section-head">
-              <span>PROJECT RECORD</span>
-              <span>LIVE CMS RECORD</span>
-            </div>
-            <div className="case-study-evidence-card">
-              <span className="case-study-evidence-mark" aria-hidden="true">+</span>
-              <div>
-                <h3>Project record and progress.</h3>
-                <p>
-                  The published description, project notes, status, and focus tags shown here are pulled from the private Projects CMS. Update the project record as the assessment develops.
-                </p>
-              </div>
             </div>
           </section>
 

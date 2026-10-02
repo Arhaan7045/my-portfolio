@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
 
 export type Project = {
   title: string;
@@ -18,61 +17,38 @@ type ProjectCardProps = {
   index: number;
 };
 
-const ease = [0.22, 1, 0.36, 1] as const;
-
 export function ProjectCard({ project, index }: ProjectCardProps) {
-  const detailsId = `project-documentation-${index}`;
+  const displayTitle = project.title.replaceAll("—", ":").replaceAll("–", ":");
 
   return (
-    <motion.div
-      layout
-      className="project-card-motion"
-      transition={{ layout: { duration: 0.45, ease } }}
-    >
-      <details className="project-card">
-        <summary className="project-card-summary">
-          <span className="project-card-meta">
-            <span>0{index + 1}</span>
-            <span>{project.status}</span>
-          </span>
+    <article className="project-card">
+      <div className="project-card-topline">
+        <span className="project-card-index">{String(index + 1).padStart(2, "0")}</span>
+        <span className="project-card-category">{project.category}</span>
+        <span className="project-card-status"><i aria-hidden="true" />{project.status}</span>
+      </div>
 
-          <span className="project-card-heading">
-            <span>
-              <span className="project-card-category">{project.category}</span>
-              <span className="project-card-title">{project.title}</span>
-            </span>
-            <span className="project-card-toggle" aria-hidden="true">
-              <span>+</span>
-            </span>
-          </span>
-
-          <span className="project-card-description">
-            {project.description}
-          </span>
-
-          <span className="project-card-tags">
-            {project.tags.map((tag) => (
-              <span key={tag}>{tag}</span>
-            ))}
-          </span>
-        </summary>
-
-        <div
-          id={detailsId}
-          className="project-card-details-shell"
-        >
-          <div className="project-card-details">
-            <span>PROJECT DOCUMENTATION</span>
-            <p>{project.details}</p>
-            <Link
-              className="project-card-case-study"
-              href={`/projects/${project.slug}`}
-            >
-              VIEW CASE STUDY <span aria-hidden="true">↗</span>
-            </Link>
-          </div>
+      <div className="project-card-main">
+        <div className="project-card-copy">
+          <h3 className="project-card-title">{displayTitle}</h3>
+          <p className="project-card-description">{project.description}</p>
         </div>
-      </details>
-    </motion.div>
+        <Link className="project-card-open" href={`/projects/${project.slug}`} aria-label={`Read the ${displayTitle} case study`}>
+          <span>View project</span>
+          <span aria-hidden="true">↗</span>
+        </Link>
+      </div>
+
+      {project.tags.length > 0 && (
+        <ul className="project-card-tags" aria-label="Project tools and topics">
+          {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
+        </ul>
+      )}
+
+      <div className="project-card-footer">
+        <span>PROJECT NOTES</span>
+        <p>{project.details}</p>
+      </div>
+    </article>
   );
 }

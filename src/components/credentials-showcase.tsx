@@ -264,11 +264,7 @@ export function CredentialsShowcase({
                     <span className="credential-deck-description">
                       {certification.description}
                     </span>
-                    {certification.certificateUrl ? (
-                      <a className="credential-view-link" href={certification.certificateUrl} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()} onPointerDown={(event) => event.stopPropagation()}>
-                        View certificate <span aria-hidden="true">↗</span>
-                      </a>
-                    ) : null}
+
                   </span>
                 </span>
 
@@ -288,6 +284,12 @@ export function CredentialsShowcase({
             </div>
           )}
         </div>
+
+        {formalCertifications[activeIndex]?.certificateUrl ? (
+          <a className="credential-view-link credential-view-link-selected" href={formalCertifications[activeIndex].certificateUrl!} target="_blank" rel="noopener noreferrer">
+            View selected certificate <span aria-hidden="true">↗</span>
+          </a>
+        ) : null}
 
         {formalCertifications.length > 1 && (
           <>

@@ -19,8 +19,8 @@ export function LearningShowcase({ areas }: { areas: LearningArea[] }) {
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
-        <p className="eyebrow">CURRENTLY LEARNING / FIELD NOTES 02</p>
-        <h2 id="learning-title">Building the mindset to <span>think like a defender.</span></h2>
+        <p className="eyebrow">CURRENTLY LEARNING</p>
+        <h2 id="learning-title">What I’m working on <span>right now.</span></h2>
       </motion.div>
 
       <div className="learning-console-layout">
@@ -49,9 +49,9 @@ export function LearningShowcase({ areas }: { areas: LearningArea[] }) {
           <p className="learning-console-kicker">THE LEARNING LOOP</p>
           <h3>Study.<br />Practice.<br /><span>Understand.</span></h3>
           <p className="learning-console-summary">
-            A living record of the concepts I’m exploring and the foundations I’m strengthening on my cybersecurity path.
+            The topics I’m studying and practising as I build my cybersecurity foundations.
           </p>
-          <div className="learning-console-status"><span /> OPEN KNOWLEDGE BASE <b>{String(areas.length).padStart(2, "0")} TOPICS</b></div>
+          <div className="learning-console-status"><span /> CURRENT FOCUS <b>{String(areas.length).padStart(2, "0")} TOPICS</b></div>
         </motion.aside>
 
         <div className="learning-console-list" aria-label="Current learning topics">
@@ -75,7 +75,7 @@ export function LearningShowcase({ areas }: { areas: LearningArea[] }) {
           {areas.length === 0 && (
             <p className="learning-console-empty">Learning topics will appear here as they are published.</p>
           )}
-          <div className="learning-console-list-foot"><span /> PROGRESS IS BUILT ONE CONCEPT AT A TIME</div>
+          <div className="learning-console-list-foot"><span /> LEARNING THROUGH PRACTICE</div>
         </div>
       </div>
     </section>

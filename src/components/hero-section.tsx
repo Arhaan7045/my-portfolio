@@ -16,16 +16,15 @@ export function HeroSection() {
         <p className="eyebrow">HELLO, I&apos;M</p>
 
         <h1 id="hero-title" className="hero-headline hero-headline-identity">
-          ARHAAN SHAIKH<span>.</span>
+          Arhaan Shaikh<span>.</span>
         </h1>
 
         <p className="hero-positioning">
-          Aspiring cybersecurity professional focused on <strong>finding and fixing security issues.</strong>
+          Cybersecurity learner focused on <strong>web security and VAPT.</strong>
         </p>
 
         <p className="hero-intro">
-          I&apos;m an MCA student developing practical cybersecurity skills
-          through hands-on learning, labs, and real-world experience.
+          I’m an MCA student building practical skills through security labs, hands-on projects, and documenting what I learn.
         </p>
 
         <div className="hero-actions">

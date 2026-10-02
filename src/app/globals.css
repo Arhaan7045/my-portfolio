@@ -5207,3 +5207,26 @@ section[id],
   #projects .project-card { transition:none !important; }
   .case-study-back, .case-study-next a { transition:none; }
 }
+
+
+/* Certificate links */
+.credential-view-link,
+.admin-credential-view-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  width: fit-content;
+  color: var(--lavender, #c7b0f2);
+  font-size: .78rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(199,176,242,.38);
+  padding-bottom: .2rem;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+.credential-view-link { margin-top: .8rem; pointer-events: auto; }
+.credential-view-link-virtual { margin-top: .65rem; }
+.admin-credential-view-link { margin-top: .8rem; font-family: var(--font-geist-mono), monospace; font-size: .62rem; }
+.credential-view-link:hover,
+.admin-credential-view-link:hover { color: var(--text, #fff); border-color: currentColor; }
+.admin-field-help { display: block; margin-top: .45rem; color: var(--muted, #9b94a8); font-size: .72rem; line-height: 1.6; }

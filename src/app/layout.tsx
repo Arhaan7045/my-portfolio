@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Sora } from "next/font/google";
 import "./globals.css";
+import { PortfolioCursor } from "@/components/portfolio-cursor";
 
 const geistSans = localFont({
   src: "./fonts/geist-sans.woff2",
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${sora.variable}`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">{children}<PortfolioCursor /></body>
     </html>
   );
 }

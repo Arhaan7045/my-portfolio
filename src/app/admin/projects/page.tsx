@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/supabase/admin-guard";
 import { ProjectsManager } from "@/components/projects-manager";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 export const dynamic = "force-dynamic";
 
@@ -26,6 +27,7 @@ export default async function AdminProjectsPage() {
             </Link>
             <div className="admin-topbar-meta">
               <span>PRIVATE / ADMIN</span>
+              <ThemeSwitcher />
               <form action="/auth/signout" method="post">
                 <button type="submit">SIGN OUT ↗</button>
               </form>

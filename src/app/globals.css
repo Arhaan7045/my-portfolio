@@ -5563,6 +5563,7 @@ body {
   --violet-soft: rgb(var(--theme-accent-rgb) / .12);
   --theme-glow: rgb(var(--theme-glow-rgb) / .16);
   --foreground: var(--text);
+}
 
 [data-theme="batman"] {
   --background: #07090d;

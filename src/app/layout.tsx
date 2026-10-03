@@ -40,7 +40,24 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${sora.variable}`}>
-      <body className="min-h-full flex flex-col">{children}<PortfolioCursor /></body>
+      <body className="min-h-full flex flex-col">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try {
+              var saved = localStorage.getItem("portfolio-theme");
+              if (saved === "signal-blue" || saved === "mono-carbon" || saved === "cyber-violet") {
+                document.documentElement.dataset.theme = saved;
+              } else {
+                document.documentElement.dataset.theme = "cyber-violet";
+              }
+            } catch (e) {
+              document.documentElement.dataset.theme = "cyber-violet";
+            }`,
+          }}
+        />
+        {children}
+        <PortfolioCursor />
+      </body>
     </html>
   );
 }

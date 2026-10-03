@@ -5279,3 +5279,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .portfolio-custom-cursor, .portfolio-custom-cursor .cursor-halo, .portfolio-custom-cursor .cursor-dot { transition: none !important; }
 }
+
+
+/* Restore the original site-wide background; remove the extra hero-only grid layer. */
+.hero > .interactive-hero-field { display: none !important; }

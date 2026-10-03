@@ -4,16 +4,12 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 export const THEME_OPTIONS = [
-  { id: "cyber-violet", label: "Cyber Violet", descriptor: "Core Profile", themeColor: "#09080e" },
-  { id: "thor", label: "Thor", descriptor: "Storm Steel", themeColor: "#080b12" },
-  { id: "iron-man", label: "Iron Man", descriptor: "Reactor Red", themeColor: "#0a090b" },
-  { id: "doctor-doom", label: "Doctor Doom", descriptor: "Doom Green", themeColor: "#080b0a" },
-  { id: "batman", label: "Batman", descriptor: "Shadow Graphite", themeColor: "#08090c" },
-  { id: "superman", label: "Superman", descriptor: "Midnight Crimson", themeColor: "#080b12" },
-  { id: "black-panther", label: "Black Panther", descriptor: "Obsidian Purple", themeColor: "#08080b" },
-  { id: "batman", label: "Batman", descriptor: "Shadow Graphite", themeColor: "#08090c" },
-  { id: "superman", label: "Superman", descriptor: "Midnight Crimson", themeColor: "#080b12" },
-  { id: "black-panther", label: "Black Panther", descriptor: "Obsidian Purple", themeColor: "#08080b" },
+  { id: "cyber-violet", label: "Cyber Violet", descriptor: "Core Profile", category: "CORE", themeColor: "#09080e" },
+  { id: "thor", label: "Thor", descriptor: "Storm Steel", category: "MARVEL", themeColor: "#080b12" },
+  { id: "iron-man", label: "Iron Man", descriptor: "Reactor Red", category: "MARVEL", themeColor: "#0a090b" },
+  { id: "doctor-doom", label: "Doctor Doom", descriptor: "Doom Green", category: "MARVEL", themeColor: "#080b0a" },
+  { id: "black-panther", label: "Black Panther", descriptor: "Vibranium Violet", category: "MARVEL", themeColor: "#08080b" },
+  { id: "batman", label: "Batman", descriptor: "Shadow Blue", category: "DC", themeColor: "#08090c" },
 ] as const;
 
 export type ThemeId = (typeof THEME_OPTIONS)[number]["id"];
@@ -37,93 +33,26 @@ function applyTheme(theme: ThemeId) {
 
 function ThemeIcon({ theme }: { theme: ThemeId }) {
   if (theme === "thor") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M13.8 2.8 6.7 13h5.1l-1.6 8.2L17.5 11h-5.1l1.4-8.2Z" />
-      </svg>
-    );
+    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.8 2.8 6.7 13h5.1l-1.6 8.2L17.5 11h-5.1l1.4-8.2Z" /></svg>;
   }
 
   if (theme === "doctor-doom") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m12 3.2 6.3 3.4v7.1L12 20.8l-6.3-7.1V6.6L12 3.2Z" />
-        <path d="M9.1 10.1h1.5M13.4 10.1h1.5M11.1 14.6h1.8" />
-      </svg>
-    );
+    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.2 6.3 3.4v7.1L12 20.8l-6.3-7.1V6.6L12 3.2Z" /><path d="M9.1 10.1h1.5M13.4 10.1h1.5M11.1 14.6h1.8" /></svg>;
   }
 
   if (theme === "batman") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m4.5 8.1 3.4 1 4.1-3 4.1 3 3.4-1-.9 8-6.6 3.1-6.6-3.1Z" />
-        <path d="M8.2 13.1h2.2M13.6 13.1h2.2" />
-      </svg>
-    );
-  }
-
-  if (theme === "superman") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m12 3.8 7.5 2.8-1.6 10.1L12 19.3l-5.9-2.6L4.5 6.6Z" />
-        <path d="m8.6 9.2 3.4 5 3.4-5-3.4 1.8Z" />
-      </svg>
-    );
+    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 8.1 3.4 1 4.1-3 4.1 3 3.4-1-.9 8-6.6 3.1-6.6-3.1Z" /><path d="M8.2 13.1h2.2M13.6 13.1h2.2" /></svg>;
   }
 
   if (theme === "black-panther") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M8.1 5.2 10 7l2-2 2 2 1.9-1.8 1.6 5.1-1.3 7.1-4.2 2.1-4.2-2.1-1.3-7.1Z" />
-        <path d="M9.1 12.2h1.2M13.7 12.2h1.2M11.2 15.2h1.6" />
-      </svg>
-    );
-  }
-
-  if (theme === "batman") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m4.5 8.1 3.4 1 4.1-3 4.1 3 3.4-1-.9 8-6.6 3.1-6.6-3.1Z" />
-        <path d="M8.2 13.1h2.2M13.6 13.1h2.2" />
-      </svg>
-    );
-  }
-
-  if (theme === "superman") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m12 3.8 7.5 2.8-1.6 10.1L12 19.3l-5.9-2.6L4.5 6.6Z" />
-        <path d="m8.6 9.2 3.4 5 3.4-5-3.4 1.8Z" />
-      </svg>
-    );
-  }
-
-  if (theme === "black-panther") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M8.1 5.2 10 7l2-2 2 2 1.9-1.8 1.6 5.1-1.3 7.1-4.2 2.1-4.2-2.1-1.3-7.1Z" />
-        <path d="M9.1 12.2h1.2M13.7 12.2h1.2M11.2 15.2h1.6" />
-      </svg>
-    );
+    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.1 5.2 10 7l2-2 2 2 1.9-1.8 1.6 5.1-1.3 7.1-4.2 2.1-4.2-2.1-1.3-7.1Z" /><path d="M9.1 12.2h1.2M13.7 12.2h1.2M11.2 15.2h1.6" /></svg>;
   }
 
   if (theme === "iron-man") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 3.4 18.4 7v7.4L12 18l-6.4-3.6V7L12 3.4Z" />
-        <path d="m9.3 8.5 2.7-1.7 2.7 1.7v5.1L12 15.3l-2.7-1.7V8.5Z" />
-        <path d="M12 9.3v3.4" />
-      </svg>
-    );
+    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4 18.4 7v7.4L12 18l-6.4-3.6V7L12 3.4Z" /><path d="m9.3 8.5 2.7-1.7 2.7 1.7v5.1L12 15.3l-2.7-1.7V8.5Z" /><path d="M12 9.3v3.4" /></svg>;
   }
 
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="12" r="7.1" />
-      <circle cx="12" cy="12" r="2" className="theme-icon-core" />
-      <path d="M12 4.9v3.2M12 15.9v3.2M4.9 12h3.2M15.9 12h3.2M6.9 6.9l2.3 2.3M14.8 14.8l2.3 2.3M17.1 6.9l-2.3 2.3M9.2 14.8l-2.3 2.3" />
-    </svg>
-  );
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7.1" /><circle cx="12" cy="12" r="2" className="theme-icon-core" /><path d="M12 4.9v3.2M12 15.9v3.2M4.9 12h3.2M15.9 12h3.2M6.9 6.9l2.3 2.3M14.8 14.8l2.3 2.3M17.1 6.9l-2.3 2.3M9.2 14.8l-2.3 2.3" /></svg>;
 }
 
 export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
@@ -148,20 +77,14 @@ export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
     if (mobile || !open) return;
 
     const onPointerDown = (event: PointerEvent) => {
-      if (!switcherRef.current?.contains(event.target as Node)) {
-        setOpen(false);
-      }
+      if (!switcherRef.current?.contains(event.target as Node)) setOpen(false);
     };
-
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setOpen(false);
-      }
+      if (event.key === "Escape") setOpen(false);
     };
 
     document.addEventListener("pointerdown", onPointerDown);
     document.addEventListener("keydown", onKeyDown);
-
     return () => {
       document.removeEventListener("pointerdown", onPointerDown);
       document.removeEventListener("keydown", onKeyDown);
@@ -172,10 +95,7 @@ export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
     setTheme(nextTheme);
     applyTheme(nextTheme);
     setOpen(false);
-
-    if (mobile) {
-      switcherRef.current?.closest("details")?.removeAttribute("open");
-    }
+    if (mobile) switcherRef.current?.closest("details")?.removeAttribute("open");
   };
 
   const activeTheme = THEME_OPTIONS.find((option) => option.id === theme) ?? THEME_OPTIONS[0];
@@ -195,41 +115,44 @@ export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
       whileTap={{ scale: 0.985 }}
     >
       <span className="theme-option-topline">
-        <span className="theme-option-icon" aria-hidden="true">
-          <ThemeIcon theme={option.id} />
-        </span>
+        <span className="theme-option-icon" aria-hidden="true"><ThemeIcon theme={option.id} /></span>
         <span className="theme-option-copy">
           <span>{option.label}</span>
           <small>{option.descriptor}</small>
         </span>
         {option.id === theme ? <span className="theme-selected-dot" aria-hidden="true" /> : null}
       </span>
-      <span className="theme-palette" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-      </span>
+      <span className="theme-palette" aria-hidden="true"><span /><span /><span /></span>
     </motion.button>
   );
+
+  const renderGroups = (mobileMode = false) => {
+    const categories = ["CORE", "MARVEL", "DC"] as const;
+    return categories.map((category) => {
+      const options = THEME_OPTIONS.filter((option) => option.category === category);
+      if (!options.length) return null;
+      return (
+        <section className={`theme-category theme-category-${category.toLowerCase()}`} key={category}>
+          <div className="theme-category-heading">
+            <span>{category}</span>
+            <span>{category === "CORE" ? "ORIGINAL" : category === "MARVEL" ? "MARVEL UNIVERSE" : "DC UNIVERSE"}</span>
+          </div>
+          <div className="theme-category-grid">
+            {options.map((option, index) => renderOption(option, index, mobileMode))}
+          </div>
+        </section>
+      );
+    });
+  };
 
   if (mobile) {
     return (
       <div ref={switcherRef} className="mobile-theme-switcher" aria-label="Choose visual profile">
-        <div className="mobile-theme-heading">
-          <span>VISUAL PROFILE</span>
-          <span>{activeTheme.label.toUpperCase()}</span>
-        </div>
-
-        <div className="mobile-theme-options">
-          {THEME_OPTIONS.map((option, index) => renderOption(option, index, true))}
-        </div>
-
+        <div className="mobile-theme-heading"><span>VISUAL PROFILE</span><span>{activeTheme.label.toUpperCase()}</span></div>
+        {renderGroups(true)}
         <div className="theme-coming-soon">
           <span className="theme-coming-soon-mark">+</span>
-          <span>
-            <strong>MORE PROFILES</strong>
-            <small>COMING SOON</small>
-          </span>
+          <span><strong>MORE PROFILES</strong><small>COMING SOON</small></span>
         </div>
       </div>
     );
@@ -260,36 +183,15 @@ export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
 
       <AnimatePresence initial={false}>
         {open ? (
-          <motion.div
-            className="theme-menu"
-            role="menu"
-            initial={{ opacity: 0, y: -7, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -5, scale: 0.985 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className="theme-menu-heading">
-              <span>VISUAL PROFILE</span>
-              <span>{activeTheme.label.toUpperCase()}</span>
-            </div>
-
-            <div className="theme-grid">
-              {THEME_OPTIONS.map((option, index) => renderOption(option, index))}
-            </div>
-
+          <motion.div className="theme-menu" role="menu" initial={{ opacity: 0, y: -7, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -5, scale: 0.985 }} transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}>
+            <div className="theme-menu-heading"><span>VISUAL PROFILE</span><span>{activeTheme.label.toUpperCase()}</span></div>
+            {renderGroups()}
             <div className="theme-coming-soon">
               <span className="theme-coming-soon-mark">+</span>
-              <span>
-                <strong>MORE PROFILES</strong>
-                <small>COMING SOON</small>
-              </span>
+              <span><strong>MORE PROFILES</strong><small>COMING SOON</small></span>
               <span className="theme-coming-soon-arrow">→</span>
             </div>
-
-            <div className="theme-menu-footer">
-              <span>4 PROFILES</span>
-              <span>COLOR SYSTEM</span>
-            </div>
+            <div className="theme-menu-footer"><span>6 PROFILES</span><span>COLOR SYSTEM</span></div>
           </motion.div>
         ) : null}
       </AnimatePresence>

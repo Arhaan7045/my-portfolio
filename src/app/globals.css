@@ -995,13 +995,14 @@ section[id],
   max-width: 100%;
   margin: 0 0 1.1rem;
   font-family: var(--font-space-grotesk), var(--font-geist-sans), sans-serif;
-  font-size: clamp(3.4rem, 5.8vw, 5.8rem);
+  font-size: clamp(3.4rem, 4.8vw, 4.8rem);
   font-weight: 600;
   line-height: .98;
   letter-spacing: -.075em;
   text-wrap: balance;
 }
-.hero-headline-identity span { color: var(--lavender); }
+.hero-name { color: #f5f2fb; white-space: nowrap; }
+.hero-headline-identity .hero-name-period { color: var(--lavender); }
 .hero-positioning {
   max-width: 34rem;
   margin: 0 0 1rem;

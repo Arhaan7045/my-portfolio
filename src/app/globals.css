@@ -5669,28 +5669,32 @@ body {
 /* The current visual profile is always readable when hovering the trigger. */
 .theme-tooltip {
   position: absolute;
-  top: calc(100% + .52rem);
-  left: 50%;
-  padding: .36rem .52rem;
-  border: 1px solid rgb(var(--theme-light-rgb) / .22);
-  background: rgb(var(--theme-deep-rgb) / .98);
+  z-index: 80;
+  top: 50%;
+  left: calc(100% + .6rem);
+  padding: .42rem .58rem;
+  border: 1px solid rgb(var(--theme-light-rgb) / .24);
+  background: rgb(var(--theme-deep-rgb) / .99);
   color: var(--text);
   font-family: var(--font-geist-mono), monospace;
-  font-size: .48rem;
-  font-weight: 700;
-  letter-spacing: .12em;
+  font-size: .49rem;
+  font-weight: 750;
+  letter-spacing: .11em;
+  line-height: 1;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transform: translate(-50%, -4px);
-  transition: opacity 150ms ease, transform 150ms ease;
-  box-shadow: 0 .7rem 1.5rem rgba(0,0,0,.28);
+  visibility: hidden;
+  transform: translate(5px, -50%);
+  transition: opacity 150ms ease, transform 150ms ease, visibility 150ms ease;
+  box-shadow: 0 .7rem 1.5rem rgba(0,0,0,.32);
 }
 
 .theme-trigger:hover .theme-tooltip,
 .theme-trigger:focus-visible .theme-tooltip {
   opacity: 1;
-  transform: translate(-50%, 0);
+  visibility: visible;
+  transform: translate(0, -50%);
 }
 
 .theme-menu {

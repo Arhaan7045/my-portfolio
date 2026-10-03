@@ -4698,8 +4698,11 @@ section[id],
 #projects .project-card {
   display: flex !important;
   flex-direction: column !important;
+  width: 100%;
+  height: auto !important;
   min-width: 0;
   min-height: 17rem;
+  overflow: visible !important;
   padding: 1.35rem !important;
   border: 1px solid rgba(208,185,255,.15) !important;
   border-radius: .9rem !important;
@@ -4724,9 +4727,12 @@ section[id],
 }
 #projects .project-card-description { max-width:48ch; margin-top:.65rem !important; line-height:1.7 !important; }
 #projects .project-card-open {
-  display:flex !important; justify-content:space-between !important; align-items:center !important; width:100%;
-  margin-top:auto !important; padding-top:.9rem !important; border-top:1px solid rgba(208,185,255,.12);
+  display:flex !important; justify-content:space-between !important; align-items:center !important; gap:1rem;
+  width:100%; min-height:2.25rem; flex-shrink:0; margin-top:auto !important; padding-top:.9rem !important;
+  color:var(--text) !important; text-decoration:none; border-top:1px solid rgba(208,185,255,.12);
 }
+#projects .project-card-open span:first-child { display:inline-block; }
+#projects .project-card-open:focus-visible { outline:2px solid var(--lavender); outline-offset:4px; }
 #projects .project-card-tags { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:1rem !important; }
 #projects .project-card-tags li { font-size:.64rem; }
 

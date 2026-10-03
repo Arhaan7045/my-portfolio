@@ -286,9 +286,12 @@ export function CredentialsShowcase({
         </div>
 
         {formalCertifications[activeIndex]?.certificateUrl ? (
-          <a className="credential-view-link credential-view-link-selected" href={formalCertifications[activeIndex].certificateUrl!} target="_blank" rel="noopener noreferrer">
-            View selected certificate <span aria-hidden="true">↗</span>
-          </a>
+          <div className="credential-view-row">
+            <span>OPEN CREDENTIAL</span>
+            <a className="credential-view-link credential-view-link-selected" href={formalCertifications[activeIndex].certificateUrl!} target="_blank" rel="noopener noreferrer">
+              View certificate <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         ) : null}
 
         {formalCertifications.length > 1 && (

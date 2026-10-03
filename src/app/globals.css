@@ -5283,3 +5283,20 @@ body {
 
 /* Restore the original site-wide background; remove the extra hero-only grid layer. */
 .hero > .interactive-hero-field { display: none !important; }
+
+
+/* Soft-square hover cursor: keep the default cursor round, square only on interactives. */
+.portfolio-custom-cursor.is-link .cursor-halo,
+.portfolio-custom-cursor.is-button .cursor-halo {
+  inset: 1px !important;
+  border-radius: 5px !important;
+  border-color: rgba(225, 211, 255, .95) !important;
+  background: rgba(150, 108, 242, .08) !important;
+  transform: none !important;
+}
+.portfolio-custom-cursor.is-link .cursor-dot,
+.portfolio-custom-cursor.is-button .cursor-dot {
+  width: 3px !important;
+  height: 3px !important;
+  background: #f5efff !important;
+}

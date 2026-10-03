@@ -5140,3 +5140,102 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .portfolio-custom-cursor { transition: none; }
 }
+
+
+/* Repair hero stacking: the interactive canvas is a background, not a grid column. */
+.hero { position: relative; isolation: isolate; }
+.hero > .interactive-hero-field {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  width: 100% !important;
+  height: 100% !important;
+  grid-column: 1 / -1 !important;
+  pointer-events: none !important;
+  overflow: hidden;
+}
+.hero > .interactive-hero-field .interactive-hero-grid {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.hero > .hero-copy,
+.hero > .hero-visual { position: relative; z-index: 1; min-width: 0; }
+@media (min-width: 1101px) {
+  .hero {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr) !important;
+  }
+  .hero > .hero-copy { grid-column: 1; }
+  .hero > .hero-visual { grid-column: 2; }
+}
+
+/* Dot-and-halo cursor. Links and buttons get distinct, restrained feedback. */
+.portfolio-custom-cursor {
+  display: block;
+  position: fixed;
+  left: -100px;
+  top: -100px;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: opacity 120ms ease;
+  will-change: left, top;
+}
+.portfolio-custom-cursor.is-visible { opacity: 1; }
+.cursor-halo {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(208,185,255,.8);
+  border-radius: 50%;
+  background: rgba(150,108,242,.035);
+  transform: scale(1);
+  transition: inset 180ms cubic-bezier(.2,.8,.2,1), border-color 180ms ease, background 180ms ease, border-radius 180ms ease, transform 180ms ease;
+}
+.cursor-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #d0b9ff;
+  transform: translate(-50%,-50%);
+  transition: width 160ms ease, height 160ms ease, background 160ms ease;
+}
+.portfolio-custom-cursor.is-link .cursor-halo {
+  inset: -3px;
+  border-color: rgba(208,185,255,.95);
+  background: rgba(150,108,242,.09);
+}
+.portfolio-custom-cursor.is-link .cursor-dot {
+  width: 5px;
+  height: 5px;
+  background: #f5efff;
+}
+.portfolio-custom-cursor.is-button .cursor-halo {
+  inset: 3px;
+  border-radius: 6px;
+  border-color: rgba(225,211,255,1);
+  background: rgba(150,108,242,.13);
+}
+.portfolio-custom-cursor.is-button .cursor-dot {
+  width: 5px;
+  height: 5px;
+  background: #fff;
+}
+@media (hover: hover) and (pointer: fine) {
+  html, body, body * { cursor: none !important; }
+}
+@media (pointer: coarse) {
+  .portfolio-custom-cursor { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-custom-cursor, .cursor-halo, .cursor-dot { transition: none !important; }
+}

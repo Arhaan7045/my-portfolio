@@ -45,7 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{
             __html: `try {
               var saved = localStorage.getItem("portfolio-theme");
-              if (saved === "signal-blue" || saved === "mono-carbon" || saved === "cyber-violet") {
+              if (saved === "obsidian-amber" || saved === "deep-forest" || saved === "midnight-rose" || saved === "cyber-violet") {
                 document.documentElement.dataset.theme = saved;
               } else {
                 document.documentElement.dataset.theme = "cyber-violet";

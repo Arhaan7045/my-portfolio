@@ -21,7 +21,7 @@ export function HeroSection() {
         </p>
 
         <p className="hero-intro">
-          I’m an MCA student building practical skills through security labs, hands-on projects, and documenting what I learn.
+          I’m an MCA student building practical skills through security labs and hands-on projects, while documenting what I learn.
         </p>
 
         <div className="hero-actions">

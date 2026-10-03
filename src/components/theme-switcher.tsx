@@ -39,7 +39,7 @@ export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
           {THEME_OPTIONS.map((option) => (
             <button
               type="button"
-              className={option.id === theme ? "theme-option is-active" : "theme-option"}
+              className={`theme-option theme-${option.id}${option.id === theme ? " is-active" : ""}`}
               key={option.id}
               onClick={() => {
                 setTheme(option.id);

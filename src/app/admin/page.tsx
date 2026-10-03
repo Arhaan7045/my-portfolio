@@ -48,8 +48,7 @@ export default async function AdminPage() {
             <span className="admin-auth-label">Control room</span>
             <h1>Manage the portfolio.</h1>
             <p>
-              Your private workspace is connected. Content management modules
-              will be added here before the public site is migrated to Supabase.
+              Manage the projects, experience, skills, certifications, and learning areas shown on your public portfolio.
             </p>
           </div>
 

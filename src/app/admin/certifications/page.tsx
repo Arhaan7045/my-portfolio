@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/supabase/admin-guard";
 import { CertificationsManager } from "@/components/certifications-manager";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 export const dynamic = "force-dynamic";
 
@@ -15,7 +16,8 @@ export default async function AdminCertificationsPage() {
 
   if (error) {
     return <main className="admin-page"><div className="admin-shell">
-      <header className="admin-topbar"><Link href="/admin" className="admin-auth-wordmark"><span className="wordmark-mark" aria-hidden="true"/><span>Arhaan Shaikh</span></Link><div className="admin-topbar-meta"><span>PRIVATE / ADMIN</span><form action="/auth/signout" method="post"><button type="submit">SIGN OUT ↗</button></form></div></header>
+      <header className="admin-topbar"><Link href="/admin" className="admin-auth-wordmark"><span className="wordmark-mark" aria-hidden="true"/><span>Arhaan Shaikh</span></Link><div className="admin-topbar-meta"><span>PRIVATE / ADMIN</span>
+              <ThemeSwitcher /><form action="/auth/signout" method="post"><button type="submit">SIGN OUT ↗</button></form></div></header>
       <section className="admin-error-panel" role="alert"><span className="admin-auth-label">Database error</span><h1>Certifications could not be loaded.</h1><p>{error.message}</p><Link className="admin-secondary-action" href="/admin">← Back to dashboard</Link></section>
     </div></main>;
   }

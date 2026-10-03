@@ -127,7 +127,7 @@ export function InteractiveHeroField() {
       pointer.current.y += (target.current.y - pointer.current.y) * ease;
       draw();
       const distance = Math.hypot(target.current.x - pointer.current.x, target.current.y - pointer.current.y);
-      if (distance > 0.35 || active.current) frame = window.requestAnimationFrame(animate);
+      if (distance > 0.35) frame = window.requestAnimationFrame(animate);
       else frame = 0;
     }
 

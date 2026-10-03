@@ -5353,60 +5353,109 @@ body {
 }
 
 
-/* Centered desktop navigation and learning-section back-to-top control. */
+/* Centered navigation group with a compact resume action and refined back-to-top control. */
 @media (min-width: 901px) {
   .navigation {
-    display: grid;
-    grid-template-columns: minmax(8rem, 1fr) auto minmax(8rem, 1fr);
+    display: flex;
     align-items: center;
+    justify-content: center;
   }
-  .desktop-navigation { grid-column: 2; justify-self: center; }
-  .nav-resume { grid-column: 3; justify-self: end; }
-  .nav-spacer { grid-column: 1; }
+  .desktop-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1rem, 1.75vw, 1.55rem);
+  }
+  .desktop-navigation .nav-resume {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    margin-left: .25rem;
+    padding: .45rem .7rem;
+    border: 1px solid rgba(208,185,255,.2);
+    background: rgba(150,108,242,.045);
+    color: var(--text);
+    font-size: .74rem;
+    font-weight: 650;
+    transition: color 180ms ease, border-color 180ms ease, background 180ms ease, transform 180ms ease;
+  }
+  .desktop-navigation .nav-resume::before { display: none; }
+  .desktop-navigation .nav-resume:hover {
+    color: var(--lavender);
+    border-color: rgba(208,185,255,.42);
+    background: rgba(150,108,242,.1);
+    transform: translateY(-1px);
+  }
+  .desktop-navigation .nav-resume span:last-child {
+    color: var(--lavender);
+    font-size: .78rem;
+    transition: transform 180ms ease;
+  }
+  .desktop-navigation .nav-resume:hover span:last-child {
+    transform: translate(2px, -2px);
+  }
 }
 @media (max-width: 900px) {
   .navigation {
     display: flex;
   }
-  .nav-spacer,
-  .nav-resume {
-    display: none;
+  .mobile-navigation {
+    margin-left: auto;
   }
 }
 .back-to-top {
   position: fixed;
-  right: clamp(1rem, 2.2vw, 2rem);
-  bottom: clamp(1rem, 2.2vw, 2rem);
+  right: clamp(1rem, 2vw, 1.75rem);
+  bottom: clamp(1rem, 2vw, 1.75rem);
   z-index: 30;
   display: inline-flex;
-  min-width: 3.3rem;
-  height: 3.3rem;
+  width: 3.4rem;
+  height: 3.4rem;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: .45rem;
-  padding: 0 .8rem;
-  border: 1px solid rgba(208,185,255,.2);
-  background: rgba(11,9,16,.86);
-  backdrop-filter: blur(14px);
-  color: var(--muted);
+  gap: .12rem;
+  padding: 0;
+  border: 1px solid rgba(208,185,255,.24);
+  background: rgba(10,8,15,.82);
+  backdrop-filter: blur(16px) saturate(120%);
+  color: var(--text);
   font-family: var(--font-geist-mono), monospace;
-  font-size: .56rem;
-  font-weight: 700;
-  letter-spacing: .1em;
   cursor: pointer;
-  box-shadow: 0 1rem 2rem rgba(0,0,0,.22);
-  transition: color 180ms ease, border-color 180ms ease, background 180ms ease, transform 180ms ease;
+  box-shadow: 0 1rem 2.25rem rgba(0,0,0,.26);
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
 }
-.back-to-top span:last-child {
+.back-to-top::before {
+  position: absolute;
+  inset: .28rem;
+  border: 1px solid rgba(208,185,255,.07);
+  content: "";
+  pointer-events: none;
+}
+.back-to-top-arrow {
+  position: relative;
+  z-index: 1;
   color: var(--lavender);
-  font-size: .9rem;
+  font-size: 1rem;
+  line-height: 1;
+}
+.back-to-top-label {
+  position: relative;
+  z-index: 1;
+  color: rgba(208,185,255,.62);
+  font-size: .43rem;
+  font-weight: 700;
+  letter-spacing: .14em;
   line-height: 1;
 }
 .back-to-top:hover {
   border-color: rgba(208,185,255,.48);
   background: rgba(18,15,27,.94);
-  color: var(--text);
+  box-shadow: 0 1.1rem 2.5rem rgba(0,0,0,.3);
   transform: translateY(-2px);
+}
+.back-to-top:hover .back-to-top-arrow {
+  transform: translateY(-1px);
 }
 .back-to-top:focus-visible {
   outline: 2px solid var(--lavender);
@@ -5414,15 +5463,17 @@ body {
 }
 @media (max-width: 640px) {
   .back-to-top {
-    right: .85rem;
-    bottom: .85rem;
-    min-width: 3rem;
-    height: 3rem;
-    padding: 0 .65rem;
+    right: .8rem;
+    bottom: .8rem;
+    width: 3.05rem;
+    height: 3.05rem;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .back-to-top {
+  .desktop-navigation .nav-resume,
+  .desktop-navigation .nav-resume span:last-child,
+  .back-to-top,
+  .back-to-top-arrow {
     transition: none;
   }
 }

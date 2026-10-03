@@ -5285,11 +5285,11 @@ body {
 .hero > .interactive-hero-field { display: none !important; }
 
 
-/* Soft-square hover cursor: keep the default cursor round, square only on interactives. */
+/* Smaller soft-square cursor feedback on links and buttons. */
 .portfolio-custom-cursor.is-link .cursor-halo,
 .portfolio-custom-cursor.is-button .cursor-halo {
-  inset: 1px !important;
-  border-radius: 5px !important;
+  inset: 3px !important;
+  border-radius: 4px !important;
   border-color: rgba(225, 211, 255, .95) !important;
   background: rgba(150, 108, 242, .08) !important;
   transform: none !important;

@@ -5090,7 +5090,7 @@ body {
 .interactive-hero-field {
   position: absolute;
   z-index: 0;
-  inset: -1.5rem -8vw;
+  inset: 0;
   overflow: hidden;
   pointer-events: none;
   --cursor-x: -1000px;

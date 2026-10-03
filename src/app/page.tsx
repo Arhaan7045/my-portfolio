@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/hero-section";
 import { CredentialsShowcase } from "@/components/credentials-showcase";
 import { ExperienceShowcase } from "@/components/experience-showcase";
 import { LearningShowcase } from "@/components/learning-showcase";
+import { BackToTop } from "@/components/back-to-top";
 import { createPublicClient } from "@/lib/supabase/public";
 import {
   contactLinks,
@@ -189,6 +190,8 @@ export default async function Home() {
             description: area.description,
           }))}
         />
+
+        <BackToTop />
 
         {/* Contact */}
         <section className="contact-section" id="contact">

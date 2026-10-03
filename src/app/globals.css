@@ -93,7 +93,7 @@ section[id],
 /* ─── Hero ─── */
 .hero { display: grid; min-height: min(50rem, calc(100vh - 5rem)); grid-template-columns: 1.15fr 0.85fr; align-items: center; gap: clamp(3rem, 7vw, 7rem); padding-block: 7rem; }
 .eyebrow { margin: 0 0 1.25rem; color: var(--lavender); font-family: var(--font-geist-mono), monospace; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
-.hero h1, .hero h2, .hero h3, .hero p { margin-top: 0; }
+.hero h1, h2, h3, p { margin-top: 0; }
 
 /* Hero headline — animated word cycle */
 .hero-headline { margin: 0 0 1.5rem; display: flex; flex-direction: column; gap: 0; line-height: 0.9; letter-spacing: -0.06em; font-weight: 700; }
@@ -5292,33 +5292,3 @@ section[id],
 .credential-card-view-link:hover { color: #fff; border-color: currentColor; }
 .credential-card-view-link:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 
-
-/* Typography system: consistent display face across public and admin headings. */
-:where(h1, h2, h3, h4, h5, h6) {
-  font-family: var(--font-space-grotesk), var(--font-geist-sans), sans-serif;
-}
-.hero-headline,
-.hero-headline-identity,
-.section-heading h2,
-#about h2,
-#projects h2,
-#skills h2,
-#credentials h2,
-#contact h2,
-#experience h2,
-#learning h2,
-.experience-field-heading h3,
-.learning-console-heading h2,
-.learning-console-layout h3,
-#projects .project-card-title,
-.credential-deck-title,
-.virtual-experience-card h3,
-.case-study-panel h2,
-.case-study-evidence-card h3,
-.admin-dashboard-intro h1,
-.admin-auth-heading h1,
-.admin-content-heading h1,
-.admin-error-panel h1,
-.admin-module-card h2 {
-  font-family: var(--font-space-grotesk), var(--font-geist-sans), sans-serif !important;
-}

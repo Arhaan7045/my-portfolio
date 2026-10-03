@@ -90,7 +90,7 @@ export default async function Home() {
               </div>
               <div className="about-monogram" aria-hidden="true">AS</div>
               <div className="about-profile-bottom">
-                <strong>MCA STUDENT</strong>
+                <strong>PRACTICAL LEARNING</strong>
                 <span>CYBERSECURITY</span>
               </div>
             </div>

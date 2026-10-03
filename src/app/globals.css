@@ -5563,59 +5563,6 @@ body {
   --violet-soft: rgb(var(--theme-accent-rgb) / .12);
   --theme-glow: rgb(var(--theme-glow-rgb) / .16);
   --foreground: var(--text);
-}
-
-
-
-
-
-  --background: #080b12;
-  --surface: #10151e;
-  --surface-raised: #171d28;
-  --deep-surface: #0a0e16;
-  --deep-surface-accent: #111824;
-  --text: #f3f3f1;
-  --text-soft: #d4d9df;
-  --muted: #99a3b0;
-  --theme-accent-rgb: 83 104 145;
-  --theme-light-rgb: 176 116 120;
-  --theme-deep-rgb: 7 9 15;
-  --theme-glow-rgb: 83 104 145;
-  --line: rgb(var(--theme-light-rgb) / .13);
-  --violet: rgb(var(--theme-accent-rgb));
-  --lavender: rgb(var(--theme-light-rgb));
-  --violet-soft: rgb(83 104 145 / .09);
-  --theme-glow: rgb(var(--theme-glow-rgb) / .14);
-  --foreground: var(--text);
-}
-
-
-
-
-
-
-  --background: #080b12;
-  --surface: #10151e;
-  --surface-raised: #171d28;
-  --deep-surface: #0a0e16;
-  --deep-surface-accent: #111824;
-  --text: #f3f3f1;
-  --text-soft: #d4d9df;
-  --muted: #99a3b0;
-  --theme-accent-rgb: 83 104 145;
-  --theme-light-rgb: 176 116 120;
-  --theme-deep-rgb: 7 9 15;
-  --theme-glow-rgb: 83 104 145;
-  --line: rgb(var(--theme-light-rgb) / .13);
-  --violet: rgb(var(--theme-accent-rgb));
-  --lavender: rgb(var(--theme-light-rgb));
-  --violet-soft: rgb(83 104 145 / .09);
-  --theme-glow: rgb(var(--theme-glow-rgb) / .14);
-  --foreground: var(--text);
-}
-
-
-
 
 [data-theme="batman"] {
   --background: #07090d;
@@ -6249,4 +6196,3 @@ body {
 .theme-option.theme-black-panther .theme-palette span:nth-child(1) { background: #5b4574; }
 .theme-option.theme-black-panther .theme-palette span:nth-child(2) { background: #beb0d1; }
 .theme-option.theme-black-panther .theme-palette span:nth-child(3) { background: #201c27; }
-

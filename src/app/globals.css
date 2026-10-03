@@ -4733,8 +4733,48 @@ section[id],
 }
 #projects .project-card-open span:first-child { display:inline-block; }
 #projects .project-card-open:focus-visible { outline:2px solid var(--lavender); outline-offset:4px; }
-#projects .project-card-tags { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:1rem !important; }
-#projects .project-card-tags li { font-size:.64rem; }
+#projects .project-card-tags {
+  display:flex !important;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:.45rem !important;
+  margin-top:1rem !important;
+  padding:0;
+  list-style:none;
+}
+#projects .project-card-tags li {
+  display:inline-flex;
+  align-items:center;
+  gap:.38rem;
+  min-height:1.65rem;
+  padding:.32rem .58rem;
+  border:1px solid rgba(208,185,255,.18);
+  border-radius:999px;
+  background:linear-gradient(135deg,rgba(150,108,242,.10),rgba(255,255,255,.025));
+  color:rgba(237,231,247,.82);
+  font-family:var(--font-geist-mono),monospace;
+  font-size:.59rem;
+  font-weight:500;
+  letter-spacing:.025em;
+  line-height:1.2;
+  transition:border-color 160ms ease,background 160ms ease,color 160ms ease;
+}
+#projects .project-card-tags li::before {
+  content:"";
+  width:.32rem;
+  height:.32rem;
+  flex:0 0 .32rem;
+  border-radius:50%;
+  background:var(--lavender);
+  box-shadow:0 0 .5rem rgba(208,185,255,.3);
+}
+#projects .project-card:hover .project-card-tags li {
+  border-color:rgba(208,185,255,.25);
+  background:linear-gradient(135deg,rgba(150,108,242,.14),rgba(255,255,255,.035));
+}
+@media (prefers-reduced-motion: reduce) {
+  #projects .project-card-tags li { transition:none; }
+}
 
 /* Experience: typographic timeline, deliberately not another card grid. */
 #experience .experience-field-list {

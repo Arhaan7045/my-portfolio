@@ -5291,3 +5291,80 @@ section[id],
 }
 .credential-card-view-link:hover { color: #fff; border-color: currentColor; }
 .credential-card-view-link:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+
+/* Consistent portfolio type system: Sora display, Geist Sans reading, Geist Mono metadata. */
+:root {
+  --font-display: var(--font-sora), var(--font-geist-sans), Arial, sans-serif;
+  --font-body: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  --font-technical: var(--font-geist-mono), monospace;
+}
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+:where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+.hero-headline,
+.section-heading h2,
+.contact-intro h2,
+.experience-field-intro h2,
+.learning-console-heading h2,
+.admin-dashboard-intro h1,
+.admin-content-heading h1,
+.admin-error-panel h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+}
+.project-card-title,
+.experience-field-title-group h3,
+.skill-card-heading h3,
+.learning-console-row-copy h3,
+.credential-deck-card h2,
+.admin-module-card h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+.body-copy,
+.section-description,
+.project-card-description,
+.experience-field-description,
+.learning-console-row-copy p,
+.contact-intro > p:not(.eyebrow) {
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+.eyebrow,
+.skill-index,
+.skill-count,
+.experience-field-date,
+.experience-field-type,
+.experience-field-number,
+.learning-console-row-number,
+.learning-console-status,
+.credential-deck-label,
+.admin-auth-label,
+.admin-topbar-meta,
+.admin-module-card > span,
+.admin-module-action {
+  font-family: var(--font-technical);
+}
+.about-profile-bottom strong {
+  font-weight: 600;
+}
+@media (max-width: 640px) {
+  :where(h1, h2, h3, h4, h5, h6) {
+    letter-spacing: -0.025em;
+  }
+  .hero-headline,
+  .section-heading h2,
+  .contact-intro h2,
+  .experience-field-intro h2,
+  .learning-console-heading h2 {
+    letter-spacing: -0.035em;
+  }
+}

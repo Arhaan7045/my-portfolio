@@ -14,32 +14,17 @@ export function SiteHeader() {
     <header id="top" className="site-header">
       <a className="skip-link" href="#main-content">Skip to content</a>
       <nav aria-label="Primary navigation" className="shell navigation">
-        <a
-          className="wordmark"
-          href={homeHref("#page-top")}
-          onClick={() => {
-            window.setTimeout(() => {
-              window.history.replaceState(
-                null,
-                "",
-                window.location.pathname + window.location.search,
-              );
-            }, 0);
-          }}
-          aria-label="Arhaan Shaikh — back to top"
-        >
-          <span className="wordmark-mark" aria-hidden="true" />
-          <span>Arhaan Shaikh</span>
-        </a>
+        <span className="nav-spacer" aria-hidden="true" />
 
         <div className="desktop-navigation">
           {navigationItems.map((item) => (
             <a href={homeHref(item.href)} key={item.href}>{item.label}</a>
           ))}
-          <a className="nav-resume" href={RESUME_URL} target="_blank" rel="noopener noreferrer">
-            Resume ↗
-          </a>
         </div>
+
+        <a className="nav-resume" href={RESUME_URL} target="_blank" rel="noopener noreferrer">
+          Resume ↗
+        </a>
 
         <details className="mobile-navigation">
           <summary aria-label="Open navigation menu" aria-controls="mobile-navigation-menu">

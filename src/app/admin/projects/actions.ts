@@ -1,20 +1,10 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { requireAdmin } from "@/lib/supabase/admin-guard";
 
 type ProjectInput = { slug:string; title:string; category:string; status:string; description:string; details:string; tags:string; sortOrder:string; isPublished:boolean };
-
-async function requireAdmin() {
-  const supabase = await createClient();
-  const { data: claimsData } = await supabase.auth.getClaims();
-  const userId = claimsData?.claims?.sub;
-  if (!userId) redirect("/admin/login");
-  const { data: admin } = await supabase.from("admin_users").select("user_id").eq("user_id", userId).maybeSingle();
-  if (!admin) redirect("/admin/login");
-  return supabase;
-}
 
 function parseOrder(value:string, fallback=1) {
   const parsed=Number.parseInt(value,10);

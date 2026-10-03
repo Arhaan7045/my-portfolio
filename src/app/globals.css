@@ -5565,6 +5565,70 @@ body {
   --foreground: var(--text);
 }
 
+
+
+[data-theme="batman"] {
+  --background: #08090c;
+  --surface: #101217;
+  --surface-raised: #171a20;
+  --deep-surface: #0b0d11;
+  --deep-surface-accent: #141820;
+  --text: #f2f3f5;
+  --text-soft: #d2d5db;
+  --muted: #9599a4;
+  --theme-accent-rgb: 92 106 126;
+  --theme-light-rgb: 196 201 210;
+  --theme-deep-rgb: 7 8 11;
+  --theme-glow-rgb: 92 106 126;
+  --line: rgb(var(--theme-light-rgb) / .14);
+  --violet: rgb(var(--theme-accent-rgb));
+  --lavender: rgb(var(--theme-light-rgb));
+  --violet-soft: rgb(var(--theme-accent-rgb) / .10);
+  --theme-glow: rgb(var(--theme-glow-rgb) / .14);
+  --foreground: var(--text);
+}
+
+[data-theme="superman"] {
+  --background: #080b12;
+  --surface: #10151e;
+  --surface-raised: #171d28;
+  --deep-surface: #0a0e16;
+  --deep-surface-accent: #111824;
+  --text: #f3f3f1;
+  --text-soft: #d4d9df;
+  --muted: #99a3b0;
+  --theme-accent-rgb: 83 104 145;
+  --theme-light-rgb: 176 116 120;
+  --theme-deep-rgb: 7 9 15;
+  --theme-glow-rgb: 83 104 145;
+  --line: rgb(var(--theme-light-rgb) / .13);
+  --violet: rgb(var(--theme-accent-rgb));
+  --lavender: rgb(var(--theme-light-rgb));
+  --violet-soft: rgb(83 104 145 / .09);
+  --theme-glow: rgb(var(--theme-glow-rgb) / .14);
+  --foreground: var(--text);
+}
+
+[data-theme="black-panther"] {
+  --background: #08080b;
+  --surface: #111016;
+  --surface-raised: #18151e;
+  --deep-surface: #0b0a0e;
+  --deep-surface-accent: #15111d;
+  --text: #f2eff5;
+  --text-soft: #d9d2df;
+  --muted: #9d97a5;
+  --theme-accent-rgb: 91 69 116;
+  --theme-light-rgb: 190 176 209;
+  --theme-deep-rgb: 7 7 10;
+  --theme-glow-rgb: 91 69 116;
+  --line: rgb(var(--theme-light-rgb) / .13);
+  --violet: rgb(var(--theme-accent-rgb));
+  --lavender: rgb(var(--theme-light-rgb));
+  --violet-soft: rgb(var(--theme-accent-rgb) / .10);
+  --theme-glow: rgb(var(--theme-glow-rgb) / .14);
+  --foreground: var(--text);
+}
 /* Theme every shared surface through the same token layer. */
 .site-frame {
   background:

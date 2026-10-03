@@ -5431,3 +5431,134 @@ body {
   .skill-group { padding: .85rem; }
   .skill-card-heading h3 { font-size: .95rem; }
 }
+
+/* Unified section scale: shared rhythm for the full portfolio. */
+:root {
+  --page-gutter: clamp(1.1rem, 3.5vw, 2.75rem);
+  --section-space: clamp(4.5rem, 6.2vw, 5.75rem);
+  --content-gap: clamp(1rem, 1.8vw, 1.5rem);
+}
+.shell {
+  width: min(calc(100% - 2 * var(--page-gutter)), 1160px);
+  margin-inline: auto;
+}
+.section,
+.experience-field-section,
+.learning-console-section,
+.learning-workbench-section,
+.learning-console-section {
+  padding-block: var(--section-space);
+}
+.section-heading,
+.experience-field-intro,
+.learning-workbench-intro,
+.learning-console-heading {
+  margin-bottom: clamp(2rem, 3.4vw, 2.8rem);
+}
+.section-heading h2,
+.contact-layout h2,
+.experience-field-intro h2,
+.learning-workbench-intro h2,
+.learning-console-heading h2 {
+  font-size: clamp(2.35rem, 4.1vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -.06em;
+}
+.section-description,
+.body-copy,
+.contact-layout > div > p,
+.experience-field-note,
+.learning-workbench-note,
+.experience-field-description,
+.learning-console-row-copy p,
+.learning-console-summary {
+  font-size: clamp(.9rem, 1.05vw, 1rem);
+  line-height: 1.75;
+}
+.experience-field-entry {
+  padding-block: clamp(1.4rem, 2.2vw, 1.8rem);
+}
+.experience-field-heading h3,
+.experience-field-entry-featured .experience-field-heading h3 {
+  font-size: clamp(1.35rem, 2.25vw, 1.85rem);
+  line-height: 1.15;
+}
+.learning-console-layout {
+  grid-template-columns: minmax(15rem, .72fr) minmax(0, 1.28fr);
+}
+.learning-console-aside { padding: clamp(1.4rem, 2.5vw, 2rem); }
+.learning-console-list { padding-inline: clamp(1.1rem, 2.2vw, 1.6rem); }
+.learning-console-row { padding-block: clamp(1.2rem, 1.8vw, 1.55rem); }
+.learning-workbench-item { min-height: 14rem; padding: clamp(1.2rem, 2vw, 1.55rem); }
+.learning-workbench-item-featured { min-height: 28rem; }
+@media (max-width: 1050px) {
+  :root { --section-space: 4.5rem; }
+  .section-heading h2,
+  .contact-layout h2,
+  .experience-field-intro h2,
+  .learning-workbench-intro h2,
+  .learning-console-heading h2 {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+  }
+  .experience-field-intro,
+  .learning-workbench-intro { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+  .experience-field-note,
+  .learning-workbench-note { margin-left: 0; }
+}
+@media (max-width: 760px) {
+  :root {
+    --page-gutter: 1.15rem;
+    --section-space: 3.75rem;
+    --content-gap: .8rem;
+  }
+  .section-heading,
+  .experience-field-intro,
+  .learning-workbench-intro,
+  .learning-console-heading { margin-bottom: 1.8rem; }
+  .section-heading h2,
+  .contact-layout h2,
+  .experience-field-intro h2,
+  .learning-workbench-intro h2,
+  .learning-console-heading h2 {
+    font-size: clamp(2rem, 7.8vw, 2.9rem);
+    line-height: 1.06;
+    letter-spacing: -.045em;
+  }
+  .section-description,
+  .body-copy,
+  .contact-layout > div > p,
+  .experience-field-note,
+  .learning-workbench-note,
+  .experience-field-description,
+  .learning-console-row-copy p,
+  .learning-console-summary {
+    font-size: .92rem;
+    line-height: 1.72;
+  }
+  .experience-field-entry {
+    grid-template-columns: 1.75rem minmax(0, 1fr);
+    gap: .8rem;
+    padding: 1.35rem 0;
+  }
+  .experience-field-rail { grid-column: 1; grid-row: 1 / span 3; }
+  .experience-field-date { grid-column: 2; grid-row: 1; }
+  .experience-field-content { grid-column: 2; grid-row: 2; }
+  .experience-field-heading h3,
+  .experience-field-entry-featured .experience-field-heading h3 { font-size: 1.35rem; }
+  .learning-console-layout { grid-template-columns: minmax(0, 1fr); }
+  .learning-console-aside { border-right: 0; border-bottom: 1px solid rgba(208,185,255,.14); }
+  .learning-console-list { padding-inline: 1rem; }
+  .learning-console-row { grid-template-columns: 1.7rem minmax(0, 1fr) 1.7rem; gap: .7rem; }
+  .learning-workbench { grid-template-columns: minmax(0, 1fr); }
+  .learning-workbench-item,
+  .learning-workbench-item-featured { grid-row: auto; min-height: 13rem; padding: 1.2rem; }
+  .learning-workbench-item-featured .learning-workbench-copy h3 { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+}
+@media (max-width: 420px) {
+  :root { --page-gutter: 1rem; --section-space: 3.25rem; }
+  .section-heading h2,
+  .contact-layout h2,
+  .experience-field-intro h2,
+  .learning-workbench-intro h2,
+  .learning-console-heading h2 { font-size: clamp(1.9rem, 8vw, 2.35rem); }
+}

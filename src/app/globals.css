@@ -5655,3 +5655,7 @@ body {
 @media (max-width: 900px) {
   .mobile-theme-switcher { display: block; }
 }
+
+.theme-cyber-violet .theme-swatch { background: #d0b9ff; }
+.theme-signal-blue .theme-swatch { background: #a8dcff; }
+.theme-mono-carbon .theme-swatch { background: #f0f0f0; }

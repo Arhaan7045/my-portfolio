@@ -1,24 +1,11 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { requireAdmin } from "@/lib/supabase/admin-guard";
 import { SkillsManager } from "@/components/skills-manager";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminSkillsPage() {
-  const supabase = await createClient();
-  const { data: claimsData } = await supabase.auth.getClaims();
-  const userId = claimsData?.claims?.sub;
-
-  if (!userId) redirect("/admin/login");
-
-  const { data: admin } = await supabase
-    .from("admin_users")
-    .select("user_id")
-    .eq("user_id", userId)
-    .maybeSingle();
-
-  if (!admin) redirect("/admin/login");
+  const supabase = await requireAdmin();
 
   const [{ data: skillGroups, error: skillError }, { data: learningAreas, error: learningError }] =
     await Promise.all([

@@ -8,7 +8,22 @@ const RESUME_URL =
 
 export function HeroSection() {
   return (
-    <section className="hero shell" aria-labelledby="hero-title">
+    <section
+      className="hero shell"
+      aria-labelledby="hero-title"
+      onPointerMove={(event) => {
+        if (event.pointerType === "touch") return;
+        const bounds = event.currentTarget.getBoundingClientRect();
+        const x = ((event.clientX - bounds.left) / bounds.width) * 100;
+        const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+        event.currentTarget.style.setProperty("--hero-pointer-x", `${x}%`);
+        event.currentTarget.style.setProperty("--hero-pointer-y", `${y}%`);
+      }}
+      onPointerLeave={(event) => {
+        event.currentTarget.style.setProperty("--hero-pointer-x", "50%");
+        event.currentTarget.style.setProperty("--hero-pointer-y", "45%");
+      }}
+    >
       <div className="hero-copy reveal">
         <p className="eyebrow">HELLO, I&apos;M</p>
 

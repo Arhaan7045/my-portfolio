@@ -32,18 +32,18 @@ export function HeroVisual({ reducedMotion: reducedMotionProp }: HeroVisualProps
       >
         <defs>
           <radialGradient id="heroAtmosphere" cx="50%" cy="46%" r="62%">
-            <stop offset="0%" stopColor="#966cf2" stopOpacity=".18" />
+            <stop offset="0%" stopColor="var(--violet)" stopOpacity=".18" />
             <stop offset="52%" stopColor="#966cf2" stopOpacity=".035" />
-            <stop offset="100%" stopColor="#09080e" stopOpacity="0" />
+            <stop offset="100%" stopColor="var(--background)" stopOpacity="0" />
           </radialGradient>
           <linearGradient id="heroBeam" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#d0b9ff" stopOpacity=".08" />
+            <stop offset="0%" stopColor="var(--lavender)" stopOpacity=".08" />
             <stop offset="50%" stopColor="#d0b9ff" stopOpacity=".8" />
             <stop offset="100%" stopColor="#966cf2" stopOpacity=".08" />
           </linearGradient>
           <linearGradient id="heroPlane" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#241a33" stopOpacity=".92" />
-            <stop offset="100%" stopColor="#100d17" stopOpacity=".35" />
+            <stop offset="0%" stopColor="var(--deep-surface-accent)" stopOpacity=".92" />
+            <stop offset="100%" stopColor="var(--deep-surface)" stopOpacity=".35" />
           </linearGradient>
         </defs>
 

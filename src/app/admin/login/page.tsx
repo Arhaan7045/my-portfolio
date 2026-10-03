@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AdminLoginForm } from "@/components/admin-login-form";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 export const dynamic = "force-dynamic";
 
@@ -29,7 +30,7 @@ export default async function AdminLoginPage() {
             <span className="wordmark-mark" aria-hidden="true" />
             <span>Arhaan Shaikh</span>
           </Link>
-          <span className="admin-auth-code">PRIVATE / ADMIN</span>
+          <div className="admin-auth-tools"><span className="admin-auth-code">PRIVATE / ADMIN</span><ThemeSwitcher /></div>
         </div>
 
         <section className="admin-auth-card" aria-labelledby="admin-login-title">

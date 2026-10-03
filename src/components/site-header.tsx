@@ -14,17 +14,20 @@ export function SiteHeader() {
     <header id="top" className="site-header">
       <a className="skip-link" href="#main-content">Skip to content</a>
       <nav aria-label="Primary navigation" className="shell navigation">
-        <span className="nav-spacer" aria-hidden="true" />
-
         <div className="desktop-navigation">
           {navigationItems.map((item) => (
             <a href={homeHref(item.href)} key={item.href}>{item.label}</a>
           ))}
+          <a
+            className="nav-resume"
+            href={RESUME_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>Resume</span>
+            <span aria-hidden="true">↗</span>
+          </a>
         </div>
-
-        <a className="nav-resume" href={RESUME_URL} target="_blank" rel="noopener noreferrer">
-          Resume ↗
-        </a>
 
         <details className="mobile-navigation">
           <summary aria-label="Open navigation menu" aria-controls="mobile-navigation-menu">

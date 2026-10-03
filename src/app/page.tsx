@@ -100,13 +100,13 @@ export default async function Home() {
                 title="A practical approach to cybersecurity."
               />
               <p className="body-copy reveal">
-                I&apos;m working towards a career in cybersecurity through hands-on practice, building projects, and documenting what I find.
+                I learn cybersecurity by working through practical labs, testing tools, and turning what I discover into projects and clear documentation.
               </p>
               <p className="body-copy reveal">
-                Right now, I&apos;m focused on web application security, VAPT, Linux, networking, and security operations. I want to understand how systems work and how to make them more secure.
+                My current focus is web application security and VAPT, supported by a growing foundation in Linux, networking, and security operations. I’m building the skills to identify weaknesses, understand their impact, and communicate findings clearly.
               </p>
               <p className="body-copy reveal">
-                This site brings together my projects, experience, certifications, and current learning.
+                Here, you can explore my projects, hands-on experience, certifications, and the areas I’m studying next.
               </p>
             </div>
           </div>

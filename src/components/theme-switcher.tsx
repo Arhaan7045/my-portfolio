@@ -67,7 +67,13 @@ function ThemeIcon({ theme }: { theme: ThemeId }) {
 }
 
 export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
-  const [theme, setTheme] = useState<ThemeId>("cyber-violet");
+  const [theme, setTheme] = useState<ThemeId>(() => {
+    if (typeof document !== "undefined") {
+      const initialTheme = document.documentElement.dataset.theme;
+      if (isThemeId(initialTheme)) return initialTheme;
+    }
+    return "cyber-violet";
+  });
   const [open, setOpen] = useState(false);
   const switcherRef = useRef<HTMLDivElement | null>(null);
 

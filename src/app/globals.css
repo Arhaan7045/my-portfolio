@@ -5300,3 +5300,45 @@ body {
   height: 3px !important;
   background: #f5efff !important;
 }
+
+
+/* Editorial navigation hover inspired by the reference: outlined pill + italic serif. */
+@media (hover: hover) and (pointer: fine) {
+  .desktop-navigation > a:not(.nav-resume) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.45rem;
+    padding: .35rem .78rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-family: var(--font-sans), sans-serif;
+    font-style: normal;
+    transform: none;
+    transition:
+      color 180ms ease,
+      border-color 180ms ease,
+      background-color 180ms ease,
+      font-family 180ms ease,
+      font-style 180ms ease;
+  }
+
+  .desktop-navigation > a:not(.nav-resume)::after {
+    display: none;
+  }
+
+  .desktop-navigation > a:not(.nav-resume):hover,
+  .desktop-navigation > a:not(.nav-resume):focus-visible {
+    color: var(--text);
+    border-color: rgba(208, 185, 255, .72);
+    background: rgba(208, 185, 255, .035);
+    font-family: Georgia, "Times New Roman", serif;
+    font-style: italic;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktop-navigation > a:not(.nav-resume) {
+    transition: none;
+  }
+}

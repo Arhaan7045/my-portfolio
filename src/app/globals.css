@@ -5283,3 +5283,34 @@ body {
 
 /* Restore the original site-wide background; remove the extra hero-only grid layer. */
 .hero > .interactive-hero-field { display: none !important; }
+
+
+/* Open-arc cursor: two fine violet arcs, not a complete circle. */
+.portfolio-custom-cursor .cursor-halo {
+  inset: 0 !important;
+  border: 1px solid transparent !important;
+  border-top-color: rgba(208,185,255,.95) !important;
+  border-bottom-color: rgba(208,185,255,.95) !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  transform: rotate(-35deg) !important;
+  transition: transform 140ms linear, border-color 140ms linear !important;
+}
+.portfolio-custom-cursor.is-link .cursor-halo {
+  inset: -2px !important;
+  transform: rotate(0deg) !important;
+  border-top-color: #e0d0ff !important;
+  border-bottom-color: rgba(208,185,255,.55) !important;
+  background: transparent !important;
+}
+.portfolio-custom-cursor.is-button .cursor-halo {
+  inset: 2px !important;
+  border-radius: 50% !important;
+  transform: rotate(35deg) !important;
+  border-top-color: #e0d0ff !important;
+  border-bottom-color: #e0d0ff !important;
+  background: transparent !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-custom-cursor .cursor-halo { transition: none !important; }
+}

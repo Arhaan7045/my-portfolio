@@ -5078,18 +5078,62 @@ body {
 
 
 
-/* Static hero grid and consistent minimal cursor across the full portfolio. */
-.hero { position: relative; isolation: isolate; }
-.hero > *:not(.interactive-hero-field) { position: relative; z-index: 1; }
-.interactive-hero-field { position: absolute; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; }
-.interactive-hero-grid {
-  display: block; width: 100%; height: 100%; opacity: .95;
-  mask-image: radial-gradient(ellipse at 50% 45%, #000 15%, transparent 78%);
+/* Directional minimal ring cursor with distinct interactive hover state. */
+.portfolio-custom-cursor {
+  position: fixed;
+  left: -100px;
+  top: -100px;
+  z-index: 99999;
+  width: 26px;
+  height: 26px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 130ms ease;
+  will-change: left, top;
 }
-/* Global cursor is a CSS SVG, so it cannot be clipped by the hero or visual card. */
+.portfolio-custom-cursor.is-visible { opacity: 1; }
+.portfolio-cursor-ring {
+  position: absolute;
+  inset: 1px;
+  border: 1.4px solid rgba(208,185,255,.96);
+  border-radius: 50%;
+  background: rgba(150,108,242,.045);
+  transform: rotate(var(--cursor-angle, 0deg)) scale(var(--cursor-stretch-x, 1), var(--cursor-stretch-y, 1));
+  box-shadow: 0 0 0 1px rgba(150,108,242,.08);
+  transition: border-color 150ms ease, background 150ms ease, inset 150ms ease, border-radius 150ms ease;
+}
+.portfolio-cursor-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #d0b9ff;
+  box-shadow: 0 0 5px rgba(208,185,255,.55);
+  transform: translate(-50%, -50%);
+  transition: width 150ms ease, height 150ms ease, background 150ms ease;
+}
+.portfolio-custom-cursor.is-interactive { width: 30px; height: 30px; }
+.portfolio-custom-cursor.is-interactive .portfolio-cursor-ring {
+  inset: 4px;
+  border-color: rgba(225,211,255,1);
+  border-radius: 8px;
+  background: rgba(150,108,242,.16);
+}
+.portfolio-custom-cursor.is-interactive .portfolio-cursor-dot {
+  width: 5px;
+  height: 5px;
+  background: #f4edff;
+}
 @media (hover: hover) and (pointer: fine) {
-  html, body, body * {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='10' fill='%23966cf2' fill-opacity='.16' stroke='%23d0b9ff' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='3.2' fill='%23d0b9ff'/%3E%3C/svg%3E") 16 16, auto;
-  }
+  html, body, body * { cursor: none !important; }
 }
-@media (pointer: coarse) { .interactive-hero-grid { opacity: .65; } }
+@media (pointer: coarse) {
+  .portfolio-custom-cursor { display: none; }
+  .interactive-hero-grid { opacity: .65; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-custom-cursor, .portfolio-cursor-ring, .portfolio-cursor-dot { transition: none; }
+}

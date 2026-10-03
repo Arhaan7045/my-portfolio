@@ -5078,54 +5078,29 @@ body {
 
 
 
-/* Directional minimal ring cursor with distinct interactive hover state. */
+/* Minimal single-ring cursor with soft spring physics, inspired by studio-style cursors. */
 .portfolio-custom-cursor {
   position: fixed;
   left: -100px;
   top: -100px;
   z-index: 99999;
-  width: 26px;
-  height: 26px;
+  width: 40px;
+  height: 40px;
+  border: 1.2px solid rgba(208,185,255,.92);
+  border-radius: 50%;
+  background: rgba(150,108,242,.025);
   pointer-events: none;
   opacity: 0;
-  transform: translate(-50%, -50%);
-  transition: opacity 130ms ease;
-  will-change: left, top;
+  transform: translate(-50%, -50%) scale(var(--cursor-stretch-x, 1), var(--cursor-stretch-y, 1));
+  transition: opacity 140ms ease, width 220ms cubic-bezier(.22,1,.36,1), height 220ms cubic-bezier(.22,1,.36,1), border-color 180ms ease, background 180ms ease;
+  will-change: left, top, transform;
 }
 .portfolio-custom-cursor.is-visible { opacity: 1; }
-.portfolio-cursor-ring {
-  position: absolute;
-  inset: 1px;
-  border: 1.4px solid rgba(208,185,255,.96);
-  border-radius: 50%;
-  background: rgba(150,108,242,.045);
-  transform: rotate(var(--cursor-angle, 0deg)) scale(var(--cursor-stretch-x, 1), var(--cursor-stretch-y, 1));
-  box-shadow: 0 0 0 1px rgba(150,108,242,.08);
-  transition: border-color 150ms ease, background 150ms ease, inset 150ms ease, border-radius 150ms ease;
-}
-.portfolio-cursor-dot {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: #d0b9ff;
-  box-shadow: 0 0 5px rgba(208,185,255,.55);
-  transform: translate(-50%, -50%);
-  transition: width 150ms ease, height 150ms ease, background 150ms ease;
-}
-.portfolio-custom-cursor.is-interactive { width: 30px; height: 30px; }
-.portfolio-custom-cursor.is-interactive .portfolio-cursor-ring {
-  inset: 4px;
+.portfolio-custom-cursor.is-interactive {
+  width: 30px;
+  height: 30px;
   border-color: rgba(225,211,255,1);
-  border-radius: 8px;
-  background: rgba(150,108,242,.16);
-}
-.portfolio-custom-cursor.is-interactive .portfolio-cursor-dot {
-  width: 5px;
-  height: 5px;
-  background: #f4edff;
+  background: rgba(150,108,242,.09);
 }
 @media (hover: hover) and (pointer: fine) {
   html, body, body * { cursor: none !important; }
@@ -5135,5 +5110,5 @@ body {
   .interactive-hero-grid { opacity: .65; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .portfolio-custom-cursor, .portfolio-cursor-ring, .portfolio-cursor-dot { transition: none; }
+  .portfolio-custom-cursor { transition: none; }
 }

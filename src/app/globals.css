@@ -4654,46 +4654,7 @@ section[id],
 
 /* Project gallery styling is consolidated in the portfolio section systems below. */
 
-/* Keep experience hover calm and consistent. */
-.experience-field-list:hover .experience-field-entry,
-.experience-field-list .experience-field-entry:hover {
-  opacity: 1 !important;
-  filter: none !important;
-  scale: 1 !important;
-}
-.experience-field-entry {
-  translate: none;
-  transition: border-color 180ms ease, background-color 180ms ease;
-}
-.experience-field-entry:hover {
-  translate: none;
-}
-.experience-field-entry:hover .experience-field-arrow {
-  translate: none !important;
-  color: var(--lavender);
-  background: rgba(150, 108, 242, .08);
-}
-@media (hover: hover) and (pointer: fine) {
-  .experience-field-list .experience-field-entry:hover {
-    border-color: rgba(208, 185, 255, .25);
-    background: rgba(150, 108, 242, .035);
-    box-shadow: none;
-  }
-}
-@media (max-width: 760px), (hover: none), (prefers-reduced-motion: reduce) {
-  .experience-field-list:hover .experience-field-entry {
-    opacity: 1 !important;
-    filter: none !important;
-    scale: 1 !important;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .experience-field-entry,
-  .experience-field-arrow {
-    transition: none !important;
-  }
-}
-
+/* Experience hover behavior is defined by the final visual pass below. */
 
 /* Final visual pass: calm experience rows and simpler project cards. */
 .experience-field-list .experience-field-entry,

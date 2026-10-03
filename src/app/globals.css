@@ -5974,3 +5974,128 @@ body {
     transition: none;
   }
 }
+
+/* ─── Case-study theme refinement ───
+   Keep the project page dark and editorial. Themes influence atmosphere,
+   accents and borders without turning the hero into a solid color block. */
+.case-study-hero {
+  border-color: rgb(var(--theme-light-rgb) / .16) !important;
+  background:
+    radial-gradient(ellipse 34rem 20rem at 86% 12%, rgb(var(--theme-accent-rgb) / .13), transparent 68%),
+    radial-gradient(ellipse 26rem 18rem at 6% 92%, rgb(var(--theme-accent-rgb) / .075), transparent 72%),
+    linear-gradient(140deg, rgb(var(--theme-light-rgb) / .025), transparent 45%),
+    var(--deep-surface) !important;
+  box-shadow:
+    inset 0 1px rgb(var(--theme-light-rgb) / .055),
+    0 2rem 4rem rgba(0,0,0,.22) !important;
+}
+
+.case-study-hero::before {
+  opacity: .26 !important;
+  background:
+    linear-gradient(rgb(var(--theme-light-rgb) / .03) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--theme-light-rgb) / .03) 1px, transparent 1px) !important;
+  background-size: 44px 44px !important;
+}
+
+.case-study-kicker strong {
+  color: var(--lavender) !important;
+  text-shadow: 0 0 .9rem rgb(var(--theme-glow-rgb) / .16);
+}
+
+.case-study-title {
+  color: var(--text) !important;
+  text-shadow: 0 0 2.5rem rgb(var(--theme-glow-rgb) / .08);
+}
+
+.case-study-intro {
+  color: var(--muted) !important;
+}
+
+.case-study-meta span {
+  border-color: rgb(var(--theme-light-rgb) / .13) !important;
+  background: rgb(var(--theme-light-rgb) / .025) !important;
+  color: rgb(var(--theme-light-rgb) / .68) !important;
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.case-study-meta span:hover {
+  border-color: rgb(var(--theme-light-rgb) / .24) !important;
+  background: rgb(var(--theme-accent-rgb) / .055) !important;
+  color: var(--text) !important;
+}
+
+.case-study-panel,
+.case-study-sidebar,
+.case-study-next {
+  border-color: rgb(var(--theme-light-rgb) / .12) !important;
+  background:
+    linear-gradient(135deg, rgb(var(--theme-light-rgb) / .022), transparent 48%),
+    rgb(var(--theme-deep-rgb) / .72) !important;
+  box-shadow: inset 0 1px rgb(var(--theme-light-rgb) / .025);
+}
+
+.case-study-section-head {
+  border-bottom-color: rgb(var(--theme-light-rgb) / .1) !important;
+  color: rgb(var(--theme-light-rgb) / .48) !important;
+}
+
+.case-study-documentation p {
+  border-left-color: rgb(var(--theme-accent-rgb) / .48) !important;
+}
+
+.case-study-tool {
+  border-color: rgb(var(--theme-light-rgb) / .11) !important;
+  background: rgb(var(--theme-light-rgb) / .025) !important;
+  color: rgb(var(--theme-light-rgb) / .75) !important;
+}
+
+.case-study-evidence-mark {
+  border-color: rgb(var(--theme-light-rgb) / .16) !important;
+  color: var(--lavender) !important;
+  background: rgb(var(--theme-accent-rgb) / .035);
+}
+
+.case-study-next a {
+  color: var(--text) !important;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.case-study-next a:hover {
+  color: var(--lavender) !important;
+  transform: translateX(2px);
+}
+
+/* Theme-specific material notes: one restrained secondary cue per profile. */
+[data-theme="cyber-violet"] .case-study-hero {
+  background:
+    radial-gradient(ellipse 34rem 20rem at 86% 12%, rgb(150 108 242 / .14), transparent 68%),
+    radial-gradient(ellipse 26rem 18rem at 6% 92%, rgb(150 108 242 / .065), transparent 72%),
+    linear-gradient(140deg, rgb(208 185 255 / .025), transparent 45%),
+    #0e0b14 !important;
+}
+
+[data-theme="thor"] .case-study-hero {
+  background:
+    radial-gradient(ellipse 34rem 20rem at 86% 12%, rgb(70 105 157 / .15), transparent 68%),
+    radial-gradient(ellipse 26rem 18rem at 6% 92%, rgb(70 105 157 / .07), transparent 72%),
+    linear-gradient(140deg, rgb(194 207 224 / .028), transparent 45%),
+    #0a0e16 !important;
+}
+
+[data-theme="iron-man"] .case-study-hero {
+  background:
+    radial-gradient(ellipse 34rem 20rem at 86% 12%, rgb(158 49 57 / .14), transparent 68%),
+    radial-gradient(ellipse 26rem 18rem at 6% 92%, rgb(158 49 57 / .065), transparent 72%),
+    linear-gradient(140deg, rgb(214 169 112 / .025), transparent 45%),
+    #0d0b0e !important;
+}
+
+[data-theme="doctor-doom"] .case-study-hero {
+  background:
+    radial-gradient(ellipse 34rem 20rem at 86% 12%, rgb(62 105 80 / .14), transparent 68%),
+    radial-gradient(ellipse 26rem 18rem at 6% 92%, rgb(62 105 80 / .065), transparent 72%),
+    linear-gradient(140deg, rgb(187 171 116 / .022), transparent 45%),
+    #0b0f0d !important;
+}
+\n

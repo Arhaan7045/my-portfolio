@@ -5567,28 +5567,8 @@ body {
 
 
 
-[data-theme="batman"] {
-  --background: #08090c;
-  --surface: #101217;
-  --surface-raised: #171a20;
-  --deep-surface: #0b0d11;
-  --deep-surface-accent: #141820;
-  --text: #f2f3f5;
-  --text-soft: #d2d5db;
-  --muted: #9599a4;
-  --theme-accent-rgb: 92 106 126;
-  --theme-light-rgb: 196 201 210;
-  --theme-deep-rgb: 7 8 11;
-  --theme-glow-rgb: 92 106 126;
-  --line: rgb(var(--theme-light-rgb) / .14);
-  --violet: rgb(var(--theme-accent-rgb));
-  --lavender: rgb(var(--theme-light-rgb));
-  --violet-soft: rgb(var(--theme-accent-rgb) / .10);
-  --theme-glow: rgb(var(--theme-glow-rgb) / .14);
-  --foreground: var(--text);
-}
 
-[data-theme="superman"] {
+
   --background: #080b12;
   --surface: #10151e;
   --surface-raised: #171d28;
@@ -5609,50 +5589,11 @@ body {
   --foreground: var(--text);
 }
 
-[data-theme="black-panther"] {
-  --background: #08080b;
-  --surface: #111016;
-  --surface-raised: #18151e;
-  --deep-surface: #0b0a0e;
-  --deep-surface-accent: #15111d;
-  --text: #f2eff5;
-  --text-soft: #d9d2df;
-  --muted: #9d97a5;
-  --theme-accent-rgb: 91 69 116;
-  --theme-light-rgb: 190 176 209;
-  --theme-deep-rgb: 7 7 10;
-  --theme-glow-rgb: 91 69 116;
-  --line: rgb(var(--theme-light-rgb) / .13);
-  --violet: rgb(var(--theme-accent-rgb));
-  --lavender: rgb(var(--theme-light-rgb));
-  --violet-soft: rgb(var(--theme-accent-rgb) / .10);
-  --theme-glow: rgb(var(--theme-glow-rgb) / .14);
-  --foreground: var(--text);
-}
 
 
-[data-theme="batman"] {
-  --background: #08090c;
-  --surface: #101217;
-  --surface-raised: #171a20;
-  --deep-surface: #0b0d11;
-  --deep-surface-accent: #141820;
-  --text: #f2f3f5;
-  --text-soft: #d2d5db;
-  --muted: #9599a4;
-  --theme-accent-rgb: 92 106 126;
-  --theme-light-rgb: 196 201 210;
-  --theme-deep-rgb: 7 8 11;
-  --theme-glow-rgb: 92 106 126;
-  --line: rgb(var(--theme-light-rgb) / .14);
-  --violet: rgb(var(--theme-accent-rgb));
-  --lavender: rgb(var(--theme-light-rgb));
-  --violet-soft: rgb(var(--theme-accent-rgb) / .10);
-  --theme-glow: rgb(var(--theme-glow-rgb) / .14);
-  --foreground: var(--text);
-}
 
-[data-theme="superman"] {
+
+
   --background: #080b12;
   --surface: #10151e;
   --surface-raised: #171d28;
@@ -5673,24 +5614,48 @@ body {
   --foreground: var(--text);
 }
 
+
+
+
+[data-theme="batman"] {
+  --background: #07090d;
+  --surface: #10141b;
+  --surface-raised: #171d27;
+  --deep-surface: #0a0d12;
+  --deep-surface-accent: #101824;
+  --text: #f2f4f8;
+  --text-soft: #d5dae3;
+  --muted: #9aa4b3;
+  --theme-accent-rgb: 48 102 170;
+  --theme-light-rgb: 205 212 224;
+  --theme-deep-rgb: 6 8 12;
+  --theme-glow-rgb: 48 102 170;
+  --line: rgb(var(--theme-light-rgb) / .14);
+  --violet: rgb(var(--theme-accent-rgb));
+  --lavender: rgb(var(--theme-light-rgb));
+  --violet-soft: rgb(var(--theme-accent-rgb) / .10);
+  --theme-glow: rgb(var(--theme-glow-rgb) / .15);
+  --foreground: var(--text);
+}
+
 [data-theme="black-panther"] {
-  --background: #08080b;
+  --background: #08070b;
   --surface: #111016;
-  --surface-raised: #18151e;
+  --surface-raised: #191620;
   --deep-surface: #0b0a0e;
-  --deep-surface-accent: #15111d;
-  --text: #f2eff5;
-  --text-soft: #d9d2df;
-  --muted: #9d97a5;
-  --theme-accent-rgb: 91 69 116;
-  --theme-light-rgb: 190 176 209;
-  --theme-deep-rgb: 7 7 10;
-  --theme-glow-rgb: 91 69 116;
+  --deep-surface-accent: #15101e;
+  --text: #f4f0f8;
+  --text-soft: #ddd4e6;
+  --muted: #a19aaa;
+  --theme-accent-rgb: 105 68 153;
+  --theme-light-rgb: 215 202 230;
+  --theme-deep-rgb: 7 6 10;
+  --theme-glow-rgb: 105 68 153;
   --line: rgb(var(--theme-light-rgb) / .13);
   --violet: rgb(var(--theme-accent-rgb));
   --lavender: rgb(var(--theme-light-rgb));
   --violet-soft: rgb(var(--theme-accent-rgb) / .10);
-  --theme-glow: rgb(var(--theme-glow-rgb) / .14);
+  --theme-glow: rgb(var(--theme-glow-rgb) / .15);
   --foreground: var(--text);
 }
 /* Theme every shared surface through the same token layer. */
@@ -5859,6 +5824,37 @@ body {
   gap: .36rem;
 }
 
+.theme-grid,
+.theme-category-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .36rem;
+}
+
+.theme-category {
+  margin-top: .28rem;
+}
+
+.theme-category:first-of-type {
+  margin-top: .05rem;
+}
+
+.theme-category-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6rem;
+  padding: .34rem .22rem .28rem;
+  color: rgb(var(--theme-light-rgb) / .46);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: .4rem;
+  font-weight: 700;
+  letter-spacing: .11em;
+}
+
+.theme-category-heading span:last-child {
+  color: rgb(var(--theme-light-rgb) / .24);
+}
 .theme-option {
   position: relative;
   display: block;
@@ -5991,6 +5987,14 @@ body {
 .theme-option.theme-doctor-doom .theme-palette span:nth-child(1) { background: #3e6950; }
 .theme-option.theme-doctor-doom .theme-palette span:nth-child(2) { background: #bbab74; }
 .theme-option.theme-doctor-doom .theme-palette span:nth-child(3) { background: #1d2520; }
+.theme-option.theme-batman .theme-palette span:nth-child(1) { background: #3066aa; }
+.theme-option.theme-batman .theme-palette span:nth-child(2) { background: #cdd4e0; }
+.theme-option.theme-batman .theme-palette span:nth-child(3) { background: #1b2430; }
+
+.theme-option.theme-black-panther .theme-palette span:nth-child(1) { background: #694499; }
+.theme-option.theme-black-panther .theme-palette span:nth-child(2) { background: #d7cae6; }
+.theme-option.theme-black-panther .theme-palette span:nth-child(3) { background: #221a2b; }
+
 
 .theme-coming-soon {
   display: flex;
@@ -6084,6 +6088,14 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: .3rem;
+}
+
+.mobile-theme-switcher .theme-category {
+  margin-top: .22rem;
+}
+
+.mobile-theme-switcher .theme-category-heading {
+  padding: .3rem .18rem .26rem;
 }
 
 .mobile-theme-options .theme-option {
@@ -6233,9 +6245,6 @@ body {
 .theme-option.theme-batman .theme-palette span:nth-child(2) { background: #c4c9d2; }
 .theme-option.theme-batman .theme-palette span:nth-child(3) { background: #1d2128; }
 
-.theme-option.theme-superman .theme-palette span:nth-child(1) { background: #536891; }
-.theme-option.theme-superman .theme-palette span:nth-child(2) { background: #b07478; }
-.theme-option.theme-superman .theme-palette span:nth-child(3) { background: #202633; }
 
 .theme-option.theme-black-panther .theme-palette span:nth-child(1) { background: #5b4574; }
 .theme-option.theme-black-panther .theme-palette span:nth-child(2) { background: #beb0d1; }

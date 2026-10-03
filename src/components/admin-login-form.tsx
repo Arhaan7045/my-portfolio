@@ -15,36 +15,45 @@ export function AdminLoginForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isSubmitting) return;
+
     setErrorMessage("");
     setIsSubmitting(true);
 
-    const supabase = createClient();
+    try {
+      const supabase = createClient();
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password,
+      });
 
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email: email.trim(),
-      password,
-    });
+      if (signInError) {
+        setErrorMessage("The email or password is incorrect.");
+        return;
+      }
 
-    if (signInError) {
-      setErrorMessage("The email or password is incorrect.");
+      const { data: admin, error: adminError } = await supabase
+        .from("admin_users")
+        .select("user_id")
+        .maybeSingle();
+
+      if (adminError || !admin) {
+        await supabase.auth.signOut();
+        setErrorMessage(
+          adminError
+            ? "We couldn't verify admin access. Please try again."
+            : "This account is not authorized for the admin panel.",
+        );
+        return;
+      }
+
+      router.replace("/admin");
+      router.refresh();
+    } catch {
+      setErrorMessage("Something went wrong while signing in. Please try again.");
+    } finally {
       setIsSubmitting(false);
-      return;
     }
-
-    const { data: admin, error: adminError } = await supabase
-      .from("admin_users")
-      .select("user_id")
-      .maybeSingle();
-
-    if (adminError || !admin) {
-      await supabase.auth.signOut();
-      setErrorMessage("This account is not authorized for the admin panel.");
-      setIsSubmitting(false);
-      return;
-    }
-
-    router.replace("/admin");
-    router.refresh();
   }
 
   return (

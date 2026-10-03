@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { Space_Grotesk } from "next/font/google";
+import { Sora } from "next/font/google";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -10,8 +10,8 @@ const geistSans = localFont({
   weight: "100 900",
 });
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
   display: "swap",
 });
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${sora.variable}`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

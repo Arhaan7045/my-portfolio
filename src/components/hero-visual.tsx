@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 type HeroVisualProps = {
@@ -16,9 +17,40 @@ const signals = [
 export function HeroVisual({ reducedMotion: reducedMotionProp }: HeroVisualProps) {
   const reducedMotionHook = useReducedMotion();
   const reducedMotion = reducedMotionProp ?? reducedMotionHook;
+  const visualRef = useRef<HTMLDivElement>(null);
+
+  function handlePointerMove(event: React.PointerEvent<HTMLDivElement>) {
+    if (reducedMotion || event.pointerType !== "mouse") return;
+    const element = visualRef.current;
+    if (!element) return;
+    const bounds = element.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width;
+    const y = (event.clientY - bounds.top) / bounds.height;
+    const rotateY = (x - 0.5) * 5;
+    const rotateX = (0.5 - y) * 5;
+    element.style.setProperty("--hero-tilt-x", `${rotateX.toFixed(2)}deg`);
+    element.style.setProperty("--hero-tilt-y", `${rotateY.toFixed(2)}deg`);
+    element.style.setProperty("--hero-light-x", `${(x * 100).toFixed(1)}%`);
+    element.style.setProperty("--hero-light-y", `${(y * 100).toFixed(1)}%`);
+  }
+
+  function resetPointer() {
+    const element = visualRef.current;
+    if (!element) return;
+    element.style.setProperty("--hero-tilt-x", "0deg");
+    element.style.setProperty("--hero-tilt-y", "0deg");
+    element.style.setProperty("--hero-light-x", "50%");
+    element.style.setProperty("--hero-light-y", "45%");
+  }
 
   return (
-    <div className="hero-visual reveal" aria-label="Abstract security architecture">
+    <div
+      ref={visualRef}
+      className="hero-visual reveal hero-visual-depth"
+      aria-label="Abstract security architecture"
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetPointer}
+    >
       <div className="hero-visual-caption">
         <span>FIELD / 01</span>
         <strong>SECURITY ARCHITECTURE</strong>

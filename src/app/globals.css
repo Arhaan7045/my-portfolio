@@ -5232,42 +5232,39 @@ section[id],
 .admin-field-help { display: block; margin-top: .45rem; color: var(--muted, #9b94a8); font-size: .72rem; line-height: 1.6; }
 
 
-/* Keep the selected certificate action in its own flow row below the deck. */
-.credential-deck-wrap > .credential-view-row {
-  position: absolute;
-  z-index: 45;
-  right: 1.35rem;
-  bottom: 4.75rem;
-  left: 1.35rem;
+
+/* Certificate action sits below the complete deck, never over the card stack. */
+.credential-view-row {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 1rem;
-  min-height: 2.25rem;
-  padding: .35rem 0;
-  border-top: 1px solid rgba(208,185,255,.1);
-  background: transparent;
+  width: min(42rem, 100%);
+  margin: .85rem auto 1.75rem;
+  padding: .9rem 1.1rem;
+  border: 1px solid rgba(208,185,255,.13);
+  background: linear-gradient(100deg, rgba(150,108,242,.07), rgba(17,16,26,.45));
 }
 .credential-view-row > span {
   color: rgba(208,185,255,.48);
   font-family: var(--font-geist-mono), monospace;
-  font-size: .52rem;
-  letter-spacing: .09em;
+  font-size: .55rem;
+  letter-spacing: .1em;
 }
 .credential-view-row .credential-view-link-selected {
   position: static;
   display: inline-flex;
   align-items: center;
+  flex: 0 0 auto;
   margin: 0;
-  padding: .35rem 0;
+  padding: .45rem 0;
   line-height: 1.4;
 }
 @media (max-width: 760px) {
-  .credential-deck-wrap > .credential-view-row {
-    right: 1rem;
-    bottom: 4.9rem;
-    left: 1rem;
-    justify-content: space-between;
+  .credential-view-row {
+    width: calc(100% - 1.5rem);
+    margin: .7rem auto 1.2rem;
+    padding: .75rem .8rem;
     gap: .6rem;
   }
   .credential-view-row > span { font-size: .45rem; }

@@ -6186,7 +6186,6 @@ body {
     linear-gradient(140deg, rgb(187 171 116 / .022), transparent 45%),
     #0b0f0d !important;
 }
-\n
 
 /* Additional visual-profile palette swatches. */
 .theme-option.theme-batman .theme-palette span:nth-child(1) { background: #5c6a7e; }
@@ -6724,4 +6723,3 @@ body {
     min-height: 12.5rem;
   }
 }
-\n

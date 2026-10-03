@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 
 export const THEME_OPTIONS = [
   { id: "cyber-violet", label: "Cyber Violet" },
-  { id: "signal-blue", label: "Signal Blue" },
-  { id: "mono-carbon", label: "Mono Carbon" },
+  { id: "obsidian-amber", label: "Obsidian Amber" },
+  { id: "deep-forest", label: "Deep Forest" },
+  { id: "midnight-rose", label: "Midnight Rose" },
 ] as const;
 
 export type ThemeId = (typeof THEME_OPTIONS)[number]["id"];
@@ -21,6 +22,18 @@ function applyTheme(theme: ThemeId) {
   window.localStorage.setItem(STORAGE_KEY, theme);
 }
 
+function ThemeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="8.25" />
+      <circle cx="9" cy="9" r="1.15" className="theme-icon-dot" />
+      <circle cx="14.5" cy="8" r="1.15" className="theme-icon-dot" />
+      <circle cx="16" cy="13" r="1.15" className="theme-icon-dot" />
+      <path d="M7.1 15.2c1.1 1.55 2.78 2.55 4.9 2.8" />
+    </svg>
+  );
+}
+
 export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
   const [theme, setTheme] = useState<ThemeId>("cyber-violet");
 
@@ -30,6 +43,11 @@ export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
     setTheme(nextTheme);
     document.documentElement.dataset.theme = nextTheme;
   }, []);
+
+  const selectTheme = (nextTheme: ThemeId) => {
+    setTheme(nextTheme);
+    applyTheme(nextTheme);
+  };
 
   if (mobile) {
     return (
@@ -41,10 +59,7 @@ export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
               type="button"
               className={`theme-option theme-${option.id}${option.id === theme ? " is-active" : ""}`}
               key={option.id}
-              onClick={() => {
-                setTheme(option.id);
-                applyTheme(option.id);
-              }}
+              onClick={() => selectTheme(option.id)}
               aria-pressed={option.id === theme}
             >
               <span className="theme-swatch" aria-hidden="true" />
@@ -59,19 +74,18 @@ export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
   return (
     <details className="theme-switcher">
       <summary aria-label="Choose color theme">
-        <span>THEME</span>
-        <span className="theme-current-swatch" aria-hidden="true" />
+        <span className="theme-icon" aria-hidden="true">
+          <ThemeIcon />
+        </span>
+        <span className="theme-tooltip" role="tooltip">THEME</span>
       </summary>
       <div className="theme-menu">
         {THEME_OPTIONS.map((option) => (
           <button
             type="button"
-            className={option.id === theme ? "theme-option is-active" : "theme-option"}
+            className={`theme-option theme-${option.id}${option.id === theme ? " is-active" : ""}`}
             key={option.id}
-            onClick={() => {
-              setTheme(option.id);
-              applyTheme(option.id);
-            }}
+            onClick={() => selectTheme(option.id)}
             aria-pressed={option.id === theme}
           >
             <span className="theme-swatch" aria-hidden="true" />

@@ -34,7 +34,7 @@ export function SiteHeader() {
 
         <div className="desktop-navigation">
           {navigationItems.map((item) => (
-            <a href={homeHref(item.href)} key={item.href}><span className="nav-label" data-label={item.label}>{item.label}</span></a>
+            <a href={homeHref(item.href)} key={item.href}>{item.label}</a>
           ))}
           <a className="nav-resume" href={RESUME_URL} target="_blank" rel="noopener noreferrer">
             Resume ↗
@@ -48,7 +48,7 @@ export function SiteHeader() {
           </summary>
           <div id="mobile-navigation-menu" className="mobile-navigation-menu">
             {navigationItems.map((item) => (
-              <a href={homeHref(item.href)} key={item.href}><span className="nav-label" data-label={item.label}>{item.label}</span></a>
+              <a href={homeHref(item.href)} key={item.href}>{item.label}</a>
             ))}
             <a href={RESUME_URL} target="_blank" rel="noopener noreferrer">Resume ↗</a>
           </div>

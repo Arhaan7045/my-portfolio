@@ -5302,7 +5302,7 @@ body {
 }
 
 
-/* Smooth editorial navbar hover: serif italic type inside a gently appearing pill. */
+/* Editorial nav interaction: the label subtly grows and morphs into italic serif. */
 @media (hover: hover) and (pointer: fine) {
   .desktop-navigation > a:not(.nav-resume) {
     position: relative;
@@ -5315,43 +5315,37 @@ body {
     border-radius: 999px;
     color: var(--muted);
     font-family: var(--font-geist-sans), Arial, sans-serif;
+    font-size: .75rem;
     font-style: normal;
     letter-spacing: 0;
-    transform: translateY(0) scale(1);
+    transform: scale(1);
     transform-origin: center;
-    transition:
-      color 320ms cubic-bezier(.22,1,.36,1),
-      border-color 320ms cubic-bezier(.22,1,.36,1),
-      background-color 320ms cubic-bezier(.22,1,.36,1),
-      letter-spacing 320ms cubic-bezier(.22,1,.36,1),
-      transform 320ms cubic-bezier(.22,1,.36,1),
-      box-shadow 320ms cubic-bezier(.22,1,.36,1);
+    transition: color 420ms cubic-bezier(.2,.75,.25,1),
+      border-color 420ms cubic-bezier(.2,.75,.25,1),
+      background-color 420ms cubic-bezier(.2,.75,.25,1),
+      font-size 420ms cubic-bezier(.2,.75,.25,1),
+      letter-spacing 420ms cubic-bezier(.2,.75,.25,1),
+      transform 420ms cubic-bezier(.2,.75,.25,1),
+      box-shadow 420ms cubic-bezier(.2,.75,.25,1);
   }
-
-  .desktop-navigation > a:not(.nav-resume)::after {
-    content: none;
-  }
-
+  .desktop-navigation > a:not(.nav-resume)::after { content: none; }
   .desktop-navigation > a:not(.nav-resume):hover,
   .desktop-navigation > a:not(.nav-resume):focus-visible {
     color: var(--text);
-    border-color: rgba(208, 185, 255, .72);
-    background: rgba(208, 185, 255, .045);
+    border-color: rgba(208,185,255,.78);
+    background: rgba(208,185,255,.045);
     font-family: Georgia, "Times New Roman", serif;
+    font-size: .91rem;
     font-style: italic;
-    letter-spacing: -.025em;
-    transform: translateY(-1px) scale(1.025);
-    box-shadow: 0 0 0 1px rgba(208, 185, 255, .025), 0 4px 18px rgba(150, 108, 242, .06);
+    letter-spacing: -.035em;
+    transform: scale(1.035);
+    box-shadow: 0 0 0 1px rgba(208,185,255,.025);
   }
-
   .desktop-navigation > a:not(.nav-resume):focus-visible {
-    outline: 2px solid rgba(208, 185, 255, .7);
+    outline: 2px solid rgba(208,185,255,.7);
     outline-offset: 3px;
   }
 }
-
 @media (prefers-reduced-motion: reduce) {
-  .desktop-navigation > a:not(.nav-resume) {
-    transition: none !important;
-  }
+  .desktop-navigation > a:not(.nav-resume) { transition: none !important; }
 }

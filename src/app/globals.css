@@ -5368,3 +5368,9 @@ body {
     letter-spacing: -0.035em;
   }
 }
+
+/* Final navigation breakpoint override: keep mobile menu usable after later nav styles. */
+@media (max-width: 900px) {
+  .desktop-navigation { display: none !important; }
+  .mobile-navigation { display: block !important; }
+}

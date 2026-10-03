@@ -100,7 +100,7 @@ export default async function Home() {
                 title="A practical approach to cybersecurity."
               />
               <p className="body-copy reveal">
-                I&apos;m an MCA student working towards a career in cybersecurity. I learn by practising, building projects, and documenting what I find.
+                I&apos;m working towards a career in cybersecurity through hands-on practice, building projects, and documenting what I find.
               </p>
               <p className="body-copy reveal">
                 Right now, I&apos;m focused on web application security, VAPT, Linux, networking, and security operations. I want to understand how systems work and how to make them more secure.

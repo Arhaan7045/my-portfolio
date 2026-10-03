@@ -2,7 +2,6 @@
 
 import { ControlLink } from "@/components/control-surface";
 import { HeroVisual } from "@/components/hero-visual";
-import { InteractiveHeroField } from "@/components/interactive-hero-field";
 
 const RESUME_URL =
   "https://drive.google.com/file/d/1OgThSdbwqbpWfB8Nqk0tC27hgMRb07kV/view?usp=sharing";
@@ -13,7 +12,6 @@ export function HeroSection() {
       className="hero shell"
       aria-labelledby="hero-title"
     >
-      <InteractiveHeroField />
       <div className="hero-copy reveal">
         <p className="eyebrow">HELLO, I&apos;M</p>
 

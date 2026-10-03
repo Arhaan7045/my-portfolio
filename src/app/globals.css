@@ -5112,3 +5112,31 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .portfolio-custom-cursor { transition: none; }
 }
+
+
+/* Hero layout safeguard: preserve the original two-column desktop composition. */
+@media (min-width: 761px) {
+  .hero {
+    grid-template-columns: minmax(0, 1.05fr) minmax(20rem, .95fr) !important;
+    align-items: center !important;
+    gap: clamp(2rem, 4vw, 5rem) !important;
+  }
+  .hero-copy { grid-column: 1; }
+  .hero-visual { grid-column: 2; width: 100%; justify-self: stretch; }
+}
+@media (max-width: 760px) {
+  .hero { grid-template-columns: minmax(0, 1fr) !important; }
+  .hero-copy, .hero-visual { grid-column: 1; }
+}
+
+/* Directional momentum: the ring stretches along its actual travel direction. */
+.portfolio-custom-cursor {
+  width: 34px;
+  height: 34px;
+  transform: translate(-50%, -50%) rotate(var(--cursor-angle, 0deg)) scale(var(--cursor-stretch-x, 1), var(--cursor-stretch-y, 1));
+  transition: opacity 120ms ease, width 180ms cubic-bezier(.2,.8,.2,1), height 180ms cubic-bezier(.2,.8,.2,1), border-color 160ms ease, background 160ms ease;
+}
+.portfolio-custom-cursor.is-interactive { width: 29px; height: 29px; }
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-custom-cursor { transition: none; }
+}

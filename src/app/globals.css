@@ -6197,3 +6197,162 @@ body {
 .theme-option.theme-black-panther .theme-palette span:nth-child(1) { background: #5b4574; }
 .theme-option.theme-black-panther .theme-palette span:nth-child(2) { background: #beb0d1; }
 .theme-option.theme-black-panther .theme-palette span:nth-child(3) { background: #201c27; }
+
+/* ─── Admin control room theme refinement ─── */
+.admin-page {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 60rem 36rem at 88% -10%, rgb(var(--theme-accent-rgb) / .09), transparent 66%),
+    radial-gradient(ellipse 40rem 30rem at -12% 48%, rgb(var(--theme-accent-rgb) / .045), transparent 72%),
+    var(--background);
+  color: var(--text);
+}
+
+.admin-page::before {
+  position: fixed;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  opacity: .28;
+  background-image:
+    linear-gradient(rgb(var(--theme-light-rgb) / .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--theme-light-rgb) / .035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, black, transparent 70rem);
+}
+
+.admin-shell {
+  position: relative;
+  z-index: 1;
+}
+
+.admin-topbar {
+  border-bottom-color: rgb(var(--theme-light-rgb) / .1);
+}
+
+.admin-topbar-meta {
+  gap: .55rem;
+}
+
+.admin-session-card {
+  border-color: rgb(var(--theme-light-rgb) / .13);
+  background:
+    linear-gradient(135deg, rgb(var(--theme-light-rgb) / .035), transparent 62%),
+    rgb(var(--theme-deep-rgb) / .76);
+  box-shadow: inset 0 1px rgb(var(--theme-light-rgb) / .025);
+}
+
+.admin-module-grid {
+  gap: 1px;
+  border-color: rgb(var(--theme-light-rgb) / .12);
+  background: rgb(var(--theme-light-rgb) / .12);
+  box-shadow: 0 1.75rem 3.5rem rgba(0,0,0,.18);
+}
+
+.admin-module-card {
+  position: relative;
+  min-height: 13rem;
+  background:
+    linear-gradient(135deg, rgb(var(--theme-light-rgb) / .025), transparent 58%),
+    rgb(var(--theme-deep-rgb) / .78);
+  transition: background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+}
+
+.admin-module-card::after {
+  position: absolute;
+  right: 1.35rem;
+  bottom: 1.25rem;
+  left: 1.35rem;
+  height: 1px;
+  background: linear-gradient(90deg, rgb(var(--theme-accent-rgb) / .6), transparent 72%);
+  content: "";
+  opacity: .45;
+  pointer-events: none;
+}
+
+.admin-module-card:hover {
+  background:
+    linear-gradient(135deg, rgb(var(--theme-accent-rgb) / .06), transparent 58%),
+    rgb(var(--theme-deep-rgb) / .92);
+  box-shadow: inset 0 1px rgb(var(--theme-light-rgb) / .035);
+}
+
+.admin-module-card > span {
+  color: rgb(var(--theme-light-rgb) / .7);
+}
+
+.admin-module-card h2 {
+  color: var(--text);
+}
+
+.admin-module-card p {
+  color: var(--muted);
+}
+
+.admin-module-action {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .58rem .7rem;
+  border: 1px solid rgb(var(--theme-light-rgb) / .14);
+  background: rgb(var(--theme-light-rgb) / .025);
+  color: rgb(var(--theme-light-rgb) / .76);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: .54rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.admin-module-action:hover {
+  color: var(--text);
+  border-color: rgb(var(--theme-light-rgb) / .34);
+  background: rgb(var(--theme-accent-rgb) / .07);
+  transform: translateY(-1px);
+}
+
+.admin-dashboard-footer {
+  border-top-color: transparent;
+}
+
+.admin-dashboard-footer a {
+  color: rgb(var(--theme-light-rgb) / .62);
+}
+
+.admin-dashboard-footer a:hover {
+  color: var(--text);
+}
+
+/* Keep authentication surfaces in the same restrained material system. */
+.admin-auth-card {
+  border-color: rgb(var(--theme-light-rgb) / .13);
+  background:
+    linear-gradient(135deg, rgb(var(--theme-light-rgb) / .035), transparent 60%),
+    rgb(var(--theme-deep-rgb) / .82);
+}
+
+.admin-login-form input {
+  background: rgb(var(--theme-deep-rgb) / .72);
+}
+
+.admin-login-form input:focus {
+  background: rgb(var(--theme-deep-rgb) / .9);
+}
+
+.admin-login-submit {
+  background:
+    linear-gradient(135deg, rgb(var(--theme-accent-rgb) / .11), rgb(var(--theme-light-rgb) / .035));
+}
+
+@media (max-width: 760px) {
+  .admin-module-card {
+    min-height: 11.5rem;
+  }
+
+  .admin-topbar-meta > span {
+    display: none;
+  }
+}
+

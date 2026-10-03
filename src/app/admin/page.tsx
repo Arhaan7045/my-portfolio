@@ -29,20 +29,44 @@ export default async function AdminPage() {
         </header>
 
         <section className="admin-dashboard-intro">
-          <div>
-            <span className="admin-auth-label">Control room</span>
-            <h1>Manage the portfolio.</h1>
+          <div className="admin-dashboard-copy">
+            <div className="admin-dashboard-eyebrow">
+              <span className="admin-status-dot" aria-hidden="true" />
+              <span>CONTROL ROOM</span>
+              <span>PRIVATE ACCESS</span>
+            </div>
+            <h1>Manage the portfolio<span>.</span></h1>
             <p>
               Manage the projects, experience, skills, certifications, and learning areas shown on your public portfolio.
             </p>
           </div>
 
-          <div className="admin-session-card">
-            <span>AUTHENTICATED AS</span>
-            <strong>{email}</strong>
-            <small>ADMIN ACCESS VERIFIED</small>
-          </div>
+          <aside className="admin-session-card">
+            <div className="admin-session-topline">
+              <span>SESSION</span>
+              <span>VERIFIED</span>
+            </div>
+            <div className="admin-session-identity">
+              <span className="admin-session-mark" aria-hidden="true">◈</span>
+              <div>
+                <span>AUTHENTICATED AS</span>
+                <strong>{email}</strong>
+              </div>
+            </div>
+            <div className="admin-session-footer">
+              <span>ADMIN ACCESS</span>
+              <span>DATABASE LIVE</span>
+            </div>
+          </aside>
         </section>
+
+        <div className="admin-module-header">
+          <div>
+            <span>CONTENT MODULES</span>
+            <strong>Portfolio control surface</strong>
+          </div>
+          <span>04 MODULES</span>
+        </div>
 
         <section className="admin-module-grid" aria-label="Admin modules">
           <article className="admin-module-card admin-module-card-active">
@@ -50,7 +74,7 @@ export default async function AdminPage() {
             <h2>Projects</h2>
             <p>Case studies, project status, descriptions, tags, and publishing.</p>
             <Link className="admin-module-action" href="/admin/projects">
-              MANAGE PROJECTS ↗
+              OPEN MODULE <span aria-hidden="true">↗</span>
             </Link>
           </article>
 
@@ -59,7 +83,7 @@ export default async function AdminPage() {
             <h2>Experience</h2>
             <p>Roles, organizations, descriptions, ordering, and visibility.</p>
             <Link className="admin-module-action" href="/admin/experience">
-              MANAGE EXPERIENCE ↗
+              OPEN MODULE <span aria-hidden="true">↗</span>
             </Link>
           </article>
 
@@ -68,7 +92,7 @@ export default async function AdminPage() {
             <h2>Skills & learning</h2>
             <p>Skill groups, learning areas, and their public visibility.</p>
             <Link className="admin-module-action" href="/admin/skills">
-              MANAGE SKILLS & LEARNING ↗
+              OPEN MODULE <span aria-hidden="true">↗</span>
             </Link>
           </article>
 
@@ -77,7 +101,7 @@ export default async function AdminPage() {
             <h2>Certifications</h2>
             <p>Credentials and virtual experiences managed from one place.</p>
             <Link className="admin-module-action" href="/admin/certifications">
-              MANAGE CERTIFICATIONS ↗
+              OPEN MODULE <span aria-hidden="true">↗</span>
             </Link>
           </article>
         </section>

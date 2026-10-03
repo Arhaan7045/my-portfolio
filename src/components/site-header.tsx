@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { navigationItems } from "@/data/portfolio";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 const RESUME_URL =
   "https://drive.google.com/file/d/1OgThSdbwqbpWfB8Nqk0tC27hgMRb07kV/view?usp=sharing";
@@ -27,6 +28,7 @@ export function SiteHeader() {
             <span>Resume</span>
             <span aria-hidden="true">↗</span>
           </a>
+          <ThemeSwitcher />
         </div>
 
         <details className="mobile-navigation">
@@ -39,6 +41,7 @@ export function SiteHeader() {
               <a href={homeHref(item.href)} key={item.href}>{item.label}</a>
             ))}
             <a href={RESUME_URL} target="_blank" rel="noopener noreferrer">Resume ↗</a>
+            <ThemeSwitcher mobile />
           </div>
         </details>
       </nav>

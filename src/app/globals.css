@@ -5293,9 +5293,9 @@ section[id],
 .credential-card-view-link:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 
 
-/* Consistent portfolio type system: Sora display, Geist Sans reading, Geist Mono metadata. */
+/* Consistent portfolio type system: Geist Sans display and reading, Geist Mono metadata. */
 :root {
-  --font-display: var(--font-sora), var(--font-geist-sans), Arial, sans-serif;
+  --font-display: var(--font-geist-sans), Arial, sans-serif;
   --font-body: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   --font-technical: var(--font-geist-mono), monospace;
 }

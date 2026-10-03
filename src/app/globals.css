@@ -5011,9 +5011,6 @@ body {
 .admin-module-action {
   font-family: var(--font-technical);
 }
-.about-profile-bottom strong {
-  font-weight: 600;
-}
 @media (max-width: 640px) {
   :where(h1, h2, h3, h4, h5, h6) {
     letter-spacing: -0.025em;

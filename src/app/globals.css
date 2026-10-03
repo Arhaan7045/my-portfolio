@@ -5110,3 +5110,22 @@ body {
 @media (pointer: coarse), (prefers-reduced-motion: reduce) {
   .hero::before { background: radial-gradient(34rem circle at 72% 36%, rgba(150,108,242,.12), transparent 68%); }
 }
+
+
+/* Custom cybersecurity-inspired cursor: subtle crosshair on desktop, native controls preserved. */
+@media (hover: hover) and (pointer: fine) {
+  html,
+  body {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='14' cy='14' r='8.5' fill='%2309080e' fill-opacity='.72' stroke='%23d0b9ff' stroke-width='1.4'/%3E%3Ccircle cx='14' cy='14' r='2' fill='%23d0b9ff'/%3E%3Cpath d='M14 1v5M14 22v5M1 14h5M22 14h5' stroke='%23966cf2' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E") 14 14, auto;
+  }
+  a,
+  button,
+  summary,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"],
+  select,
+  label[for] {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='14' cy='14' r='9' fill='%23966cf2' fill-opacity='.18' stroke='%23d0b9ff' stroke-width='1.5'/%3E%3Ccircle cx='14' cy='14' r='3' fill='%23d0b9ff'/%3E%3C/svg%3E") 14 14, pointer;
+  }
+}

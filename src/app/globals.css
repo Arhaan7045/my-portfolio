@@ -692,7 +692,7 @@ section[id],
 .contact-links a:hover, .contact-links a:focus-visible { color: var(--lavender); }
 /* Platform-specific hover accents */
 .contact-link-github:hover, .contact-link-github:focus-visible { color: rgb(var(--theme-light-rgb)); }
-.contact-link-linkedin:hover, .contact-link-linkedin:focus-visible { color: #60a5fa; }
+.contact-link-linkedin:hover, .contact-link-linkedin:focus-visible { color: var(--violet); }
 .contact-link-instagram:hover, .contact-link-instagram:focus-visible { color: #e879a0; }
 .contact-link-email:hover, .contact-link-email:focus-visible { color: rgb(var(--theme-light-rgb)); }
 .contact-link-phone:hover, .contact-link-phone:focus-visible { color: #86efac; }
@@ -1221,7 +1221,7 @@ section[id],
 .contact-links-premium .contact-link-github:hover strong,
 .contact-links-premium .contact-link-github:hover b { color:var(--text); }
 .contact-links-premium .contact-link-linkedin:hover strong,
-.contact-links-premium .contact-link-linkedin:hover b { color:#4f9cff; }
+.contact-links-premium .contact-link-linkedin:hover b { color:var(--violet); }
 .contact-links-premium .contact-link-email:hover strong,
 .contact-links-premium .contact-link-email:hover b { color:rgb(var(--theme-light-rgb)); }
 .contact-links-premium .contact-link-whatsapp:hover strong,

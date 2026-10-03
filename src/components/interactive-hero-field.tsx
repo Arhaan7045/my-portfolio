@@ -71,30 +71,14 @@ export function InteractiveHeroField() {
       const spacing = 42;
       const px = pointer.current.x;
       const py = pointer.current.y;
-      const influence = active.current ? 150 : 0;
       const columns = Math.ceil(width / spacing) + 1;
       const rows = Math.ceil(height / spacing) + 1;
-
-      const warped = (x: number, y: number): Point => {
-        const dx = x - px;
-        const dy = y - py;
-        const distance = Math.hypot(dx, dy);
-        if (!influence || distance > influence) return { x, y };
-        const falloff = Math.pow(1 - distance / influence, 2);
-        const safeDistance = Math.max(distance, 0.001);
-        const pull = -22 * falloff;
-        const ripple = Math.sin(distance / 17) * 4 * falloff;
-        return {
-          x: x + (dx / safeDistance) * (pull + ripple),
-          y: y + (dy / safeDistance) * (pull + ripple),
-        };
-      };
 
       context.lineWidth = 0.7;
       for (let row = 0; row <= rows; row++) {
         context.beginPath();
         for (let col = 0; col <= columns; col++) {
-          const point = warped(col * spacing, row * spacing);
+          const point = { x: col * spacing, y: row * spacing };
           if (col === 0) context.moveTo(point.x, point.y);
           else context.lineTo(point.x, point.y);
         }
@@ -104,7 +88,7 @@ export function InteractiveHeroField() {
       for (let col = 0; col <= columns; col++) {
         context.beginPath();
         for (let row = 0; row <= rows; row++) {
-          const point = warped(col * spacing, row * spacing);
+          const point = { x: col * spacing, y: row * spacing };
           if (row === 0) context.moveTo(point.x, point.y);
           else context.lineTo(point.x, point.y);
         }
@@ -112,13 +96,7 @@ export function InteractiveHeroField() {
         context.stroke();
       }
 
-      if (active.current) {
-        const gradient = context.createRadialGradient(px, py, 0, px, py, 150);
-        gradient.addColorStop(0, "rgba(150, 108, 242, 0.09)");
-        gradient.addColorStop(1, "rgba(150, 108, 242, 0)");
-        context.fillStyle = gradient;
-        context.fillRect(px - 150, py - 150, 300, 300);
-      }
+
     }
 
     function animate() {
@@ -161,7 +139,6 @@ export function InteractiveHeroField() {
   return (
     <div className="interactive-hero-field" ref={rootRef} aria-hidden="true" data-active="false">
       <canvas className="interactive-hero-grid" ref={canvasRef} />
-      <span className="interactive-hero-cursor" />
     </div>
   );
 }

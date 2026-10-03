@@ -1,6 +1,5 @@
 "use client";
 
-import { useReducedMotion } from "motion/react";
 import { ControlLink } from "@/components/control-surface";
 import { AsciiNameVisual } from "@/components/ascii-name-visual";
 
@@ -8,8 +7,6 @@ const RESUME_URL =
   "https://drive.google.com/file/d/1OgThSdbwqbpWfB8Nqk0tC27hgMRb07kV/view?usp=sharing";
 
 export function HeroSection() {
-  const reducedMotion = useReducedMotion();
-
   return (
     <section className="hero shell" aria-labelledby="hero-title">
       <div className="hero-copy reveal">
@@ -48,7 +45,7 @@ export function HeroSection() {
         </p>
       </div>
 
-      <AsciiNameVisual reducedMotion={reducedMotion} />
+      <AsciiNameVisual />
     </section>
   );
 }

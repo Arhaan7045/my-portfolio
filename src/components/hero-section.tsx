@@ -2,6 +2,7 @@
 
 import { ControlLink } from "@/components/control-surface";
 import { HeroVisual } from "@/components/hero-visual";
+import { InteractiveHeroField } from "@/components/interactive-hero-field";
 
 const RESUME_URL =
   "https://drive.google.com/file/d/1OgThSdbwqbpWfB8Nqk0tC27hgMRb07kV/view?usp=sharing";
@@ -11,19 +12,8 @@ export function HeroSection() {
     <section
       className="hero shell"
       aria-labelledby="hero-title"
-      onPointerMove={(event) => {
-        if (event.pointerType === "touch") return;
-        const bounds = event.currentTarget.getBoundingClientRect();
-        const x = ((event.clientX - bounds.left) / bounds.width) * 100;
-        const y = ((event.clientY - bounds.top) / bounds.height) * 100;
-        event.currentTarget.style.setProperty("--hero-pointer-x", `${x}%`);
-        event.currentTarget.style.setProperty("--hero-pointer-y", `${y}%`);
-      }}
-      onPointerLeave={(event) => {
-        event.currentTarget.style.setProperty("--hero-pointer-x", "50%");
-        event.currentTarget.style.setProperty("--hero-pointer-y", "45%");
-      }}
     >
+      <InteractiveHeroField />
       <div className="hero-copy reveal">
         <p className="eyebrow">HELLO, I&apos;M</p>
 

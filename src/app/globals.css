@@ -1472,7 +1472,7 @@ section[id],
 
 .case-study-evidence-card h3 {
   margin: 0 0 .45rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
   line-height: 1.35;
 }
 
@@ -5409,26 +5409,26 @@ body {
   bottom: clamp(1rem, 2vw, 1.75rem);
   z-index: 30;
   display: inline-flex;
-  width: 3.4rem;
-  height: 3.4rem;
+  width: 4rem;
+  height: 4rem;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: .12rem;
   padding: 0;
-  border: 1px solid rgba(208,185,255,.24);
-  background: rgba(10,8,15,.82);
+  border: 1px solid rgba(208,185,255,.48);
+  background: rgba(16,12,24,.9);
   backdrop-filter: blur(16px) saturate(120%);
   color: var(--text);
   font-family: var(--font-geist-mono), monospace;
   cursor: pointer;
-  box-shadow: 0 1rem 2.25rem rgba(0,0,0,.26);
+  box-shadow: 0 1.1rem 2.5rem rgba(0,0,0,.3), 0 0 .9rem rgba(150,108,242,.14);
   transition: border-color 180ms ease, background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
 }
 .back-to-top::before {
   position: absolute;
   inset: .28rem;
-  border: 1px solid rgba(208,185,255,.07);
+  border: 1px solid rgba(208,185,255,.14);
   content: "";
   pointer-events: none;
 }
@@ -5442,8 +5442,8 @@ body {
 .back-to-top-label {
   position: relative;
   z-index: 1;
-  color: rgba(208,185,255,.62);
-  font-size: .43rem;
+  color: rgba(225,211,255,.82);
+  font-size: .46rem;
   font-weight: 700;
   letter-spacing: .14em;
   line-height: 1;
@@ -5465,8 +5465,8 @@ body {
   .back-to-top {
     right: .8rem;
     bottom: .8rem;
-    width: 3.05rem;
-    height: 3.05rem;
+    width: 3.45rem;
+    height: 3.45rem;
   }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -1,7 +1,3 @@
-"use client";
-
-type AsciiNameVisualProps = { reducedMotion?: boolean | null };
-
 const letters: Record<string, string[]> = {
   A: ["01110", "10001", "10001", "11111", "10001", "10001", "10001"],
   R: ["11110", "10001", "10001", "11110", "10100", "10010", "10001"],
@@ -24,7 +20,7 @@ function buildAsciiName() {
   ).join("\n");
 }
 
-export function AsciiNameVisual({ reducedMotion }: AsciiNameVisualProps) {
+export function AsciiNameVisual() {
   return (
     <div className="ascii-name-visual reveal" aria-label="Arhaan Shaikh, rendered in ASCII typography">
       <div className="ascii-name-topline">

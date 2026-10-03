@@ -8,6 +8,9 @@ export const THEME_OPTIONS = [
   { id: "thor", label: "Thor", descriptor: "Storm Steel", themeColor: "#080b12" },
   { id: "iron-man", label: "Iron Man", descriptor: "Reactor Red", themeColor: "#0a090b" },
   { id: "doctor-doom", label: "Doctor Doom", descriptor: "Doom Green", themeColor: "#080b0a" },
+  { id: "batman", label: "Batman", descriptor: "Shadow Graphite", themeColor: "#08090c" },
+  { id: "superman", label: "Superman", descriptor: "Midnight Crimson", themeColor: "#080b12" },
+  { id: "black-panther", label: "Black Panther", descriptor: "Obsidian Purple", themeColor: "#08080b" },
 ] as const;
 
 export type ThemeId = (typeof THEME_OPTIONS)[number]["id"];
@@ -43,6 +46,33 @@ function ThemeIcon({ theme }: { theme: ThemeId }) {
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="m12 3.2 6.3 3.4v7.1L12 20.8l-6.3-7.1V6.6L12 3.2Z" />
         <path d="M9.1 10.1h1.5M13.4 10.1h1.5M11.1 14.6h1.8" />
+      </svg>
+    );
+  }
+
+  if (theme === "batman") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m4.5 8.1 3.4 1 4.1-3 4.1 3 3.4-1-.9 8-6.6 3.1-6.6-3.1Z" />
+        <path d="M8.2 13.1h2.2M13.6 13.1h2.2" />
+      </svg>
+    );
+  }
+
+  if (theme === "superman") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m12 3.8 7.5 2.8-1.6 10.1L12 19.3l-5.9-2.6L4.5 6.6Z" />
+        <path d="m8.6 9.2 3.4 5 3.4-5-3.4 1.8Z" />
+      </svg>
+    );
+  }
+
+  if (theme === "black-panther") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M8.1 5.2 10 7l2-2 2 2 1.9-1.8 1.6 5.1-1.3 7.1-4.2 2.1-4.2-2.1-1.3-7.1Z" />
+        <path d="M9.1 12.2h1.2M13.7 12.2h1.2M11.2 15.2h1.6" />
       </svg>
     );
   }

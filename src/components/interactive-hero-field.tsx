@@ -2,142 +2,51 @@
 
 import { useEffect, useRef } from "react";
 
-type Point = { x: number; y: number };
-
+/** Static, low-contrast hero grid. No pointer response or animation. */
 export function InteractiveHeroField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const rootRef = useRef<HTMLDivElement>(null);
-  const pointer = useRef<Point>({ x: -1000, y: -1000 });
-  const target = useRef<Point>({ x: -1000, y: -1000 });
-  const active = useRef(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const root = rootRef.current;
-    const hero = root?.parentElement;
     const context = canvas?.getContext("2d", { alpha: true });
-    if (!canvas || !root || !hero || !context) return;
+    const hero = canvas?.parentElement?.parentElement;
+    if (!canvas || !context || !hero) return;
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
-    let frame = 0;
-    let width = 0;
-    let height = 0;
-    let dpr = 1;
-
-    const resize = () => {
+    let observer: ResizeObserver | undefined;
+    const draw = () => {
       const rect = hero.getBoundingClientRect();
-      width = rect.width;
-      height = rect.height;
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      canvas.width = Math.max(1, Math.floor(width * dpr));
-      canvas.height = Math.max(1, Math.floor(height * dpr));
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const width = Math.max(1, Math.floor(rect.width));
+      const height = Math.max(1, Math.floor(rect.height));
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
-      draw();
-    };
-
-    const onMove = (event: PointerEvent) => {
-      if (!finePointer.matches || event.pointerType === "touch") return;
-      const rect = hero.getBoundingClientRect();
-      const inside = event.clientX >= rect.left && event.clientX <= rect.right &&
-        event.clientY >= rect.top && event.clientY <= rect.bottom;
-      active.current = inside;
-      if (inside) {
-        target.current = { x: event.clientX - rect.left, y: event.clientY - rect.top };
-        root.style.setProperty("--cursor-x", `${target.current.x}px`);
-        root.style.setProperty("--cursor-y", `${target.current.y}px`);
-        root.dataset.active = "true";
-      } else {
-        root.dataset.active = "false";
-        target.current = { x: -1000, y: -1000 };
-      }
-      if (!reducedMotion.matches) start();
-      else draw();
-    };
-
-    const onLeave = () => {
-      active.current = false;
-      target.current = { x: -1000, y: -1000 };
-      root.dataset.active = "false";
-      if (!reducedMotion.matches) start();
-      else draw();
-    };
-
-    function draw() {
-      if (!context) return;
       context.clearRect(0, 0, width, height);
       const spacing = 42;
-      const px = pointer.current.x;
-      const py = pointer.current.y;
-      const columns = Math.ceil(width / spacing) + 1;
-      const rows = Math.ceil(height / spacing) + 1;
-
+      context.beginPath();
+      for (let x = 0; x <= width; x += spacing) {
+        context.moveTo(x, 0);
+        context.lineTo(x, height);
+      }
+      for (let y = 0; y <= height; y += spacing) {
+        context.moveTo(0, y);
+        context.lineTo(width, y);
+      }
+      context.strokeStyle = "rgba(190, 158, 255, 0.075)";
       context.lineWidth = 0.7;
-      for (let row = 0; row <= rows; row++) {
-        context.beginPath();
-        for (let col = 0; col <= columns; col++) {
-          const point = { x: col * spacing, y: row * spacing };
-          if (col === 0) context.moveTo(point.x, point.y);
-          else context.lineTo(point.x, point.y);
-        }
-        context.strokeStyle = active.current ? "rgba(190, 158, 255, 0.15)" : "rgba(190, 158, 255, 0.075)";
-        context.stroke();
-      }
-      for (let col = 0; col <= columns; col++) {
-        context.beginPath();
-        for (let row = 0; row <= rows; row++) {
-          const point = { x: col * spacing, y: row * spacing };
-          if (row === 0) context.moveTo(point.x, point.y);
-          else context.lineTo(point.x, point.y);
-        }
-        context.strokeStyle = active.current ? "rgba(190, 158, 255, 0.15)" : "rgba(190, 158, 255, 0.075)";
-        context.stroke();
-      }
-
-
-    }
-
-    function animate() {
-      const ease = 0.18;
-      pointer.current.x += (target.current.x - pointer.current.x) * ease;
-      pointer.current.y += (target.current.y - pointer.current.y) * ease;
-      draw();
-      const distance = Math.hypot(target.current.x - pointer.current.x, target.current.y - pointer.current.y);
-      if (distance > 0.35) frame = window.requestAnimationFrame(animate);
-      else frame = 0;
-    }
-
-    function start() {
-      if (!frame) frame = window.requestAnimationFrame(animate);
-    }
-
-    resize();
-    window.addEventListener("pointermove", onMove, { passive: true });
-    hero.addEventListener("pointerleave", onLeave);
-    window.addEventListener("resize", resize);
-    const onMotionChange = () => {
-      if (reducedMotion.matches) {
-        if (frame) window.cancelAnimationFrame(frame);
-        frame = 0;
-        pointer.current = { ...target.current };
-        draw();
-      } else start();
+      context.stroke();
     };
-    reducedMotion.addEventListener("change", onMotionChange);
 
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("pointermove", onMove);
-      hero.removeEventListener("pointerleave", onLeave);
-      window.removeEventListener("resize", resize);
-      reducedMotion.removeEventListener("change", onMotionChange);
-    };
+    draw();
+    observer = new ResizeObserver(draw);
+    observer.observe(hero);
+    return () => observer?.disconnect();
   }, []);
 
   return (
-    <div className="interactive-hero-field" ref={rootRef} aria-hidden="true" data-active="false">
+    <div className="interactive-hero-field" aria-hidden="true">
       <canvas className="interactive-hero-grid" ref={canvasRef} />
     </div>
   );

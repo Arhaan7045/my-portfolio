@@ -1,28 +1,11 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { requireAdmin } from "@/lib/supabase/admin-guard";
 import { ProjectsManager } from "@/components/projects-manager";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminProjectsPage() {
-  const supabase = await createClient();
-  const { data: claimsData } = await supabase.auth.getClaims();
-  const userId = claimsData?.claims?.sub;
-
-  if (!userId) {
-    redirect("/admin/login");
-  }
-
-  const { data: admin } = await supabase
-    .from("admin_users")
-    .select("user_id")
-    .eq("user_id", userId)
-    .maybeSingle();
-
-  if (!admin) {
-    redirect("/admin/login");
-  }
+  const supabase = await requireAdmin();
 
   const { data: projects, error } = await supabase
     .from("projects")

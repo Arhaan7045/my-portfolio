@@ -5302,9 +5302,10 @@ body {
 }
 
 
-/* Editorial navigation hover inspired by the reference: outlined pill + italic serif. */
+/* Smooth editorial navbar hover: serif italic type inside a gently appearing pill. */
 @media (hover: hover) and (pointer: fine) {
   .desktop-navigation > a:not(.nav-resume) {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -5312,33 +5313,45 @@ body {
     padding: .35rem .78rem;
     border: 1px solid transparent;
     border-radius: 999px;
-    font-family: var(--font-sans), sans-serif;
+    color: var(--muted);
+    font-family: var(--font-geist-sans), Arial, sans-serif;
     font-style: normal;
-    transform: none;
+    letter-spacing: 0;
+    transform: translateY(0) scale(1);
+    transform-origin: center;
     transition:
-      color 180ms ease,
-      border-color 180ms ease,
-      background-color 180ms ease,
-      font-family 180ms ease,
-      font-style 180ms ease;
+      color 320ms cubic-bezier(.22,1,.36,1),
+      border-color 320ms cubic-bezier(.22,1,.36,1),
+      background-color 320ms cubic-bezier(.22,1,.36,1),
+      letter-spacing 320ms cubic-bezier(.22,1,.36,1),
+      transform 320ms cubic-bezier(.22,1,.36,1),
+      box-shadow 320ms cubic-bezier(.22,1,.36,1);
   }
 
   .desktop-navigation > a:not(.nav-resume)::after {
-    display: none;
+    content: none;
   }
 
   .desktop-navigation > a:not(.nav-resume):hover,
   .desktop-navigation > a:not(.nav-resume):focus-visible {
     color: var(--text);
     border-color: rgba(208, 185, 255, .72);
-    background: rgba(208, 185, 255, .035);
+    background: rgba(208, 185, 255, .045);
     font-family: Georgia, "Times New Roman", serif;
     font-style: italic;
+    letter-spacing: -.025em;
+    transform: translateY(-1px) scale(1.025);
+    box-shadow: 0 0 0 1px rgba(208, 185, 255, .025), 0 4px 18px rgba(150, 108, 242, .06);
+  }
+
+  .desktop-navigation > a:not(.nav-resume):focus-visible {
+    outline: 2px solid rgba(208, 185, 255, .7);
+    outline-offset: 3px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .desktop-navigation > a:not(.nav-resume) {
-    transition: none;
+    transition: none !important;
   }
 }

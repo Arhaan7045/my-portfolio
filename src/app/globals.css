@@ -5303,17 +5303,17 @@ body {
 }
 
 /* Hero balance: slightly larger presence, tighter top spacing, clearer grid. */
-.site-frame::before { opacity: .23; }
+.site-frame::before { opacity: .25; }
 .hero {
-  min-height: min(51rem, calc(100svh - 5rem));
-  padding-block: clamp(4rem, 4.5vw, 5rem) clamp(4.5rem, 5.5vw, 5.5rem);
+  min-height: min(52rem, calc(100svh - 4rem));
+  padding-block: clamp(3.25rem, 3.5vw, 4rem) clamp(4.75rem, 5.8vw, 5.75rem);
   gap: clamp(2.5rem, 5.5vw, 5.5rem);
 }
 .hero-headline-identity {
-  font-size: clamp(3.7rem, 5.15vw, 5.15rem);
+  font-size: clamp(3.9rem, 5.5vw, 5.5rem);
 }
 .hero-positioning {
-  font-size: clamp(1.4rem, 2.05vw, 1.9rem);
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
 }
 .hero-visual {
   width: 100%;
@@ -5321,14 +5321,14 @@ body {
 @media (max-width: 1050px) {
   .hero {
     min-height: 0;
-    padding-block: 3.5rem 4rem;
+    padding-block: 3rem 4rem;
     gap: 2.5rem;
   }
-  .hero-headline-identity { font-size: clamp(3.5rem, 7.5vw, 5.3rem); }
+  .hero-headline-identity { font-size: clamp(3.6rem, 7.7vw, 5.4rem); }
 }
 @media (max-width: 760px) {
   .hero {
-    padding-block: 2.5rem 2.75rem;
+    padding-block: 2.25rem 2.75rem;
     gap: 1.75rem;
   }
   .hero-headline-identity { font-size: clamp(2.65rem, 9.1vw, 3.8rem); }

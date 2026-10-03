@@ -5230,3 +5230,46 @@ section[id],
 .credential-view-link:hover,
 .admin-credential-view-link:hover { color: var(--text, #fff); border-color: currentColor; }
 .admin-field-help { display: block; margin-top: .45rem; color: var(--muted, #9b94a8); font-size: .72rem; line-height: 1.6; }
+
+
+/* Keep the selected certificate action in its own flow row below the deck. */
+.credential-deck-wrap > .credential-view-row {
+  position: absolute;
+  z-index: 45;
+  right: 1.35rem;
+  bottom: 4.75rem;
+  left: 1.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 2.25rem;
+  padding: .35rem 0;
+  border-top: 1px solid rgba(208,185,255,.1);
+  background: transparent;
+}
+.credential-view-row > span {
+  color: rgba(208,185,255,.48);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: .52rem;
+  letter-spacing: .09em;
+}
+.credential-view-row .credential-view-link-selected {
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: .35rem 0;
+  line-height: 1.4;
+}
+@media (max-width: 760px) {
+  .credential-deck-wrap > .credential-view-row {
+    right: 1rem;
+    bottom: 4.9rem;
+    left: 1rem;
+    justify-content: space-between;
+    gap: .6rem;
+  }
+  .credential-view-row > span { font-size: .45rem; }
+  .credential-view-row .credential-view-link-selected { font-size: .72rem; }
+}

@@ -18,6 +18,8 @@ export function PortfolioCursor() {
     let targetY = -100;
     let velocityX = 0;
     let velocityY = 0;
+    let angle = 0;
+    let lastTime = 0;
 
     const interactiveSelector = "a, button, [role='button'], input[type='button'], input[type='submit'], select, summary, label[for]";
 
@@ -35,31 +37,42 @@ export function PortfolioCursor() {
         y = targetY;
         cursor.style.left = `${x}px`;
         cursor.style.top = `${y}px`;
+        cursor.style.setProperty("--cursor-angle", "0deg");
+        cursor.style.setProperty("--cursor-stretch-x", "1");
+        cursor.style.setProperty("--cursor-stretch-y", "1");
       } else if (!frame) {
+        lastTime = performance.now();
         frame = requestAnimationFrame(animate);
       }
     };
 
     const leave = () => cursor.classList.remove("is-visible");
 
-    function animate() {
-      // Spring-damper motion: the ring has a little inertia, then settles at the pointer.
-      const spring = 0.19;
-      const damping = 0.72;
+    function animate(now: number) {
+      // Time-normalized spring keeps the feel consistent across refresh rates.
+      const dt = Math.min((now - lastTime) / 16.667, 2);
+      lastTime = now;
+      const spring = 0.16 * dt;
+      const damping = Math.pow(0.76, dt);
       velocityX = (velocityX + (targetX - x) * spring) * damping;
       velocityY = (velocityY + (targetY - y) * spring) * damping;
-      x += velocityX;
-      y += velocityY;
+      x += velocityX * dt;
+      y += velocityY * dt;
 
-      const speed = Math.min(1, Math.hypot(velocityX, velocityY) / 18);
+      const speed = Math.min(1, Math.hypot(velocityX, velocityY) / 15);
+      if (Math.hypot(velocityX, velocityY) > 0.35) {
+        angle = Math.atan2(velocityY, velocityX) * (180 / Math.PI);
+      }
+
       cursor.style.left = `${x}px`;
       cursor.style.top = `${y}px`;
-      cursor.style.setProperty("--cursor-stretch-x", String(1 + speed * 0.18));
-      cursor.style.setProperty("--cursor-stretch-y", String(1 - speed * 0.09));
+      cursor.style.setProperty("--cursor-angle", `${angle}deg`);
+      cursor.style.setProperty("--cursor-stretch-x", String(1 + speed * 0.52));
+      cursor.style.setProperty("--cursor-stretch-y", String(1 - speed * 0.28));
 
       const remaining = Math.hypot(targetX - x, targetY - y);
       const velocity = Math.hypot(velocityX, velocityY);
-      if (remaining > 0.2 || velocity > 0.12) {
+      if (remaining > 0.18 || velocity > 0.1) {
         frame = requestAnimationFrame(animate);
       } else {
         x = targetX;

@@ -5337,3 +5337,17 @@ body {
   .hero { padding-block: 2.25rem 2.5rem; }
   .hero-headline-identity { font-size: 2.8rem; }
 }
+
+/* Blend the experience/learning backdrop into the page instead of a hard-edged panel. */
+.experience-field-section::before,
+.learning-console-section::before {
+  border-color: transparent;
+  background:
+    linear-gradient(115deg, rgba(150, 108, 242, 0.022), transparent 48%, rgba(208, 185, 255, 0.014));
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
+    linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
+    linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}

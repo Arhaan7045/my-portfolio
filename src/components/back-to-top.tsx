@@ -38,8 +38,8 @@ export function BackToTop() {
       onClick={scrollToHero}
       aria-label="Back to top"
     >
-      <span>TOP</span>
-      <span aria-hidden="true">↑</span>
+      <span className="back-to-top-arrow" aria-hidden="true">↑</span>
+      <span className="back-to-top-label">TOP</span>
     </button>
   );
 }

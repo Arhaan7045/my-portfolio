@@ -285,15 +285,6 @@ export function CredentialsShowcase({
           )}
         </div>
 
-        {formalCertifications[activeIndex]?.certificateUrl ? (
-          <div className="credential-view-row">
-            <span>OPEN CREDENTIAL</span>
-            <a className="credential-view-link credential-view-link-selected" href={formalCertifications[activeIndex].certificateUrl!} target="_blank" rel="noopener noreferrer">
-              View certificate <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-        ) : null}
-
         {formalCertifications.length > 1 && (
           <>
             <div className="credential-deck-position" aria-label="Credential position">
@@ -335,6 +326,15 @@ export function CredentialsShowcase({
           </>
         )}
       </div>
+
+        {formalCertifications[activeIndex]?.certificateUrl ? (
+          <div className="credential-view-row">
+            <span>OPEN CREDENTIAL</span>
+            <a className="credential-view-link credential-view-link-selected" href={formalCertifications[activeIndex].certificateUrl!} target="_blank" rel="noopener noreferrer">
+              View certificate <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        ) : null}
 
       <div className="virtual-experience-card">
         <div className="credentials-archive-divider">

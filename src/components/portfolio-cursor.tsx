@@ -12,34 +12,24 @@ export function PortfolioCursor() {
     if (!cursor || !finePointer.matches) return;
 
     let frame = 0;
-    let x = -100;
-    let y = -100;
-    let targetX = -100;
-    let targetY = -100;
-    let velocityX = 0;
-    let velocityY = 0;
-    let angle = 0;
-    let lastTime = 0;
+    let x = -100, y = -100, targetX = -100, targetY = -100;
+    let velocityX = 0, velocityY = 0, lastTime = 0;
 
     const interactiveSelector = "a, button, [role='button'], input[type='button'], input[type='submit'], select, summary, label[for]";
-
     const move = (event: PointerEvent) => {
       if (event.pointerType === "touch") return;
       targetX = event.clientX;
       targetY = event.clientY;
       const target = event.target;
-      const interactive = target instanceof Element && !!target.closest(interactiveSelector);
-      cursor.classList.toggle("is-interactive", interactive);
+      const element = target instanceof Element ? target.closest(interactiveSelector) : null;
+      cursor.classList.toggle("is-link", !!element && element.matches("a"));
+      cursor.classList.toggle("is-button", !!element && !element.matches("a"));
       cursor.classList.add("is-visible");
 
       if (reducedMotion.matches) {
-        x = targetX;
-        y = targetY;
+        x = targetX; y = targetY;
         cursor.style.left = `${x}px`;
         cursor.style.top = `${y}px`;
-        cursor.style.setProperty("--cursor-angle", "0deg");
-        cursor.style.setProperty("--cursor-stretch-x", "1");
-        cursor.style.setProperty("--cursor-stretch-y", "1");
       } else if (!frame) {
         lastTime = performance.now();
         frame = requestAnimationFrame(animate);
@@ -49,40 +39,23 @@ export function PortfolioCursor() {
     const leave = () => cursor.classList.remove("is-visible");
 
     function animate(now: number) {
-      // Time-normalized spring keeps the feel consistent across refresh rates.
-      const dt = Math.min((now - lastTime) / 16.667, 2);
+      const dt = Math.min((now - lastTime) / 16.667, 1.5);
       lastTime = now;
-      const spring = 0.16 * dt;
-      const damping = Math.pow(0.76, dt);
+      const spring = 0.24 * dt;
+      const damping = Math.pow(0.68, dt);
       velocityX = (velocityX + (targetX - x) * spring) * damping;
       velocityY = (velocityY + (targetY - y) * spring) * damping;
       x += velocityX * dt;
       y += velocityY * dt;
-
-      const speed = Math.min(1, Math.hypot(velocityX, velocityY) / 15);
-      if (Math.hypot(velocityX, velocityY) > 0.35) {
-        angle = Math.atan2(velocityY, velocityX) * (180 / Math.PI);
-      }
-
       cursor.style.left = `${x}px`;
       cursor.style.top = `${y}px`;
-      cursor.style.setProperty("--cursor-angle", `${angle}deg`);
-      cursor.style.setProperty("--cursor-stretch-x", String(1 + speed * 0.52));
-      cursor.style.setProperty("--cursor-stretch-y", String(1 - speed * 0.28));
-
       const remaining = Math.hypot(targetX - x, targetY - y);
-      const velocity = Math.hypot(velocityX, velocityY);
-      if (remaining > 0.18 || velocity > 0.1) {
+      if (remaining > 0.25 || Math.hypot(velocityX, velocityY) > 0.12) {
         frame = requestAnimationFrame(animate);
       } else {
-        x = targetX;
-        y = targetY;
-        velocityX = 0;
-        velocityY = 0;
+        x = targetX; y = targetY; velocityX = 0; velocityY = 0;
         cursor.style.left = `${x}px`;
         cursor.style.top = `${y}px`;
-        cursor.style.setProperty("--cursor-stretch-x", "1");
-        cursor.style.setProperty("--cursor-stretch-y", "1");
         frame = 0;
       }
     }
@@ -96,5 +69,10 @@ export function PortfolioCursor() {
     };
   }, []);
 
-  return <span ref={cursorRef} id="portfolio-custom-cursor" className="portfolio-custom-cursor" aria-hidden="true" />;
+  return (
+    <span ref={cursorRef} id="portfolio-custom-cursor" className="portfolio-custom-cursor" aria-hidden="true">
+      <span className="cursor-halo" />
+      <span className="cursor-dot" />
+    </span>
+  );
 }

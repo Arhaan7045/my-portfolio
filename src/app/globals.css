@@ -5270,3 +5270,24 @@ section[id],
   .credential-view-row > span { font-size: .45rem; }
   .credential-view-row .credential-view-link-selected { font-size: .72rem; }
 }
+
+
+/* Inline view action in the selected certificate footer. */
+.credential-deck-card { cursor: pointer; }
+.credential-card-view-link {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  color: var(--lavender, #cbb1ff);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  pointer-events: auto;
+  border-bottom: 1px solid rgba(203,177,255,.48);
+  padding-bottom: .15rem;
+}
+.credential-card-view-link:hover { color: #fff; border-color: currentColor; }
+.credential-card-view-link:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }

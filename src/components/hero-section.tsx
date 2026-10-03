@@ -16,7 +16,7 @@ export function HeroSection() {
         <p className="eyebrow">HELLO, I&apos;M</p>
 
         <h1 id="hero-title" className="hero-headline hero-headline-identity" aria-label="Arhaan Shaikh">
-          <span className="hero-name" aria-hidden="true">Arhaan Shaikh<span className="hero-name-period">.</span></span>
+          <span className="hero-name" aria-hidden="true">Arhaan<br />Shaikh<span className="hero-name-period">.</span></span>
         </h1>
 
         <p className="hero-positioning">

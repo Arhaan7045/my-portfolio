@@ -1002,6 +1002,25 @@ section[id],
   text-wrap: balance;
 }
 .hero-headline-identity span { color: var(--lavender); }
+
+.hero-name-mask {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  animation: hero-name-mask-reveal 900ms cubic-bezier(.22, 1, .36, 1) 1s both;
+  will-change: clip-path;
+}
+
+@keyframes hero-name-mask-reveal {
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-name-mask {
+    clip-path: none;
+    animation: none;
+    will-change: auto;
+  }
+}
 .hero-positioning {
   max-width: 34rem;
   margin: 0 0 1rem;

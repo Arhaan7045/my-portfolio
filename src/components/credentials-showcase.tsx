@@ -147,9 +147,17 @@ export function CredentialsShowcase({
               side * (1.6 + Math.min(2, Math.max(0, depth - 1)) * 0.4);
 
             return (
-              <motion.button
-                type="button"
+              <motion.div
                 key={certification.title + "-" + index}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(event) => {
+                  if (event.target !== event.currentTarget) return;
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    selectCredential(index);
+                  }
+                }}
                 className={`credential-deck-card${isActive ? " is-active" : ""}`}
                 style={{
                   zIndex:
@@ -200,7 +208,7 @@ export function CredentialsShowcase({
                     current === index ? null : current,
                   );
                 }}
-                onPointerDown={(event: PointerEvent<HTMLButtonElement>) => {
+                onPointerDown={(event: PointerEvent<HTMLDivElement>) => {
                   if (event.pointerType === "mouse") return;
                   pointerStart.current = {
                     x: event.clientX,
@@ -209,7 +217,7 @@ export function CredentialsShowcase({
                   pointerSwipeTriggered.current = false;
                   event.currentTarget.setPointerCapture(event.pointerId);
                 }}
-                onPointerMove={(event: PointerEvent<HTMLButtonElement>) => {
+                onPointerMove={(event: PointerEvent<HTMLDivElement>) => {
                   const start = pointerStart.current;
                   if (!start || event.pointerType === "mouse") return;
 
@@ -272,9 +280,22 @@ export function CredentialsShowcase({
                   <span>
                     {isActive ? "SELECTED CREDENTIAL" : "ARCHIVED CREDENTIAL"}
                   </span>
-                  <span>{isActive ? "ACTIVE" : "OPEN"}</span>
+                  {isActive && certification.certificateUrl ? (
+                    <a
+                      className="credential-card-view-link"
+                      href={certification.certificateUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(event) => event.stopPropagation()}
+                      onPointerDown={(event) => event.stopPropagation()}
+                    >
+                      View certificate <span aria-hidden="true">↗</span>
+                    </a>
+                  ) : (
+                    <span>{isActive ? "ACTIVE" : "OPEN"}</span>
+                  )}
                 </span>
-              </motion.button>
+              </motion.div>
             );
           })}
 
@@ -326,15 +347,6 @@ export function CredentialsShowcase({
           </>
         )}
       </div>
-
-        {formalCertifications[activeIndex]?.certificateUrl ? (
-          <div className="credential-view-row">
-            <span>OPEN CREDENTIAL</span>
-            <a className="credential-view-link credential-view-link-selected" href={formalCertifications[activeIndex].certificateUrl!} target="_blank" rel="noopener noreferrer">
-              View certificate <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-        ) : null}
 
       <div className="virtual-experience-card">
         <div className="credentials-archive-divider">

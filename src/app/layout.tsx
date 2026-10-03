@@ -28,7 +28,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   colorScheme: "dark",
-  themeColor: "#09080e",
+  themeColor: "#0a090b",
 };
 
 export const metadata: Metadata = {
@@ -45,13 +45,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{
             __html: `try {
               var saved = localStorage.getItem("portfolio-theme");
-              if (saved === "obsidian-amber" || saved === "deep-forest" || saved === "midnight-rose" || saved === "cyber-violet") {
+              if (saved === "iron-man" || saved === "spider-man" || saved === "thor" || saved === "doctor-doom") {
                 document.documentElement.dataset.theme = saved;
               } else {
-                document.documentElement.dataset.theme = "cyber-violet";
+                document.documentElement.dataset.theme = "iron-man";
               }
             } catch (e) {
-              document.documentElement.dataset.theme = "cyber-violet";
+              document.documentElement.dataset.theme = "iron-man";
             }`,
           }}
         />

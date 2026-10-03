@@ -1001,7 +1001,7 @@ section[id],
   letter-spacing: -.075em;
   text-wrap: balance;
 }
-.hero-name { color: #f5f2fb; white-space: nowrap; }
+.hero-name { color: #f5f2fb; }
 .hero-headline-identity .hero-name-period { color: var(--lavender); }
 .hero-positioning {
   max-width: 34rem;

@@ -5301,48 +5301,40 @@ body {
   background: #f5efff !important;
 }
 
-
-/* Hero-only dimensional response: restrained perspective, no pointer trail or grid lighting. */
-.hero-visual-depth {
-  --hero-tilt-x: 0deg;
-  --hero-tilt-y: 0deg;
-  --hero-light-x: 50%;
-  --hero-light-y: 45%;
-  transform: perspective(1100px) rotateX(var(--hero-tilt-x)) rotateY(var(--hero-tilt-y));
-  transform-style: preserve-3d;
-  transition: transform 180ms ease-out;
-  background:
-    radial-gradient(ellipse at var(--hero-light-x) var(--hero-light-y), rgba(150,108,242,.13), transparent 38%),
-    radial-gradient(circle at 25% 28%, rgba(164,115,247,.10), transparent 19%),
-    linear-gradient(145deg, rgba(157,104,242,.08), transparent 55%),
-    rgba(20,16,29,.72);
-  will-change: transform;
+/* Portfolio scale refinement: more generous desktop canvas, without browser zoom. */
+.shell {
+  width: min(calc(100% - 4rem), 1320px);
 }
-.hero-visual-depth .hero-visual-caption,
-.hero-visual-depth .hero-visual-footer {
-  transform: translateZ(12px);
+.hero {
+  gap: clamp(3.25rem, 6vw, 6rem);
+  padding-block: clamp(6rem, 8vw, 8rem);
 }
-.hero-visual-depth .hero-architecture {
-  transform: translateZ(24px) scale(1.015);
-  transform-origin: center;
-  transition: transform 180ms ease-out;
+.hero-headline-identity {
+  font-size: clamp(4.8rem, 7.4vw, 7.1rem);
 }
-@media (hover: none), (pointer: coarse) {
-  .hero-visual-depth {
-    transform: none;
-    transition: none;
-    will-change: auto;
-  }
-  .hero-visual-depth .hero-architecture {
-    transform: none;
-    transition: none;
-  }
+.hero-positioning {
+  max-width: 39rem;
+  font-size: clamp(1.4rem, 2.15vw, 1.85rem);
+  line-height: 1.25;
 }
-@media (prefers-reduced-motion: reduce) {
-  .hero-visual-depth,
-  .hero-visual-depth .hero-architecture {
-    transform: none !important;
-    transition: none !important;
-    will-change: auto;
-  }
+.hero-intro {
+  max-width: 38rem;
+  font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+}
+.hero-visual {
+  min-height: 30rem;
+}
+@media (max-width: 1100px) {
+  .shell { width: min(calc(100% - 3rem), 960px); }
+  .hero { padding-block: 4rem; }
+  .hero-headline-identity { font-size: clamp(4rem, 8.5vw, 6rem); }
+  .hero-visual { min-height: 26rem; }
+}
+@media (max-width: 760px) {
+  .shell { width: min(calc(100% - 2rem), 640px); }
+  .hero { padding-block: 2.5rem 3rem; gap: 2rem; }
+  .hero-headline-identity { font-size: clamp(3.5rem, 14vw, 5.25rem); }
+  .hero-positioning { font-size: clamp(1.25rem, 5vw, 1.55rem); }
+  .hero-intro { font-size: 1rem; }
+  .hero-visual { min-height: 0; }
 }

@@ -5,49 +5,52 @@ import { ControlLink } from "@/components/control-surface";
 import { HeroVisual } from "@/components/hero-visual";
 
 const HERO_NAME = "Arhaan Shaikh";
-const SCRAMBLE_CHARS = "X7#K2@M9$R4%N8";
+const ENCRYPTED_NAME = "X7#A4N S#A1KH";
 
 function useDecryptReveal(text: string) {
-  const [displayText, setDisplayText] = useState(text);
+  const [displayText, setDisplayText] = useState(ENCRYPTED_NAME);
 
   useEffect(() => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) return;
+    if (reduceMotion) {
+      setDisplayText(text);
+      return;
+    }
 
-    let frame = 0;
     let animationFrame = 0;
-    const totalFrames = 18;
-    let lastUpdate = 0;
+    let startTime = 0;
+    const holdDuration = 1000;
+    const revealDuration = 850;
+    const encrypted = Array.from(ENCRYPTED_NAME);
+    const target = Array.from(text);
 
     const animate = (time: number) => {
-      if (time - lastUpdate < 34) {
+      if (!startTime) startTime = time;
+      const elapsed = time - startTime;
+
+      if (elapsed < holdDuration) {
         animationFrame = window.requestAnimationFrame(animate);
         return;
       }
-      lastUpdate = time;
-      frame += 1;
-      const resolvedCount = Math.floor((frame / totalFrames) * text.length);
-      const next = Array.from(text, (character, index) => {
-        if (character === " " || index < resolvedCount) return character;
-        return SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+
+      const progress = Math.min((elapsed - holdDuration) / revealDuration, 1);
+      const resolvedCount = Math.floor(progress * target.length);
+      const next = target.map((character, index) => {
+        if (character === " ") return " ";
+        return index < resolvedCount ? character : encrypted[index] ?? character;
       }).join("");
+
       setDisplayText(next);
 
-      if (frame < totalFrames) {
+      if (progress < 1) {
         animationFrame = window.requestAnimationFrame(animate);
       } else {
         setDisplayText(text);
       }
     };
 
-    const timeout = window.setTimeout(() => {
-      animationFrame = window.requestAnimationFrame(animate);
-    }, 180);
-
-    return () => {
-      window.clearTimeout(timeout);
-      window.cancelAnimationFrame(animationFrame);
-    };
+    animationFrame = window.requestAnimationFrame(animate);
+    return () => window.cancelAnimationFrame(animationFrame);
   }, [text]);
 
   return displayText;

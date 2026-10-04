@@ -16,7 +16,7 @@ export type ThemeId = (typeof THEME_OPTIONS)[number]["id"];
 
 const STORAGE_KEY = "portfolio-theme";
 
-function isThemeId(value: string | null): value is ThemeId {
+function isThemeId(value: string | null | undefined): value is ThemeId {
   return THEME_OPTIONS.some((theme) => theme.id === value);
 }
 
@@ -69,7 +69,6 @@ export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
   useEffect(() => {
     const storedTheme = window.localStorage.getItem(STORAGE_KEY);
     const nextTheme = isThemeId(storedTheme) ? storedTheme : "cyber-violet";
-    setTheme(nextTheme);
     applyTheme(nextTheme);
   }, []);
 

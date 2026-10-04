@@ -288,6 +288,7 @@ export function CyberDesk() {
                          ) : null}
                        </motion.div>
                      ) : null}
+                  </AnimatePresence>
                 </main>
                 <footer className="cyber-taskbar">
                   <div className="cyber-taskbar-left"><button type="button" className={startOpen ? "cyber-start-button is-active" : "cyber-start-button"} onClick={() => { setStartOpen((value) => !value); setPowerOpen(false); }} aria-label="Open Start menu" aria-expanded={startOpen}><span>A.</span></button><button type="button" className="cyber-search-button" onClick={() => { setStartOpen(true); setSearch(""); }} aria-label="Search apps">⌕ <span>Search</span></button></div>

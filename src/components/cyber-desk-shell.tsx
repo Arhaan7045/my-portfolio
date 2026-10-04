@@ -283,8 +283,8 @@ export function CyberDesk() {
   }, [powerState, reducedMotion, addActivity]);
 
   useEffect(() => {
+    const timers = notificationTimers.current;
     return () => {
-      const timers = notificationTimers.current;
       timers.forEach((timer) => window.clearTimeout(timer));
       if (shutdownTimer.current !== null) window.clearTimeout(shutdownTimer.current);
     };

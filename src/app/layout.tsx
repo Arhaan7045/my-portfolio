@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Sora } from "next/font/google";
 import "./globals.css";
 import { PortfolioCursor } from "@/components/portfolio-cursor";
+import Script from "next/script";
 
 const geistSans = localFont({
   src: "./fonts/geist-sans.woff2",
@@ -41,20 +42,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${sora.variable}`}>
       <body className="min-h-full flex flex-col">
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try {
-              var saved = localStorage.getItem("portfolio-theme");
-              if (saved === "cyber-violet" || saved === "thor" || saved === "iron-man" || saved === "doctor-doom" || saved === "batman" || saved === "black-panther") {
-                document.documentElement.dataset.theme = saved;
-              } else {
-                document.documentElement.dataset.theme = "cyber-violet";
-              }
-            } catch (e) {
+        <Script id="portfolio-theme-init" strategy="beforeInteractive">
+          {`try {
+            var saved = localStorage.getItem("portfolio-theme");
+            if (saved === "cyber-violet" || saved === "thor" || saved === "iron-man" || saved === "doctor-doom" || saved === "batman" || saved === "black-panther") {
+              document.documentElement.dataset.theme = saved;
+            } else {
               document.documentElement.dataset.theme = "cyber-violet";
-            }`,
-          }}
-        />
+            }
+          } catch (e) {
+            document.documentElement.dataset.theme = "cyber-violet";
+          }`}
+        </Script>
         {children}
         <PortfolioCursor />
       </body>

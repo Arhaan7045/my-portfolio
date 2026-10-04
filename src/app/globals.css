@@ -5553,10 +5553,10 @@ body {
   --text: #f0f1ed;
   --text-soft: #d2d5ce;
   --muted: #98a198;
-  --theme-accent-rgb: 62 105 80;
-  --theme-light-rgb: 187 171 116;
+  --theme-accent-rgb:  50 84 65;
+  --theme-light-rgb:  169 157 106;
   --theme-deep-rgb: 7 10 8;
-  --theme-glow-rgb: 62 105 80;
+  --theme-glow-rgb:  50 84 65;
   --line: rgb(var(--theme-light-rgb) / .14);
   --violet: rgb(var(--theme-accent-rgb));
   --lavender: rgb(var(--theme-light-rgb));
@@ -6003,9 +6003,9 @@ body {
 
 [data-theme="doctor-doom"] .case-study-hero {
   background:
-    radial-gradient(ellipse 34rem 20rem at 86% 12%, rgb(62 105 80 / .14), transparent 68%),
-    radial-gradient(ellipse 26rem 18rem at 6% 92%, rgb(62 105 80 / .065), transparent 72%),
-    linear-gradient(140deg, rgb(187 171 116 / .022), transparent 45%),
+    radial-gradient(ellipse 34rem 20rem at 86% 12%, rgb(50 84 65 / .12), transparent 68%),
+    radial-gradient(ellipse 26rem 18rem at 6% 92%, rgb(50 84 65 / .055), transparent 72%),
+    linear-gradient(140deg, rgb(169 157 106 / .018), transparent 45%),
     #0b0f0d !important;
 }
 

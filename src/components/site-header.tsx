@@ -47,6 +47,7 @@ export function SiteHeader() {
             {navigationItems.map((item) => (
               <a href={homeHref(item.href)} key={item.href}>{item.label}</a>
             ))}
+            <a className="mobile-nav-cyber-desk" href="/cyber-desk">Cyber Desk ↗</a>
             <a href={RESUME_URL} target="_blank" rel="noopener noreferrer">Resume ↗</a>
             <ThemeSwitcher mobile />
           </div>

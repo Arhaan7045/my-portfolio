@@ -1,6 +1,4 @@
 export const CYBER_DESK_STORAGE_KEY = "arhaan-cyberdesk-v4";
-export const CYBER_DESK_THEME_STORAGE_KEY = "arhaan-cyberdesk-os-theme";
-
 export type AppId =
   | "home"
   | "case"
@@ -12,8 +10,6 @@ export type AppId =
   | "settings"
   | "system";
 
-export type PowerState = "on" | "sleep" | "off" | "booting";
-
 export type VirtualEntry = {
   id: string;
   name: string;
@@ -21,12 +17,6 @@ export type VirtualEntry = {
   path: string;
   content: string;
   created?: boolean;
-};
-
-export type RecentActivity = {
-  id: string;
-  label: string;
-  time: string;
 };
 
 export type CyberDeskThemeId =

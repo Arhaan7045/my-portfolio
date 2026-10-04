@@ -71,10 +71,14 @@ export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
   const switcherRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
-    const next = isThemeId(stored) ? stored : "cyber-violet";
-    setTheme(next);
-    applyTheme(next);
+    const hydrateTheme = window.setTimeout(() => {
+      const stored = window.localStorage.getItem(STORAGE_KEY);
+      const next = isThemeId(stored) ? stored : "cyber-violet";
+      setTheme(next);
+      applyTheme(next);
+    }, 0);
+
+    return () => window.clearTimeout(hydrateTheme);
   }, []);
 
   useEffect(() => {

@@ -7597,7 +7597,6 @@ body {
   pointer-events: none;
 }
 
-.cyber-desktop-shortcut,
 .cyber-desktop-icon {
   display: flex;
   width: 4.25rem;
@@ -7613,14 +7612,11 @@ body {
   color: #bdc3ca;
   text-align: center;
 }
-.cyber-desktop-shortcut:hover,
-.cyber-desktop-shortcut.is-active,
 .cyber-desktop-icon:hover,
 .cyber-desktop-icon.is-active {
   border-color: rgb(var(--cyber-accent-rgb) / .18);
   background: rgb(var(--cyber-accent-rgb) / .055);
 }
-.cyber-desktop-shortcut > span,
 .cyber-desktop-icon-glyph {
   display: grid;
   width: 2.05rem;
@@ -7633,7 +7629,6 @@ body {
   font: 700 .67rem/1 var(--font-technical);
   box-shadow: inset 0 1px rgb(255 255 255 / .02);
 }
-.cyber-desktop-shortcut small,
 .cyber-desktop-icon small {
   max-width: 4.1rem;
   color: #b1b7bf;
@@ -8964,12 +8959,9 @@ body {
 .hero-cyber-desk-link span:last-child { color: var(--lavender); }
 
 @media (max-width: 900px) {
-  .cyber-desktop-shortcut,
-  .cyber-desktop-icon { width: 3.8rem; min-height: 4.15rem; }
-  .cyber-desktop-shortcut > span,
-  .cyber-desktop-icon-glyph { width: 1.8rem; height: 1.8rem; }
-  .cyber-desktop-shortcut small,
-  .cyber-desktop-icon small { max-width: 3.5rem; font-size: .38rem; }
+    .cyber-desktop-icon { width: 3.8rem; min-height: 4.15rem; }
+    .cyber-desktop-icon-glyph { width: 1.8rem; height: 1.8rem; }
+    .cyber-desktop-icon small { max-width: 3.5rem; font-size: .38rem; }
   .cyber-desktop-center-mark { width: 2.4rem; height: 2.4rem; font-size: .8rem; }
   .cyber-app-window { top: .45rem; right: .45rem; bottom: .45rem; left: .45rem; }
   .cyber-app-window.is-maximized { inset: .16rem; }

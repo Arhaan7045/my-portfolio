@@ -8087,3 +8087,57 @@ body {
   }
 }
 
+/* ─── Hero workspace balance: use the full desktop stage ─── */
+@media (min-width: 961px) {
+  .hero.shell {
+    width: min(100% - 4rem, 1320px);
+    grid-template-columns: minmax(21rem, .68fr) minmax(39rem, 1.32fr);
+    gap: clamp(3rem, 5vw, 6rem);
+  }
+
+  .hero-copy {
+    max-width: 39rem;
+  }
+
+  .cyber-desk {
+    width: 100%;
+    max-width: none;
+  }
+
+  .cyber-os-workspace {
+    min-height: 41rem;
+  }
+}
+
+@media (min-width: 961px) and (max-width: 1280px) {
+  .hero.shell {
+    width: min(100% - 2.5rem, 1180px);
+    grid-template-columns: minmax(18rem, .62fr) minmax(34rem, 1.38fr);
+    gap: 2.5rem;
+  }
+
+  .cyber-os-workspace {
+    min-height: 37rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .hero.shell {
+    width: min(100% - 2rem, 860px);
+    grid-template-columns: 1fr;
+    gap: 2.6rem;
+  }
+
+  .cyber-desk {
+    width: 100%;
+    max-width: 56rem;
+    justify-self: center;
+  }
+}
+
+@media (max-width: 680px) {
+  .hero.shell {
+    width: min(100% - 1.5rem, 680px);
+  }
+}
+

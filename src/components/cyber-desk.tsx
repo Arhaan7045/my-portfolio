@@ -250,7 +250,44 @@ export function CyberDesk() {
                     ) : null}
                   </AnimatePresence>
                   <AnimatePresence>
-                    {startOpen ? <motion.div className="cyber-start-menu" initial={{ opacity: 0, y: 10, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 6, scale: 0.98 }} transition={{ duration: reducedMotion ? 0 : 0.16 }}><div className="cyber-start-user"><div className="cyber-start-avatar">AS</div><div><strong>Arhaan OS</strong><small>Personal workspace</small></div><span><i /> READY</span></div><label className="cyber-start-search"><span>⌕</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Find an app or task…" aria-label="Search apps" /></label><div className="cyber-start-heading">PINNED APPS <span>7</span></div><div className="cyber-start-apps">{apps.filter((app) => (app.label + " " + app.hint).toLowerCase().includes(search.toLowerCase())).map((app) => <button type="button" key={app.id} onClick={() => openApp(app.id)}><span>{app.icon}</span><strong>{app.label}</strong></button>)}</div><div className="cyber-start-footer"><span>VISITOR {visitorCode}</span><button type="button" onClick={() => setPowerOpen((value) => !value)}>⏻ Power</button></div>{powerOpen ? <div className="cyber-power-menu"><button onClick={() => shutdown("sleep")}><span>◐</span><strong>Sleep</strong><small>Pause the workspace</small></button><button onClick={() => setPowerState("booting")}><span>↻</span><strong>Restart</strong><small>Reload the desktop</small></button><button onClick={() => shutdown("off")}><span>⏻</span><strong>Shut down</strong><small>Secure this session</small></button></div> : null}</motion.div> : null}
+                     {startOpen ? (
+                       <motion.div
+                         className="cyber-start-menu"
+                         initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                         animate={{ opacity: 1, y: 0, scale: 1 }}
+                         exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                         transition={{ duration: reducedMotion ? 0 : 0.16 }}
+                       >
+                         <div className="cyber-start-user">
+                           <div className="cyber-start-avatar">AS</div>
+                           <div><strong>Arhaan OS</strong><small>Personal workspace</small></div>
+                           <span><i /> READY</span>
+                         </div>
+                         <label className="cyber-start-search">
+                           <span>⌕</span>
+                           <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Find an app or task…" aria-label="Search apps" />
+                         </label>
+                         <div className="cyber-start-heading">PINNED APPS <span>{apps.filter((app) => (app.label + " " + app.hint).toLowerCase().includes(search.toLowerCase())).length}</span></div>
+                         <div className="cyber-start-apps">
+                           {apps.filter((app) => (app.label + " " + app.hint).toLowerCase().includes(search.toLowerCase())).map((app) => (
+                             <button type="button" key={app.id} onClick={() => openApp(app.id)}>
+                               <span>{app.icon}</span><strong>{app.label}</strong>
+                             </button>
+                           ))}
+                         </div>
+                         <div className="cyber-start-footer">
+                           <span>VISITOR {visitorCode}</span>
+                           <button type="button" onClick={() => setPowerOpen((value) => !value)}>⏻ Power</button>
+                         </div>
+                         {powerOpen ? (
+                           <div className="cyber-power-menu">
+                             <button onClick={() => shutdown("sleep")}><span>◐</span><strong>Sleep</strong><small>Pause the workspace</small></button>
+                             <button onClick={() => setPowerState("booting")}><span>↻</span><strong>Restart</strong><small>Reload the desktop</small></button>
+                             <button onClick={() => shutdown("off")}><span>⏻</span><strong>Shut down</strong><small>Secure this session</small></button>
+                           </div>
+                         ) : null}
+                       </motion.div>
+                     ) : null}
                 </main>
                 <footer className="cyber-taskbar">
                   <div className="cyber-taskbar-left"><button type="button" className={startOpen ? "cyber-start-button is-active" : "cyber-start-button"} onClick={() => { setStartOpen((value) => !value); setPowerOpen(false); }} aria-label="Open Start menu" aria-expanded={startOpen}><span>A.</span></button><button type="button" className="cyber-search-button" onClick={() => { setStartOpen(true); setSearch(""); }} aria-label="Search apps">⌕ <span>Search</span></button></div>

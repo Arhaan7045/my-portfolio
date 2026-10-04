@@ -40,7 +40,6 @@ export function InteractiveHeroField() {
     };
 
     draw();
-    observer = new ResizeObserver(draw);
     observer.observe(hero);
     return () => observer?.disconnect();
   }, []);

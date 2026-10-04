@@ -4,12 +4,12 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 export const THEME_OPTIONS = [
-  { id: "cyber-violet", label: "Cyber Violet", descriptor: "Core Profile", category: "CORE", themeColor: "#09080e" },
-  { id: "thor", label: "Thor", descriptor: "Storm Steel", category: "MARVEL", themeColor: "#080b12" },
-  { id: "iron-man", label: "Iron Man", descriptor: "Reactor Red", category: "MARVEL", themeColor: "#0a090b" },
-  { id: "doctor-doom", label: "Doctor Doom", descriptor: "Doom Green", category: "MARVEL", themeColor: "#080b0a" },
-  { id: "black-panther", label: "Black Panther", descriptor: "Vibranium Violet", category: "MARVEL", themeColor: "#08080b" },
-  { id: "batman", label: "Batman", descriptor: "Shadow Blue", category: "DC", themeColor: "#08090c" },
+  { id: "cyber-violet", label: "Cyber Violet", descriptor: "Core Profile", category: "Core", themeColor: "#09080e", swatch: "#966cf2" },
+  { id: "thor", label: "Thor", descriptor: "Storm Steel", category: "Marvel", themeColor: "#080b12", swatch: "#46699d" },
+  { id: "iron-man", label: "Iron Man", descriptor: "Reactor Red", category: "Marvel", themeColor: "#0a090b", swatch: "#9e3139" },
+  { id: "doctor-doom", label: "Doctor Doom", descriptor: "Doom Green", category: "Marvel", themeColor: "#080b0a", swatch: "#3e6950" },
+  { id: "black-panther", label: "Black Panther", descriptor: "Vibranium Violet", category: "Marvel", themeColor: "#08080b", swatch: "#694499" },
+  { id: "batman", label: "Batman", descriptor: "Shadow Blue", category: "DC", themeColor: "#08090c", swatch: "#3066aa" },
 ] as const;
 
 export type ThemeId = (typeof THEME_OPTIONS)[number]["id"];
@@ -26,51 +26,66 @@ function applyTheme(theme: ThemeId) {
 
   const themeMeta = document.querySelector('meta[name="theme-color"]');
   const selectedTheme = THEME_OPTIONS.find((option) => option.id === theme);
-  if (themeMeta && selectedTheme) {
-    themeMeta.setAttribute("content", selectedTheme.themeColor);
-  }
+  if (themeMeta && selectedTheme) themeMeta.setAttribute("content", selectedTheme.themeColor);
 }
 
-function ThemeIcon({ theme }: { theme: ThemeId }) {
-  if (theme === "thor") {
-    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.8 2.8 6.7 13h5.1l-1.6 8.2L17.5 11h-5.1l1.4-8.2Z" /></svg>;
-  }
+function ThemeGlyph() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="7.2" />
+      <circle cx="12" cy="12" r="2.2" className="theme-glyph-core" />
+      <path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3" />
+    </svg>
+  );
+}
 
-  if (theme === "doctor-doom") {
-    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.2 6.3 3.4v7.1L12 20.8l-6.3-7.1V6.6L12 3.2Z" /><path d="M9.1 10.1h1.5M13.4 10.1h1.5M11.1 14.6h1.8" /></svg>;
-  }
+function ThemeSwatch({ color }: { color: string }) {
+  return (
+    <span className="theme-option-swatch" aria-hidden="true">
+      <i style={{ backgroundColor: color }} />
+      <i />
+      <i />
+    </span>
+  );
+}
 
-  if (theme === "batman") {
-    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 8.1 3.4 1 4.1-3 4.1 3 3.4-1-.9 8-6.6 3.1-6.6-3.1Z" /><path d="M8.2 13.1h2.2M13.6 13.1h2.2" /></svg>;
-  }
-
-  if (theme === "black-panther") {
-    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.1 5.2 10 7l2-2 2 2 1.9-1.8 1.6 5.1-1.3 7.1-4.2 2.1-4.2-2.1-1.3-7.1Z" /><path d="M9.1 12.2h1.2M13.7 12.2h1.2M11.2 15.2h1.6" /></svg>;
-  }
-
-  if (theme === "iron-man") {
-    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4 18.4 7v7.4L12 18l-6.4-3.6V7L12 3.4Z" /><path d="m9.3 8.5 2.7-1.7 2.7 1.7v5.1L12 15.3l-2.7-1.7V8.5Z" /><path d="M12 9.3v3.4" /></svg>;
-  }
-
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7.1" /><circle cx="12" cy="12" r="2" className="theme-icon-core" /><path d="M12 4.9v3.2M12 15.9v3.2M4.9 12h3.2M15.9 12h3.2M6.9 6.9l2.3 2.3M14.8 14.8l2.3 2.3M17.1 6.9l-2.3 2.3M9.2 14.8l-2.3 2.3" /></svg>;
+function ThemeOption({
+  option,
+  active,
+  onSelect,
+}: {
+  option: (typeof THEME_OPTIONS)[number];
+  active: boolean;
+  onSelect: (id: ThemeId) => void;
+}) {
+  return (
+    <button
+      type="button"
+      className={"theme-option" + (active ? " is-active" : "")}
+      onClick={() => onSelect(option.id)}
+      aria-pressed={active}
+    >
+      <ThemeSwatch color={option.swatch} />
+      <span className="theme-option-copy">
+        <strong>{option.label}</strong>
+        <small>{option.descriptor}</small>
+      </span>
+      <span className="theme-option-tag">{option.category}</span>
+      {active ? <span className="theme-selected-mark" aria-label="Selected">✓</span> : null}
+    </button>
+  );
 }
 
 export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
-  const [theme, setTheme] = useState<ThemeId>(() => {
-    if (typeof document !== "undefined") {
-      const initialTheme = document.documentElement.dataset.theme;
-      if (isThemeId(initialTheme)) return initialTheme;
-    }
-    return "cyber-violet";
-  });
+  const [theme, setTheme] = useState<ThemeId>("cyber-violet");
   const [open, setOpen] = useState(false);
   const switcherRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const storedTheme = window.localStorage.getItem(STORAGE_KEY);
-    const nextTheme = isThemeId(storedTheme) ? storedTheme : "cyber-violet";
-    setTheme(nextTheme);
-    applyTheme(nextTheme);
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    const next = isThemeId(stored) ? stored : "cyber-violet";
+    setTheme(next);
+    applyTheme(next);
   }, []);
 
   useEffect(() => {
@@ -99,61 +114,22 @@ export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
   };
 
   const activeTheme = THEME_OPTIONS.find((option) => option.id === theme) ?? THEME_OPTIONS[0];
-
-  const renderOption = (option: (typeof THEME_OPTIONS)[number], index: number, mobileMode = false) => (
-    <motion.button
-      type="button"
-      className={`theme-option theme-${option.id}${option.id === theme ? " is-active" : ""}`}
-      key={option.id}
-      onClick={() => selectTheme(option.id)}
-      aria-pressed={option.id === theme}
-      role={mobileMode ? undefined : "menuitemradio"}
-      initial={mobileMode ? undefined : { opacity: 0, y: 5 }}
-      animate={mobileMode ? undefined : { opacity: 1, y: 0 }}
-      transition={mobileMode ? { duration: 0.12 } : { duration: 0.18, delay: index * 0.025 }}
-      whileHover={mobileMode ? undefined : { y: -2 }}
-      whileTap={{ scale: 0.985 }}
-    >
-      <span className="theme-option-topline">
-        <span className="theme-option-icon" aria-hidden="true"><ThemeIcon theme={option.id} /></span>
-        <span className="theme-option-copy">
-          <span>{option.label}</span>
-          <small>{option.descriptor}</small>
-        </span>
-        {option.id === theme ? <span className="theme-selected-dot" aria-hidden="true" /> : null}
-      </span>
-      <span className="theme-palette" aria-hidden="true"><span /><span /><span /></span>
-    </motion.button>
+  const options = (
+    <div className="theme-options-list">
+      {THEME_OPTIONS.map((option) => (
+        <ThemeOption key={option.id} option={option} active={option.id === theme} onSelect={selectTheme} />
+      ))}
+    </div>
   );
-
-  const renderGroups = (mobileMode = false) => {
-    const categories = ["CORE", "MARVEL", "DC"] as const;
-    return categories.map((category) => {
-      const options = THEME_OPTIONS.filter((option) => option.category === category);
-      if (!options.length) return null;
-      return (
-        <section className={`theme-category theme-category-${category.toLowerCase()}`} key={category}>
-          <div className="theme-category-heading">
-            <span>{category}</span>
-            <span>{category === "CORE" ? "ORIGINAL" : category === "MARVEL" ? "MARVEL UNIVERSE" : "DC UNIVERSE"}</span>
-          </div>
-          <div className="theme-category-grid">
-            {options.map((option, index) => renderOption(option, index, mobileMode))}
-          </div>
-        </section>
-      );
-    });
-  };
 
   if (mobile) {
     return (
       <div ref={switcherRef} className="mobile-theme-switcher" aria-label="Choose visual profile">
-        <div className="mobile-theme-heading"><span>VISUAL PROFILE</span><span>{activeTheme.label.toUpperCase()}</span></div>
-        {renderGroups(true)}
-        <div className="theme-coming-soon">
-          <span className="theme-coming-soon-mark">+</span>
-          <span><strong>MORE PROFILES</strong><small>COMING SOON</small></span>
+        <div className="mobile-theme-heading">
+          <span>VISUAL PROFILE</span>
+          <strong>{activeTheme.label}</strong>
         </div>
+        {options}
       </div>
     );
   }
@@ -162,36 +138,46 @@ export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
     <div className="theme-switcher" ref={switcherRef}>
       <button
         type="button"
-        className={open ? "theme-trigger is-open" : "theme-trigger"}
-        onClick={() => setOpen((current) => !current)}
-        aria-label={`Choose visual profile. Current: ${activeTheme.label}`}
+        className={"theme-trigger" + (open ? " is-open" : "")}
+        onClick={() => setOpen((value) => !value)}
+        aria-label={"Choose visual profile. Current: " + activeTheme.label}
         aria-expanded={open}
-        aria-haspopup="menu"
+        aria-haspopup="dialog"
       >
         <motion.span
-          className={`theme-icon theme-icon-${theme}`}
-          key={theme}
-          initial={{ opacity: 0, scale: 0.72, rotate: -18 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+          className="theme-trigger-icon"
+          animate={open ? { rotate: 45, scale: 1.02 } : { rotate: 0, scale: 1 }}
+          transition={{ duration: 0.18 }}
           aria-hidden="true"
         >
-          <ThemeIcon theme={theme} />
+          <ThemeGlyph />
         </motion.span>
-        <span className="theme-tooltip">{activeTheme.label.toUpperCase()}</span>
+        <span className="theme-trigger-label">{activeTheme.label}</span>
       </button>
 
       <AnimatePresence initial={false}>
         {open ? (
-          <motion.div className="theme-menu" role="menu" initial={{ opacity: 0, y: -7, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -5, scale: 0.985 }} transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}>
-            <div className="theme-menu-heading"><span>VISUAL PROFILE</span><span>{activeTheme.label.toUpperCase()}</span></div>
-            {renderGroups()}
-            <div className="theme-coming-soon">
-              <span className="theme-coming-soon-mark">+</span>
-              <span><strong>MORE PROFILES</strong><small>COMING SOON</small></span>
-              <span className="theme-coming-soon-arrow">→</span>
+          <motion.div
+            className="theme-menu"
+            role="dialog"
+            aria-label="Visual profile selector"
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.16 }}
+          >
+            <div className="theme-menu-heading">
+              <div>
+                <span>VISUAL PROFILE</span>
+                <strong>{activeTheme.label}</strong>
+              </div>
+              <span className="theme-menu-current-dot" aria-hidden="true" />
             </div>
-            <div className="theme-menu-footer"><span>6 PROFILES</span><span>COLOR SYSTEM</span></div>
+            {options}
+            <div className="theme-menu-footer">
+              <span>6 PROFILES</span>
+              <span>SAVED LOCALLY</span>
+            </div>
           </motion.div>
         ) : null}
       </AnimatePresence>

@@ -24,7 +24,8 @@ export function useCyberHardwareInput() {
       });
     };
 
-    const clearInputState = () => {\n      setActiveKeys(new Set());\n      setActiveMouseButtons(new Set());\n    };
+    const clearInputState = () => {
+      setActiveKeys(new Set());\n      setActiveMouseButtons(new Set());\n    };
 
     const pointerDown = (event: PointerEvent) => {
       if (event.pointerType !== "mouse") return;

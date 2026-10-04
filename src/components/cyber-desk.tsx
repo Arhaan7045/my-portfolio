@@ -500,6 +500,6 @@ function WindowHeader({ title, onClose }: { title: string; onClose: () => void }
         onClick={(event) => { event.stopPropagation(); onClose(); }}
         aria-label={`Close ${title}`}
       >×</button>
-    </motion.div>
+    </div>
   );
 }

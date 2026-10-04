@@ -666,13 +666,12 @@ export function CyberDesk() {
               <header className="cyber-os-topbar">
                 <button type="button" className="cyber-os-brand" onClick={() => focusApp("home")} aria-label="Open ARHAAN OS home">
                   <span className="cyber-os-brand-mark">A.</span>
-                  <span>ARHAAN OS <b>PERSONAL WORKSTATION</b></span>
+                  <span>ARHAAN OS</span>
                 </button>
-                <div className="cyber-os-top-links"><span>LOCAL WORKSPACE</span><span>SAFE SIMULATION</span></div>
-                <div className="cyber-os-status">
-                  <button type="button" onClick={() => setQuickOpen((value) => !value)} aria-expanded={quickOpen} aria-label="Open quick settings"><i /> READY</button>
-                  <button type="button" onClick={() => setNotificationOpen((value) => !value)} aria-expanded={notificationOpen} aria-label="Open notifications">◌ {notifications.length ? notifications.length : ""}</button>
-                  <time>{clock}</time>
+                <div className="cyber-os-status" aria-label="System controls">
+                  <button type="button" className="cyber-top-icon-button" onClick={() => setQuickOpen((value) => !value)} aria-expanded={quickOpen} aria-label="Open quick settings" title="Quick settings">☷</button>
+                  <button type="button" className="cyber-top-icon-button" onClick={() => setNotificationOpen((value) => !value)} aria-expanded={notificationOpen} aria-label="Open notifications" title="Notifications">◌{notifications.length ? <b>{notifications.length}</b> : null}</button>
+                  <time aria-label="Current time">{clock}</time>
                 </div>
 
                 {quickOpen ? (
@@ -732,41 +731,23 @@ export function CyberDesk() {
                   ))}
                 </div>
 
-                <div className="cyber-desktop-welcome">
-                  <div className="cyber-app-kicker-row">
-                    <span className="cyber-app-kicker">PERSONAL WORKSPACE / FICTIONAL SANDBOX</span>
-                    <span className="cyber-session-chip">VISITOR {visitorCode}</span>
-                  </div>
-                  <h2>Welcome to<br /><span>Arhaan OS.</span></h2>
-                  <p>A believable little workstation you can explore without touching the real computer underneath it.</p>
-                  <div className="cyber-welcome-actions">
-                    <button type="button" onClick={() => focusApp("case")}>
-                      <span className="cyber-welcome-icon">?</span>
-                      <span><small>START HERE</small><strong>Mystery Case 001</strong><em>{solved ? "Digital Detective earned ✓" : "2-minute beginner investigation"} →</em></span>
+                <div className="cyber-desktop-icon-grid" aria-label="Desktop applications">
+                  {openTaskbarApps.map((app) => (
+                    <button
+                      type="button"
+                      key={app.id}
+                      className={activeApp === app.id && !minimizedApps.includes(app.id) ? "cyber-desktop-icon is-active" : "cyber-desktop-icon"}
+                      onClick={() => setActiveApp(app.id)}
+                      onDoubleClick={() => focusApp(app.id)}
+                      aria-label={"Open " + app.label}
+                      title={app.hint}
+                    >
+                      <span className="cyber-desktop-icon-glyph" aria-hidden="true">{app.icon}</span>
+                      <small>{app.id === "files" ? "Files" : app.label}</small>
                     </button>
-                    <button type="button" onClick={() => focusApp("files")}>
-                      <span className="cyber-welcome-icon">▤</span>
-                      <span><small>MAKE SOMETHING</small><strong>Open File Explorer</strong><em>Create, edit and save a virtual note →</em></span>
-                    </button>
-                  </div>
-                  <div className="cyber-welcome-meta">
-                    <span><i /> SAFE FICTIONAL SANDBOX</span>
-                    <span>{solved ? "CASE 001 COMPLETE" : "CASE 001 READY"}</span>
-                    <span>{labCompletedIds.length}/{SECURITY_CHALLENGES.length} LABS</span>
-                    <span>{recentFiles.length} RECENT FILES</span>
-                  </div>
-                  <div className="cyber-recent-strip">
-                    <div className="cyber-mini-heading"><span>RECENT ACTIVITY</span><small>LOCAL ONLY</small></div>
-                    {activity.length ? activity.slice(0, 4).map((item) => (
-                      <button type="button" key={item.id} onClick={() => {
-                        if (item.label.includes("Case")) focusApp("case");
-                        else if (item.label.includes("file") || item.label.includes("File")) focusApp("files");
-                        else if (item.label.includes("Terminal")) focusApp("terminal");
-                        else focusApp("home");
-                      }}><span>{item.time}</span><strong>{item.label}</strong></button>
-                    )) : <p>No recent activity yet. Start exploring.</p>}
-                  </div>
+                  ))}
                 </div>
+                <div className="cyber-desktop-center-mark" aria-hidden="true">A.</div>
 
                 {contextMenu ? (
                   <div className="cyber-context-menu" role="menu" aria-label="Desktop actions">
@@ -981,11 +962,24 @@ export function CyberDesk() {
           <div className="cyber-keyboard-status"><span><i /> REAL KEYBOARD EVENTS</span><span>{activeKeys.has("ShiftLeft") || activeKeys.has("ShiftRight") ? "SHIFT " : ""}{activeKeys.has("ControlLeft") || activeKeys.has("ControlRight") ? "CTRL " : ""}{activeKeys.has("AltLeft") || activeKeys.has("AltRight") ? "ALT" : ""}</span></div>
         </div>
 
-        <div className={"cyber-physical-mouse " + (activeMouseButtons.has(0) ? "is-left-pressed " : "") + (activeMouseButtons.has(2) ? "is-right-pressed " : "") + (wheelPulse ? "is-wheel-active" : "")} aria-label="Physical mouse feedback display">
-          <span className="cyber-mouse-seam" /><span className="cyber-mouse-wheel" /><span className="cyber-mouse-light" /><small>{activeMouseButtons.has(0) ? "LEFT" : activeMouseButtons.has(2) ? "RIGHT" : wheelPulse ? "WHEEL" : "READY"}</small>
+        <div
+          className={[
+            "cyber-physical-mouse",
+            activeMouseButtons.has(0) ? "is-left-pressed" : "",
+            activeMouseButtons.has(1) ? "is-middle-pressed" : "",
+            activeMouseButtons.has(2) ? "is-right-pressed" : "",
+            wheelPulse ? "is-wheel-active" : "",
+          ].filter(Boolean).join(" ")}
+          aria-label="Physical mouse feedback display"
+        >
+          <span className="cyber-mouse-zone cyber-mouse-left" aria-hidden="true" />
+          <span className="cyber-mouse-zone cyber-mouse-middle" aria-hidden="true">
+            <span className="cyber-mouse-wheel" />
+          </span>
+          <span className="cyber-mouse-zone cyber-mouse-right" aria-hidden="true" />
+          <span className="cyber-mouse-scroll-track" aria-hidden="true" />
+          <span className="cyber-mouse-light" aria-hidden="true" />
         </div>
-
-        <div className="cyber-tower" aria-hidden="true"><span className="cyber-tower-mark">A.</span><i /><i /><i /><small>VIRTUAL / 01</small></div>
       </div>
 
       <div className="cyber-workstation-caption"><span><i /> SAFE FICTIONAL SANDBOX</span><span>{saved ? "PROGRESS SAVED ON THIS DEVICE" : "SAVING LOCAL SESSION…"}</span><span>{activeTheme.label.toUpperCase()} / VISITOR {visitorCode}</span></div>

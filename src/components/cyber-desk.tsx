@@ -18,32 +18,36 @@ export function CyberDesk() {
   const [solved, setSolved] = useState(false);
   const [hint, setHint] = useState(false);
   const [selectedEvidence, setSelectedEvidence] = useState("email");
-  const [note, setNote] = useState("");
+  const [notes, setNotes] = useState<Record<string, string>>({ "case-notes.txt": "", "ideas.txt": "" });
   const [saved, setSaved] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
   const [activeFile, setActiveFile] = useState("case-notes.txt");
 
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       if (raw) {
-        const data = JSON.parse(raw) as { solved?: boolean; note?: string; activeFile?: string };
+        const data = JSON.parse(raw) as { solved?: boolean; notes?: Record<string, string>; activeFile?: string };
         setSolved(Boolean(data.solved));
-        setNote(typeof data.note === "string" ? data.note : "");
-        setActiveFile(typeof data.activeFile === "string" ? data.activeFile : "case-notes.txt");
+        if (data.notes && typeof data.notes === "object") setNotes({ "case-notes.txt": data.notes["case-notes.txt"] ?? "", "ideas.txt": data.notes["ideas.txt"] ?? "" });
+        setActiveFile(data.activeFile === "ideas.txt" ? "ideas.txt" : "case-notes.txt");
       }
     } catch {
       // The desk remains usable if storage is unavailable.
+    } finally {
+      setHydrated(true);
     }
   }, []);
 
   useEffect(() => {
+    if (!hydrated) return;
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ solved, note, activeFile }));
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ solved, notes, activeFile }));
       setSaved(true);
     } catch {
       setSaved(false);
     }
-  }, [solved, note, activeFile]);
+  }, [hydrated, solved, notes, activeFile]);
 
   const chooseMode = (nextMode: AppMode) => setMode(nextMode);
 
@@ -115,7 +119,7 @@ export function CyberDesk() {
       {mode === "files" ? (
         <div className="cyber-notes">
           <div className="cyber-file-sidebar"><span className="cyber-micro-label">YOUR FILES</span><button type="button" className={activeFile === "case-notes.txt" ? "is-active" : ""} onClick={() => setActiveFile("case-notes.txt")}>▤ case-notes.txt</button><button type="button" className={activeFile === "ideas.txt" ? "is-active" : ""} onClick={() => setActiveFile("ideas.txt")}>▤ ideas.txt</button></div>
-          <label className="cyber-note-editor"><span><b>{activeFile}</b><small>Plain text · saved in this browser</small></span><textarea value={note} onChange={(event) => setNote(event.target.value)} placeholder="Write a thought, a clue, or a reminder..." rows={5} aria-label="Your saved note" /><span className="cyber-note-foot"><span>{note.length} characters</span><span>{saved ? "✓ Auto-saved" : "Storage unavailable"}</span></span></label>
+          <label className="cyber-note-editor"><span><b>{activeFile}</b><small>Plain text · saved in this browser</small></span><textarea value={notes[activeFile] ?? ""} onChange={(event) => setNotes((current) => ({ ...current, [activeFile]: event.target.value }))} placeholder="Write a thought, a clue, or a reminder..." rows={5} aria-label="Your saved note" /><span className="cyber-note-foot"><span>{(notes[activeFile] ?? "").length} characters</span><span>{saved ? "✓ Auto-saved" : "Storage unavailable"}</span></span></label>
         </div>
       ) : null}
 

@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 import localFont from "next/font/local";
 import { Sora } from "next/font/google";
 import "./globals.css";
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     "Arhaan Shaikh's cybersecurity portfolio — documenting hands-on learning, VAPT, web application security, and real-world experience.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${sora.variable}`}>
       <body className="min-h-full flex flex-col">

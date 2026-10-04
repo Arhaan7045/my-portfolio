@@ -12,7 +12,6 @@ export function InteractiveHeroField() {
     const hero = canvas?.parentElement?.parentElement;
     if (!canvas || !context || !hero) return;
 
-    let observer: ResizeObserver | undefined;
     const draw = () => {
       const rect = hero.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -40,8 +39,9 @@ export function InteractiveHeroField() {
     };
 
     draw();
+    const observer = new ResizeObserver(draw);
     observer.observe(hero);
-    return () => observer?.disconnect();
+    return () => observer.disconnect();
   }, []);
 
   return (

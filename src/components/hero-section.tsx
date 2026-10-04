@@ -43,11 +43,6 @@ export function HeroSection() {
           </ControlLink>
         </div>
 
-        <a className="hero-cyber-desk-link" href="/cyber-desk">
-          <span>EXPLORE CYBER DESK</span>
-          <span aria-hidden="true">↗</span>
-        </a>
-
         <p className="hero-focus" aria-label="Current focus">
           WEB SECURITY <span>·</span> VAPT <span>·</span> LINUX <span>·</span> NETWORKING
         </p>

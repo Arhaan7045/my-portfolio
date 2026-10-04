@@ -5,7 +5,6 @@ export const navigationItems = [
   { href: "#experience", label: "Experience" },
   { href: "#certifications", label: "Certifications" },
   { href: "#learning", label: "Learning" },
-  { href: "/cyber-desk", label: "Cyber Desk" },
   { href: "#contact", label: "Contact" },
 ] as const;
 

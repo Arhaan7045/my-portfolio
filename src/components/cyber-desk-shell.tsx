@@ -42,21 +42,21 @@ type NewEntryKind = "file" | "folder";
 
 function normaliseEntries(value: unknown): VirtualEntry[] {
   if (!Array.isArray(value) || value.length === 0) return DEFAULT_VIRTUAL_ENTRIES;
-  return value.map((raw, index) => {
-    if (!raw || typeof raw !== "object") return null;
+  return value.reduce<VirtualEntry[]>((items, raw, index) => {
+    if (!raw || typeof raw !== "object") return items;
     const item = raw as Partial<VirtualEntry> & { name?: unknown; content?: unknown; type?: unknown };
-    if (typeof item.name !== "string" || (item.type !== "file" && item.type !== "folder")) return null;
-    return {
+    if (typeof item.name !== "string" || (item.type !== "file" && item.type !== "folder")) return items;
+    items.push({
       id: typeof item.id === "string" ? item.id : "legacy-" + index + "-" + item.name,
       name: item.name,
       type: item.type,
       path: typeof item.path === "string" ? item.path : "/",
       content: typeof item.content === "string" ? item.content : "",
       created: Boolean(item.created),
-    };
-  }).filter((item): item is VirtualEntry => Boolean(item));
+    });
+    return items;
+  }, []);
 }
-
 function legacyEntries(value: unknown): VirtualEntry[] {
   if (!Array.isArray(value) || value.length === 0) return DEFAULT_VIRTUAL_ENTRIES;
   return value.map((raw, index) => {
@@ -179,49 +179,55 @@ export function CyberDesk() {
   }, []);
 
   useEffect(() => {
-    setClock(currentTime());
+    const initial = window.setTimeout(() => setClock(currentTime()), 0);
     const timer = window.setInterval(() => setClock(currentTime()), 15000);
-    return () => window.clearInterval(timer);
+    return () => {
+      window.clearTimeout(initial);
+      window.clearInterval(timer);
+    };
   }, []);
 
   useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(CYBER_DESK_STORAGE_KEY);
-      if (raw) {
-        const data = JSON.parse(raw) as SavedDeskState;
-        setTheme(safeTheme(data.theme));
-        setVisitorCode(typeof data.visitorCode === "string" ? data.visitorCode : makeVisitorCode());
-        setSolved(Boolean(data.solved));
-        setLabCompletedIds(Array.isArray(data.labCompletedIds) ? data.labCompletedIds.filter((id): id is string => typeof id === "string") : []);
-        setEntries(normaliseEntries(data.entries ?? legacyEntries(data.files)));
-        setActiveFile(typeof data.activeFile === "string" ? data.activeFile : "file-case-notes");
-        setCurrentFolder(typeof data.currentFolder === "string" ? data.currentFolder : "/");
-        setRecentFiles(Array.isArray(data.recentFiles) ? data.recentFiles.filter((id): id is string => typeof id === "string") : []);
-        setActivity(Array.isArray(data.activity) ? data.activity.filter((item): item is ActivityItem => Boolean(item && typeof item.label === "string" && typeof item.time === "string")).slice(0, 8) : []);
-        setTerminalLines(Array.isArray(data.terminalLines) ? data.terminalLines.filter((line): line is string => typeof line === "string").slice(-80) : [
-          "ARHAAN OS · SAFE TERMINAL",
-          'Type "help" to see supported commands.',
-          "SAFE SANDBOX — NOTHING HERE RUNS ON YOUR COMPUTER.",
-        ]);
-        setTerminalHistory(Array.isArray(data.terminalHistory) ? data.terminalHistory.filter((line): line is string => typeof line === "string").slice(-30) : []);
-        setCwd(typeof data.cwd === "string" ? data.cwd : "/");
-      } else {
-        setVisitorCode(makeVisitorCode());
-        addActivity("Opened Home");
-      }
-    } catch {
-      setVisitorCode(makeVisitorCode());
-      setEntries(DEFAULT_VIRTUAL_ENTRIES);
-    } finally {
-      setHydrated(true);
-    }
-  }, [addActivity]);
+    const hydrate = window.setTimeout(() => {
+      try {
+        const raw = window.localStorage.getItem(CYBER_DESK_STORAGE_KEY);
+        if (raw) {
+          const data = JSON.parse(raw) as SavedDeskState;
+          const restoredEntries = normaliseEntries(data.entries ?? legacyEntries(data.files));
+          const restoredActiveFile = typeof data.activeFile === "string" ? data.activeFile : "file-case-notes";
+          const restoredFile = restoredEntries.find((entry) => entry.id === restoredActiveFile && entry.type === "file");
 
-  useEffect(() => {
-    if (!hydrated) return;
-    const selected = entries.find((entry) => entry.id === activeFile && entry.type === "file");
-    if (selected) setFileContent(selected.content);
-  }, [activeFile, entries, hydrated]);
+          setTheme(safeTheme(data.theme));
+          setVisitorCode(typeof data.visitorCode === "string" ? data.visitorCode : makeVisitorCode());
+          setSolved(Boolean(data.solved));
+          setLabCompletedIds(Array.isArray(data.labCompletedIds) ? data.labCompletedIds.filter((id): id is string => typeof id === "string") : []);
+          setEntries(restoredEntries);
+          setActiveFile(restoredActiveFile);
+          setFileContent(restoredFile?.content ?? DEFAULT_VIRTUAL_ENTRIES.find((entry) => entry.id === "file-case-notes")?.content ?? "");
+          setCurrentFolder(typeof data.currentFolder === "string" ? data.currentFolder : "/");
+          setRecentFiles(Array.isArray(data.recentFiles) ? data.recentFiles.filter((id): id is string => typeof id === "string") : []);
+          setActivity(Array.isArray(data.activity) ? data.activity.filter((item): item is ActivityItem => Boolean(item && typeof item.label === "string" && typeof item.time === "string")).slice(0, 8) : []);
+          setTerminalLines(Array.isArray(data.terminalLines) ? data.terminalLines.filter((line): line is string => typeof line === "string").slice(-80) : [
+            "ARHAAN OS · SAFE TERMINAL",
+            'Type "help" to see supported commands.',
+            "SAFE SANDBOX — NOTHING HERE RUNS ON YOUR COMPUTER.",
+          ]);
+          setTerminalHistory(Array.isArray(data.terminalHistory) ? data.terminalHistory.filter((line): line is string => typeof line === "string").slice(-30) : []);
+          setCwd(typeof data.cwd === "string" ? data.cwd : "/");
+        } else {
+          setVisitorCode(makeVisitorCode());
+          addActivity("Opened Home");
+        }
+      } catch {
+        setVisitorCode(makeVisitorCode());
+        setEntries(DEFAULT_VIRTUAL_ENTRIES);
+      } finally {
+        setHydrated(true);
+      }
+    }, 0);
+
+    return () => window.clearTimeout(hydrate);
+  }, [addActivity]);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -240,9 +246,9 @@ export function CyberDesk() {
         terminalHistory: trimHistory(terminalHistory),
         cwd,
       } satisfies SavedDeskState));
-      setSaved(true);
+      window.setTimeout(() => setSaved(true), 0);
     } catch {
-      setSaved(false);
+      window.setTimeout(() => setSaved(false), 0);
     }
   }, [
     hydrated,
@@ -262,8 +268,7 @@ export function CyberDesk() {
 
   useEffect(() => {
     if (powerState !== "booting") return;
-    setBootProgress(0);
-    const first = window.setTimeout(() => setBootProgress(1), reducedMotion ? 0 : 180);
+    const first = window.setTimeout(() => setBootProgress(1), reducedMotion ? 0 : 120);
     const second = window.setTimeout(() => setBootProgress(2), reducedMotion ? 0 : 420);
     const finish = window.setTimeout(() => {
       setPowerState("on");
@@ -636,7 +641,7 @@ export function CyberDesk() {
       <div className="cyber-monitor">
         <div className="cyber-monitor-top-edge">
           <span /><span /><span />
-          <small>ARHAAN DISPLAY · 27" VIRTUAL</small>
+          <small>ARHAAN DISPLAY · 27&quot; VIRTUAL</small>
         </div>
 
         <div className={"cyber-monitor-screen" + (powerState !== "on" && powerState !== "booting" ? " is-dark" : "")}>
@@ -759,7 +764,7 @@ export function CyberDesk() {
                       {activeApp === "case" ? (
                         <div className="cyber-case-app">
                           <div className="cyber-app-title-row"><div><span className="cyber-app-kicker">MYSTERY CASES / CASE 001</span><h3>The strange sign-in</h3></div><span className={solved ? "cyber-app-badge is-done" : "cyber-app-badge"}>{solved ? "SOLVED" : "BEGINNER"}</span></div>
-                          <p className="cyber-case-intro">Maya's work account was accessed unexpectedly. Inspect the timeline, then decide what most likely started the incident.</p>
+                          <p className="cyber-case-intro">Maya&apos;s work account was accessed unexpectedly. Inspect the timeline, then decide what most likely started the incident.</p>
                           <div className="cyber-case-layout">
                             <div className="cyber-clue-list">{CASE_CLUES.map((clue) => (
                               <button type="button" key={clue.id} className={selectedClue === clue.id ? "cyber-clue is-selected" : "cyber-clue"} onClick={() => setSelectedClue(clue.id)}>
@@ -884,7 +889,7 @@ export function CyberDesk() {
 
                       {activeApp === "system" ? (
                         <div className="cyber-system-app"><div className="cyber-app-title-row"><div><span className="cyber-app-kicker">ARHAAN OS / SYSTEM</span><h3>System information</h3></div><span className="cyber-app-badge">FICTIONAL</span></div>
-                          <div className="cyber-system-grid"><div><span>OPERATING SYSTEM</span><strong>ARHAAN OS</strong><small>PERSONAL WORKSTATION</small></div><div><span>DISPLAY</span><strong>27" Virtual Display</strong><small>SIMULATED</small></div><div><span>WORKSPACE</span><strong>Virtual Workspace</strong><small>LOCAL SANDBOX</small></div><div><span>VISITOR</span><strong>Visitor {visitorCode}</strong><small>FICTIONAL SESSION ID</small></div><div><span>STORAGE</span><strong>{entries.filter((entry) => entry.type === "file").length} virtual files</strong><small>NO REAL DISK ACCESS</small></div><div><span>STATUS</span><strong>Safe Simulation</strong><small>NOT A REAL OS</small></div></div>
+                          <div className="cyber-system-grid"><div><span>OPERATING SYSTEM</span><strong>ARHAAN OS</strong><small>PERSONAL WORKSTATION</small></div><div><span>DISPLAY</span><strong>27&quot; Virtual Display</strong><small>SIMULATED</small></div><div><span>WORKSPACE</span><strong>Virtual Workspace</strong><small>LOCAL SANDBOX</small></div><div><span>VISITOR</span><strong>Visitor {visitorCode}</strong><small>FICTIONAL SESSION ID</small></div><div><span>STORAGE</span><strong>{entries.filter((entry) => entry.type === "file").length} virtual files</strong><small>NO REAL DISK ACCESS</small></div><div><span>STATUS</span><strong>Safe Simulation</strong><small>NOT A REAL OS</small></div></div>
                           <div className="cyber-system-note">System information shown here is intentionally fictional and does not claim anything about the hardware running the portfolio.</div>
                         </div>
                       ) : null}

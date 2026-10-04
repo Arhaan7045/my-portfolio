@@ -151,7 +151,7 @@ export function CyberDesk() {
     "--cyber-surface": activeTheme.surface,
     "--cyber-surface-raised": activeTheme.surfaceRaised,
     "--cyber-screen": activeTheme.screen,
-  } as CSSProperties & Record<\`--\${string}\`, string>;
+  } as CSSProperties & Record<`--${string}`, string>;
 
   const apps = APP_META;
   const activeMeta = apps.find((app) => app.id === activeApp) ?? apps[0];
@@ -908,7 +908,7 @@ export function CyberDesk() {
                       {activeApp === "settings" ? (
                         <div className="cyber-settings-app"><div className="cyber-app-title-row"><div><span className="cyber-app-kicker">ARHAAN OS / SETTINGS</span><h3>Appearance</h3></div><span className="cyber-app-badge">{activeTheme.label.toUpperCase()}</span></div><p>Theme selection changes only the ARHAAN OS sandbox. The main portfolio theme remains untouched.</p>
                           <div className="cyber-theme-grid">{CYBER_DESK_THEMES.map((option) => (
-                            <button type="button" key={option.id} className={option.id === theme ? "is-selected" : ""} onClick={() => selectTheme(option.id)} aria-pressed={option.id === theme} style={{ "--theme-preview": "rgb(" + option.accent + ")", "--theme-preview-bg": option.screen } as CSSProperties & Record<\`--\${string}\`, string>}>
+                            <button type="button" key={option.id} className={option.id === theme ? "is-selected" : ""} onClick={() => selectTheme(option.id)} aria-pressed={option.id === theme} style={{ "--theme-preview": "rgb(" + option.accent + ")", "--theme-preview-bg": option.screen } as CSSProperties & Record<`--${string}`, string>}>
                               <span className="cyber-theme-swatch" /><strong>{option.label}</strong><small>{option.descriptor}</small>
                             </button>
                           ))}</div>

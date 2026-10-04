@@ -716,21 +716,6 @@ export function CyberDesk() {
                   <span className="cyber-wallpaper-grid" />
                 </div>
 
-                <div className="cyber-desktop-shortcuts">
-                  {openTaskbarApps.map((app) => (
-                    <button
-                      key={app.id}
-                      type="button"
-                      className={activeApp === app.id && !minimizedApps.includes(app.id) ? "cyber-desktop-shortcut is-active" : "cyber-desktop-shortcut"}
-                      onClick={() => setActiveApp(app.id)}
-                      onDoubleClick={() => focusApp(app.id)}
-                      aria-label={"Select " + app.label}
-                    >
-                      <span>{app.icon}</span><small>{app.label}</small>
-                    </button>
-                  ))}
-                </div>
-
                 <div className="cyber-desktop-icon-grid" aria-label="Desktop applications">
                   {openTaskbarApps.map((app) => (
                     <button

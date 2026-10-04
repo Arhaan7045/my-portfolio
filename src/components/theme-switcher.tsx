@@ -29,16 +29,6 @@ function applyTheme(theme: ThemeId) {
   if (themeMeta && selectedTheme) themeMeta.setAttribute("content", selectedTheme.themeColor);
 }
 
-function ThemeGlyph() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="12" r="7.2" />
-      <circle cx="12" cy="12" r="2.2" className="theme-glyph-core" />
-      <path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3" />
-    </svg>
-  );
-}
-
 function ThemeSwatch({ color }: { color: string }) {
   return (
     <span className="theme-option-swatch" aria-hidden="true">
@@ -114,10 +104,26 @@ export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
   };
 
   const activeTheme = THEME_OPTIONS.find((option) => option.id === theme) ?? THEME_OPTIONS[0];
+  const categories = [
+    { id: "Core", label: "CORE", options: THEME_OPTIONS.filter((option) => option.category === "Core") },
+    { id: "Marvel", label: "MARVEL", options: THEME_OPTIONS.filter((option) => option.category === "Marvel") },
+    { id: "DC", label: "DC", options: THEME_OPTIONS.filter((option) => option.category === "DC") },
+  ];
+
   const options = (
-    <div className="theme-options-list">
-      {THEME_OPTIONS.map((option) => (
-        <ThemeOption key={option.id} option={option} active={option.id === theme} onSelect={selectTheme} />
+    <div className="theme-category-list">
+      {categories.map((category) => (
+        <section className="theme-category" key={category.id}>
+          <div className="theme-category-heading">
+            <span>{category.label}</span>
+            <i />
+          </div>
+          <div className="theme-options-list">
+            {category.options.map((option) => (
+              <ThemeOption key={option.id} option={option} active={option.id === theme} onSelect={selectTheme} />
+            ))}
+          </div>
+        </section>
       ))}
     </div>
   );
@@ -144,15 +150,8 @@ export function ThemeSwitcher({ mobile = false }: { mobile?: boolean }) {
         aria-expanded={open}
         aria-haspopup="dialog"
       >
-        <motion.span
-          className="theme-trigger-icon"
-          animate={open ? { rotate: 45, scale: 1.02 } : { rotate: 0, scale: 1 }}
-          transition={{ duration: 0.18 }}
-          aria-hidden="true"
-        >
-          <ThemeGlyph />
-        </motion.span>
-        <span className="theme-trigger-label">{activeTheme.label}</span>
+        <span className="theme-trigger-label">THEMES</span>
+        <span className="theme-trigger-current">{activeTheme.label}</span>
       </button>
 
       <AnimatePresence initial={false}>

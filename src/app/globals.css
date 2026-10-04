@@ -7597,16 +7597,6 @@ body {
   pointer-events: none;
 }
 
-.cyber-desktop-shortcuts {
-  position: absolute;
-  z-index: 3;
-  top: .65rem;
-  left: .65rem;
-  display: grid;
-  grid-template-columns: repeat(4, 4.25rem);
-  gap: .35rem .4rem;
-  width: auto;
-}
 .cyber-desktop-shortcut,
 .cyber-desktop-icon {
   display: flex;
@@ -8974,39 +8964,6 @@ body {
 .hero-cyber-desk-link span:last-child { color: var(--lavender); }
 
 @media (max-width: 900px) {
-  .cyber-desktop-shortcuts { grid-template-columns: repeat(3,4rem); }
-  .cyber-desktop-shortcut,
-  .cyber-desktop-icon { width: 4rem; }
-  .cyber-desktop-shortcut small,
-  .cyber-desktop-icon small { max-width: 3.8rem; font-size: .39rem; }
-  .cyber-files-enhanced { grid-template-columns: 9rem minmax(0,1fr); }
-  .cyber-theme-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
-  .cyber-system-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .cyber-desk-instructions { grid-template-columns: 1fr; }
-}
-@media (max-width: 700px) {
-  .cyber-desk-intro { padding-top: 1rem; }
-  .cyber-desk-intro-copy { padding-top: 1.5rem; }
-  .cyber-desk-intro-copy h1 { font-size: clamp(2.3rem,11vw,3.7rem); }
-  .cyber-desk-intro-copy > p:last-child { font-size: .68rem; }
-  .cyber-desk-stage > .shell { width: 100%; }
-  .cyber-workstation { padding-inline: 0; }
-  .cyber-monitor { padding: .24rem .24rem .2rem; border-radius: .55rem; }
-  .cyber-monitor-screen { aspect-ratio: 1.3 / 1; border-radius: .4rem; }
-  .cyber-os-topbar { min-height: 2.05rem; padding: .26rem .32rem; }
-  .cyber-os-brand-mark { width: 1.1rem; height: 1.1rem; }
-  .cyber-os-brand > span:last-child { font-size: .4rem; }
-  .cyber-os-status { gap: .12rem; }
-  .cyber-top-icon-button,
-  .cyber-os-status time { width: 1.2rem; height: 1.2rem; font-size: .45rem; }
-  .cyber-os-status time { min-width: 2.4rem; }
-  .cyber-os-wallpaper { background: radial-gradient(circle at 74% 28%,rgb(var(--cyber-glow-rgb) / .06),transparent 30%),var(--cyber-screen); }
-  .cyber-desktop-shortcuts {
-    top: .4rem;
-    left: .3rem;
-    grid-template-columns: repeat(2,3.8rem);
-    gap: .25rem;
-  }
   .cyber-desktop-shortcut,
   .cyber-desktop-icon { width: 3.8rem; min-height: 4.15rem; }
   .cyber-desktop-shortcut > span,
@@ -9064,29 +9021,4 @@ body {
 @media (max-width: 430px) {
   .cyber-monitor-screen { aspect-ratio: 1.12 / 1; }
   .cyber-os-workspace { min-height: 0; }
-  .cyber-desktop-shortcuts { grid-template-columns: repeat(2,3.55rem); }
-  .cyber-desktop-shortcut,
-  .cyber-desktop-icon { width: 3.55rem; min-height: 3.9rem; }
-  .cyber-desktop-shortcut > span,
-  .cyber-desktop-icon-glyph { width: 1.65rem; height: 1.65rem; }
-  .cyber-desktop-shortcut small,
-  .cyber-desktop-icon small { font-size: .35rem; }
-  .cyber-desktop-center-mark { display: none; }
-  .cyber-hardware-row { grid-template-columns: minmax(0,1fr) 3.1rem; }
-  .cyber-physical-mouse { height: 3rem; }
-  .cyber-taskbar-left { gap: .03rem; }
-  .cyber-taskbar-pinned button:nth-child(n+6) { display: none; }
-  .cyber-taskbar-tray button:nth-child(2) { display: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .cyber-desk-back,
-  .cyber-key-row span,
-  .cyber-taskbar button,
-  .cyber-start-apps button,
-  .cyber-desktop-shortcut,
-  .cyber-desktop-icon,
-  .cyber-case-options button,
-  .cyber-file-grid > button {
-    transition: none !important;
-  }
 }

@@ -912,7 +912,7 @@ export function CyberDesk() {
                               <span className="cyber-theme-swatch" /><strong>{option.label}</strong><small>{option.descriptor}</small>
                             </button>
                           ))}</div>
-                          <div className="cyber-settings-panels"><div><span>SAVED PREFERENCE</span><strong>{activeTheme.label}</strong><small>Persisted in this browser sandbox.</small></div><div><span>SAFETY</span><strong>Local sandbox only</strong><small>No real system, filesystem, account or command access.</small></div></div>
+                          <div className="cyber-settings-panels"><div><span>SAVED PREFERENCE</span><strong>{activeTheme.label}</strong><small>Persisted in this browser sandbox.</small></div><div><span>ABOUT ARHAAN OS</span><strong>Personal fictional workstation</strong><small>A browser-based learning space for exploring security concepts.</small></div><div><span>STORAGE</span><strong>{entries.filter((entry) => entry.type === "file").length} files · {entries.filter((entry) => entry.type === "folder").length} folders</strong><small>Virtual storage only. No real disk access.</small></div><div><span>SAFETY</span><strong>Local sandbox only</strong><small>No real system, filesystem, account or command access.</small></div></div>
                         </div>
                       ) : null}
 

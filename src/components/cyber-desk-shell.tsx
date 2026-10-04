@@ -98,6 +98,7 @@ export function CyberDesk() {
   const [maximizedApps, setMaximizedApps] = useState<AppId[]>([]);
 
   const [startOpen, setStartOpen] = useState(false);
+  const [powerOpen, setPowerOpen] = useState(false);
   const [quickOpen, setQuickOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
@@ -732,7 +733,6 @@ export function CyberDesk() {
                     </button>
                   ))}
                 </div>
-                <div className="cyber-desktop-center-mark" aria-hidden="true">A.</div>
 
                 {contextMenu ? (
                   <div className="cyber-context-menu" role="menu" aria-label="Desktop actions">
@@ -936,14 +936,39 @@ export function CyberDesk() {
         <div className="cyber-monitor-chin"><span>ARHAAN</span><div className={"cyber-monitor-power " + (powerState === "on" ? "is-on" : "")} /><span>DISPLAY / 01</span></div>
       </div>
 
-      <div className="cyber-monitor-neck" aria-hidden="true"><span /></div>
-      <div className="cyber-monitor-base" aria-hidden="true" />
       <div className="cyber-desk-surface" aria-hidden="true" />
 
       <div className="cyber-hardware-row">
         <div className="cyber-physical-keyboard" aria-label="Physical keyboard feedback display">
           <div className="cyber-keyboard-topline"><span>ARHAAN / STUDIO</span><span>{activeKeys.size ? activeKeys.size + " KEY" + (activeKeys.size === 1 ? "" : "S") + " DOWN" : "READY"}</span></div>
-          {KEYBOARD_ROWS.map((row) => <div className="cyber-key-row" key={row[0][0]}>{row.map(([code, label]) => <span key={code} className={hardwareKeyClass(code)}>{label}</span>)}</div>)}
+          {KEYBOARD_ROWS.map((row, rowIndex) => (
+            <div className="cyber-key-row" key={row[0][0]}>
+              {row.map(([code, label], keyIndex) => {
+                let influence = 0;
+                if (activeKeys.has(code)) {
+                  influence = 4;
+                } else {
+                  for (let activeRow = 0; activeRow < KEYBOARD_ROWS.length; activeRow += 1) {
+                    for (let activeIndex = 0; activeIndex < KEYBOARD_ROWS[activeRow].length; activeIndex += 1) {
+                      if (!activeKeys.has(KEYBOARD_ROWS[activeRow][activeIndex][0])) continue;
+                      const distance = Math.abs(rowIndex - activeRow) + Math.abs(keyIndex - activeIndex);
+                      if (distance === 1) influence = Math.max(influence, 3);
+                      else if (distance === 2) influence = Math.max(influence, 2);
+                      else if (distance === 3) influence = Math.max(influence, 1);
+                    }
+                  }
+                }
+
+                const stateClass =
+                  influence === 4 ? "is-pressed" :
+                  influence === 3 ? "is-energy-near" :
+                  influence === 2 ? "is-energy-mid" :
+                  influence === 1 ? "is-energy-far" : "";
+
+                return <span key={code} className={stateClass || hardwareKeyClass(code)}>{label}</span>;
+              })}
+            </div>
+          ))}
           <div className="cyber-keyboard-status"><span><i /> REAL KEYBOARD EVENTS</span><span>{activeKeys.has("ShiftLeft") || activeKeys.has("ShiftRight") ? "SHIFT " : ""}{activeKeys.has("ControlLeft") || activeKeys.has("ControlRight") ? "CTRL " : ""}{activeKeys.has("AltLeft") || activeKeys.has("AltRight") ? "ALT" : ""}</span></div>
         </div>
 

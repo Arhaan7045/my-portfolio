@@ -6,7 +6,7 @@ import { CyberDesk } from "@/components/cyber-desk";
 export const metadata: Metadata = {
   title: "Cyber Desk | Arhaan Shaikh",
   description:
-    "Explore an interactive fictional desktop workstation built around Arhaan Shaikh's cybersecurity journey.",
+    "Explore a realistic fictional ARHAAN OS workstation built around Arhaan Shaikh's cybersecurity learning journey.",
 };
 
 export default function CyberDeskPage() {
@@ -25,11 +25,12 @@ export default function CyberDeskPage() {
           </div>
 
           <div className="cyber-desk-intro-copy">
-            <p className="eyebrow">CYBER DESK</p>
+            <p className="eyebrow">CYBER DESK / ARHAAN OS</p>
             <h1 id="cyber-desk-title">Explore the computer.</h1>
             <p>
-              A small fictional workstation built around my cybersecurity journey.
-              Open an app, solve a mystery, or simply look around.
+              A fictional personal workstation for exploring my cybersecurity journey.
+              Open apps, solve a case, create virtual notes, learn from quick security challenges,
+              and explore safely.
             </p>
           </div>
         </section>
@@ -40,21 +41,28 @@ export default function CyberDeskPage() {
           </div>
         </section>
 
-        <section className="cyber-desk-guide shell" aria-label="How to explore the Cyber Desk">
-          <div>
-            <span>START HERE</span>
-            <strong>Open Mystery Cases</strong>
-            <p>Try the beginner investigation and see if you can spot what happened first.</p>
+        <section className="cyber-desk-instructions shell" aria-labelledby="cyber-instructions-title">
+          <div className="cyber-instructions-heading">
+            <p className="eyebrow">HOW TO EXPLORE</p>
+            <h2 id="cyber-instructions-title">Start here.</h2>
+            <p>
+              Everything inside the monitor is a fictional browser sandbox. Nothing here changes
+              your real computer.
+            </p>
           </div>
-          <div>
-            <span>EXPLORE</span>
-            <strong>Open Files or Terminal</strong>
-            <p>Make a note, create a virtual file, or try a few safe commands.</p>
+          <div className="cyber-instructions-grid">
+            <div><span>01</span><strong>Open Start</strong><p>Use Start to launch apps, search, or open power controls.</p></div>
+            <div><span>02</span><strong>Solve a Mystery</strong><p>Open Mystery Cases and work through Case 001.</p></div>
+            <div><span>03</span><strong>Use File Explorer</strong><p>Create, rename, edit, and delete virtual notes and folders.</p></div>
+            <div><span>04</span><strong>Try the Terminal</strong><p>Use only the supported safe commands shown by <code>help</code>.</p></div>
+            <div><span>05</span><strong>Visit Security Lab</strong><p>Complete short 10–30 second cybersecurity challenges.</p></div>
+            <div><span>06</span><strong>Change Appearance</strong><p>Settings offers seven ARHAAN OS themes without changing the main portfolio.</p></div>
+            <div><span>07</span><strong>Watch the Hardware React</strong><p>Real keyboard, mouse-button, and wheel events are reflected on the desk.</p></div>
+            <div><span>08</span><strong>Your Progress Saves</strong><p>Case progress, lab progress, virtual files, settings, and recent activity stay on this device.</p></div>
           </div>
-          <div>
-            <span>YOUR SESSION</span>
-            <strong>Progress is saved</strong>
-            <p>Your workspace progress is saved on this device for your next visit.</p>
+          <div className="cyber-instructions-safety">
+            <strong>SAFE FICTIONAL SANDBOX</strong>
+            <span>Nothing here changes your real computer.</span>
           </div>
         </section>
       </main>

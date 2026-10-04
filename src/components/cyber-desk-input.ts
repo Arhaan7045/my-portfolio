@@ -24,11 +24,11 @@ export function useCyberHardwareInput() {
       });
     };
 
-    const clearKeys = () => setActiveKeys(new Set());
+    const clearInputState = () => {\n      setActiveKeys(new Set());\n      setActiveMouseButtons(new Set());\n    };
 
     const pointerDown = (event: PointerEvent) => {
       if (event.pointerType !== "mouse") return;
-      if (event.button !== 0 && event.button !== 2) return;
+      if (event.button < 0 || event.button > 2) return;
       setActiveMouseButtons((current) => {
         const next = new Set(current);
         next.add(event.button);
@@ -38,7 +38,7 @@ export function useCyberHardwareInput() {
 
     const pointerUp = (event: PointerEvent) => {
       if (event.pointerType !== "mouse") return;
-      if (event.button !== 0 && event.button !== 2) return;
+      if (event.button < 0 || event.button > 2) return;
       setActiveMouseButtons((current) => {
         const next = new Set(current);
         next.delete(event.button);
@@ -56,22 +56,22 @@ export function useCyberHardwareInput() {
 
     window.addEventListener("keydown", keyDown, true);
     window.addEventListener("keyup", keyUp, true);
-    window.addEventListener("blur", clearKeys);
+    window.addEventListener("blur", clearInputState);
     window.addEventListener("pointerdown", pointerDown, true);
     window.addEventListener("pointerup", pointerUp, true);
     window.addEventListener("pointercancel", pointerUp, true);
     window.addEventListener("wheel", wheel, { passive: true });
-    document.addEventListener("visibilitychange", clearKeys);
+    document.addEventListener("visibilitychange", clearInputState);
 
     return () => {
       window.removeEventListener("keydown", keyDown, true);
       window.removeEventListener("keyup", keyUp, true);
-      window.removeEventListener("blur", clearKeys);
+      window.removeEventListener("blur", clearInputState);
       window.removeEventListener("pointerdown", pointerDown, true);
       window.removeEventListener("pointerup", pointerUp, true);
       window.removeEventListener("pointercancel", pointerUp, true);
       window.removeEventListener("wheel", wheel);
-      document.removeEventListener("visibilitychange", clearKeys);
+      document.removeEventListener("visibilitychange", clearInputState);
       if (wheelTimer !== null) window.clearTimeout(wheelTimer);
     };
   }, []);

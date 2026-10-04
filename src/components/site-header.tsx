@@ -9,7 +9,10 @@ const RESUME_URL =
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const homeHref = (href: string) => pathname === "/" ? href : `/${href}`;
+  const homeHref = (href: string) => {
+    if (href.startsWith("/")) return href;
+    return pathname === "/" ? href : `/${href}`;
+  };
 
   return (
     <header id="top" className="site-header">

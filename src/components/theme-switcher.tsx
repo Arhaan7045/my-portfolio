@@ -7,7 +7,7 @@ export const THEME_OPTIONS = [
   { id: "cyber-violet", label: "Cyber Violet", descriptor: "Core Profile", category: "Core", themeColor: "#09080e", swatch: "#966cf2" },
   { id: "thor", label: "Thor", descriptor: "Storm Steel", category: "Marvel", themeColor: "#080b12", swatch: "#46699d" },
   { id: "iron-man", label: "Iron Man", descriptor: "Reactor Red", category: "Marvel", themeColor: "#0a090b", swatch: "#9e3139" },
-  { id: "doctor-doom", label: "Doctor Doom", descriptor: "Doom Green", category: "Marvel", themeColor: "#080b0a", swatch: "#3e6950" },
+  { id: "doctor-doom", label: "Doctor Doom", descriptor: "Doom Green", category: "Marvel", themeColor: "#080b0a", swatch: "#315541" },
   { id: "black-panther", label: "Black Panther", descriptor: "Vibranium Violet", category: "Marvel", themeColor: "#08080b", swatch: "#694499" },
   { id: "batman", label: "Batman", descriptor: "Shadow Blue", category: "DC", themeColor: "#08090c", swatch: "#3066aa" },
 ] as const;
@@ -60,7 +60,6 @@ function ThemeOption({
         <strong>{option.label}</strong>
         <small>{option.descriptor}</small>
       </span>
-      <span className="theme-option-tag">{option.category}</span>
       {active ? <span className="theme-selected-mark" aria-label="Selected">✓</span> : null}
     </button>
   );

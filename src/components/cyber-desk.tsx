@@ -228,7 +228,7 @@ export function CyberDesk() {
           </div>
         </header>
 
-        <div className="cyber-os-workspace" ref={desktopRef} role="application" aria-label="Arhaan Cyber Desk">
+        <div className="cyber-os-workspace" ref={desktopRef} aria-label="Arhaan Cyber Desk">
           <div className="cyber-os-wallpaper" aria-hidden="true">
             <span className="cyber-wallpaper-orb cyber-wallpaper-orb-a" />
             <span className="cyber-wallpaper-orb cyber-wallpaper-orb-b" />

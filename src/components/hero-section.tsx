@@ -1,7 +1,7 @@
 "use client";
 
 import { ControlLink } from "@/components/control-surface";
-import { CyberDesk } from "@/components/cyber-desk";
+import { HeroVisual } from "@/components/hero-visual";
 
 const RESUME_URL =
   "https://drive.google.com/file/d/1OgThSdbwqbpWfB8Nqk0tC27hgMRb07kV/view?usp=sharing";
@@ -43,12 +43,17 @@ export function HeroSection() {
           </ControlLink>
         </div>
 
+        <a className="hero-cyber-desk-link" href="/cyber-desk">
+          <span>EXPLORE CYBER DESK</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+
         <p className="hero-focus" aria-label="Current focus">
           WEB SECURITY <span>·</span> VAPT <span>·</span> LINUX <span>·</span> NETWORKING
         </p>
       </div>
 
-      <CyberDesk />
+      <HeroVisual />
     </section>
   );
 }

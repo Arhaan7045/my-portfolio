@@ -32,6 +32,10 @@ export function SiteHeader() {
             <span aria-hidden="true">↗</span>
           </a>
           <ThemeSwitcher />
+          <a className="nav-cyber-desk" href="/cyber-desk">
+            <span>CYBER DESK</span>
+            <span aria-hidden="true">↗</span>
+          </a>
         </div>
 
         <details className="mobile-navigation">

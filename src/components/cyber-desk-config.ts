@@ -24,8 +24,6 @@ export type CyberDeskThemeId =
   | "violet"
   | "steel"
   | "reactor"
-  | "doom"
-  | "obsidian"
   | "noir";
 
 export const CYBER_DESK_THEMES: Array<{
@@ -82,28 +80,6 @@ export const CYBER_DESK_THEMES: Array<{
     surface: "#1b1719",
     surfaceRaised: "#2a2023",
     screen: "#100d0f",
-  },
-  {
-    id: "doom",
-    label: "Doom",
-    descriptor: "Muted green",
-    accent: "177 201 167",
-    accentSoft: "177 201 167",
-    glow: "88 126 88",
-    surface: "#171b18",
-    surfaceRaised: "#222a23",
-    screen: "#0d110e",
-  },
-  {
-    id: "obsidian",
-    label: "Obsidian",
-    descriptor: "Deep violet",
-    accent: "201 182 236",
-    accentSoft: "201 182 236",
-    glow: "114 87 162",
-    surface: "#17151b",
-    surfaceRaised: "#24202a",
-    screen: "#0e0b12",
   },
   {
     id: "noir",

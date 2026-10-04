@@ -59,20 +59,20 @@ function normaliseEntries(value: unknown): VirtualEntry[] {
 }
 function legacyEntries(value: unknown): VirtualEntry[] {
   if (!Array.isArray(value) || value.length === 0) return DEFAULT_VIRTUAL_ENTRIES;
-  return value.map((raw, index) => {
-    if (!raw || typeof raw !== "object") return null;
+  return value.reduce<VirtualEntry[]>((items, raw, index) => {
+    if (!raw || typeof raw !== "object") return items;
     const item = raw as { name?: unknown; content?: unknown; type?: unknown };
-    if (typeof item.name !== "string" || (item.type !== "file" && item.type !== "folder")) return null;
-    return {
+    if (typeof item.name !== "string" || (item.type !== "file" && item.type !== "folder")) return items;
+    items.push({
       id: "legacy-" + index + "-" + item.name,
       name: item.name,
       type: item.type,
       path: "/",
       content: typeof item.content === "string" ? item.content : "",
-    };
-  }).filter((item): item is VirtualEntry => Boolean(item));
+    });
+    return items;
+  }, []);
 }
-
 function safeTheme(value: unknown): CyberDeskThemeId {
   return CYBER_DESK_THEMES.some((theme) => theme.id === value)
     ? (value as CyberDeskThemeId)
@@ -284,7 +284,8 @@ export function CyberDesk() {
 
   useEffect(() => {
     return () => {
-      notificationTimers.current.forEach((timer) => window.clearTimeout(timer));
+      const timers = notificationTimers.current;
+      timers.forEach((timer) => window.clearTimeout(timer));
       if (shutdownTimer.current !== null) window.clearTimeout(shutdownTimer.current);
     };
   }, []);

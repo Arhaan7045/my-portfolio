@@ -18,10 +18,7 @@ export function SiteHeader() {
   };
 
   useEffect(() => {
-    if (pathname !== "/") {
-      setActiveSection(null);
-      return;
-    }
+    if (pathname !== "/") return;
 
     const sections = navigationItems
       .map((item) => document.getElementById(item.href.slice(1)))

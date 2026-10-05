@@ -7,6 +7,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
+import type { PointerEvent as ReactPointerEvent } from "react";
 
 type HeroVisualProps = {
   reducedMotion?: boolean | null;
@@ -37,7 +38,7 @@ export function HeroVisual({ reducedMotion: reducedMotionProp }: HeroVisualProps
   const spotlightX = useTransform(pointerX, [-1, 1], ["18%", "82%"]);
   const spotlightY = useTransform(pointerY, [-1, 1], ["20%", "80%"]);
 
-  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (reducedMotion || event.pointerType !== "mouse") return;
 
     const rect = event.currentTarget.getBoundingClientRect();
@@ -73,10 +74,10 @@ export function HeroVisual({ reducedMotion: reducedMotionProp }: HeroVisualProps
       >
         <svg
           className="hero-architecture"
-        viewBox="0 0 320 300"
-        role="img"
-        aria-label="Abstract architectural visualization connecting web, network, system, and security"
-      >
+          viewBox="0 0 320 300"
+          role="img"
+          aria-label="Abstract architectural visualization connecting web, network, system, and security"
+        >
         <defs>
           <radialGradient id="heroAtmosphere" cx="50%" cy="46%" r="62%">
             <stop offset="0%" stopColor="var(--violet)" stopOpacity=".18" />

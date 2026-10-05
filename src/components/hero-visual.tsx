@@ -1,6 +1,12 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "motion/react";
 
 type HeroVisualProps = {
   reducedMotion?: boolean | null;
@@ -16,16 +22,57 @@ const signals = [
 export function HeroVisual({ reducedMotion: reducedMotionProp }: HeroVisualProps) {
   const reducedMotionHook = useReducedMotion();
   const reducedMotion = reducedMotionProp ?? reducedMotionHook;
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(pointerY, [-1, 1], [4.5, -4.5]), {
+    stiffness: 180,
+    damping: 24,
+    mass: 0.35,
+  });
+  const rotateY = useSpring(useTransform(pointerX, [-1, 1], [-5, 5]), {
+    stiffness: 180,
+    damping: 24,
+    mass: 0.35,
+  });
+  const spotlightX = useTransform(pointerX, [-1, 1], ["18%", "82%"]);
+  const spotlightY = useTransform(pointerY, [-1, 1], ["20%", "80%"]);
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (reducedMotion || event.pointerType !== "mouse") return;
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    pointerX.set(((event.clientX - rect.left) / rect.width) * 2 - 1);
+    pointerY.set(((event.clientY - rect.top) / rect.height) * 2 - 1);
+  };
+
+  const resetPointer = () => {
+    pointerX.set(0);
+    pointerY.set(0);
+  };
 
   return (
-    <div className="hero-visual reveal" aria-label="Abstract security architecture">
+    <div
+      className="hero-visual reveal"
+      aria-label="Abstract security architecture"
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetPointer}
+    >
       <div className="hero-visual-caption">
         <span>FIELD / 01</span>
         <strong>SECURITY ARCHITECTURE</strong>
       </div>
 
-      <svg
-        className="hero-architecture"
+      <motion.div
+        className="hero-visual-spotlight"
+        aria-hidden="true"
+        style={{ left: spotlightX, top: spotlightY }}
+      />
+      <motion.div
+        className="hero-visual-stage"
+        style={reducedMotion ? undefined : { rotateX, rotateY }}
+      >
+        <svg
+          className="hero-architecture"
         viewBox="0 0 320 300"
         role="img"
         aria-label="Abstract architectural visualization connecting web, network, system, and security"
@@ -119,7 +166,8 @@ export function HeroVisual({ reducedMotion: reducedMotionProp }: HeroVisualProps
             />
           </g>
         ))}
-      </svg>
+        </svg>
+      </motion.div>
 
       <div className="hero-visual-footer">
         <span>LEARN</span>

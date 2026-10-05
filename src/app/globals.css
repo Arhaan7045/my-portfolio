@@ -6954,3 +6954,218 @@ body {
     right: 0;
   }
 }
+
+
+/* ─── Editorial security interaction layer ─── */
+:root {
+  --scroll-progress: 0;
+}
+
+.scroll-progress {
+  position: fixed;
+  z-index: 80;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  pointer-events: none;
+}
+
+.scroll-progress-track {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: rgb(var(--theme-light-rgb) / .045);
+}
+
+.scroll-progress-bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  transform: scaleX(var(--scroll-progress));
+  background: linear-gradient(90deg, var(--violet), var(--lavender));
+  box-shadow: 0 0 18px rgb(var(--theme-light-rgb) / .25);
+}
+
+.nav-section-link {
+  position: relative;
+}
+
+.nav-section-link.is-active {
+  color: var(--text);
+}
+
+.nav-section-link.is-active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.nav-section-link.is-active::before {
+  position: absolute;
+  left: -0.5rem;
+  top: 50%;
+  width: 2px;
+  height: .7rem;
+  content: "";
+  background: var(--lavender);
+  transform: translateY(-50%);
+  box-shadow: 0 0 10px rgb(var(--theme-light-rgb) / .3);
+}
+
+.hero {
+  position: relative;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-name {
+  display: inline-block;
+  position: relative;
+  transform-origin: left center;
+  transition: transform 320ms cubic-bezier(.22, 1, .36, 1), text-shadow 320ms ease;
+}
+
+.hero-name::after {
+  position: absolute;
+  right: -.04em;
+  bottom: .1em;
+  width: 24%;
+  height: .07em;
+  content: "";
+  background: var(--lavender);
+  opacity: .48;
+  transform: scaleX(0.45);
+  transform-origin: right center;
+  transition: transform 320ms cubic-bezier(.22, 1, .36, 1), opacity 320ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-copy:hover .hero-name {
+    transform: translate3d(4px, -2px, 0);
+    text-shadow: 10px 14px 34px rgb(var(--theme-accent-rgb) / .22);
+  }
+
+  .hero-copy:hover .hero-name::after {
+    opacity: .95;
+    transform: scaleX(1);
+  }
+}
+
+.hero-visual {
+  perspective: 1050px;
+  transform-style: preserve-3d;
+  transition: border-color 260ms ease, box-shadow 360ms ease;
+}
+
+.hero-visual:hover {
+  border-color: rgb(var(--theme-light-rgb) / .32);
+  box-shadow: inset 0 1px rgba(255,255,255,.05), 0 2.8rem 5rem rgba(0,0,0,.28);
+}
+
+.hero-visual-stage {
+  position: absolute;
+  inset: 2.8rem .65rem 2.8rem;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.hero-visual-stage .hero-architecture {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-visual-spotlight {
+  position: absolute;
+  z-index: 1;
+  width: clamp(7rem, 28%, 12rem);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgb(var(--theme-light-rgb) / .18), rgb(var(--theme-light-rgb) / .035) 42%, transparent 72%);
+  filter: blur(4px);
+  opacity: .8;
+  mix-blend-mode: screen;
+  will-change: left, top;
+}
+
+.hero-visual-stage .hero-core {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.projects-grid {
+  perspective: 1200px;
+}
+
+.project-card {
+  position: relative;
+  transform-origin: center bottom;
+  transition:
+    transform 360ms cubic-bezier(.22,1,.36,1),
+    border-color 220ms ease,
+    box-shadow 360ms ease,
+    background-color 220ms ease;
+}
+
+.project-card::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at 78% 22%, rgb(var(--theme-light-rgb) / .11), transparent 30%);
+  transition: opacity 300ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover {
+    transform: translateY(-5px) rotateX(.45deg);
+    border-color: rgb(var(--theme-light-rgb) / .34);
+    box-shadow: 0 1.7rem 3.4rem rgba(0,0,0,.16);
+  }
+
+  .project-card:hover::before {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-section-link.is-active::before {
+    display: none;
+  }
+
+  .hero-visual-spotlight {
+    display: none;
+  }
+
+  .hero-visual-stage {
+    inset: 2.25rem .2rem 2.4rem;
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress-bar,
+  .hero-name,
+  .hero-name::after,
+  .hero-visual,
+  .project-card {
+    transition: none;
+  }
+
+  .hero-visual-stage {
+    transform: none !important;
+  }
+
+  .hero-visual-spotlight {
+    display: none;
+  }
+}
